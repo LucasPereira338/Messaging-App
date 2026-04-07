@@ -3,12 +3,20 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+let urlDB;
+
+if (process.env.CURRENT_MODE == "TEST") {
+    urlDB = `${process.env.TEST_DATABASE_URL}`;
+} else {
+    urlDB = `${process.env.DATABASE_URL}`;
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["TEST_DATABASE_URL"],
+    url: urlDB,
   },
 });
