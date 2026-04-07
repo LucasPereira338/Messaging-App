@@ -1,4 +1,5 @@
-const app = require('../app.js');
+const app = require('./app.js');
+const router = require('./index.js')
 
 const PORT = 3000;
 
