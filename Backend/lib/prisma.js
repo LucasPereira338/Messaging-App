@@ -1,6 +1,6 @@
-import "dotenv/config";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../generated/prisma/client.js";
+require("dotenv/config");
+const { PrismaPg } = require ("@prisma/adapter-pg");
+const { PrismaClient } = require("../generated/prisma/client.js");
 
 let connectionString;
 
@@ -13,4 +13,4 @@ if (process.env.CURRENT_MODE == "TEST") {
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
-export { prisma };
+module.exports = { prisma };

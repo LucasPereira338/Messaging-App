@@ -22,7 +22,7 @@ async function getUsersInList(req, res) {
     res.json(users)
 }
 
-async function getAllUsers(req,res) {
+async function getAllUsers(req, res) {
     const users = await prisma.user.findMany()
 
     res.json(users)

@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const users = Router()
+const controllers = require('../controllers/users.js')
 
 users.get('/:id', (req, res) => controllers.getUser(req, res))
 
@@ -11,8 +12,8 @@ users.post('/', (req, res) => controllers.postNewUser(req, res))
 
 users.put('/', (req, res) => controllers.updateUser(req, res)) 
 
-users.del('/all', (req, res) => controllers.deleteAllUsers(req, res))
+users.delete('/all', (req, res) => controllers.deleteAllUsers(req, res))
 
-users.del('/', (req, res) => controllers.deleteUser(req, res))
+users.delete('/', (req, res) => controllers.deleteUser(req, res))
 
 module.exports = users

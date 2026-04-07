@@ -1,11 +1,13 @@
 const { Router } = require('express')
 const index = Router()
-const messages = require('/messages')
-const users = require('/users')
+const messages = require('./messages.js')
+const users = require('./users.js')
 
 
-index.get('/users/', users)
+index.use('/users', users)
 
-index.get('/messages/', messages)
+index.use('/messages', messages)
+
+index.get('/', (req, res) => res.json({status: 'server on'}))
 
 module.exports = index;

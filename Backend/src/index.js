@@ -1,5 +1,5 @@
-const app = require('./app.js');
-const router = require('./index.js')
+const app = require('../app.js');
+require('dotenv/config')
 
 const PORT = 3000;
 

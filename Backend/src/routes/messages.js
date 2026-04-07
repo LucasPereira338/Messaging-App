@@ -16,8 +16,8 @@ messages.post('/', (req, res) => controllers.postNewMessage(req, res))
 
 messages.put('/', (req, res) => controllers.updateMessage(req, res)) 
 
-messages.del('/all', (req, res) => controllers.deleteAllMessages(req, res))
+messages.delete('/all', (req, res) => controllers.deleteAllMessages(req, res))
 
-messages.del('/', (req, res) => controllers.deleteMessage(req, res))
+messages.delete('/', (req, res) => controllers.deleteMessage(req, res))
 
 module.exports = messages
