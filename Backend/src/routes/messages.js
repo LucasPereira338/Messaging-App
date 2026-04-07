@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const messages = Router()
+const controllers = require('../controllers/messages.js')
 
 messages.get('/:id', (req, res) => controllers.getMessage(req, res))
 

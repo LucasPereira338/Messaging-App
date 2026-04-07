@@ -3,7 +3,7 @@ const {prisma} = require('../../lib/prisma.js')
 async function getMessage(req, res) {
     const message = await prisma.message.findUnique({
         where: {
-            id: Number(req.params.id)
+            id: req.params.id
         }
     })
 
@@ -14,8 +14,8 @@ async function getAllUserMessages(req, res) {
     const messages = await prisma.message.findMany({
         where: {
             OR: [
-                {authorId: Number(req.params.userId)},
-                {receiverId: Number(req.params.userId)}
+                {authorId: req.params.userId},
+                {receiverId: req.params.userId}
             ]
         }
     })
@@ -26,7 +26,7 @@ async function getAllUserMessages(req, res) {
 async function getMessagesByAuthor(req, res) {
     const messages = await prisma.findMany({
         where: {
-            authorId: Number(req.params.authorId)
+            authorId: req.params.authorId
         }
     })
 
@@ -36,7 +36,7 @@ async function getMessagesByAuthor(req, res) {
 async function getMessagesByReceiver(req, res) {
     const messages = await prisma.message.findMany({
         where: {
-            receiverId: Number(req.params.receiverId)
+            receiverId: req.params.receiverId
         }
     })
 
@@ -53,7 +53,7 @@ async function postNewMessage(req, res) {
     const message = await prisma.message.create({
         data: {
             content: req.body.content,
-            receiverId: Number(req.body.receiverId)
+            receiverId: req.body.receiverId
         }
     })
 
@@ -63,7 +63,7 @@ async function postNewMessage(req, res) {
 async function updateMessage(req, res) {
     const message = await prisma.message.update({
         where: {
-            id: Number(req.body.message)
+            id: req.body.message
         },
         data: {
             content: req.body.content
