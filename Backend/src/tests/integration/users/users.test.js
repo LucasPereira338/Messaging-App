@@ -1,7 +1,7 @@
 const app = require('../../../../app.js')
 const request = require('supertest')
 const {prisma} = require('../../../../lib/prisma.js')
-
+//look up the cookies section on the documentation for implementing it later for the jwt tokens
 let user;
 let secondUser;
 let userList = [];
@@ -40,12 +40,15 @@ test('post an user', done => {
             email: 'john32@gmail.com',
             password: '12345'
         })
+        .expect('Content-Type', /json/)
+        .expect(/john32/)
         .expect(200, done)
 })
 
 test('get users in an list', done => {
     request(app)
         .get('/users/chats/' +  userList)
+        .expect('Content-Type', /json/)
         .expect(200, done)
 })
 
@@ -57,12 +60,15 @@ test('update specific user info', done => {
             id: user.id,
             name: 'Juan Juarez'
         })
+        .expect('Content-Type', /json/)
+        .expect(/Juan Juarez/)
         .expect(200, done)
 })
 
 test('get an user', done => {
     request(app)
         .get('/users/' + user.id)
+        .expect('Content-Type', /json/)
         .expect(200, done)
 })
 
@@ -73,6 +79,7 @@ test('delete an user', done => {
         .send({
             id: user.id
         })
+        .expect('Content-Type', /json/)
         .expect(200, done)
 })
 
