@@ -13,6 +13,9 @@ async function getMessagesByChat(req, res) {
                         receiverId: req.params.authorId
                     }
             ]
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     })
 
