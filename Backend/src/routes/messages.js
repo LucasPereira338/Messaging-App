@@ -2,9 +2,11 @@ const {Router} = require('express')
 const messages = Router()
 const controllers = require('../controllers/messages.js')
 
+messages.get('/:authorId/chat/:receiverId', (req, res) => controllers.getMessagesByChat(req, res))
+
 messages.get('/:id', (req, res) => controllers.getMessage(req, res))
 
-messages.get('/messages/user/:userId', (req, res) => controllers.getAllUserMessages(req, res))
+messages.get('/user/:userId', (req, res) => controllers.getAllUserMessages(req, res))
 
 messages.get('/author/:authorId', (req, res) => controllers.getMessagesByAuthor(req, res))
 

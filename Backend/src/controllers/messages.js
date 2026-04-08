@@ -1,5 +1,24 @@
 const {prisma} = require('../../lib/prisma.js')
 
+async function getMessagesByChat(req, res) {
+    const messages = await prisma.message.findMany({
+        where: {
+            OR: [
+                    {
+                        authorId: req.params.authorId,
+                        receiverId: req.params.receiverId
+                    },
+                    {
+                        authorId: req.params.receiverId,
+                        receiverId: req.params.authorId
+                    }
+            ]
+        }
+    })
+
+    res.json(messages)
+}
+
 async function getMessage(req, res) {
     const message = await prisma.message.findUnique({
         where: {
@@ -24,7 +43,7 @@ async function getAllUserMessages(req, res) {
 }
 
 async function getMessagesByAuthor(req, res) {
-    const messages = await prisma.findMany({
+    const messages = await prisma.message.findMany({
         where: {
             authorId: req.params.authorId
         }
@@ -52,6 +71,7 @@ async function getAllMessages(req, res) {
 async function postNewMessage(req, res) {
     const message = await prisma.message.create({
         data: {
+            authorId: req.body.authorId,
             content: req.body.content,
             receiverId: req.body.receiverId
         }
@@ -63,7 +83,7 @@ async function postNewMessage(req, res) {
 async function updateMessage(req, res) {
     const message = await prisma.message.update({
         where: {
-            id: req.body.message
+            id: req.body.id
         },
         data: {
             content: req.body.content
@@ -82,7 +102,7 @@ async function deleteAllMessages(req, res) {
 async function deleteMessage(req, res) {
     const message = await prisma.message.delete({
         where: {
-            id: Number(req.body.id)
+            id: req.body.id
         }
     })
 
@@ -90,6 +110,7 @@ async function deleteMessage(req, res) {
 }
 
 module.exports = {
+    getMessagesByChat,
     getMessage,
     getAllUserMessages,
     getMessagesByAuthor,

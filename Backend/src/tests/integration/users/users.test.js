@@ -7,6 +7,7 @@ let secondUser;
 let userList = [];
 
 beforeAll(async () => {
+    await prisma.message.deleteMany()
     await prisma.user.deleteMany()
     const juan = await prisma.user.create({
         data: {
