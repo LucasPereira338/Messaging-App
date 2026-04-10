@@ -1,4 +1,5 @@
 const {prisma} = require('../../lib/prisma.js')
+const jwt = require('../utils/jwt/jwt.js')
 
 async function getUser(req, res) {
     const user = await prisma.user.findUnique({
@@ -29,6 +30,27 @@ async function getAllUsers(req, res) {
     const users = await prisma.user.findMany()
 
     res.json(users)
+}
+
+async function postLogin(req, res) {
+    const user = await prisma.user.findUnique({
+        where: {
+            username: req.body.username
+        }
+    })
+
+    if (!user) {
+        return res.json({message: "no users with that username exist"})
+    } 
+
+    if (req.body.password != user.password) {
+        return res.json({message: "wrong password"})
+    }
+    user.token = jwt.generateAccessToken(user)
+    
+    res.json(user)
+
+
 }
 
 async function postNewUser(req, res) {
@@ -78,6 +100,7 @@ module.exports = {
     getUser,
     getUsersInList,
     getAllUsers,
+    postLogin,
     postNewUser,
     updateUser,
     deleteAllUsers,
