@@ -29,8 +29,6 @@ async function getUsersInList(req, res) {
 
 async function getAllUsers(req, res) {
 
-    console.log('req.user: ')
-    console.log(req.user)
     const users = await prisma.user.findMany()
 
     res.json(users)
@@ -79,7 +77,7 @@ async function postNewUser(req, res) {
 async function updateUser(req, res) {
     
     if (req.user.id != req.body.id) {
-        return res.json({message: "You can only edit your own account!"})
+        return res.status(401).json({message:"unauthorized"})
     }
     const user = await prisma.user.update({
         where: {
@@ -100,6 +98,10 @@ async function deleteAllUsers(req, res) {
 }
 
 async function deleteUser(req, res) {
+    console.log(req.user)
+    if (req.user.id != req.body.id) {
+        return res.status(401).json({message:"unauthorized"})
+    }
     const user = await prisma.user.delete({
         where: {
             id: req.body.id

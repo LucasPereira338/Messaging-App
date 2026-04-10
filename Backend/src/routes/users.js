@@ -7,7 +7,7 @@ users.get('/:id', (req, res) => controllers.getUser(req, res))
 
 users.get('/chats/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
 
-users.get('/', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getAllUsers(req, res))
+users.get('/', (req, res) => controllers.getAllUsers(req, res))
 
 users.post('/log-in', (req, res) => controllers.postLogin(req, res))
 
