@@ -51,6 +51,7 @@ async function postLogin(req, res) {
     if (!match) {
         return res.json({message: "wrong password"})
     }
+
     user.token = jwt.generateAccessToken(user)
     
     res.json(user)
@@ -61,7 +62,7 @@ async function postLogin(req, res) {
 async function postNewUser(req, res) {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const users = await prisma.user.create({
+    const user = await prisma.user.create({
         data: {
             name: req.body.name,
             username: req.body.username,
@@ -71,7 +72,9 @@ async function postNewUser(req, res) {
         }
     })
 
-    res.json(users)
+    user.token = jwt.generateAccessToken(user)
+
+    res.json(user)
 }
 
 async function updateUser(req, res) {
