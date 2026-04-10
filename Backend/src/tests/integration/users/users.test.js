@@ -1,8 +1,10 @@
 const app = require('../../../../app.js')
 const request = require('supertest')
 const {prisma} = require('../../../../lib/prisma.js')
-//look up the cookies section on the documentation for implementing it later for the jwt tokens
+const jwt = require('../../../utils/jwt/jwt.js')
+
 let user;
+let userToken;
 let secondUser;
 let userList = [];
 
@@ -26,9 +28,13 @@ beforeAll(async () => {
         }
     })
     user = juan
+    userToken = jwt.generateAccessToken(user)
     secondUser = pete
-    userList.push(juan.id)
-    userList.push(pete.id)
+    const juanId = juan.id
+    const peteId = pete.id
+    console.log(peteId)
+    userList.push(juanId)
+    userList.push(peteId)
 })
 
 test('post an user', done => {
@@ -49,13 +55,15 @@ test('post an user', done => {
 test('get users in an list', done => {
     request(app)
         .get('/users/chats/' +  userList)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect('Content-Type', /json/)
         .expect(200, done)
 })
 
-test('update specific user info', done => {
+test("update user's own info", done => {
     request(app)
         .put('/users')
+        .set('Authorization', `Bearer ${userToken}`)
         .type('form')
         .send({
             id: user.id,
@@ -73,9 +81,10 @@ test('get an user', done => {
         .expect(200, done)
 })
 
-test('delete an user', done => {
+test("deletes user's own account", done => {
     request(app)
         .delete('/users/')
+        .set('Authorization', `Bearer ${userToken}`)
         .type('form')
         .send({
             id: user.id
