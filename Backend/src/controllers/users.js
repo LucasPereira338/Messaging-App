@@ -1,5 +1,6 @@
 const {prisma} = require('../../lib/prisma.js')
 const jwt = require('../utils/jwt/jwt.js')
+const bcrypt = require('bcryptjs')
 
 async function getUser(req, res) {
     const user = await prisma.user.findUnique({
@@ -33,6 +34,7 @@ async function getAllUsers(req, res) {
 }
 
 async function postLogin(req, res) {
+
     const user = await prisma.user.findUnique({
         where: {
             username: req.body.username
@@ -43,7 +45,9 @@ async function postLogin(req, res) {
         return res.json({message: "no users with that username exist"})
     } 
 
-    if (req.body.password != user.password) {
+    const match = await bcrypt.compare(req.body.password, user.password)
+    
+    if (!match) {
         return res.json({message: "wrong password"})
     }
     user.token = jwt.generateAccessToken(user)
@@ -54,12 +58,14 @@ async function postLogin(req, res) {
 }
 
 async function postNewUser(req, res) {
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const users = await prisma.user.create({
         data: {
             name: req.body.name,
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password,
+            password: hashedPassword,
             portrait: req.body.portrait
         }
     })
