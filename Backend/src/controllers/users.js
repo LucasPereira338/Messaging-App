@@ -77,6 +77,10 @@ async function postNewUser(req, res) {
 }
 
 async function updateUser(req, res) {
+    
+    if (req.user.id != req.body.id) {
+        return res.json({message: "You can only edit your own account!"})
+    }
     const user = await prisma.user.update({
         where: {
             id: req.body.id
