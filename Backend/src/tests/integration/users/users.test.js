@@ -9,6 +9,7 @@ let secondUser;
 let userList = [];
 
 beforeAll(async () => {
+    
     await prisma.message.deleteMany()
     await prisma.user.deleteMany()
     const juan = await prisma.user.create({
@@ -27,12 +28,12 @@ beforeAll(async () => {
             password: '12345'
         }
     })
+
     user = juan
     userToken = jwt.generateAccessToken(user)
     secondUser = pete
     const juanId = juan.id
     const peteId = pete.id
-    console.log(peteId)
     userList.push(juanId)
     userList.push(peteId)
 })
@@ -52,7 +53,7 @@ test('post an user', done => {
         .expect(200, done)
 })
 
-test('get users in an list', done => {
+test('get users in a chat', done => {
     request(app)
         .get('/users/chats/' +  userList)
         .set('Authorization', `Bearer ${userToken}`)
@@ -74,11 +75,36 @@ test("update user's own info", done => {
         .expect(200, done)
 })
 
+test("user cannot update another user's info", done => {
+    request(app)
+        .put('/users')
+        .set('Authorization', `Bearer ${userToken}`)
+        .type('form')
+        .send({
+            id: secondUser.id,
+            name: 'Pete the Fool'
+        })
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+})
+
 test('get an user', done => {
     request(app)
         .get('/users/' + user.id)
         .expect('Content-Type', /json/)
         .expect(200, done)
+})
+
+test("user cannot delete someone else's account", done => {
+    request(app)
+        .delete('/users')
+        .set('Authorization', `Bearer ${userToken}`)
+        .type('form')
+        .send({
+            id: secondUser.id
+        })
+        .expect('Content-Type', /json/)
+        .expect(401, done)
 })
 
 test("deletes user's own account", done => {
