@@ -1,6 +1,11 @@
 const {prisma} = require('../../lib/prisma.js')
 
 async function getMessagesByChat(req, res) {
+
+    if (req.user.id != req.params.authorId || req.user.id != req.params.receiverId) {
+        return res.status(401).json({message: 'Unauthorized'})
+    }
+
     const messages = await prisma.message.findMany({
         where: {
             OR: [
@@ -29,10 +34,19 @@ async function getMessage(req, res) {
         }
     })
 
+    if (req.user.id != message.authorId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     res.json(message)
 }
 
 async function getAllUserMessages(req, res) {
+
+    if (req.user.id != req.params.userId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     const messages = await prisma.message.findMany({
         where: {
             OR: [
@@ -46,6 +60,11 @@ async function getAllUserMessages(req, res) {
 }
 
 async function getMessagesByAuthor(req, res) {
+
+    if (req.user.id != req.params.authorId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     const messages = await prisma.message.findMany({
         where: {
             authorId: req.params.authorId
@@ -56,6 +75,11 @@ async function getMessagesByAuthor(req, res) {
 }
 
 async function getMessagesByReceiver(req, res) {
+    
+    if (req.user.id != req.params.receiverId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     const messages = await prisma.message.findMany({
         where: {
             receiverId: req.params.receiverId
@@ -84,6 +108,11 @@ async function postNewMessage(req, res) {
 }
 
 async function updateMessage(req, res) {
+
+    if (req.user.id != req.body.authorId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     const message = await prisma.message.update({
         where: {
             id: req.body.id
@@ -103,6 +132,11 @@ async function deleteAllMessages(req, res) {
 }
 
 async function deleteMessage(req, res) {
+
+    if (req.user.id != req.body.authorId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     const message = await prisma.message.delete({
         where: {
             id: req.body.id
