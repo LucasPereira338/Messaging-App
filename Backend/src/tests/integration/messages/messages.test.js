@@ -8,6 +8,8 @@ let userToken;
 
 let secondUser;
 
+let thirdUser;
+
 let message;
 
 beforeAll(async () => {
@@ -28,16 +30,26 @@ beforeAll(async () => {
             password: '12345'
         }
     })
+    const Thad = await prisma.user.create({
+        data: {
+            name: 'Thad',
+            username: 'thad123',
+            email: 'thad@gmail.com',
+            password: 'dasdasdoia'
+        }
+    })
     user = Timmy
     userToken = jwt.generateAccessToken(Timmy)
 
     secondUser = Tommy
+
+    thirdUser = Thad
     
     const messageOne = await prisma.message.create({
         data: {
-            authorId: user.id,
+            authorId: secondUser.id,
             content: "Hey man what's up?",
-            receiverId: secondUser.id
+            receiverId: user.id
         }
     })
     
@@ -51,11 +63,24 @@ test('post a new message', done => {
         .type('form')
         .send({
             content: 'not much dude',
-            authorId: secondUser.id,
-            receiverId: user.id})
+            authorId: user.id,
+            receiverId: secondUser.id})
         .expect(/not much dude/)
         .expect('Content-Type', /json/)
         .expect(200, done)
+})
+
+test("user cannot send a message on behalf of someone else", done => {
+    request(app)
+        .post('/messages')
+        .set('Authorization', `Bearer ${userToken}`)
+        .type('form')
+        .send({
+            content: 'not much dude',
+            authorId: thirdUser.id,
+            receiverId: secondUser.id})
+        .expect('Content-Type', /json/)
+        .expect(401, done)
 })
 
 test('get a existing message', done => {
@@ -82,6 +107,14 @@ test('gets all the messages of a user', done => {
         .expect(200, done)
 })
 
+test("user cannot view someone else's messages", done => {
+    request(app) 
+        .get('/messages/user/' + secondUser.id)
+        .set('Authorization', `Bearer ${userToken}`)
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+})
+
 test('gets all the messages that a user sent', done => {
     request(app)
         .get('/messages/author/' + user.id)
@@ -95,7 +128,7 @@ test('gets all the messages that a user received', done => {
         .get('/messages/receiver/' + user.id)
         .set('Authorization', `Bearer ${userToken}`)
         .expect('Content-Type', /json/)
-        .expect(/not much dude/)
+        .expect(/Hey man what's up?/)
         .expect(200, done)
 })
 
@@ -110,6 +143,16 @@ test('updates a message', done => {
         .expect(200, done)
 })
 
+test("user cannot change someone else's message", done => {
+    request(app)
+        .put('/messages')
+        .set('Authorization', `Bearer ${userToken}`)
+        .type('form')
+        .send({id: message.id, authorId: secondUser.id, content:'i hate you'})
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+})
+
 test('deletes a message', done => {
     request(app)
         .delete('/messages')
@@ -121,8 +164,19 @@ test('deletes a message', done => {
         .expect(200, done)
 })
 
+test("user cannot delete someone else's message", done => {
+    request(app)
+        .delete('/messages')
+        .set('Authorization', `Bearer ${userToken}`)
+        .type('form')
+        .send({id: message.id, authorId: secondUser.id})
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+})
+
 afterAll(async () => {
     await prisma.user.delete({where: {id: user.id}})
     await prisma.user.delete({where: {id: secondUser.id}})
+    await prisma.user.delete({where: {id: thirdUser.id}})
     await prisma.$disconnect()
 })

@@ -34,7 +34,7 @@ async function getMessage(req, res) {
         }
     })
 
-    if (req.user.id != message.authorId) {
+    if (req.user.id != message.authorId && req.user.id != message.receiverId) {
         return res.status(401).json({message: "Unauthorized"})
     }
 
@@ -97,6 +97,11 @@ async function getAllMessages(req, res) {
 }
 
 async function postNewMessage(req, res) {
+
+    if (req.user.id != req.body.authorId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
+
     const message = await prisma.message.create({
         data: {
             authorId: req.body.authorId,
