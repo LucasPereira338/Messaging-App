@@ -11,8 +11,7 @@ let secondUser;
 let message;
 
 beforeAll(async () => {
-    await prisma.message.deleteMany()
-    await prisma.user.deleteMany()
+    
     const Timmy = await prisma.user.create({
         data: {
             name:'Timmy',
@@ -41,7 +40,7 @@ beforeAll(async () => {
             receiverId: secondUser.id
         }
     })
-
+    
     message = messageOne
 })
 
@@ -66,8 +65,8 @@ test('get a existing message', done => {
         .expect('Content-Type', /json/)
         .expect(200, done)
 })
-// must implement sort by dateTime on this still
-test('get messages in a chat sorted from newest to oldest', done => {
+
+test('get messages in a chat', done => {
     request(app)
         .get(`/messages/${user.id}/chat/${secondUser.id}`)
         .set('Authorization', `Bearer ${userToken}`)
@@ -123,5 +122,7 @@ test('deletes a message', done => {
 })
 
 afterAll(async () => {
+    await prisma.user.delete({where: {id: user.id}})
+    await prisma.user.delete({where: {id: secondUser.id}})
     await prisma.$disconnect()
 })
