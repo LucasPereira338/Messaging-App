@@ -2,7 +2,7 @@ const {prisma} = require('../../lib/prisma.js')
 
 async function getMessagesByChat(req, res) {
 
-    if (req.user.id != req.params.authorId || req.user.id != req.params.receiverId) {
+    if (req.user.id != req.params.authorId && req.user.id != req.params.receiverId) {
         return res.status(401).json({message: 'Unauthorized'})
     }
 
@@ -75,7 +75,8 @@ async function getMessagesByAuthor(req, res) {
 }
 
 async function getMessagesByReceiver(req, res) {
-    
+    console.log(req.user.id)
+    console.log(req.params.receiverId)
     if (req.user.id != req.params.receiverId) {
         return res.status(401).json({message: "Unauthorized"})
     }

@@ -12,6 +12,7 @@ beforeAll(async () => {
     
     await prisma.message.deleteMany()
     await prisma.user.deleteMany()
+    
     const juan = await prisma.user.create({
         data: {
             name:'Juan',
