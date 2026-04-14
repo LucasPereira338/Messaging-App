@@ -1,0 +1,16 @@
+.header {
+  display: grid;
+  grid-template-columns: 2.25fr 2.25fr 2.25fr 2.25fr;
+  grid-template-rows: 0.33fr 0.33fr 0.33fr;
+}
+
+.headerTitle {
+  margin-top: 0;
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+.headerBtn {
+  grid-column-start: 4;
+  grid-row-start: 2;
+}
