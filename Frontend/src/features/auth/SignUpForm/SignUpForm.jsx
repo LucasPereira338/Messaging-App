@@ -1,7 +1,12 @@
 import * as styles from "./SignUpForm.module.css";
-//import { postNewUser } from "../../../services/userServices";
+import { postNewUser } from "../../../services/userServices";
 
-function SignUpForm({ postNewUser }) {
+function SignUpForm() {
+  const handleClick = async (event) => {
+    event.preventDefault();
+
+    await postNewUser(event);
+  };
   return (
     <div className={styles.signUpContainer}>
       <form className={styles.signUpForm} aria-label="sign-up-form">
@@ -13,7 +18,7 @@ function SignUpForm({ postNewUser }) {
         <input type="email" name="email" required />
         <label htmlFor="password">Password: </label>
         <input type="password" name="password" required />
-        <button type="submit" onClick={postNewUser}>
+        <button type="submit" onClick={handleClick}>
           Sign Up
         </button>
       </form>
