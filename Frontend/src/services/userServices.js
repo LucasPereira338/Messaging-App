@@ -8,7 +8,7 @@ export async function postNewUser(data) {
     const response = await fetch(url, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: data
+        body: JSON.stringify(data)
     });
     
     const result = await response.json()
@@ -19,7 +19,7 @@ export async function postNewUser(data) {
 
 export async function fetchLogin(data) {
 
-    const backend = import.meta.env.BACKEND
+    const backend = import.meta.env.VITE_BACKEND
 
     const url = backend + "users/log-in"
     

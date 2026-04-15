@@ -4,19 +4,24 @@ import { fetchLogin } from "../../../services/userServices";
 function LoginForm() {
   const handleClick = async (event) => {
     event.preventDefault();
-
-    await fetchLogin(event);
+    const formData = new FormData(event.currentTarget);
+    const formValues = Object.fromEntries(formData.entries());
+    console.log(formValues);
+    const result = await fetchLogin(event);
+    console.log(result);
   };
   return (
     <div className={styles.loginContainer}>
-      <form aria-label="login-form" className={styles.loginForm}>
+      <form
+        aria-label="login-form"
+        className={styles.loginForm}
+        onSubmit={handleClick}
+      >
         <label htmlFor="username">Username: </label>
         <input type="text" name="username" required />
         <label htmlFor="password">Password: </label>
-        <input type="password" required />
-        <button type="submit" onClick={handleClick}>
-          Login
-        </button>
+        <input type="password" name="password" required />
+        <button type="submit">Login</button>
       </form>
     </div>
   );
