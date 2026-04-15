@@ -4,12 +4,14 @@ import { fetchLogin } from "../../../services/userServices";
 function LoginForm() {
   const handleClick = async (event) => {
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
-    console.log(formValues);
+
     const result = await fetchLogin(formValues);
     console.log(result);
   };
+
   return (
     <div className={styles.loginContainer}>
       <form

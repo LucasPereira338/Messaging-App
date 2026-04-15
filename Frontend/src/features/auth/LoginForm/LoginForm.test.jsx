@@ -1,6 +1,5 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import LoginForm from "./LoginForm";
 import { fetchLogin } from "../../../services/userServices";
 
@@ -32,13 +31,25 @@ describe("Login Form", () => {
   });
 
   it("should call the function", async () => {
+    render(<LoginForm />);
+
+    const form = screen.getByRole("form", { name: /login-form/ });
+
+    await waitFor(() => {
+      fireEvent.submit(form);
+    });
+
+    expect(fetchLogin).toHaveBeenCalled();
+  });
+});
+/* it("should call the function", async () => {
     const user = userEvent.setup();
     render(<LoginForm />);
 
     const button = screen.getByRole("button");
 
     await user.click(button);
+    user
 
     expect(fetchLogin).toHaveBeenCalled();
-  });
-});
+  }); */
