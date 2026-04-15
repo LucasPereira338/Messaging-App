@@ -1,6 +1,9 @@
 const {prisma} = require('../../lib/prisma.js');
+const bcrypt = require('bcryptjs')
 
 async function main() {
+
+    const johnPassword = await bcrypt.hash('123', 10);
 
     const Jonathan = await prisma.user.upsert({
         where: {
@@ -12,9 +15,11 @@ async function main() {
             username: 'jonathan32',
             email: 'jonathan32@gmail.com',
             portrait: '/home/lucas/StudyProjects/NodeProjects/Messaging-App/Backend/assets/profiles/portraits/jonathan.jpg',
-            password: 'safpocmajopcacpm'
+            password: johnPassword
         }
     })
+    
+    const bradPassword = await bcrypt.hash('acsdacdsacas', 10);
 
     const Brad = await prisma.user.upsert({
         where: {
@@ -26,9 +31,11 @@ async function main() {
             username: 'brad22',
             email: 'brad22@gmail.com',
             portrait: '/home/lucas/StudyProjects/NodeProjects/Messaging-App/Backend/assets/profiles/portraits/brad.jpg',
-            password: 'acsdacdsacas'
+            password: bradPassword
         }
     })
+
+    const jasonPassword = await bcrypt.hash('acscacsdsdsdsdssa', 10);
 
     const Jason = await prisma.user.upsert({
         where: {
@@ -40,7 +47,7 @@ async function main() {
             username: 'jasonstewart1',
             email: 'jasonstewart1@gmail.com',
             portrait: '/home/lucas/StudyProjects/NodeProjects/Messaging-App/Backend/assets/profiles/portraits/jason.jpg',
-            password: 'acscacsdsdsdsdssa'
+            password: jasonPassword
         }
     })
 
