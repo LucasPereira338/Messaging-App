@@ -10,10 +10,8 @@ export async function postNewUser(data) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     });
-    
-    const result = await response.json()
 
-    return result.json()
+    return response.json()
     
 }
 
@@ -26,11 +24,9 @@ export async function fetchLogin(data) {
     const response = await fetch(url, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: data
+        body: JSON.stringify(data)
     });
-    
-    const result = await response.json()
 
-    return result.json()
+    return response.json()
     
 }

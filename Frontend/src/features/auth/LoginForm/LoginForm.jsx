@@ -7,7 +7,7 @@ function LoginForm() {
     const formData = new FormData(event.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
     console.log(formValues);
-    const result = await fetchLogin(event);
+    const result = await fetchLogin(formValues);
     console.log(result);
   };
   return (
