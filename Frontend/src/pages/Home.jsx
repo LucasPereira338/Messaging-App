@@ -4,17 +4,18 @@ import { useNavigate } from "react-router";
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState();
   let navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn == true) {
-      navigate("/messages");
+      navigate("/messages", { state: user });
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, user]);
 
   return (
     <div className="home">
-      <LoginForm setIsLoggedIn={setIsLoggedIn} />
+      <LoginForm setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
     </div>
   );
 }
