@@ -9,7 +9,6 @@ function LoginForm({ setIsLoggedIn, setUser }) {
     const formValues = Object.fromEntries(formData.entries());
 
     const result = await fetchLogin(formValues);
-    console.log(result);
 
     let resCount;
 

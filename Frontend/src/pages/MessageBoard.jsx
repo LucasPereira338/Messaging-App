@@ -3,10 +3,11 @@ import UserCard from "../components/users/UserCard/UserCard";
 
 function MessageBoard() {
   let user = useLocation().state;
+  console.log("in message board: ");
   console.log(user);
   return (
     <div className="messageBoard">
-      <UserCard />
+      <UserCard user={user} />
     </div>
   );
 }
