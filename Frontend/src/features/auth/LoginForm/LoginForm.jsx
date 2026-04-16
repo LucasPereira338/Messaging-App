@@ -1,7 +1,7 @@
 import * as styles from "./LoginForm.module.css";
 import { fetchLogin } from "../../../services/userServices";
 
-function LoginForm() {
+function LoginForm({ setIsLoggedIn }) {
   const handleClick = async (event) => {
     event.preventDefault();
 
@@ -10,6 +10,17 @@ function LoginForm() {
 
     const result = await fetchLogin(formValues);
     console.log(result);
+
+    let resCount;
+
+    if (typeof resCount === "object") {
+      resCount = Object.keys(result).length;
+      if (resCount > 1) {
+        setIsLoggedIn(true);
+      } else {
+        alert(result.message);
+      }
+    }
   };
 
   return (

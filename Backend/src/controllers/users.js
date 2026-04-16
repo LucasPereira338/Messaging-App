@@ -55,7 +55,13 @@ async function postLogin(req, res) {
         return res.json({message: "wrong password"})
     }
 
-    user.token = jwt.generateAccessToken(user)
+    token = jwt.generateAccessToken(user)
+
+    res.cookies('token', token, {
+        httpOnly: true,
+        secure: false,
+        maxAge: 3600000
+    })
     
     res.json(user)
 

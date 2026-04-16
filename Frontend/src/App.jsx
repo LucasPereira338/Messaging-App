@@ -1,23 +1,13 @@
 import "./App.css";
 import Home from "./pages/Home";
 import MessageBoard from "./pages/MessageBoard";
-import { createBrowserRouter, RouterProvider } from "react-router";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "messages",
-    element: <MessageBoard />,
-  },
-]);
+import { RouterProvider } from "react-router";
+import routes from "./routes/routes";
 
 function App() {
   return (
     <div className="full-page">
-      <RouterProvider router={router} />
+      <RouterProvider router={routes} />
     </div>
   );
 }
