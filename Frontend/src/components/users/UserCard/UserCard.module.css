@@ -1,6 +1,11 @@
+@font-face {
+  font-family: "Miranda Sans";
+  src: url(https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap);
+}
+
 .userCard {
   display: flex;
-  border: groove;
+  border: groove 5px #dedede;
 }
 
 .cardPortrait {
@@ -11,9 +16,11 @@
 }
 
 .cardName {
-  font-weight: bold;
+  font-family: "Miranda Sans", Times, serif;
+  font-weight: 550;
 }
 
 .cardUsername {
   margin-left: 5px;
+  font-family: "Miranda Sans", Times, serif;
 }
