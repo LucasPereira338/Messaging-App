@@ -14,7 +14,7 @@ async function main() {
             name: 'Jonathan Armstrong',
             username: 'jonathan32',
             email: 'jonathan32@gmail.com',
-            portrait: '/home/lucas/StudyProjects/NodeProjects/Messaging-App/Backend/assets/profiles/portraits/jonathan.jpg',
+            portrait: 'profiles/portraits/jonathan.jpg',
             password: johnPassword
         }
     })
@@ -30,7 +30,7 @@ async function main() {
             name: 'Brad Smith',
             username: 'brad22',
             email: 'brad22@gmail.com',
-            portrait: '/home/lucas/StudyProjects/NodeProjects/Messaging-App/Backend/assets/profiles/portraits/brad.jpg',
+            portrait: 'profiles/portraits/brad.jpg',
             password: bradPassword
         }
     })
@@ -46,7 +46,7 @@ async function main() {
             name: 'Jason Stewart',
             username: 'jasonstewart1',
             email: 'jasonstewart1@gmail.com',
-            portrait: '/home/lucas/StudyProjects/NodeProjects/Messaging-App/Backend/assets/profiles/portraits/jason.jpg',
+            portrait: 'profiles/portraits/jason.jpg',
             password: jasonPassword
         }
     })

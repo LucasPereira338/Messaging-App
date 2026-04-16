@@ -1,10 +1,12 @@
 import * as styles from "./UserCard.module.css";
 
 function UserCard({ user }) {
+  const backend = import.meta.env.VITE_BACKEND;
+  const portrait = backend + "assets/" + user.portrait;
   return (
     <div className={styles.userCard}>
       <img
-        src={user.portrait}
+        src={portrait}
         alt={`profile picture of ${user.username}`}
         className={styles.cardPortrait}
       />
