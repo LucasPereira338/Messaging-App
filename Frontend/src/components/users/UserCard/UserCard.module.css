@@ -5,7 +5,7 @@
 
 .userCard {
   display: flex;
-  border: groove 5px #dedede;
+  border: groove 3px #dedede;
 }
 
 .cardPortrait {

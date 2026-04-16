@@ -1,0 +1,4 @@
+.chatBox {
+  border: groove 3px #dedede;
+  flex-grow: 1;
+}

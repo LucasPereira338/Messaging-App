@@ -1,13 +1,15 @@
 import { useLocation } from "react-router";
 import UserCard from "../components/users/UserCard/UserCard";
+import ChatBox from "../components/messages/ChatBox/ChatBox";
+import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {
   let user = useLocation().state;
-  console.log("in message board: ");
-  console.log(user);
+
   return (
-    <div className="messageBoard">
+    <div className={styles.MessageBoard}>
       <UserCard user={user} />
+      <ChatBox />
     </div>
   );
 }
