@@ -10,7 +10,10 @@ function UserCard({ user }) {
         alt={`profile picture of ${user.username}`}
         className={styles.cardPortrait}
       />
-      <div className={styles.cardUsername}>{user.username}</div>
+      <div className={styles.userInfo}>
+        <div className={styles.cardName}>{user.name}</div>
+        <div className={styles.cardUsername}>{user.username}</div>
+      </div>
     </div>
   );
 }

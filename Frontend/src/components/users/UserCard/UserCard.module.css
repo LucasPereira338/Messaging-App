@@ -1,6 +1,19 @@
+.userCard {
+  display: flex;
+  border: groove;
+}
+
 .cardPortrait {
   max-width: 80px;
   border-radius: 50%;
   min-height: 80px;
   object-fit: cover;
+}
+
+.cardName {
+  font-weight: bold;
+}
+
+.cardUsername {
+  margin-left: 5px;
 }
