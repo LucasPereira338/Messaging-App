@@ -13,7 +13,7 @@ function LoginForm({ setIsLoggedIn }) {
 
     let resCount;
 
-    if (typeof resCount === "object") {
+    if (typeof result === "object") {
       resCount = Object.keys(result).length;
       if (resCount > 1) {
         setIsLoggedIn(true);
