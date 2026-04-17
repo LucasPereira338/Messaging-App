@@ -1,5 +1,9 @@
 .MessageBoard {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   height: 100vh;
+  grid-template-columns: 2fr 8fr;
+  grid-template-rows: 1.5fr 8.5fr;
+  /* old methods
+  display: flex;
+  flex-direction: column; */
 }
