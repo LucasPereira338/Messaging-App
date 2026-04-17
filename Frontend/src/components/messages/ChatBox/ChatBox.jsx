@@ -3,7 +3,7 @@ import MessageInput from "../MessageInput/MessageInput";
 
 function ChatBox() {
   return (
-    <div className={styles.chatBox} data-testid="ChatBox">
+    <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
       <MessageInput />
     </div>
   );

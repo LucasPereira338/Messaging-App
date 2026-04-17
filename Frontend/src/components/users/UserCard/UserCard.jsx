@@ -4,7 +4,11 @@ function UserCard({ user }) {
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + user.portrait;
   return (
-    <div className={styles.userCard} data-testid="container">
+    <div
+      id={styles.userCard}
+      className="general-borders"
+      data-testid="container"
+    >
       <img
         src={portrait}
         alt={`profile picture of ${user.username}`}

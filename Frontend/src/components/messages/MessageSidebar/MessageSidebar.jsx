@@ -2,7 +2,11 @@ import * as styles from "./MessageSidebar.module.css";
 
 function MessageSidebar() {
   return (
-    <div className={styles.messagesSidebar} data-testid="MessageSidebar">
+    <div
+      id={styles.messagesSidebar}
+      className="general-borders"
+      data-testid="MessageSidebar"
+    >
       <h3 className={styles.messagesSidebarTitle}> Messages</h3>
     </div>
   );

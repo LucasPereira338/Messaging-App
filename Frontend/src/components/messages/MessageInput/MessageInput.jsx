@@ -2,11 +2,15 @@ import * as styles from "./MessageInput.module.css";
 
 function MessageInput() {
   return (
-    <div className={styles.messageInputContainer} data-testid="MessageInput">
+    <div
+      id={styles.messageInputContainer}
+      className="general-borders"
+      data-testid="MessageInput"
+    >
       <input
         type="text"
         name="content"
-        className={styles.messageInput}
+        id={styles.messageInput}
         placeholder="Type a message..."
       />
       <button type="submit">Send</button>

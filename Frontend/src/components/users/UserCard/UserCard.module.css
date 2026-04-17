@@ -3,10 +3,8 @@
   src: url(https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap);
 }
 
-.userCard {
+#userCard {
   display: flex;
-  border: groove 3px #dedede;
-  border-radius: 5px;
 }
 
 .cardPortrait {

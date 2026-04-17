@@ -1,0 +1,6 @@
+#messagesSidebar {
+  display: flex;
+  flex-direction: column;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}

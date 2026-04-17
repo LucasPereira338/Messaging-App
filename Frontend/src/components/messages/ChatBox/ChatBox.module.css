@@ -1,5 +1,4 @@
-.chatBox {
-  border: groove 3px #dedede;
+#chatBox {
   grid-column-start: 2;
   display: grid;
   grid-template-columns: 1fr 7fr 1fr;
