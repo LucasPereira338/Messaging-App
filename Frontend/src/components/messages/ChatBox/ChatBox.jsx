@@ -3,7 +3,7 @@ import MessageInput from "../MessageInput/MessageInput";
 
 function ChatBox() {
   return (
-    <div className={styles.chatBox}>
+    <div className={styles.chatBox} data-testid="ChatBox">
       <MessageInput />
     </div>
   );
