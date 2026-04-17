@@ -30,3 +30,16 @@ export async function fetchLogin(data) {
     return response.json()
     
 }
+
+export async function fetchUsersInList(data) {
+    const backend = import.meta.env.VITE_BACKEND;
+
+    const url = backend + "chats/" + data
+
+    const response = await fetch(url, {
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    })
+
+    return response.json()
+}
