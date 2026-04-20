@@ -48,10 +48,12 @@ export async function fetchUser(data) {
 export async function fetchUsersInList(data) {
     const backend = import.meta.env.VITE_BACKEND;
 
-    const url = backend + "users/chats/" + data
+    const url = backend + "users/chats/" + data.data
 
     const response = await fetch(url, {
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json',
+            "Authorization": "Bearer " + data.token
+        }
     })
 
     return response.json()

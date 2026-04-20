@@ -12,7 +12,6 @@ function MessageBoard() {
   const token = user.token;
 
   const [messages, setMessages] = useState({ id: 0, content: "loading..." });
-  const [lastMessage, setLastMessage] = useState({ id: 0 });
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -22,11 +21,14 @@ function MessageBoard() {
       });
       let allMessages = response;
       for (let i = 0; i <= response.length - 1; i++) {
-        allMessages[0].userId = userId;
+        allMessages[i].userId = userId;
       }
-
-      setMessages(allMessages);
-      setLastMessage(response[0]);
+      console.log("all messages: ");
+      console.log(allMessages);
+      const result = { data: allMessages, token: token };
+      console.log("result (mb): ");
+      console.log(result);
+      setMessages(result);
     };
     fetchMessages();
   }, [token, userId]);
@@ -34,7 +36,6 @@ function MessageBoard() {
   return (
     <div className={styles.MessageBoard}>
       <MessageSidebar messages={messages} />
-      <ChatBox message={lastMessage} />
     </div>
   );
 }

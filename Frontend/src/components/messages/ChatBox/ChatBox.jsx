@@ -1,6 +1,7 @@
 import * as styles from "./ChatBox.module.css";
 import MessageInput from "../MessageInput/MessageInput";
 import UserCard from "../../users/UserCard/UserCard";
+import Message from "../../../features/messages/Message/Message";
 import { fetchUser } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 
@@ -27,6 +28,7 @@ function ChatBox({ message }) {
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
       <UserCard user={user} />
+
       <MessageInput />
     </div>
   );

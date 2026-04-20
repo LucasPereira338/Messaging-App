@@ -9,8 +9,6 @@ opts.secretOrKey = process.env.JWT_ACCESS_SECRET;
 
 passport.use(
      new JwtStrategy(opts, async function (jwt_payload, done) {
-          console.log('payload: ')
-          console.log(jwt_payload)
           try {
                
                const user = await prisma.user.findUnique({where: {id: jwt_payload.id}})
