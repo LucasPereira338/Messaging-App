@@ -31,14 +31,27 @@ export async function fetchLogin(data) {
     
 }
 
+export async function fetchUser(data) {
+    const backend = import.meta.env.VITE_BACKEND;
+
+    const url = backend + data.id
+
+    const response = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+
+    return response.json()
+}
+
 export async function fetchUsersInList(data) {
     const backend = import.meta.env.VITE_BACKEND;
 
-    const url = backend + "chats/" + data
+    const url = backend + "users/chats/" + data
 
     const response = await fetch(url, {
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        headers: {'Content-Type': 'application/json'}
     })
 
     return response.json()

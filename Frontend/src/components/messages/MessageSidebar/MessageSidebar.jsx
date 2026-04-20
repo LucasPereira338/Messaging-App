@@ -1,4 +1,5 @@
 import * as styles from "./MessageSidebar.module.css";
+import UserCard from "../../users/UserCard/UserCard";
 
 function MessageSidebar() {
   return (

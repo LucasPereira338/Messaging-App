@@ -42,7 +42,11 @@ async function getMessage(req, res) {
 }
 
 async function getAllUserMessages(req, res) {
-
+    console.log('getAllUserMessages')
+    console.log('id of requested user: ')
+    console.log(req.params.userId)
+    console.log('id of user making request: ')
+    console.log(req.user.id)
     if (req.user.id != req.params.userId) {
         return res.status(401).json({message: "Unauthorized"})
     }

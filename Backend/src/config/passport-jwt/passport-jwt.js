@@ -8,19 +8,22 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.JWT_ACCESS_SECRET;
 
 passport.use(
-    new JwtStrategy(opts, async function (jwt_payload, done) {
-     try {
-          const user = await prisma.user.findUnique({where: {id: jwt_payload.id}})
-          if(user) {
-               return done(null, user)
-          } else {
-               return done(null, false);
+     new JwtStrategy(opts, async function (jwt_payload, done) {
+          console.log('payload: ')
+          console.log(jwt_payload)
+          try {
+               
+               const user = await prisma.user.findUnique({where: {id: jwt_payload.id}})
+               if(user) {
+                    return done(null, user)
+               } else {
+                    return done(null, false);
+               }
+          } catch(err) {
+               return done(err, false)
           }
-     } catch(err) {
-          return done(err, false)
-     }
-       
-    })
+               
+          })
 )
 
 module.exports = passport;

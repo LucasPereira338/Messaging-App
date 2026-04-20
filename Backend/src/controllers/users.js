@@ -57,11 +57,7 @@ async function postLogin(req, res) {
 
     token = jwt.generateAccessToken(user)
 
-    res.cookie('token', token, {
-        httpOnly: true,
-        secure: false,
-        maxAge: 3600000
-    })
+    user.token = token
     
     res.json(user)
 
