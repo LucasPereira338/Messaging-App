@@ -3,33 +3,30 @@ import MessageInput from "../MessageInput/MessageInput";
 import UserCard from "../../users/UserCard/UserCard";
 import Message from "../../../features/messages/Message/Message";
 import ChatMessages from "../../../features/messages/ChatMessages/ChatMessages";
-import { fetchUser } from "../../../services/userServices";
+import { fetchChatMessages } from "../../../services/messageServices";
+import { addUserId } from "../../../helpers/arrayHelpers";
 import { useState, useEffect } from "react";
 
-function ChatBox({ message }) {
-  const [user, setUser] = useState({ id: "0" });
+function ChatBox({ user, talkingWith }) {
+  const [messages, setMessages] = useState([
+    { id: "0", content: "pending..." },
+  ]);
   useEffect(() => {
-    let interlocutorId;
-    if (message.userId != message.authorId) {
-      interlocutorId = message.authorId;
-    } else {
-      interlocutorId = message.receiverId;
-    }
-    const fetchCurrentInterlocutor = async () => {
-      const response = await fetchUser({ id: interlocutorId });
+    const fetchChat = async () => {
+      const result = await fetchChatMessages(user, talkingWith);
+      console.log(result);
 
-      setUser(response);
+      addUserId(result, user.id);
+
+      setMessages(result);
     };
-
-    if (message.id != 0) {
-      fetchCurrentInterlocutor();
-    }
-  }, [message]);
+    fetchChat();
+  }, [user, talkingWith]);
 
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
-      <UserCard user={user} />
-      <ChatMessages message={message} />
+      <UserCard user={talkingWith} />
+      <ChatMessages messages={messages} />
       <MessageInput />
     </div>
   );

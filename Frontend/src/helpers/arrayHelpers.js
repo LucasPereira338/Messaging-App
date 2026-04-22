@@ -9,3 +9,9 @@ export function pushUniqueIds(uniqueIds, allIds) {
         }
       }
 }
+
+export function addUserId(messages, userId) {
+  for (let i = 0; i <= messages.length - 1; i++) {
+        messages[i].userId = userId;
+      }
+}

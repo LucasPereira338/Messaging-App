@@ -2,7 +2,9 @@ import { useLocation } from "react-router";
 import UserCard from "../../components/users/UserCard/UserCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
+import { addUserId } from "../../helpers/arrayHelpers";
 import { fetchUserMessages } from "../../services/messageServices";
+import { fetchUser } from "../../services/userServices";
 import { useEffect, useState } from "react";
 import * as styles from "./MessageBoard.module.css";
 
@@ -11,7 +13,11 @@ function MessageBoard() {
   const userId = user.id;
   const token = user.token;
 
-  const [messages, setMessages] = useState({ id: 0, content: "loading..." });
+  const [messages, setMessages] = useState([{ id: 0, content: "loading..." }]);
+  const [talkingWith, setTalkingWith] = useState({
+    id: 0,
+    name: "fetching... ",
+  });
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -20,9 +26,7 @@ function MessageBoard() {
         token: token,
       });
       let allMessages = response;
-      for (let i = 0; i <= response.length - 1; i++) {
-        allMessages[i].userId = userId;
-      }
+      addUserId(allMessages, userId);
 
       const result = { data: allMessages, token: token };
 
@@ -31,9 +35,37 @@ function MessageBoard() {
     fetchMessages();
   }, [token, userId]);
 
+  useEffect(() => {
+    if (typeof messages.data !== "undefined") {
+      console.log("fetching last user talked to: ");
+      const fetchTalkingWith = async () => {
+        const id =
+          messages.data[0].userId == messages.data[0].authorId
+            ? messages.data[0].receiverId
+            : messages.data[0].authorId;
+        const result = await fetchUser({ id: id });
+        console.log(result);
+
+        setTalkingWith(result);
+      };
+      fetchTalkingWith();
+    }
+  }, [messages]);
+
+  const handleTalkingWith = (twData) => {
+    const twUserData = twData;
+    twUserData.token = token;
+    setTalkingWith(twUserData);
+  };
+
   return (
     <div className={styles.MessageBoard}>
-      <MessageSidebar messages={messages} />
+      <MessageSidebar
+        messages={messages}
+        talkingWith={talkingWith}
+        handleTalkingWith={handleTalkingWith}
+      />
+      <ChatBox user={user} talkingWith={talkingWith} />
     </div>
   );
 }

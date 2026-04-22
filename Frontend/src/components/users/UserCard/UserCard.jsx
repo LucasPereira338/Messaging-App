@@ -1,15 +1,15 @@
 import * as styles from "./UserCard.module.css";
 
-function UserCard({ user, talkingWith, handleTalkingWith }) {
+function UserCard({ user, talkingWith = "null", handleTalkingWith = "null" }) {
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + user.portrait;
 
   return (
     <div
-      id={talkingWith == user.id ? styles.userCardActive : styles.userCard}
+      id={talkingWith.id == user.id ? styles.userCardActive : styles.userCard}
       className="general-borders"
       data-testid="container"
-      onClick={() => handleTalkingWith(user.id)}
+      onClick={() => handleTalkingWith(user)}
     >
       <img
         src={portrait}

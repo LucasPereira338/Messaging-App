@@ -4,30 +4,29 @@ import { fetchUsersInList } from "../../../services/userServices";
 import { pushUniqueIds } from "../../../helpers/arrayHelpers";
 import { useState, useEffect } from "react";
 
-function MessageSidebar({ messages }) {
+function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
   const [users, setUsers] = useState([{ id: 0, name: "pending..." }]);
-  const [talkingWith, setTalkingWith] = useState("none");
 
   useEffect(() => {
-    if (typeof messages !== "undefined") {
-      const fetchUsers = async () => {
-        const arr = messages.data;
+    if (typeof messages.data !== "undefined") {
+      try {
+        const fetchUsers = async () => {
+          const arr = messages.data;
 
-        const messagesIds = [];
-        pushUniqueIds(messagesIds, arr);
+          const messagesIds = [];
+          pushUniqueIds(messagesIds, arr);
 
-        const obj = { data: messagesIds, token: messages.token };
-        const response = await fetchUsersInList(obj);
+          const obj = { data: messagesIds, token: messages.token };
+          const response = await fetchUsersInList(obj);
 
-        setUsers(response);
-      };
-      fetchUsers();
+          setUsers(response);
+        };
+        fetchUsers();
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [messages]);
-
-  const handleTalkingWith = (id) => {
-    setTalkingWith(id);
-  };
 
   return (
     <div
