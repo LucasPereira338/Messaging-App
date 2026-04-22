@@ -10,7 +10,7 @@
   grid-column-start: 1;
   grid-column-end: 4;
   border: groove 1px #dedede;
-  background-color: blue;
+  background-color: #f2f2f6;
 }
 
 .cardPortrait {
