@@ -1,8 +1,8 @@
 import { useLocation } from "react-router";
-import UserCard from "../components/users/UserCard/UserCard";
-import ChatBox from "../components/messages/ChatBox/ChatBox";
-import MessageSidebar from "../components/messages/MessageSidebar/MessageSidebar";
-import { fetchUserMessages } from "../services/messageServices";
+import UserCard from "../../components/users/UserCard/UserCard";
+import ChatBox from "../../components/messages/ChatBox/ChatBox";
+import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
+import { fetchUserMessages } from "../../services/messageServices";
 import { useEffect, useState } from "react";
 import * as styles from "./MessageBoard.module.css";
 
