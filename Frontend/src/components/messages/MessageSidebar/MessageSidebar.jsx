@@ -4,7 +4,7 @@ import { fetchUsersInList } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 
 function MessageSidebar({ messages }) {
-  const [users, setUsers] = useState([{ id: 0, content: "pending..." }]);
+  const [users, setUsers] = useState([{ id: 0, name: "pending..." }]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -36,7 +36,7 @@ function MessageSidebar({ messages }) {
     >
       <h3 className={styles.messagesSidebarTitle}> Messages </h3>
       {users.map((item) => {
-        return <UserCard key={item.id} user={item} message={messages[0]} />;
+        return <UserCard key={item.id} user={item} />;
       })}
     </div>
   );

@@ -1,6 +1,6 @@
 import * as styles from "./UserCard.module.css";
 
-function UserCard({ user, message }) {
+function UserCard({ user }) {
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + user.portrait;
 
@@ -17,11 +17,7 @@ function UserCard({ user, message }) {
       />
       <div className={styles.userInfo}>
         <div className={styles.cardName}>{user.name}</div>
-        {message ? (
-          <div> {message.content} </div>
-        ) : (
-          <div className={styles.cardUsername}>{user.username}</div>
-        )}
+        <div className={styles.cardUsername}>{user.username}</div>
       </div>
     </div>
   );

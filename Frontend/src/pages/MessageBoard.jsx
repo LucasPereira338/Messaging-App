@@ -23,11 +23,9 @@ function MessageBoard() {
       for (let i = 0; i <= response.length - 1; i++) {
         allMessages[i].userId = userId;
       }
-      console.log("all messages: ");
-      console.log(allMessages);
+
       const result = { data: allMessages, token: token };
-      console.log("result (mb): ");
-      console.log(result);
+
       setMessages(result);
     };
     fetchMessages();
