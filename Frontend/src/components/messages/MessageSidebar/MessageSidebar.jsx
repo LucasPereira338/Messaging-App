@@ -9,8 +9,7 @@ function MessageSidebar({ messages }) {
   useEffect(() => {
     const fetchUsers = async () => {
       const arr = messages.data;
-      console.log("arr; ");
-      console.log(arr);
+
       const messagesIds = [];
       for (let i = 0; i <= arr.length - 1; i++) {
         if (!messagesIds.includes(arr[i].authorId)) {
@@ -20,12 +19,10 @@ function MessageSidebar({ messages }) {
           messagesIds.push(arr[i].receiverId);
         }
       }
-      console.log("messages ids: ");
-      console.log(messagesIds);
+
       const obj = { data: messagesIds, token: messages.token };
       const response = await fetchUsersInList(obj);
-      console.log("users fetched from list: ");
-      console.log(response);
+
       setUsers(response);
     };
     fetchUsers();
