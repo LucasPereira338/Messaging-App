@@ -5,6 +5,14 @@
   border: groove 1px #dedede;
 }
 
+#userCardActive {
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  border: groove 1px #dedede;
+  background-color: blue;
+}
+
 .cardPortrait {
   max-width: 50px;
   border-radius: 50%;

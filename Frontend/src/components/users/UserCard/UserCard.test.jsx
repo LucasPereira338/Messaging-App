@@ -12,4 +12,12 @@ describe("UserCard", () => {
 
     expect(container).toBeInTheDocument();
   });
+
+  it("should render the user's profile picture", () => {
+    render(<UserCard user={user} />);
+
+    const image = screen.getByRole("img");
+
+    expect(image).toBeInTheDocument();
+  });
 });
