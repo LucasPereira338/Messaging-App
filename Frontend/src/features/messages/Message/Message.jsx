@@ -10,6 +10,7 @@ function Message({ message }) {
     <div
       id={isAuthor ? styles.messageContainerAuthor : styles.messageContainer}
       className="general-borders"
+      aria-label="message"
     >
       {isAuthor ? (
         <div id={styles.messageContentAuthor} className={styles.messageContent}>
