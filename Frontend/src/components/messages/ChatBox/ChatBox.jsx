@@ -11,6 +11,12 @@ function ChatBox({ user, talkingWith }) {
   const [messages, setMessages] = useState([
     { id: "0", content: "pending..." },
   ]);
+
+  const [isNewMessage, setIsNewMessage] = useState(false);
+
+  const updateIsNewMessage = (value) => {
+    setIsNewMessage(+value);
+  };
   useEffect(() => {
     const fetchChat = async () => {
       const result = await fetchChatMessages(user, talkingWith);
@@ -20,13 +26,17 @@ function ChatBox({ user, talkingWith }) {
       setMessages(result);
     };
     fetchChat();
-  }, [user, talkingWith]);
+  }, [user, talkingWith, isNewMessage]);
 
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
       <UserCard user={talkingWith} />
       <ChatMessages messages={messages} />
-      <MessageInput />
+      <MessageInput
+        user={talkingWith}
+        talkingWith={talkingWith}
+        updateIsNewMessage={updateIsNewMessage}
+      />
     </div>
   );
 }
