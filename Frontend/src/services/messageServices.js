@@ -23,3 +23,18 @@ export async function fetchChatMessages(author, receiver) {
 
     return response.json()
 }
+
+export async function postNewMessage(data) {
+    const backend= import.meta.env.VITE_BACKEND;
+
+    const url = backend + "messages/"
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + data.token
+        },
+        body: JSON.stringify(data)
+    })
+
+    return response.json()
+}
