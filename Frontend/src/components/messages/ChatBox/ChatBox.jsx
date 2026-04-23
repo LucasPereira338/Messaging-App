@@ -14,7 +14,6 @@ function ChatBox({ user, talkingWith }) {
   useEffect(() => {
     const fetchChat = async () => {
       const result = await fetchChatMessages(user, talkingWith);
-      console.log(result);
 
       addUserId(result, user.id);
 

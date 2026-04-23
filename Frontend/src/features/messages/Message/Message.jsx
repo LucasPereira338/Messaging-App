@@ -7,11 +7,21 @@ function Message({ message }) {
   const isAuthor = message.userId == message.authorId ? true : false;
 
   return (
-    <div id={styles.messageContainer} className="general-borders">
+    <div
+      id={isAuthor ? styles.messageContainerAuthor : styles.messageContainer}
+      className="general-borders"
+    >
       {isAuthor ? (
-        <div id={styles.messageContentAuthor}> {message.content} </div>
+        <div id={styles.messageContentAuthor} className={styles.messageContent}>
+          {message.content}
+        </div>
       ) : (
-        <div id={styles.messageContentReceiver}> {message.content} </div>
+        <div
+          id={styles.messageContentReceiver}
+          className={styles.messageContent}
+        >
+          {message.content}
+        </div>
       )}
     </div>
   );

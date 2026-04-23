@@ -37,14 +37,12 @@ function MessageBoard() {
 
   useEffect(() => {
     if (typeof messages.data !== "undefined") {
-      console.log("fetching last user talked to: ");
       const fetchTalkingWith = async () => {
         const id =
           messages.data[0].userId == messages.data[0].authorId
             ? messages.data[0].receiverId
             : messages.data[0].authorId;
         const result = await fetchUser({ id: id });
-        console.log(result);
 
         setTalkingWith(result);
       };
