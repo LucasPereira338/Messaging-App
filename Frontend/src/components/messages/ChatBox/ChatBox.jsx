@@ -15,7 +15,7 @@ function ChatBox({ user, talkingWith }) {
   const [isNewMessage, setIsNewMessage] = useState(false);
 
   const updateIsNewMessage = (value) => {
-    setIsNewMessage(+value);
+    setIsNewMessage(isNewMessage + value);
   };
   useEffect(() => {
     const fetchChat = async () => {
