@@ -11,6 +11,9 @@ export function pushUniqueIds(uniqueIds, allIds) { //except the user currently l
 }
 
 export function addUserId(messages, userId) {
+  if (typeof messages == 'undefined') {
+    return "undefined 'array'"
+  }
   for (let i = 0; i <= messages.length - 1; i++) {
         messages[i].userId = userId;
       }
