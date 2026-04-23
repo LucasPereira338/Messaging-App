@@ -17,8 +17,22 @@ const talkingWith = {
 };
 const handleTalkingWith = vi.fn();
 describe("UserCard", () => {
-  it("should render the main container", () => {
+  it("should render the main container with only the mandatory prop", () => {
     render(<UserCard user={user} />);
+
+    const container = screen.getByTestId("container");
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it("should render the main container with all optional props included", () => {
+    render(
+      <UserCard
+        user={user}
+        talkingWith={talkingWith}
+        handleTalkingWith={handleTalkingWith}
+      />,
+    );
 
     const container = screen.getByTestId("container");
 
