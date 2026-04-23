@@ -20,7 +20,7 @@ async function getMessagesByChat(req, res) {
             ]
         },
         orderBy: {
-            createdAt: 'desc'
+            createdAt: 'asc'
         }
     })
 

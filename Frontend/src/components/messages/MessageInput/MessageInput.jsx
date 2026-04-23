@@ -8,6 +8,8 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
     const formData = new FormData(event.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
 
+    formValues.token = user.token;
+
     await postNewMessage(formValues);
 
     updateIsNewMessage(1);

@@ -33,7 +33,7 @@ function ChatBox({ user, talkingWith }) {
       <UserCard user={talkingWith} />
       <ChatMessages messages={messages} />
       <MessageInput
-        user={talkingWith}
+        user={user}
         talkingWith={talkingWith}
         updateIsNewMessage={updateIsNewMessage}
       />
