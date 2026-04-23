@@ -1,8 +1,8 @@
 import * as styles from "./ChatBox.module.css";
-import MessageInput from "../MessageInput/MessageInput";
+import MessageInput from "../../../features/messages/MessageInput/MessageInput";
 import UserCard from "../../users/UserCard/UserCard";
-import Message from "../../../features/messages/Message/Message";
-import ChatMessages from "../../../features/messages/ChatMessages/ChatMessages";
+import Message from "../Message/Message";
+import ChatMessages from "../ChatMessages/ChatMessages";
 import { fetchChatMessages } from "../../../services/messageServices";
 import { addUserId } from "../../../helpers/arrayHelpers";
 import { useState, useEffect } from "react";
