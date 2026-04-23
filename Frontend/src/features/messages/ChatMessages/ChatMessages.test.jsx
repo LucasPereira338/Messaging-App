@@ -1,0 +1,15 @@
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import ChatMessages from "./ChatMessages";
+
+const messages = [{ content: "testing" }];
+
+describe("Chat Messages", () => {
+  it("Renders the chat messages", () => {
+    render(<ChatMessages messages={messages} />);
+
+    const chatMsgs = screen.getByLabelText("chat-messages");
+
+    expect(chatMsgs).toBeInTheDocument();
+  });
+});
