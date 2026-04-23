@@ -35,7 +35,7 @@ function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
       data-testid="MessageSidebar"
     >
       <h3 className={styles.messagesSidebarTitle}> Messages </h3>
-      {typeof messages == "undefined" ? (
+      {typeof users == "undefined" ? (
         <div>Loading...</div>
       ) : (
         <div>
