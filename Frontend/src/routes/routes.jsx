@@ -1,5 +1,6 @@
 import Home from "../pages/Home";
 import MessageBoard from "../pages/MessageBoard/MessageBoard";
+import Profile from "../pages/Profile";
 import { createBrowserRouter } from "react-router";
 
 const routes = createBrowserRouter([
@@ -8,8 +9,12 @@ const routes = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "messages",
+    path: "/messages",
     element: <MessageBoard />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 

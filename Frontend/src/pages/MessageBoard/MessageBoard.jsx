@@ -6,6 +6,7 @@ import { addUserId } from "../../helpers/arrayHelpers";
 import { fetchUserMessages } from "../../services/messageServices";
 import { fetchUser } from "../../services/userServices";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {
@@ -18,6 +19,7 @@ function MessageBoard() {
     id: 0,
     name: "fetching... ",
   });
+  let navigate = useNavigate();
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -50,6 +52,12 @@ function MessageBoard() {
     }
   }, [messages]);
 
+  useEffect(() => {
+    if (talkingWith.id == user.id) {
+      navigate("/profile", { state: user });
+    }
+  }, [talkingWith, navigate, user]);
+
   const handleTalkingWith = (twData) => {
     const twUserData = twData;
     twUserData.token = token;
@@ -65,7 +73,7 @@ function MessageBoard() {
       />
       <ChatBox user={user} talkingWith={talkingWith} />
       <div id="loggedUser" className="general-borders">
-        <UserCard user={user} />
+        <UserCard user={user} handleTalkingWith={handleTalkingWith} />
       </div>
     </div>
   );
