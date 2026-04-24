@@ -64,6 +64,9 @@ function MessageBoard() {
         handleTalkingWith={handleTalkingWith}
       />
       <ChatBox user={user} talkingWith={talkingWith} />
+      <div id="loggedUser" className="general-borders">
+        <UserCard user={user} />
+      </div>
     </div>
   );
 }

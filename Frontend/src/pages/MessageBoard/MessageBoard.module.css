@@ -2,8 +2,14 @@
   display: grid;
   height: 100vh;
   grid-template-columns: 2fr 8fr;
-  grid-template-rows: 1.5fr 8.5fr;
-  /* old methods
+  grid-template-rows: 1.5fr 8fr 0.5fr;
+}
+/* old methods
   display: flex;
   flex-direction: column; */
+
+#loggedUser {
+  grid-row-start: 3;
+  grid-row-end: 3;
+  grid-column-start: 1;
 }
