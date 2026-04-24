@@ -38,7 +38,13 @@ async function postLogin(req, res) {
     const user = await prisma.user.findUnique({
         where: {
             username: req.body.username
-        }
+        },
+        omit: {
+            createdAt: true,
+            updatedAt: true,
+            isAdmin: true,
+            background: true
+        },
     })
 
     if (!user) {
@@ -50,6 +56,8 @@ async function postLogin(req, res) {
     if (!match) {
         return res.json({message: "wrong password"})
     }
+
+    delete user.password
 
     token = jwt.generateAccessToken(user)
 
