@@ -42,6 +42,7 @@ async function postLogin(req, res) {
         omit: {
             createdAt: true,
             updatedAt: true,
+            description: true,
             isAdmin: true,
             background: true
         },

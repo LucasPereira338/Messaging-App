@@ -1,7 +1,7 @@
 import LoginForm from "../features/auth/LoginForm/LoginForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-
+// issue: i don't really, nor should i, send the user object back on login, since i already have what i need on the token
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState();
