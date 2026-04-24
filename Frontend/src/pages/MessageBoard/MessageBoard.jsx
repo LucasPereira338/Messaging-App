@@ -1,4 +1,3 @@
-import { useLocation } from "react-router";
 import UserCard from "../../components/users/UserCard/UserCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
@@ -6,7 +5,7 @@ import { addUserId } from "../../helpers/arrayHelpers";
 import { fetchUserMessages } from "../../services/messageServices";
 import { fetchUser } from "../../services/userServices";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {

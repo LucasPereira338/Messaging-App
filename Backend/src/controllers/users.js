@@ -15,10 +15,6 @@ async function getUser(req, res) {
 async function getUsersInList(req, res) {
     const strList = req.params.usersIds.split(',')
 
-    if (req.user.id != strList[0] && req.user.id != strList[1]) {
-        return res.status(401).json({message: "unauthorized"})
-    }
-
     const users = await prisma.user.findMany({
         where: {
             id: {
