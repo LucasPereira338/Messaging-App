@@ -1,14 +1,33 @@
 import * as styles from "./ProfileForm.module.css";
 import { useState } from "react";
+import { capitalize } from "../../../helpers/strHelpers";
 // fixing the rest of the app to avoid sending unnecessary data deletion should be implemented later
 function ProfileForm({ user }) {
-  const userKeysArray = Object.keys(user);
-  const [userArray, setUserArray] = useState(Object.values(user));
-  console.log(userArray);
+  const backend = import.meta.env.VITE_BACKEND;
+  const portrait = backend + "assets/" + user.portrait;
+  console.log("user obj: ");
+  console.log(user);
 
-  const capitalize = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
+  const userKeysArray = Object.keys(user);
+  const userKeys = userKeysArray.filter((item) => {
+    if (item != "portrait" && item != "token") {
+      return item;
+    }
+  });
+  console.log("userkeys: ");
+  console.log(userKeys);
+  const userValues = Object.values(user);
+  const filteredUserValues = userValues.filter((item) => {
+    if (item != user.portrait && item != user.token) {
+      if (item === null) {
+        return " ";
+      } else {
+        return item;
+      }
+    }
+  });
+  const [userArray, setUserArray] = useState(filteredUserValues);
+  console.log(userArray);
 
   const handleChange = (event) => {
     setUserArray(event.target.value);
@@ -16,23 +35,24 @@ function ProfileForm({ user }) {
 
   return (
     <div className="general-borders">
+      <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
       <form>
         {userArray.map((item, ind) => {
           return (
-            <div key={ind} className={styles.labelInputContainer}>
-              {userKeysArray[ind] != "id" && userKeysArray[ind] != "token" ? (
-                <label htmlFor={userKeysArray[ind]}>
-                  {capitalize(userKeysArray[ind])}:{" "}
+            <div key={ind} id={styles.labelInputContainer}>
+              {userKeys[ind] != "id" && userKeys[ind] != "token" ? (
+                <label htmlFor={userKeys[ind]}>
+                  {capitalize(userKeys[ind])}:{" "}
                 </label>
               ) : null}
               <input
                 type={
-                  userKeysArray[ind] == "id" || userKeysArray[ind] == "token"
+                  userKeys[ind] == "id" || userKeys[ind] == "token"
                     ? "hidden"
                     : "text"
                 }
                 name={item}
-                value={item}
+                value={item == null ? "" : item}
                 onChange={handleChange}
               />
             </div>
