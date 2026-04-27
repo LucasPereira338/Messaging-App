@@ -58,3 +58,19 @@ export async function fetchUsersInList(data) {
 
     return response.json()
 }
+
+export async function updateUser(data) {
+    const backend = import.meta.env.VITE_BACKEND;
+
+    const url = backend + "users/"
+
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: { "Authorization": "Bearer " + data.token},
+        body: data
+        
+    })
+
+    return response.json()
+
+}

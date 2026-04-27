@@ -2,6 +2,7 @@ import * as styles from "./ProfileForm.module.css";
 import { useState } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
 import { filterArrayValues } from "../../../helpers/arrayHelpers";
+import { updateUser } from "../../../services/userServices";
 // fixing the rest of the app to avoid sending unnecessary data to be deleted later like in here should be implemented later
 function ProfileForm({ user }) {
   const backend = import.meta.env.VITE_BACKEND;
@@ -14,19 +15,44 @@ function ProfileForm({ user }) {
     }
   });
 
+  console.log("userKeys: ");
+  console.log(userKeys);
+
   const userValues = Object.values(user);
   const filteredUserValues = filterArrayValues(userValues, user);
 
   const [userArray, setUserArray] = useState(filteredUserValues);
 
+  console.log("userArray: ");
+  console.log(userArray);
+
   const handleChange = (event) => {
     setUserArray(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    console.log("formdata:");
+    console.log(formData);
+    formData.token = user.token;
+    const formValues = Object.fromEntries(formData.entries());
+    formValues.token = user.token;
+    console.log("formValues: ");
+    console.log(formValues);
+
+    const result = await updateUser(formData);
+
+    console.log(result);
   };
 
   return (
     <div id={styles.profileForm} className="general-borders">
       <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
-      <form>
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <label htmlFor="portrait">Portrait: </label>
+        <input type="file" name="portrait" />
         {userArray.map((item, ind) => {
           return (
             <div key={ind} id={styles.labelInputContainer}>
@@ -41,7 +67,7 @@ function ProfileForm({ user }) {
                     ? "hidden"
                     : "text"
                 }
-                name={item}
+                name={userKeys[ind]}
                 value={item == null ? "" : item}
                 onChange={handleChange}
               />
