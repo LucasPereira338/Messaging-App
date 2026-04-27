@@ -22,3 +22,16 @@ export function addUserId(messages, userId) {
         messages[i].userId = userId;
       }
 }
+
+export function filterArrayValues(arr, obj) {
+  const newArr = arr.filter((item) => {
+    if (item != obj.portrait && item != obj.token) {
+      if (item === null) {
+        return " ";
+      } else {
+        return item;
+      }
+    }
+  });
+  return newArr
+}

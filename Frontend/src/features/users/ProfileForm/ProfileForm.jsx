@@ -1,6 +1,7 @@
 import * as styles from "./ProfileForm.module.css";
 import { useState } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
+import { filterArrayValues } from "../../../helpers/arrayHelpers";
 // fixing the rest of the app to avoid sending unnecessary data deletion should be implemented later
 function ProfileForm({ user }) {
   const backend = import.meta.env.VITE_BACKEND;
@@ -17,15 +18,9 @@ function ProfileForm({ user }) {
   console.log("userkeys: ");
   console.log(userKeys);
   const userValues = Object.values(user);
-  const filteredUserValues = userValues.filter((item) => {
-    if (item != user.portrait && item != user.token) {
-      if (item === null) {
-        return " ";
-      } else {
-        return item;
-      }
-    }
-  });
+  const filteredUserValues = filterArrayValues(userValues, user);
+  console.log("filtered user values");
+  console.log(filteredUserValues);
   const [userArray, setUserArray] = useState(filteredUserValues);
   console.log(userArray);
 
