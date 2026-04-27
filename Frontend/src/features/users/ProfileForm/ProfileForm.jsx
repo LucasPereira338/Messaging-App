@@ -6,8 +6,6 @@ import { filterArrayValues } from "../../../helpers/arrayHelpers";
 function ProfileForm({ user }) {
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + user.portrait;
-  console.log("user obj: ");
-  console.log(user);
 
   const userKeysArray = Object.keys(user);
   const userKeys = userKeysArray.filter((item) => {
@@ -15,14 +13,11 @@ function ProfileForm({ user }) {
       return item;
     }
   });
-  console.log("userkeys: ");
-  console.log(userKeys);
+
   const userValues = Object.values(user);
   const filteredUserValues = filterArrayValues(userValues, user);
-  console.log("filtered user values");
-  console.log(filteredUserValues);
+
   const [userArray, setUserArray] = useState(filteredUserValues);
-  console.log(userArray);
 
   const handleChange = (event) => {
     setUserArray(event.target.value);
