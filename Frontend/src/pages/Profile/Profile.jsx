@@ -1,10 +1,11 @@
 import { useLocation } from "react-router";
-import ProfileForm from "../features/users/ProfileForm/ProfileForm";
+import ProfileForm from "../../features/users/ProfileForm/ProfileForm";
+import * as styles from "./Profile.module.css";
 
 function Profile() {
   let user = useLocation().state;
   return (
-    <div className="profile">
+    <div className={styles.profile}>
       <ProfileForm user={user} />
     </div>
   );

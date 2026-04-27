@@ -1,6 +1,6 @@
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 import MessageBoard from "../pages/MessageBoard/MessageBoard";
-import Profile from "../pages/Profile";
+import Profile from "../pages/Profile/Profile";
 import { createBrowserRouter } from "react-router";
 
 const routes = createBrowserRouter([

@@ -1,4 +1,4 @@
-import SignUpForm from "../features/auth/SignUpForm/SignUpForm";
+import SignUpForm from "../../features/auth/SignUpForm/SignUpForm";
 
 function Registration() {
   return (

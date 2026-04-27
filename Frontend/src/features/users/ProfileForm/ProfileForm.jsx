@@ -2,7 +2,7 @@ import * as styles from "./ProfileForm.module.css";
 import { useState } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
 import { filterArrayValues } from "../../../helpers/arrayHelpers";
-// fixing the rest of the app to avoid sending unnecessary data deletion should be implemented later
+// fixing the rest of the app to avoid sending unnecessary data to be deleted later like in here should be implemented later
 function ProfileForm({ user }) {
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + user.portrait;
@@ -29,7 +29,7 @@ function ProfileForm({ user }) {
   };
 
   return (
-    <div className="general-borders">
+    <div id={styles.profileForm} className="general-borders">
       <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
       <form>
         {userArray.map((item, ind) => {
