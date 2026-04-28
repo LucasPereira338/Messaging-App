@@ -6,11 +6,12 @@
 .full-page {
   height: 100vh;
   font-family: "Miranda Sans", sans-serif, serif;
-  /* for use with header and footer included:
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 8fr 1fr;
-  */
+  display: grid;
+  grid-template-rows: 1fr 8fr 1fr;
+}
+
+.header-footer {
+  background-color: #5992c6;
 }
 
 .general-borders {

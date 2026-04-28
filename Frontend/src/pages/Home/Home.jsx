@@ -1,6 +1,7 @@
 import LoginForm from "../../features/auth/LoginForm/LoginForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import * as styles from "./Home.module.css";
 // issue: i don't really, nor should i, send the user object back on login, since i already have what i need on the token
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,7 +15,7 @@ function Home() {
   }, [isLoggedIn, navigate, user]);
 
   return (
-    <div className="home">
+    <div id={styles.home}>
       <LoginForm setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
     </div>
   );

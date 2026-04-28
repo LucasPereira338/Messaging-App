@@ -1,8 +1,7 @@
-.header {
+#header {
   display: grid;
   grid-template-columns: 2.25fr 2.25fr 2.25fr 2.25fr;
   grid-template-rows: 0.33fr 0.33fr 0.33fr;
-  border: 5px double black;
 }
 
 .headerTitle {

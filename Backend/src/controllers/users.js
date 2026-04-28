@@ -87,10 +87,6 @@ async function postNewUser(req, res) {
 }
 
 async function updateUser(req, res) {
-    console.log('file:')
-    console.log(req.file)
-    console.log('body: ')
-    console.log(req.body)
 
     const path = req.file.path.slice(7)
     

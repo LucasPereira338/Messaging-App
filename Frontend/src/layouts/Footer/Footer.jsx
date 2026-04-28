@@ -2,7 +2,7 @@ import * as styles from "./Footer.module.css";
 
 function Footer() {
   return (
-    <div className={styles.footer}>
+    <div id={styles.footer} className="header-footer">
       <h3 className={styles.footerHeading}>Copyright</h3>
     </div>
   );
