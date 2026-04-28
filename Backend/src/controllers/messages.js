@@ -41,7 +41,7 @@ async function getMessage(req, res) {
     res.json(message)
 }
 
-async function getAllUserMessages(req, res) {
+async function getAllUserChatPartners(req, res) {
     
     if (req.user.id != req.params.userId) {
         return res.status(401).json({message: "Unauthorized"})
@@ -53,7 +53,11 @@ async function getAllUserMessages(req, res) {
                 {authorId: req.params.userId},
                 {receiverId: req.params.userId}
             ]
-        }
+        },
+        select: {
+            authorId: true,
+            receiverId: true
+        } 
     })
 
     res.json(messages)
@@ -155,7 +159,7 @@ async function deleteMessage(req, res) {
 module.exports = {
     getMessagesByChat,
     getMessage,
-    getAllUserMessages,
+    getAllUserChatPartners,
     getMessagesByAuthor,
     getMessagesByReceiver,
     getAllMessages,

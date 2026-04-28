@@ -9,7 +9,7 @@ messages.get('/:authorId/chat/:receiverId', passport.authenticate('jwt', {sessio
 messages.get('/:id', passport.authenticate('jwt', {session: false}), (req, res) => controllers.getMessage(req, res))
 
 messages.get('/user/:userId', passport.authenticate('jwt', {session: false}), 
-(req, res) => controllers.getAllUserMessages(req, res))
+(req, res) => controllers.getAllUserChatPartners(req, res))
 
 messages.get('/author/:authorId', passport.authenticate('jwt', {session: false}), 
 (req, res) => controllers.getMessagesByAuthor(req, res))
