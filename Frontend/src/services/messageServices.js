@@ -4,8 +4,10 @@ export async function fetchUserMessages(data) {
     
     const url = backend + 'messages/user/' + data.id;
 
+    const token = localStorage.getItem('token')
+    
     const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + data.token
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
         }
     })
     return response.json()
@@ -16,8 +18,10 @@ export async function fetchChatMessages(author, receiver) {
 
     const url = backend + "messages/" + author.id + "/chat/" + receiver.id
 
+    const token = localStorage.getItem('token')
+
     const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + author.token
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
         }
     })
 
@@ -29,9 +33,11 @@ export async function postNewMessage(data) {
 
     const url = backend + "messages/"
 
+    const token = localStorage.getItem('token')
+    
     const response = await fetch(url, {
         method: 'POST',
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + data.token
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
         },
         body: JSON.stringify(data)
     })

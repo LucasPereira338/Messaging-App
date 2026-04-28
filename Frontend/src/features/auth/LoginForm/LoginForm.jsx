@@ -1,4 +1,5 @@
 import * as styles from "./LoginForm.module.css";
+import Button from "../../../components/ui/Button/Button";
 import { fetchLogin } from "../../../services/userServices";
 
 function LoginForm({ setIsLoggedIn, setUser }) {
@@ -15,6 +16,7 @@ function LoginForm({ setIsLoggedIn, setUser }) {
     if (typeof result === "object") {
       resCount = Object.keys(result).length;
       if (resCount > 1) {
+        localStorage.setItem("token", result.token);
         setIsLoggedIn(true);
         setUser(result);
       } else {
@@ -25,23 +27,45 @@ function LoginForm({ setIsLoggedIn, setUser }) {
   // the value and readOnly must be removed later
   return (
     <div className={styles.loginContainer}>
+      <section className={styles.loginNotForm}>
+        <div>Log into your account</div>
+      </section>
+
       <form
         aria-label="login-form"
         className={styles.loginForm}
         onSubmit={handleClick}
       >
-        <label htmlFor="username">Username: </label>
-        <input
-          type="text"
-          name="username"
-          value="jonathan32"
-          required
-          readOnly
-        />
-        <label htmlFor="password">Password: </label>
-        <input type="password" name="password" value="123" required readOnly />
-        <button type="submit">Login</button>
+        <div id={styles.labelInpUnit}>
+          <label htmlFor="username">Username: </label>
+          <input
+            type="text"
+            name="username"
+            value="jonathan32"
+            required
+            readOnly
+          />
+        </div>
+        <div id={styles.labelInpUnit}>
+          <label htmlFor="password">Password: </label>
+          <input
+            type="password"
+            name="password"
+            value="123"
+            required
+            readOnly
+          />
+        </div>
+
+        <button type="submit" id={styles.btn}>
+          Log in
+        </button>
       </form>
+
+      <section className={styles.loginNotForm}>
+        <div>Don't have an account? </div>
+        <Button />
+      </section>
     </div>
   );
 }

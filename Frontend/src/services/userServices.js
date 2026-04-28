@@ -20,7 +20,7 @@ export async function fetchLogin(data) {
     const backend = import.meta.env.VITE_BACKEND
 
     const url = backend + "users/log-in"
-    
+
     const response = await fetch(url, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -50,9 +50,11 @@ export async function fetchUsersInList(data) {
 
     const url = backend + "users/chats/" + data.data
 
+    const token = localStorage.getItem('token')
+
     const response = await fetch(url, {
         headers: {'Content-Type': 'application/json',
-            "Authorization": "Bearer " + data.token
+            "Authorization": "Bearer " + token
         }
     })
 
@@ -64,9 +66,11 @@ export async function updateUser(data) {
 
     const url = backend + "users/"
 
+    const token = localStorage.getItem('token')
+
     const response = await fetch(url, {
         method: "PUT",
-        headers: { "Authorization": "Bearer " + data.token},
+        headers: { "Authorization": "Bearer " + token},
         body: data
         
     })
