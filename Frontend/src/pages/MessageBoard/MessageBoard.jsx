@@ -11,7 +11,6 @@ import * as styles from "./MessageBoard.module.css";
 function MessageBoard() {
   let user = useLocation().state;
   const userId = user.id;
-  const token = user.token;
 
   const [messages, setMessages] = useState([{ id: 0, content: "loading..." }]);
   const [talkingWith, setTalkingWith] = useState({
@@ -24,17 +23,16 @@ function MessageBoard() {
     const fetchMessages = async () => {
       const response = await fetchUserMessages({
         id: userId,
-        token: token,
       });
       let allMessages = response;
       addUserId(allMessages, userId);
 
-      const result = { data: allMessages, token: token };
+      const result = { data: allMessages };
 
       setMessages(result);
     };
     fetchMessages();
-  }, [token, userId]);
+  }, [userId]);
 
   useEffect(() => {
     if (typeof messages.data !== "undefined") {
@@ -59,7 +57,6 @@ function MessageBoard() {
 
   const handleTalkingWith = (twData) => {
     const twUserData = twData;
-    twUserData.token = token;
     setTalkingWith(twUserData);
   };
 

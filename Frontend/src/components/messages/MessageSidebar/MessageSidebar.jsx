@@ -16,7 +16,7 @@ function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
           const messagesIds = [];
           pushUniqueIds(messagesIds, arr);
 
-          const obj = { data: messagesIds, token: messages.token };
+          const obj = { data: messagesIds };
 
           const response = await fetchUsersInList(obj);
 
