@@ -23,7 +23,7 @@ export function addUserId(messages, userId) {
       }
 }
 
-export function filterArrayValues(arr, obj) {
+export function filterUserValues(arr, obj) {
   const newArr = arr.filter((item) => {
     if (item != obj.portrait && item != obj.token) {
       if (item === null) {
@@ -31,6 +31,15 @@ export function filterArrayValues(arr, obj) {
       } else {
         return item;
       }
+    }
+  });
+  return newArr
+}
+
+export function filterKeysArray(arr) {
+  const newArr = arr.filter((item) => {
+    if (item != "portrait" && item != "token") {
+      return item;
     }
   });
   return newArr

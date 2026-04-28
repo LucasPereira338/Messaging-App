@@ -1,7 +1,10 @@
 import * as styles from "./ProfileForm.module.css";
 import { useState } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
-import { filterArrayValues } from "../../../helpers/arrayHelpers";
+import {
+  filterUserValues,
+  filterKeysArray,
+} from "../../../helpers/arrayHelpers";
 import { updateUser } from "../../../services/userServices";
 // fixing the rest of the app to avoid sending unnecessary data to be deleted later like in here should be implemented later
 function ProfileForm({ user }) {
@@ -9,22 +12,12 @@ function ProfileForm({ user }) {
   const portrait = backend + "assets/" + user.portrait;
 
   const userKeysArray = Object.keys(user);
-  const userKeys = userKeysArray.filter((item) => {
-    if (item != "portrait" && item != "token") {
-      return item;
-    }
-  });
-
-  console.log("userKeys: ");
-  console.log(userKeys);
+  const userKeys = filterKeysArray(userKeysArray);
 
   const userValues = Object.values(user);
-  const filteredUserValues = filterArrayValues(userValues, user);
+  const filteredUserValues = filterUserValues(userValues, user);
 
   const [userArray, setUserArray] = useState(filteredUserValues);
-
-  console.log("userArray: ");
-  console.log(userArray);
 
   const handleChange = (event) => {
     setUserArray(event.target.value);
@@ -34,13 +27,10 @@ function ProfileForm({ user }) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    console.log("formdata:");
-    console.log(formData);
+
     formData.token = user.token;
     const formValues = Object.fromEntries(formData.entries());
     formValues.token = user.token;
-    console.log("formValues: ");
-    console.log(formValues);
 
     const result = await updateUser(formData);
 
@@ -50,6 +40,7 @@ function ProfileForm({ user }) {
   return (
     <div id={styles.profileForm} className="general-borders">
       <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
+
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <label htmlFor="portrait">Portrait: </label>
         <input type="file" name="portrait" />
