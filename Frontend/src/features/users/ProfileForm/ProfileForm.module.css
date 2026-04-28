@@ -5,10 +5,46 @@
   object-fit: cover;
 }
 
-#profileForm {
+/*#portraitContainer {
+  position: absolute;
+}*/
+
+#portraitForm {
+  display: flex;
+  align-items: center;
+  margin-left: 200px;
+  gap: 5px;
+}
+
+input[type="file"] {
+  color: rgba(0, 0, 0, 0);
+}
+
+#profileFormContainer {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
+
+#profileForm {
+  margin-left: 170px;
+}
+
+#imgInpContainer {
+  display: flex;
+  align-items: center;
+}
+
+/*#imgInpOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0.5;
+}*/

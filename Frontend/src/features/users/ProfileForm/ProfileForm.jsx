@@ -18,10 +18,18 @@ function ProfileForm({ user }) {
   const filteredUserValues = filterUserValues(userValues, user);
 
   const [userArray, setUserArray] = useState(filteredUserValues);
-
+  // can use onMouseOver and onMouseLeave to handle overlay
   const handleChange = (event) => {
     setUserArray(event.target.value);
   };
+
+  /*const handleImageHover = () => {
+    setIsMouseOverImage(true);
+  };
+
+  const handleNonImageHover = () => {
+    setIsMouseOverImage(false);
+  };*/
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,8 +37,8 @@ function ProfileForm({ user }) {
     const formData = new FormData(event.currentTarget);
 
     formData.token = user.token;
-    const formValues = Object.fromEntries(formData.entries());
-    formValues.token = user.token;
+    console.log("sending: ");
+    console.log(formData);
 
     const result = await updateUser(formData);
 
@@ -38,12 +46,14 @@ function ProfileForm({ user }) {
   };
 
   return (
-    <div id={styles.profileForm} className="general-borders">
-      <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
-
+    <div id={styles.profileFormContainer} className="general-borders">
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
-        <label htmlFor="portrait">Portrait: </label>
-        <input type="file" name="portrait" />
+        <div id={styles.imgInpContainer}>
+          {" "}
+          <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
+          <input type="file" name="portrait" />
+        </div>
+
         {userArray.map((item, ind) => {
           return (
             <div key={ind} id={styles.labelInputContainer}>
