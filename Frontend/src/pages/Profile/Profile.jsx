@@ -6,7 +6,7 @@ function Profile() {
   let user = useLocation().state;
   return (
     <div className={styles.profile}>
-      <ProfileForm user={user} />
+      <ProfileForm userId={user.id} />
     </div>
   );
 }

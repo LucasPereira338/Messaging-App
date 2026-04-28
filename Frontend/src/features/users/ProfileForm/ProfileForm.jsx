@@ -1,27 +1,35 @@
 import * as styles from "./ProfileForm.module.css";
-import { useState } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
-import {
-  filterUserValues,
-  filterKeysArray,
-} from "../../../helpers/arrayHelpers";
-import { updateUser } from "../../../services/userServices";
+import { updateUser, fetchUser } from "../../../services/userServices";
+import { useState, useEffect } from "react";
+
 // fixing the rest of the app to avoid sending unnecessary data to be deleted later like in here should be implemented later
-function ProfileForm({ user }) {
+function ProfileForm({ userId }) {
   const backend = import.meta.env.VITE_BACKEND;
+  const [user, setUser] = useState({ id: 0, name: "pending..." });
+
   const portrait = backend + "assets/" + user.portrait;
 
-  const userKeysArray = Object.keys(user);
-  const userKeys = filterKeysArray(userKeysArray);
+  const userKeys = Object.keys(user);
+  console.log("userKeys:");
+  console.log(userKeys);
 
   const userValues = Object.values(user);
-  const filteredUserValues = filterUserValues(userValues, user);
+  console.log("userValues:");
+  console.log(userValues);
 
-  const [userArray, setUserArray] = useState(filteredUserValues);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      console.log("running useEffect");
+      const result = await fetchUser({ id: userId });
+      console.log("user result: ");
+      console.log(result);
+      setUser(result);
+    };
+    fetchUserData();
+  }, [userId]);
+
   // can use onMouseOver and onMouseLeave to handle overlay
-  const handleChange = (event) => {
-    setUserArray(event.target.value);
-  };
 
   /*const handleImageHover = () => {
     setIsMouseOverImage(true);
@@ -44,7 +52,9 @@ function ProfileForm({ user }) {
 
     console.log(result);
   };
-
+  //portrait being hidden down there is really unelegant, change this later
+  //and, of course, see if onChange useState can work for changing input values without creating a
+  // thousand useState variables
   return (
     <div id={styles.profileFormContainer} className="general-borders">
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -54,23 +64,22 @@ function ProfileForm({ user }) {
           <input type="file" name="portrait" />
         </div>
 
-        {userArray.map((item, ind) => {
+        {userValues.map((item, ind) => {
           return (
             <div key={ind} id={styles.labelInputContainer}>
-              {userKeys[ind] != "id" && userKeys[ind] != "token" ? (
+              {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
                 <label htmlFor={userKeys[ind]}>
                   {capitalize(userKeys[ind])}:{" "}
                 </label>
               ) : null}
               <input
                 type={
-                  userKeys[ind] == "id" || userKeys[ind] == "token"
+                  userKeys[ind] == "id" || userKeys[ind] == "portrait"
                     ? "hidden"
                     : "text"
                 }
                 name={userKeys[ind]}
                 value={item == null ? "" : item}
-                onChange={handleChange}
               />
             </div>
           );

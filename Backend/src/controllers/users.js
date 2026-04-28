@@ -6,6 +6,14 @@ async function getUser(req, res) {
     const user = await prisma.user.findUnique({
         where: {
             id: req.params.id
+        },
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true,
+            description: true,
+            portrait: true
         }
     })
 
@@ -20,6 +28,12 @@ async function getUsersInList(req, res) {
             id: {
                 in: strList
             }
+        },
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            portrait: true
         }
     })
 
@@ -39,11 +53,12 @@ async function postLogin(req, res) {
         where: {
             username: req.body.username
         },
-        omit: {
-            createdAt: true,
-            updatedAt: true,
-            isAdmin: true,
-            background: true
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            portrait: true,
+            password: true
         },
     })
 
@@ -101,6 +116,9 @@ async function updateUser(req, res) {
         },
         data: {
             ...req.body
+        },
+        omit: {
+            password: true
         }
     })
 
