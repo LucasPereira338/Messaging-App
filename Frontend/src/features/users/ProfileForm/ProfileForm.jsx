@@ -3,7 +3,6 @@ import { capitalize } from "../../../helpers/strHelpers";
 import { updateUser, fetchUser } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 
-// fixing the rest of the app to avoid sending unnecessary data to be deleted later like in here should be implemented later
 function ProfileForm({ userId }) {
   const backend = import.meta.env.VITE_BACKEND;
   const [user, setUser] = useState({ id: 0, name: "pending..." });
@@ -11,12 +10,8 @@ function ProfileForm({ userId }) {
   const portrait = backend + "assets/" + user.portrait;
 
   const userKeys = Object.keys(user);
-  console.log("userKeys:");
-  console.log(userKeys);
 
-  const userValues = Object.values(user);
-  console.log("userValues:");
-  console.log(userValues);
+  const [userValues, setUserValues] = useState(Object.values(user));
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,19 +20,19 @@ function ProfileForm({ userId }) {
       console.log("user result: ");
       console.log(result);
       setUser(result);
+      const newArr = Object.values(result);
+      newArr.pop();
+      setUserValues(Object.values(newArr));
     };
     fetchUserData();
   }, [userId]);
 
-  // can use onMouseOver and onMouseLeave to handle overlay
+  const handleChange = (event, ind) => {
+    const newValue = event.target.value;
+    const newArr = userValues.map((item, i) => (i == ind ? newValue : item));
 
-  /*const handleImageHover = () => {
-    setIsMouseOverImage(true);
+    setUserValues(newArr);
   };
-
-  const handleNonImageHover = () => {
-    setIsMouseOverImage(false);
-  };*/
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,16 +40,12 @@ function ProfileForm({ userId }) {
     const formData = new FormData(event.currentTarget);
 
     formData.token = user.token;
-    console.log("sending: ");
-    console.log(formData);
 
     const result = await updateUser(formData);
 
-    console.log(result);
+    setUser(result);
   };
-  //portrait being hidden down there is really unelegant, change this later
-  //and, of course, see if onChange useState can work for changing input values without creating a
-  // thousand useState variables
+
   return (
     <div id={styles.profileFormContainer} className="general-borders">
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -80,6 +71,7 @@ function ProfileForm({ userId }) {
                 }
                 name={userKeys[ind]}
                 value={item == null ? "" : item}
+                onChange={() => handleChange(event, ind)}
               />
             </div>
           );

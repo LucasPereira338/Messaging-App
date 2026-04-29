@@ -103,9 +103,14 @@ async function postNewUser(req, res) {
 
 async function updateUser(req, res) {
 
-    const path = req.file.path.slice(7)
+    let path;
+
+    if (typeof req.file !== "undefined") {
+        path = req.file.path.slice(7)
+        req.body.portrait = path
+    }
     
-    req.body.portrait = path
+    
     
     if (req.user.id != req.body.id) {
         return res.status(401).json({message:"unauthorized"})
