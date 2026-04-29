@@ -15,10 +15,8 @@ function ProfileForm({ userId }) {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log("running useEffect");
       const result = await fetchUser({ id: userId });
-      console.log("user result: ");
-      console.log(result);
+
       setUser(result);
       const newArr = Object.values(result);
       newArr.pop();
