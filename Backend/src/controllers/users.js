@@ -24,6 +24,7 @@ async function getUsersInList(req, res) {
     const strList = req.params.usersIds.split(',')
 
     const users = await prisma.user.findMany({
+        take: 5,
         where: {
             id: {
                 in: strList
@@ -34,15 +35,34 @@ async function getUsersInList(req, res) {
             name: true,
             username: true,
             portrait: true
+        },
+        orderBy: {
+            name: "asc"
         }
     })
 
     res.json(users)
 }
 
-async function getAllUsers(req, res) {
+async function getUsers(req, res) {
 
-    const users = await prisma.user.findMany()
+    const users = await prisma.user.findMany({
+        where: {
+            OR: {
+                name: {
+                    contains: req.query.name
+                },
+                username: {
+                    contains: req.query.username
+                }, email: {
+                    contains: req.query.email
+                }
+            },
+            omit: {
+                password: true
+            }
+        }
+    })
 
     res.json(users)
 }
@@ -103,14 +123,9 @@ async function postNewUser(req, res) {
 
 async function updateUser(req, res) {
 
-    let path;
-
     if (typeof req.file !== "undefined") {
-        path = req.file.path.slice(7)
-        req.body.portrait = path
+        req.body.portrait = req.file.path.slice(7)
     }
-    
-    
     
     if (req.user.id != req.body.id) {
         return res.status(401).json({message:"unauthorized"})
@@ -152,7 +167,7 @@ async function deleteUser(req, res) {
 module.exports = {
     getUser,
     getUsersInList,
-    getAllUsers,
+    getUsers,
     postLogin,
     postNewUser,
     updateUser,

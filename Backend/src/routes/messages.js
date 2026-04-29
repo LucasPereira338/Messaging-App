@@ -16,7 +16,7 @@ messages.get('/author/:authorId', passport.authenticate('jwt', {session: false})
 
 messages.get('/receiver/:receiverId', passport.authenticate('jwt', {session: false}), (req, res) => controllers.getMessagesByReceiver(req, res))
 
-messages.get('/', (req, res) => controllers.getAllMessages(req, res)) // perhaps i should remove this
+messages.get('/', (req, res) => controllers.getMessages(req, res)) // perhaps i should remove this
 
 messages.post('/', passport.authenticate('jwt', {session: false}), (req, res) => controllers.postNewMessage(req, res))
 

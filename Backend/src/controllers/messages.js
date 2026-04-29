@@ -54,6 +54,9 @@ async function getAllUserChatPartners(req, res) {
                 {receiverId: req.params.userId}
             ]
         },
+        orderBy: {
+            updatedAt: "desc"
+        },
         select: {
             authorId: true,
             receiverId: true
@@ -79,8 +82,7 @@ async function getMessagesByAuthor(req, res) {
 }
 
 async function getMessagesByReceiver(req, res) {
-    console.log(req.user.id)
-    console.log(req.params.receiverId)
+    
     if (req.user.id != req.params.receiverId) {
         return res.status(401).json({message: "Unauthorized"})
     }
@@ -94,8 +96,14 @@ async function getMessagesByReceiver(req, res) {
     res.json(messages)
 }
 
-async function getAllMessages(req, res) {
-    const messages = await prisma.message.findMany()
+async function getMessages(req, res) {
+    const messages = await prisma.message.findMany({
+        where: {
+            content: {
+                contains: req.query.content
+            }
+        }
+    })
 
     res.json(messages)
 }
@@ -162,7 +170,7 @@ module.exports = {
     getAllUserChatPartners,
     getMessagesByAuthor,
     getMessagesByReceiver,
-    getAllMessages,
+    getMessages,
     postNewMessage,
     updateMessage,
     deleteAllMessages,
