@@ -6,8 +6,12 @@
   grid-template-columns: 9.4fr 0.6fr;
 }
 
+#messageContainer {
+  border: solid 3px aliceblue;
+}
+
 #messageContainerAuthor {
-  border-color: #5f5fe7;
+  border: solid 3px #5f5fe7;
 }
 
 #messageContentAuthor {

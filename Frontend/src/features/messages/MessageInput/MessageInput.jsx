@@ -20,16 +20,22 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
       className="general-borders"
       data-testid="MessageInput"
     >
-      <form aria-label="message-input-form" onSubmit={handleSubmit}>
+      <form
+        aria-label="message-input-form"
+        className={styles.messageInputForm}
+        onSubmit={handleSubmit}
+      >
         <input type="hidden" name="authorId" value={user.id} />
         <input type="hidden" name="receiverId" value={talkingWith.id} />
-        <input
+        <textarea
           type="text"
           name="content"
           id={styles.messageInput}
           placeholder="Type a message..."
         />
-        <button type="submit">Send</button>
+        <button id={styles.msgInpBtn} type="submit">
+          Send
+        </button>
       </form>
     </div>
   );
