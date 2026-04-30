@@ -1,7 +1,12 @@
 import * as styles from "./MessageInput.module.css";
 import { postNewMessage } from "../../../services/messageServices";
+import { useState } from "react";
 
 function MessageInput({ user, talkingWith, updateIsNewMessage }) {
+  const [msg, setMsg] = useState("");
+  const handleTyping = (e) => {
+    setMsg(e.target.value);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -13,6 +18,10 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
     await postNewMessage(formValues);
 
     updateIsNewMessage();
+
+    setMsg("");
+    console.log("msg: ");
+    console.log(msg);
   };
   return (
     <div
@@ -32,6 +41,8 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
           name="content"
           id={styles.messageInput}
           placeholder="Type a message..."
+          value={msg}
+          onChange={handleTyping}
         />
         <button id={styles.msgInpBtn} type="submit">
           Send
