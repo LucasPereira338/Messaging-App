@@ -151,15 +151,18 @@ async function deleteAllMessages(req, res) {
 
 async function deleteMessage(req, res) {
 
-    if (req.user.id != req.body.authorId) {
-        return res.status(401).json({message: "Unauthorized"})
-    }
+    
 
     const message = await prisma.message.delete({
         where: {
-            id: req.body.id
+            id: req.params.id,
+            authorId: req.user.id
         }
     })
+
+    if (req.user.id != message.authorId) {
+        return res.status(401).json({message: "Unauthorized"})
+    }
 
     res.json(message)
 }

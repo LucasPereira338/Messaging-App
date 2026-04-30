@@ -2,6 +2,8 @@
   padding: 10px;
   background-color: #dee2e6;
   color: #343a40;
+  display: grid;
+  grid-template-columns: 9.4fr 0.6fr;
 }
 
 #messageContainerAuthor {

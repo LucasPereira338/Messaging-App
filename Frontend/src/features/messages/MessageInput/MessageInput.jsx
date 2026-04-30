@@ -12,7 +12,7 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
 
     await postNewMessage(formValues);
 
-    updateIsNewMessage(1);
+    updateIsNewMessage();
   };
   return (
     <div

@@ -24,6 +24,6 @@ messages.put('/', passport.authenticate('jwt', {session: false}), (req, res) => 
 
 messages.delete('/all', (req, res) => controllers.deleteAllMessages(req, res))
 
-messages.delete('/', passport.authenticate('jwt', {session: false}), (req, res) => controllers.deleteMessage(req, res))
+messages.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => controllers.deleteMessage(req, res))
 
 module.exports = messages

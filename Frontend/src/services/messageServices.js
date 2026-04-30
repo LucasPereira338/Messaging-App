@@ -44,3 +44,19 @@ export async function postNewMessage(data) {
 
     return response.json()
 }
+
+export async function deleteMessage(data) {
+    const backend= import.meta.env.VITE_BACKEND;
+
+    const url = backend + "messages/" + data.id
+
+    const token = localStorage.getItem('token')
+    
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
+        }
+    })
+
+    return response.json()
+}
