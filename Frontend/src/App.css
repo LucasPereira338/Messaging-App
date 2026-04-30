@@ -8,14 +8,18 @@
   font-family: "Miranda Sans", sans-serif, serif;
   font-size: 1em;
   display: grid;
-  grid-template-rows: 1fr 8fr 1fr;
+  grid-template-rows: 0.5fr 9fr 0.5fr;
+  background-color: #343a40;
+  color: #dee2e6;
 }
 
 .header-footer {
-  background-color: #5992c6;
+  background-color: #212529;
+  box-shadow: 0px 0px 3px 3px #495057 inset;
+  color: #dee2e6;
 }
 
 .general-borders {
-  border: groove 3px #dedede;
+  border: groove 3px #495057;
   border-radius: 5px;
 }

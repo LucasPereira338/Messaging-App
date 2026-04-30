@@ -1,5 +1,6 @@
 #home {
   display: grid;
-  grid-template-columns: 3fr 4fr 3fr;
-  grid-template-rows: 1.5fr 7fr 1.5fr;
+  grid-template-columns: 2.5fr 5fr 2.5fr;
+  grid-template-rows: 0.5fr 9fr 0.5fr;
+  /*box-shadow: 0px 0px 4px 4px #c3c3d3 inset;*/
 }

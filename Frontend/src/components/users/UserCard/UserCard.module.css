@@ -2,15 +2,16 @@
   display: flex;
   grid-column-start: 1;
   grid-column-end: 4;
-  border: groove 1px #dedede;
+  border-width: 1px;
 }
 
 #userCardActive {
   display: flex;
   grid-column-start: 1;
   grid-column-end: 4;
-  border: groove 1px #dedede;
-  background-color: #f2f2f6;
+  /*border: groove 1px #5f5fe7;*/
+  border-width: 1px;
+  background-color: #5f5fe7;
 }
 
 .cardPortrait {

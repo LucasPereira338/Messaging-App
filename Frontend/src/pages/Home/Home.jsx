@@ -15,7 +15,7 @@ function Home() {
   }, [isLoggedIn, navigate, user]);
 
   return (
-    <div id={styles.home} className="general-borders">
+    <div id={styles.home}>
       <LoginForm setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
     </div>
   );

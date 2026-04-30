@@ -68,7 +68,7 @@ function MessageBoard() {
         handleTalkingWith={handleTalkingWith}
       />
       <ChatBox user={user} talkingWith={talkingWith} />
-      <div id="loggedUser" className="general-borders">
+      <div id={styles.loggedUser} className="general-borders">
         <UserCard user={user} handleTalkingWith={handleTalkingWith} />
       </div>
     </div>
