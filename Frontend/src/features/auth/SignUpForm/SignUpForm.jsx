@@ -1,13 +1,13 @@
 import * as styles from "./SignUpForm.module.css";
 import UserForm from "../UserForm/UserForm";
 
-function SignUpForm({ setIsLoggedIn, setUser }) {
+function SignUpForm({ handleLogin, handleUser }) {
   return (
-    <div className={styles.signUpContainer}>
+    <div className={styles.signUpContainer} aria-label="sign-up-container">
       <UserForm
         action="sign-up"
-        setIsLoggedIn={setIsLoggedIn}
-        setUser={setUser}
+        handleLogin={handleLogin}
+        handleUser={handleUser}
       />
     </div>
   );
