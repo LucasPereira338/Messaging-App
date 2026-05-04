@@ -26,7 +26,10 @@ function Home() {
   // and to allow the button to register to work properly
   return (
     <div id={styles.home}>
-      <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
+      <div className={styles.homeContainer}>
+        <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
+        <button onClick={() => navigate("/sign-up")}>Sign Up</button>
+      </div>
     </div>
   );
 }
