@@ -1,0 +1,40 @@
+.childLabel {
+  display: grid;
+  grid-template-columns: 0.1fr 0.07fr 0.8fr 0.03fr;
+}
+
+.childInp {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+/* flawed attempt with flex
+.childLabel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.childInp {
+  flex-grow: 1;
+}
+*/
+/* with grid (but made with input outside label)
+
+.userFormChild {
+  display: grid;
+  grid-template-columns: 0.1fr 0.07fr 0.8fr 0.03fr;
+}
+
+.childTxt {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.childInp {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+*/

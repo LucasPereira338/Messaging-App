@@ -20,8 +20,6 @@ function UserForm({ action, handleLogin, handleUser }) {
 
     const formData = new FormData(event.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
-    console.log("sending");
-    console.log(formValues);
 
     let result;
 
@@ -56,20 +54,27 @@ function UserForm({ action, handleLogin, handleUser }) {
     >
       {userValues.map((item, ind) => {
         return (
-          <div key={ind}>
-            <label htmlFor={item}>{capitalize(item)}</label>
-            <input
-              type={
-                item == "password"
-                  ? "password"
-                  : item == "email"
-                    ? "email"
-                    : item == "portrait"
-                      ? "file"
-                      : "text"
-              }
-              name={item}
-            />
+          <div key={ind} className={styles.userFormChild}>
+            <label htmlFor={item} className={styles.childLabel}>
+              {capitalize(item)}:
+              {item == "description" ? (
+                <textarea name={item} className={styles.childInp}></textarea>
+              ) : (
+                <input
+                  type={
+                    item == "password"
+                      ? "password"
+                      : item == "email"
+                        ? "email"
+                        : item == "portrait"
+                          ? "file"
+                          : "text"
+                  }
+                  name={item}
+                  className={styles.childInp}
+                />
+              )}
+            </label>
           </div>
         );
       })}
