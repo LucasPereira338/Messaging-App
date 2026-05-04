@@ -16,7 +16,7 @@ function Message({ message, setMsgToDel }) {
         <div id={styles.messageContentAuthor} className={styles.messageContent}>
           <div className={styles.msgTxt}>{message.content}</div>
           <img
-            src="../../../../public/icons/trash-can.png"
+            src="../../../../icons/trash-can.png"
             alt="trash can"
             onClick={() => setMsgToDel(message)}
           />

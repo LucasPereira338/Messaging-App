@@ -1,5 +1,24 @@
 import * as styles from "./LoginForm.module.css";
 import Button from "../../../components/ui/Button/Button";
+import UserForm from "../UserForm/UserForm";
+
+function LoginForm({ handleLogin, handleUser }) {
+  return (
+    <div className={styles.loginContainer}>
+      <UserForm
+        action="login"
+        handleLogin={handleLogin}
+        handleUser={handleUser}
+      />
+    </div>
+  );
+}
+
+export default LoginForm;
+
+/* old way
+import * as styles from "./LoginForm.module.css";
+import Button from "../../../components/ui/Button/Button";
 import { fetchLogin } from "../../../services/userServices";
 
 function LoginForm({ setIsLoggedIn, setUser }) {
@@ -71,3 +90,4 @@ function LoginForm({ setIsLoggedIn, setUser }) {
 }
 
 export default LoginForm;
+*/

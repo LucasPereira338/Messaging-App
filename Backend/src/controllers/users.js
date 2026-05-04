@@ -105,6 +105,10 @@ async function postLogin(req, res) {
 
 async function postNewUser(req, res) {
 
+    if (typeof req.file !== "undefined") {
+        req.body.portrait = req.file.path.slice(7)
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const user = await prisma.user.create({
         data: {
@@ -113,6 +117,12 @@ async function postNewUser(req, res) {
             email: req.body.email,
             password: hashedPassword,
             portrait: req.body.portrait
+        },
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            portrait: true
         }
     })
 
