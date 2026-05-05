@@ -2,6 +2,7 @@ import * as styles from "./SearchUser.module.css";
 import { fetchUsers } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
+import { useOutsideClick } from "../../../hooks/hooks";
 import UserCard from "../../../components/users/UserCard/UserCard";
 
 function SearchUser() {
@@ -9,6 +10,12 @@ function SearchUser() {
   const [debouncedTerm] = useDebounce(term, 1000);
   const [isSearching, setIsSearching] = useState(false);
   const [users, setUsers] = useState([]);
+
+  const handleClickOutside = () => {
+    setIsSearching(false);
+  };
+
+  const ref = useOutsideClick(handleClickOutside);
 
   const handleChange = (e) => {
     setTerm(e.target.value);
@@ -26,7 +33,7 @@ function SearchUser() {
     }
   }, [debouncedTerm]);
   return (
-    <div className={styles.searchUserContainer}>
+    <div className={styles.searchUserContainer} ref={ref}>
       <input
         type="text"
         name="name"
