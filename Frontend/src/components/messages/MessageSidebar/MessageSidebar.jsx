@@ -31,13 +31,16 @@ function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
   }, [messages]);
 
   const handleNewUser = (data) => {
-    const newArr = users.map((item) => {
-      return item;
-    });
+    const hasData = users.some((item) => item.id === data.id);
+    if (hasData == false) {
+      const newArr = users.map((item) => {
+        return item;
+      });
 
-    newArr.push(data);
+      newArr.push(data);
 
-    setUsers(newArr);
+      setUsers(newArr);
+    }
   };
 
   return (

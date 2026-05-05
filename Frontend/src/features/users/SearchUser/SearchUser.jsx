@@ -49,7 +49,7 @@ function SearchUser({ handleNewUser }) {
             users.map((item, ind) => {
               return (
                 <div onClick={() => handleNewUser(item)}>
-                  <UserCard key={ind} user={item} />;
+                  <UserCard key={ind} user={item} />
                 </div>
               );
             })
