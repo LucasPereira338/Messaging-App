@@ -1,0 +1,13 @@
+.searchUserContainer {
+  position: relative;
+}
+
+.searchUserInput {
+  width: 96%;
+}
+
+.searchUserDropdown {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+}

@@ -2,20 +2,24 @@ import * as styles from "./SearchUser.module.css";
 import { fetchUsers } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
+import UserCard from "../../../components/users/UserCard/UserCard";
 
 function SearchUser() {
   const [term, setTerm] = useState("");
   const [debouncedTerm] = useDebounce(term, 1000);
+  const [isSearching, setIsSearching] = useState(false);
+  const [users, setUsers] = useState([]);
+
   const handleChange = (e) => {
     setTerm(e.target.value);
+    setIsSearching(true);
   };
 
   useEffect(() => {
-    console.log("started useEffect");
     if (debouncedTerm.length > 0) {
       const getUsers = async () => {
         const result = await fetchUsers(debouncedTerm);
-
+        setUsers(result);
         console.log(result);
       };
       getUsers();
@@ -23,16 +27,25 @@ function SearchUser() {
   }, [debouncedTerm]);
   return (
     <div className={styles.searchUserContainer}>
-      <form>
-        <input
-          type="text"
-          name="name"
-          value={term}
-          onChange={handleChange}
-          placeholder="Search users"
-        />
-        <button type="submit">Search for a user</button>
-      </form>
+      <input
+        type="text"
+        name="name"
+        value={term}
+        onChange={handleChange}
+        placeholder="Search users"
+        className={styles.searchUserInput}
+      />
+      {isSearching ? (
+        <div className={styles.searchUserDropdown}>
+          {users.length > 0 ? (
+            users.map((item, ind) => {
+              return <UserCard key={ind} user={item} />;
+            })
+          ) : (
+            <div className={styles.searchUserPending}> Pending... </div>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }
