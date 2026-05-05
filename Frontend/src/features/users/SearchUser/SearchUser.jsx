@@ -33,7 +33,7 @@ function SearchUser() {
     }
   }, [debouncedTerm]);
   return (
-    <div className={styles.searchUserContainer} ref={ref}>
+    <div className={styles.searchUserContainer}>
       <input
         type="text"
         name="name"
@@ -41,6 +41,7 @@ function SearchUser() {
         onChange={handleChange}
         placeholder="Search users"
         className={styles.searchUserInput}
+        ref={ref}
       />
       {isSearching ? (
         <div className={styles.searchUserDropdown}>
