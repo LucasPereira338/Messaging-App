@@ -5,7 +5,7 @@ import { useDebounce } from "use-debounce";
 import { useOutsideClick } from "../../../hooks/hooks";
 import UserCard from "../../../components/users/UserCard/UserCard";
 
-function SearchUser() {
+function SearchUser({ handleNewUser }) {
   const [term, setTerm] = useState("");
   const [debouncedTerm] = useDebounce(term, 1000);
   const [isSearching, setIsSearching] = useState(false);
@@ -47,7 +47,11 @@ function SearchUser() {
         <div className={styles.searchUserDropdown}>
           {users.length > 0 ? (
             users.map((item, ind) => {
-              return <UserCard key={ind} user={item} />;
+              return (
+                <div onClick={() => handleNewUser(item)}>
+                  <UserCard key={ind} user={item} />;
+                </div>
+              );
             })
           ) : (
             <div className={styles.searchUserPending}> Pending... </div>
