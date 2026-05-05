@@ -30,6 +30,20 @@ export async function fetchLogin(data) {
     
 }
 
+export async function fetchUsers(data) {
+    const backend = import.meta.env.VITE_BACKEND;
+
+    const url = backend + "users/?name=" + data
+
+    const response = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+
+    return response.json()
+}
+
 export async function fetchUser(data) {
     const backend = import.meta.env.VITE_BACKEND;
 

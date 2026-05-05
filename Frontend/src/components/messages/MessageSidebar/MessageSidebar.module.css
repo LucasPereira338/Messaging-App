@@ -4,3 +4,13 @@
   grid-row-start: 1;
   grid-row-end: 3;
 }
+
+/* b4 searchUser
+#messagesSidebar {
+  display: flex;
+  flex-direction: column;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+*/

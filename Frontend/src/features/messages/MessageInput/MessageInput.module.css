@@ -19,6 +19,7 @@
   background-color: #343a40;
   color: white;
   border: 0;
+  resize: none;
 }
 
 #msgInpBtn {

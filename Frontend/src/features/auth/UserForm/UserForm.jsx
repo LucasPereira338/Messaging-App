@@ -58,7 +58,11 @@ function UserForm({ action, handleLogin, handleUser }) {
             <label htmlFor={item} className={styles.childLabel}>
               {capitalize(item)}:
               {item == "description" ? (
-                <textarea name={item} className={styles.childInp}></textarea>
+                <textarea
+                  name={item}
+                  className={styles.childInp}
+                  id={styles.txtArea}
+                ></textarea>
               ) : (
                 <input
                   type={

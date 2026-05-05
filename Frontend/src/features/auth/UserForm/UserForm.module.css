@@ -8,6 +8,9 @@
   grid-column-end: 5;
 }
 
+#txtArea {
+  resize: none;
+}
 /* flawed attempt with flex
 .childLabel {
   display: flex;

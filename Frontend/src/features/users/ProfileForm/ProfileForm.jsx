@@ -46,7 +46,11 @@ function ProfileForm({ userId }) {
 
   return (
     <div id={styles.profileFormContainer} className="general-borders">
-      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+      <form
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        id={styles.profileForm}
+      >
         <div id={styles.imgInpContainer}>
           {" "}
           <img src={portrait} alt="your portrait" id={styles.profilePortrait} />
@@ -57,20 +61,28 @@ function ProfileForm({ userId }) {
           return (
             <div key={ind} id={styles.labelInputContainer}>
               {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
-                <label htmlFor={userKeys[ind]}>
+                <label htmlFor={userKeys[ind]} className={styles.childLabel}>
                   {capitalize(userKeys[ind])}:{" "}
+                  {userKeys[ind] == "description" ? (
+                    <textarea
+                      name={userKeys[ind]}
+                      className={styles.childInp}
+                    ></textarea>
+                  ) : (
+                    <input
+                      type={
+                        userKeys[ind] == "id" || userKeys[ind] == "portrait"
+                          ? "hidden"
+                          : "text"
+                      }
+                      name={userKeys[ind]}
+                      value={item == null ? "" : item}
+                      onChange={() => handleChange(event, ind)}
+                      className={styles.childInp}
+                    />
+                  )}{" "}
                 </label>
               ) : null}
-              <input
-                type={
-                  userKeys[ind] == "id" || userKeys[ind] == "portrait"
-                    ? "hidden"
-                    : "text"
-                }
-                name={userKeys[ind]}
-                value={item == null ? "" : item}
-                onChange={() => handleChange(event, ind)}
-              />
             </div>
           );
         })}

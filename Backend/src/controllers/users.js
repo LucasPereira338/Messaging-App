@@ -45,23 +45,30 @@ async function getUsersInList(req, res) {
 }
 
 async function getUsers(req, res) {
+    
+    const searchTerm = req.query.name
+
 
     const users = await prisma.user.findMany({
         where: {
-            OR: {
-                name: {
-                    contains: req.query.name
-                },
-                username: {
-                    contains: req.query.username
-                }, email: {
-                    contains: req.query.email
-                }
-            },
-            omit: {
+            OR: [
+                {
+                    name: {
+                        contains: searchTerm
+                }},
+                 {
+                    username: {
+                        contains: searchTerm
+                }}, 
+                {
+                    email: {
+                        contains: searchTerm
+                }}
+            ],
+        },
+        omit: {
                 password: true
             }
-        }
     })
 
     res.json(users)

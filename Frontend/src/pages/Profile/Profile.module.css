@@ -1,4 +1,6 @@
 .profile {
   display: grid;
   grid-template-columns: 2fr 6fr 2fr;
+  background-color: #343a40;
+  color: #dee2e6;
 }

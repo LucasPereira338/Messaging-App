@@ -1,13 +1,31 @@
+#profileFormContainer {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background-color: #212529;
+}
+
+#profileForm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: unset;
+  gap: 25px;
+}
+
 #profilePortrait {
   max-width: 200px;
   border-radius: 50%;
   min-height: 200px;
   object-fit: cover;
 }
-
-/*#portraitContainer {
-  position: absolute;
-}*/
 
 #portraitForm {
   display: flex;
@@ -20,27 +38,19 @@ input[type="file"] {
   color: rgba(0, 0, 0, 0);
 }
 
-#profileFormContainer {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-
-#profileForm {
-  margin-left: 170px;
-}
-
 #imgInpContainer {
   display: flex;
   align-items: center;
 }
+.childLabel {
+  display: grid;
+  grid-template-columns: 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr;
+}
 
+.childInp {
+  grid-column-start: 2;
+  grid-column-end: 6;
+}
 /*#imgInpOverlay {
   position: absolute;
   top: 0;
