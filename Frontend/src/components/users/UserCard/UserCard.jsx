@@ -9,7 +9,9 @@ function UserCard({ user, talkingWith = "null", handleTalkingWith = "null" }) {
       id={talkingWith.id == user.id ? styles.userCardActive : styles.userCard}
       className="general-borders"
       data-testid="container"
-      onClick={talkingWith != "null" ? () => handleTalkingWith(user) : null}
+      onClick={
+        handleTalkingWith != "null" ? () => handleTalkingWith(user) : null
+      }
     >
       <img
         src={portrait}

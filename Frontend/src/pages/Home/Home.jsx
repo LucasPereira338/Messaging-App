@@ -22,13 +22,23 @@ function Home() {
       navigate("/messages", { state: user });
     }
   }, [isLoggedIn, navigate, user]);
-  // i'm going to need the login container to be here instead, for the sake of modularity
-  // and to allow the button to register to work properly
+
   return (
     <div id={styles.home}>
       <div className={styles.homeContainer}>
-        <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
-        <button onClick={() => navigate("/sign-up")}>Sign Up</button>
+        <h3 className={styles.loginHeader}>Log into a existing account: </h3>
+        <div className={styles.loginContainer}>
+          <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
+        </div>
+        <h3 className={styles.signUpHeader}>
+          Don't have a account? Then create a new account now!{" "}
+        </h3>
+        <button
+          className={styles.signUpBtn}
+          onClick={() => navigate("/sign-up")}
+        >
+          Sign Up
+        </button>
       </div>
     </div>
   );

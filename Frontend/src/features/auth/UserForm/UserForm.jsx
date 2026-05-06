@@ -57,32 +57,34 @@ function UserForm({ action, handleLogin, handleUser }) {
           <div key={ind} className={styles.userFormChild}>
             <label htmlFor={item} className={styles.childLabel}>
               {capitalize(item)}:
-              {item == "description" ? (
-                <textarea
-                  name={item}
-                  className={styles.childInp}
-                  id={styles.txtArea}
-                ></textarea>
-              ) : (
-                <input
-                  type={
-                    item == "password"
-                      ? "password"
-                      : item == "email"
-                        ? "email"
-                        : item == "portrait"
-                          ? "file"
-                          : "text"
-                  }
-                  name={item}
-                  className={styles.childInp}
-                />
-              )}
             </label>
+            {item == "description" ? (
+              <textarea
+                name={item}
+                className={styles.childInp}
+                id={styles.txtArea}
+              ></textarea>
+            ) : (
+              <input
+                type={
+                  item == "password"
+                    ? "password"
+                    : item == "email"
+                      ? "email"
+                      : item == "portrait"
+                        ? "file"
+                        : "text"
+                }
+                name={item}
+                className={styles.childInp}
+              />
+            )}
           </div>
         );
       })}
-      <button type="submit">Submit</button>
+      <button type="submit" className={styles.submitBtn}>
+        Submit
+      </button>
     </form>
   );
 }

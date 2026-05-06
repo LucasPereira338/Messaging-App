@@ -14,4 +14,29 @@
   border-radius: 5px;
   font-size: 1.3em;
   box-shadow: 0px 0px 2px 2px #495057 inset;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 0.1fr 0.1fr 0.2fr 0.1fr 0.2fr 0.1fr 0.2fr;
 }
+
+.loginHeader {
+  grid-row-start: 1;
+}
+
+.loginContainer {
+  grid-row-start: 3;
+}
+.signUpHeader {
+  grid-row-start: 5;
+}
+
+.signUpBtn {
+  grid-row-start: 7;
+}
+/* flex attempt
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}*/

@@ -1,3 +1,33 @@
+.userForm {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userFormChild {
+  display: grid;
+  grid-template-columns: 0.1fr 0.2fr 0.1fr 0.2fr 0.2fr 0.2fr;
+}
+
+.childLabel {
+  grid-column-start: 2;
+}
+
+.childInp {
+  grid-column-start: 4;
+  grid-column-end: 6;
+}
+
+.submitBtn {
+  width: 67%;
+  align-self: center;
+  margin-right: 48.7px;
+}
+
+#txtArea {
+  resize: none;
+}
+/* version that worked in sign up page but not in login page
 .childLabel {
   display: grid;
   grid-template-columns: 0.1fr 0.07fr 0.8fr 0.03fr;
@@ -10,7 +40,7 @@
 
 #txtArea {
   resize: none;
-}
+}*/
 /* flawed attempt with flex
 .childLabel {
   display: flex;
