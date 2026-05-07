@@ -7,6 +7,7 @@ let user;
 let userToken;
 
 let secondUser;
+let secondUserToken;
 
 let thirdUser;
 
@@ -42,7 +43,7 @@ beforeAll(async () => {
     userToken = jwt.generateAccessToken(Timmy)
 
     secondUser = Tommy
-
+    secondUserToken = jwt.generateAccessToken(Tommy)
     thirdUser = Thad
     
     const messageOne = await prisma.message.create({
@@ -134,10 +135,10 @@ test('gets all the messages that a user received', done => {
 
 test('updates a message', done => {
     request(app)
-        .put('/messages')
+        .put('/messages/' + message.id)
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
-        .send({id: message.id, authorId: user.id, content:'hi mate'})
+        .send({authorId: user.id, content:'hi mate'})
         .expect('Content-Type', /json/)
         .expect(/hi mate/)
         .expect(200, done)
@@ -145,34 +146,32 @@ test('updates a message', done => {
 
 test("user cannot change someone else's message", done => {
     request(app)
-        .put('/messages')
+        .put('/messages/' + message.id)
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
-        .send({id: message.id, authorId: secondUser.id, content:'i hate you'})
+        .send({authorId: secondUser.id, content:'i hate you'})
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+})
+
+test("user cannot delete someone else's message", done => {
+    request(app)
+        .delete('/messages/' + message.id)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect('Content-Type', /json/)
         .expect(401, done)
 })
 
 test('deletes a message', done => {
     request(app)
-        .delete('/messages')
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({id: message.id, authorId: user.id})
+        .delete('/messages/' + message.id)
+        .set('Authorization', `Bearer ${secondUserToken}`)
         .expect('Content-Type', /json/)
         .expect(/hi mate/)
         .expect(200, done)
 })
 
-test("user cannot delete someone else's message", done => {
-    request(app)
-        .delete('/messages')
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({id: message.id, authorId: secondUser.id})
-        .expect('Content-Type', /json/)
-        .expect(401, done)
-})
+
 
 afterAll(async () => {
     await prisma.user.delete({where: {id: user.id}})

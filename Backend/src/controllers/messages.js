@@ -133,7 +133,7 @@ async function updateMessage(req, res) {
 
     const message = await prisma.message.update({
         where: {
-            id: req.body.id
+            id: req.params.id
         },
         data: {
             content: req.body.content
@@ -151,19 +151,25 @@ async function deleteAllMessages(req, res) {
 
 async function deleteMessage(req, res) {
 
-    
-
-    const message = await prisma.message.delete({
+    const messageId = await prisma.message.findUnique({
         where: {
-            id: req.params.id,
-            authorId: req.user.id
+            id: req.params.id
+        },
+        select: {
+            authorId: true
         }
     })
 
-    if (req.user.id != message.authorId) {
+    if (req.user.id != messageId.authorId) {
         return res.status(401).json({message: "Unauthorized"})
     }
 
+    const message = await prisma.message.delete({
+        where: {
+            id: req.params.id
+        }
+    })
+    
     res.json(message)
 }
 

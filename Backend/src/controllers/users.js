@@ -18,7 +18,6 @@ async function getUser(req, res) {
     })
 
     if(typeof user.description != 'string') {
-        console.log('user desc is not a string, fixing that')
         user.description = ''
     }
 
@@ -149,12 +148,12 @@ async function updateUser(req, res) {
         req.body.portrait = req.file.path.slice(7)
     }
     
-    if (req.user.id != req.body.id) {
+    if (req.user.id != req.params.id) {
         return res.status(401).json({message:"unauthorized"})
     }
     const user = await prisma.user.update({
         where: {
-            id: req.body.id
+            id: req.params.id
         },
         data: {
             ...req.body
@@ -174,12 +173,12 @@ async function deleteAllUsers(req, res) {
 }
 
 async function deleteUser(req, res) {
-    if (req.user.id != req.body.id) {
+    if (req.user.id != req.params.id) {
         return res.status(401).json({message:"unauthorized"})
     }
     const user = await prisma.user.delete({
         where: {
-            id: req.body.id
+            id: req.params.id
         }
     })
     

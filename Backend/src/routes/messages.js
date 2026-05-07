@@ -20,7 +20,7 @@ messages.get('/', (req, res) => controllers.getMessages(req, res)) // perhaps i 
 
 messages.post('/', passport.authenticate('jwt', {session: false}), (req, res) => controllers.postNewMessage(req, res))
 
-messages.put('/', passport.authenticate('jwt', {session: false}), (req, res) => controllers.updateMessage(req, res)) 
+messages.put('/:id', passport.authenticate('jwt', {session: false}), (req, res) => controllers.updateMessage(req, res)) 
 
 messages.delete('/all', (req, res) => controllers.deleteAllMessages(req, res))
 

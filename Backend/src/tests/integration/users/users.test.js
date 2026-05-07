@@ -63,11 +63,10 @@ test('get users in a chat', done => {
 
 test("update user's own info", done => {
     request(app)
-        .put('/users')
+        .put('/users/' + user.id)
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
         .send({
-            id: user.id,
             name: 'Juan Juarez'
         })
         .expect('Content-Type', /json/)
@@ -77,11 +76,10 @@ test("update user's own info", done => {
 
 test("user cannot update another user's info", done => {
     request(app)
-        .put('/users')
+        .put('/users/' + secondUser.id)
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
         .send({
-            id: secondUser.id,
             name: 'Pete the Fool'
         })
         .expect('Content-Type', /json/)
@@ -97,24 +95,16 @@ test('get an user', done => {
 
 test("user cannot delete someone else's account", done => {
     request(app)
-        .delete('/users')
+        .delete('/users/' + secondUser.id)
         .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({
-            id: secondUser.id
-        })
         .expect('Content-Type', /json/)
         .expect(401, done)
 })
 
 test("deletes user's own account", done => {
     request(app)
-        .delete('/users/')
+        .delete('/users/' + user.id)
         .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({
-            id: user.id
-        })
         .expect('Content-Type', /json/)
         .expect(200, done)
 })
