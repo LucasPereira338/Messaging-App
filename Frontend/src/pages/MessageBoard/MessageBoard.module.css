@@ -3,7 +3,7 @@
   height: 100vh;
   grid-template-columns: 2fr 8fr;
   grid-template-rows: 1.5fr 8fr 0.5fr;
-  background-color: #343a40;
+  background-color: #e7ecef;
   /*background-color: #e0e0e2;*/
 }
 /* old methods
