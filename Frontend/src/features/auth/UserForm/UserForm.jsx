@@ -36,6 +36,7 @@ function UserForm({ action, handleLogin, handleUser }) {
       if (resCount > 1) {
         if (result.token) {
           localStorage.setItem("token", result.token);
+          localStorage.setItem("userId", result.id);
         }
 
         handleLogin();

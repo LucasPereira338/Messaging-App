@@ -1,11 +1,13 @@
 import LoginForm from "../../features/auth/LoginForm/LoginForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { fetchUser } from "../../services/userServices";
 import * as styles from "./Home.module.css";
 // issue: i don't really, nor should i, send the user object back on login, since i already have what i need on the token
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState();
+  const token = localStorage.getItem("token");
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -16,6 +18,20 @@ function Home() {
   };
 
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      const getUserIfToken = async () => {
+        const result = await fetchUser({ id: localStorage.getItem("userId") });
+
+        if (result.id) {
+          setUser(result);
+          setIsLoggedIn(true);
+        }
+      };
+      getUserIfToken();
+    }
+  }, [token]);
 
   useEffect(() => {
     if (isLoggedIn == true) {
