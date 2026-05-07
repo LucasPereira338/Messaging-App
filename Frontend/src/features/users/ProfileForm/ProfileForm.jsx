@@ -5,13 +5,16 @@ import { useState, useEffect } from "react";
 
 function ProfileForm({ userId }) {
   const backend = import.meta.env.VITE_BACKEND;
-  const [user, setUser] = useState({ id: 0, name: "pending..." });
+  const [user, setUser] = useState({ id: userId, name: "pending..." });
 
   const portrait = backend + "assets/" + user.portrait;
 
   const userKeys = Object.keys(user);
+  console.log("the userKeys are");
+  console.log(userKeys);
 
   const [userValues, setUserValues] = useState(Object.values(user));
+  console.log(userValues);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,7 +22,9 @@ function ProfileForm({ userId }) {
 
       setUser(result);
       const newArr = Object.values(result);
-      newArr.pop();
+      console.log("newArr: ");
+      console.log(newArr);
+
       setUserValues(Object.values(newArr));
     };
     fetchUserData();
@@ -36,8 +41,8 @@ function ProfileForm({ userId }) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-
-    formData.token = user.token;
+    console.log("the user form data is: ");
+    console.log(formData);
 
     const result = await updateUser(formData);
 
@@ -63,26 +68,28 @@ function ProfileForm({ userId }) {
               {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
                 <label htmlFor={userKeys[ind]} className={styles.childLabel}>
                   {capitalize(userKeys[ind])}:{" "}
-                  {userKeys[ind] == "description" ? (
-                    <textarea
-                      name={userKeys[ind]}
-                      className={styles.childInp}
-                    ></textarea>
-                  ) : (
-                    <input
-                      type={
-                        userKeys[ind] == "id" || userKeys[ind] == "portrait"
-                          ? "hidden"
-                          : "text"
-                      }
-                      name={userKeys[ind]}
-                      value={item == null ? "" : item}
-                      onChange={() => handleChange(event, ind)}
-                      className={styles.childInp}
-                    />
-                  )}{" "}
                 </label>
               ) : null}
+              {userKeys[ind] == "description" ? (
+                <textarea
+                  name={userKeys[ind]}
+                  className={styles.childInp}
+                  value={item == null ? "" : item}
+                  onChange={() => handleChange(event, ind)}
+                ></textarea>
+              ) : (
+                <input
+                  type={
+                    userKeys[ind] == "id" || userKeys[ind] == "portrait"
+                      ? "hidden"
+                      : "text"
+                  }
+                  name={userKeys[ind]}
+                  value={item == null ? "" : item}
+                  onChange={() => handleChange(event, ind)}
+                  className={styles.childInp}
+                />
+              )}{" "}
             </div>
           );
         })}

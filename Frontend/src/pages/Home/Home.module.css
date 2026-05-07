@@ -1,8 +1,9 @@
 #home {
-  display: grid;
-  grid-template-columns: 2.5fr 5fr 2.5fr;
-  grid-template-rows: 0.5fr 9fr 0.5fr;
-  /*box-shadow: 0px 0px 4px 4px #c3c3d3 inset;*/
+  display: flex;
+  justify-content: center;
+  /*box-shadow:
+    0px 0px 4px 4px #495057 inset,
+    0px 0px 4px 5px #495057 inset;*/
 }
 
 .homeContainer {
@@ -13,25 +14,22 @@
   border: groove 3px #212529;
   border-radius: 5px;
   font-size: 1.3em;
-  box-shadow: 0px 0px 2px 2px #495057 inset;
+  box-shadow:
+    0px 0px 2px 2px #495057 inset,
+    0px 0px 2px 2px #495057 inset;
   text-align: center;
-  display: grid;
-  grid-template-rows: 0.1fr 0.1fr 0.2fr 0.1fr 0.2fr 0.1fr 0.2fr;
-}
-
-.loginHeader {
-  grid-row-start: 1;
-}
-
-.loginContainer {
-  grid-row-start: 3;
-}
-.signUpHeader {
-  grid-row-start: 5;
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
 .signUpBtn {
   grid-row-start: 7;
+  width: 78%;
+  align-self: center;
+  border: solid 3px #e9ecef;
+  border-radius: 10px;
 }
 /* flex attempt
 .homeContainer {

@@ -17,6 +17,11 @@ async function getUser(req, res) {
         }
     })
 
+    if(typeof user.description != 'string') {
+        console.log('user desc is not a string, fixing that')
+        user.description = ''
+    }
+
     res.json(user)
 }
 

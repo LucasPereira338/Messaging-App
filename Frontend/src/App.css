@@ -9,17 +9,23 @@
   font-size: 1em;
   display: grid;
   grid-template-rows: 0.5fr 9fr 0.5fr;
-  background-color: #343a40;
+  background-color: #212529;
   color: #dee2e6;
 }
 
 .header-footer {
   background-color: #212529;
-  box-shadow: 0px 0px 3px 3px #495057 inset;
+  /*box-shadow: 0px 0px 3px 3px #495057 inset;*/
   color: #dee2e6;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 .general-borders {
   border: groove 3px #495057;
   border-radius: 5px;
+}
+
+textarea {
+  resize: none;
 }

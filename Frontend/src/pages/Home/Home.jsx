@@ -31,7 +31,8 @@ function Home() {
           <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
         </div>
         <h3 className={styles.signUpHeader}>
-          Don't have a account? Then create a new account now!{" "}
+          Don't have a account? <br />
+          Then create one right now!
         </h3>
         <button
           className={styles.signUpBtn}
