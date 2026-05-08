@@ -5,6 +5,11 @@
   border-width: 1px;
 }
 
+#userCard:hover {
+  background-color: #6096ba;
+  color: #e7ecef;
+}
+
 #userCardActive {
   display: flex;
   grid-column-start: 1;

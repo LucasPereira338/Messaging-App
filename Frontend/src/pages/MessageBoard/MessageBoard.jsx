@@ -7,7 +7,7 @@ import { fetchUser } from "../../services/userServices";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import * as styles from "./MessageBoard.module.css";
-// create something for sending messages
+
 function MessageBoard() {
   let user = useLocation().state;
   const userId = user.id;
