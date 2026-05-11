@@ -55,18 +55,24 @@ test('add a user to group', done => {
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
         .send({userId: secondUser.id })
-        
         .expect(200, done)
 })
 
-test('get a existing group', done => {
+test("get a group's messages ", done => {
     request(app)
-        .get('/groups/' + group.id)
+        .get('/groups/' + group.id + '/messages')
         .set('Authorization', `Bearer ${userToken}`)
         .expect('Content-Type', /json/)
         .expect(200, done)
 })
 
+test("get a group's members", done => {
+    request(app)
+        .get('/groups/' + group.id + '/users')
+        .set('Authorization', `Bearer ${userToken}`)
+        .expect('Content-Type', /json/)
+        .expect(200, done)
+})
 
 test('get all groups a user is a member of', done => {
     request(app)

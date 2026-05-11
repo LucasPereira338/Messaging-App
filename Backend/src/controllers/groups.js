@@ -1,14 +1,17 @@
 const {prisma} = require('../../lib/prisma.js')
 
-async function getGroup(req, res) {
-
-    const group = await prisma.group.findUnique({
+async function getGroupMessages(req, res) {
+    const groupMsgs = await prisma.message.findMany({
         where: {
-            id: req.params.id
+            groupId: req.params.id
         }
     })
 
-    group.members = await prisma.groupMembers.findMany({
+    res.json(groupMsgs)
+}
+
+async function getGroupMembers(req, res) {
+    const group = await prisma.groupMembers.findMany({
         where: {
             groupId: req.params.id
         },
@@ -17,12 +20,16 @@ async function getGroup(req, res) {
         }
     })
 
-    group.messages = await prisma.message.findMany({
+    res.json(group)
+}
+
+async function getGroup(req, res) {
+
+    const group = await prisma.group.findUnique({
         where: {
-            groupId: req.params.id
+            id: req.params.id
         }
     })
-    
 
     res.json(group)
 }
@@ -67,6 +74,8 @@ async function postMembersToGroup(req, res) {
 }
 
 module.exports = {
+    getGroupMessages,
+    getGroupMembers,
     getGroup,
     getUserGroups,
     postGroup,
