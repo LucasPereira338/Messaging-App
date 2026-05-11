@@ -24,6 +24,7 @@ model User {
   isAdmin          Boolean   @default(false)
   messagesSent     Message[] @relation("author")
   messagesReceived Message[] @relation("receiver")
+  groups  GroupMembers[]
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 }
@@ -33,8 +34,28 @@ model Message {
   content    String
   author     User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   authorId   String
-  receiver   User     @relation("receiver", fields: [receiverId], references: [id], onDelete: Cascade)
-  receiverId String
+  receiver   User?     @relation("receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId String?
+  group Group? @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId  String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Group {
+  id  String  @id @unique @default(uuid())
+  title String 
+  portrait String?
+  users GroupMembers[]
+  messages Message[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model GroupMembers {
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  group Group @relation(fields:[groupId], references: [id], onDelete: Cascade)
+  groupId  String
+  @@id([userId, groupId])
 }

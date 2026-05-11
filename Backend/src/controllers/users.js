@@ -3,6 +3,7 @@ const jwt = require('../utils/jwt/jwt.js')
 const bcrypt = require('bcryptjs')
 
 async function getUser(req, res) {
+    
     const user = await prisma.user.findUnique({
         where: {
             id: req.params.id

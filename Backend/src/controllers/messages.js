@@ -118,7 +118,8 @@ async function postNewMessage(req, res) {
         data: {
             authorId: req.body.authorId,
             content: req.body.content,
-            receiverId: req.body.receiverId
+            receiverId: req.body.receiverId || undefined,
+            groupId: req.body.groupId || undefined
         }
     })
 

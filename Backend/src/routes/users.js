@@ -5,9 +5,11 @@ const storage = require('../utils/multer/storage.js')
 const controllers = require('../controllers/users.js')
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const upload = multer({storage: storage}) //shouldn't be portraits, change it later to either port or background
+const groups = require('./groups.js')
 
+users.use('/:id/groups', groups)
 
-users.get('/:id', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUser(req, res))
+users.get('/:id',  (req, res) => controllers.getUser(req, res))
 
 users.get('/chats/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
 
