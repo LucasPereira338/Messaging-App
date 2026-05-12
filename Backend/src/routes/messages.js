@@ -1,5 +1,8 @@
 const {Router} = require('express')
 const messages = Router()
+const multer = require('multer')
+const storage = require('../utils/multer/storage.js')
+const upload = multer({storage: storage}) 
 const controllers = require('../controllers/messages.js')
 const passport = require('../config/passport-jwt/passport-jwt.js')
 
@@ -18,7 +21,7 @@ messages.get('/receiver/:receiverId', passport.authenticate('jwt', {session: fal
 
 messages.get('/', (req, res) => controllers.getMessages(req, res)) // perhaps i should remove this
 
-messages.post('/', passport.authenticate('jwt', {session: false}), (req, res) => controllers.postNewMessage(req, res))
+messages.post('/', passport.authenticate('jwt', {session: false}), upload.single('portrait'), (req, res) => controllers.postNewMessage(req, res))
 
 messages.put('/:id', passport.authenticate('jwt', {session: false}), (req, res) => controllers.updateMessage(req, res)) 
 

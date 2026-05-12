@@ -20,8 +20,6 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
     updateIsNewMessage();
 
     setMsg("");
-    console.log("msg: ");
-    console.log(msg);
   };
   return (
     <div

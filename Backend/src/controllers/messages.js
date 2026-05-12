@@ -114,10 +114,15 @@ async function postNewMessage(req, res) {
         return res.status(401).json({message: "Unauthorized"})
     }
 
+    if (typeof req.file !== "undefined") {
+        req.body.image = req.file.path.slice(7)
+    }
+
     const message = await prisma.message.create({
         data: {
             authorId: req.body.authorId,
             content: req.body.content,
+            image: req.body.image || undefined,
             receiverId: req.body.receiverId || undefined,
             groupId: req.body.groupId || undefined
         }

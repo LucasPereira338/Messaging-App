@@ -38,7 +38,7 @@ function UserForm({ action, handleLogin, handleUser }) {
           localStorage.setItem("token", result.token);
           localStorage.setItem("userId", result.id);
         }
-
+        result.isActive = true;
         handleLogin();
         handleUser(result);
       } else {

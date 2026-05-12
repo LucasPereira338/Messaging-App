@@ -33,6 +33,7 @@ model User {
 model Message {
   id         String   @id @unique @default(uuid())
   content    String
+  image      String?
   author     User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   authorId   String
   receiver   User?     @relation("receiver", fields: [receiverId], references: [id], onDelete: Cascade)

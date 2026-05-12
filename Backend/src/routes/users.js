@@ -9,7 +9,7 @@ const groups = require('./groups.js')
 
 users.use('/:id/groups', groups)
 
-users.get('/:id',  (req, res) => controllers.getUser(req, res))
+users.get('/:id', (req, res) => controllers.getUser(req, res))
 
 users.get('/chats/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
 
