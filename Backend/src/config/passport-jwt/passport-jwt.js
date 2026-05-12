@@ -12,7 +12,9 @@ passport.use(
           try {
                
                const user = await prisma.user.findUnique({where: {id: jwt_payload.id}})
+
                if(user) {
+                    await prisma.user.update({where: {id: user.id}, data: {lastActive: new Date()}})
                     return done(null, user)
                } else {
                     return done(null, false);

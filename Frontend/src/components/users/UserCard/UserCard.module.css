@@ -35,3 +35,18 @@
   margin-left: 5px;
   font-family: "Miranda Sans", Times, serif;
 }
+
+.statusCircle {
+  height: 10px;
+  width: 10px;
+  background-color: #9d3535;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: auto;
+  align-self: center;
+  margin-right: 8px;
+}
+
+#onlineCircle {
+  background-color: #3bbb3b;
+}

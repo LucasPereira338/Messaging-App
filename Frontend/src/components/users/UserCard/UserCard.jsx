@@ -22,6 +22,12 @@ function UserCard({ user, talkingWith = "null", handleTalkingWith = "null" }) {
         <div className={styles.cardName}>{user.name}</div>
         <div className={styles.cardUsername}>{user.username}</div>
       </div>
+      <div
+        id={user.isActive ? styles.onlineCircle : null}
+        className={styles.statusCircle}
+      >
+        {" "}
+      </div>
     </div>
   );
 }

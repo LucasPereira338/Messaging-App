@@ -39,20 +39,32 @@ async function getUsersInList(req, res) {
             id: true,
             name: true,
             username: true,
-            portrait: true
+            portrait: true,
+            lastActive: true
         },
         orderBy: {
             name: "asc"
         }
     })
 
+    const dateNow = new Date()
+    
+    users.forEach((item, ind) => {
+        const dateDif = dateNow - item.lastActive
+        const dateDifConv = dateDif/1000
+        if (dateDifConv <= 3000) {
+            item.isActive = true
+        } else {
+            item.isActive = false
+        }
+    })
+    
     res.json(users)
 }
 
 async function getUsers(req, res) {
     
     const searchTerm = req.query.name
-
 
     const users = await prisma.user.findMany({
         where: {
@@ -74,6 +86,18 @@ async function getUsers(req, res) {
         omit: {
                 password: true
             }
+    })
+    
+    const dateNow = new Date()
+    
+    users.forEach((item, ind) => {
+        const dateDif = dateNow - item.lastActive
+        const dateDifConv = dateDif/1000
+        if (dateDifConv <= 300) {
+            item.isActive = true
+        } else {
+            item.isActive = false
+        }
     })
 
     res.json(users)
