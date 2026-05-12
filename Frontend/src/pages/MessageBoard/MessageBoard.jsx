@@ -20,18 +20,29 @@ function MessageBoard() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const response = await fetchUserMessages({
-        id: userId,
-      });
-      let allMessages = response;
-      addUserId(allMessages, userId);
+    try {
+      const fetchMessages = async () => {
+        const response = await fetchUserMessages({
+          id: userId,
+        });
+        console.log("response is");
+        console.log(response);
+        if (response.message) {
+          console.log("there is a response message indeed" + response);
+          localStorage.removeItem("token");
+          return "logging out";
+        }
+        let allMessages = response;
+        addUserId(allMessages, userId);
 
-      const result = { data: allMessages };
+        const result = { data: allMessages };
 
-      setMessages(result);
-    };
-    fetchMessages();
+        setMessages(result);
+      };
+      fetchMessages();
+    } catch (e) {
+      console.error(e);
+    }
   }, [userId]);
 
   useEffect(() => {

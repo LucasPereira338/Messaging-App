@@ -19,7 +19,7 @@ function Home() {
 
   let navigate = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (token) {
       const getUserIfToken = async () => {
         const result = await fetchUser({ id: localStorage.getItem("userId") });
@@ -31,7 +31,7 @@ function Home() {
       };
       getUserIfToken();
     }
-  }, [token]);
+  }, [token]);*/
 
   useEffect(() => {
     if (isLoggedIn == true) {
