@@ -115,7 +115,7 @@ async function postLogin(req, res) {
             username: true,
             portrait: true,
             password: true
-        },
+        }
     })
 
     if (!user) {

@@ -2,8 +2,9 @@ import UserCard from "../../components/users/UserCard/UserCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import { addUserId } from "../../helpers/arrayHelpers";
-import { fetchUserMessages } from "../../services/messageServices";
+import { fetchUserContacts } from "../../services/messageServices";
 import { fetchUser } from "../../services/userServices";
+//import { fetchUserGroups } from "../../services/groupServices";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import * as styles from "./MessageBoard.module.css";
@@ -12,7 +13,7 @@ function MessageBoard() {
   let user = useLocation().state;
   const userId = user.id;
 
-  const [messages, setMessages] = useState([{ id: 0, content: "loading..." }]);
+  const [contacts, setContacts] = useState([{ id: 0 }]);
   const [talkingWith, setTalkingWith] = useState({
     id: 0,
     name: "fetching... ",
@@ -21,10 +22,10 @@ function MessageBoard() {
 
   useEffect(() => {
     try {
-      const fetchMessages = async () => {
-        const response = await fetchUserMessages({
+      const fetchContacts = async () => {
+        const response = await fetchUserContacts({
           id: userId,
-        });
+        }); //there is a inefficiency in this, as i only really want the user ids
         console.log("response is");
         console.log(response);
         if (response.message) {
@@ -36,29 +37,31 @@ function MessageBoard() {
         addUserId(allMessages, userId);
 
         const result = { data: allMessages };
+        console.log("messages is gonna be");
+        console.log(result);
 
-        setMessages(result);
+        setContacts(result);
       };
-      fetchMessages();
+      fetchContacts();
     } catch (e) {
       console.error(e);
     }
   }, [userId]);
 
   useEffect(() => {
-    if (typeof messages.data !== "undefined") {
+    if (typeof contacts.data !== "undefined") {
       const fetchTalkingWith = async () => {
         const id =
-          messages.data[0].userId == messages.data[0].authorId
-            ? messages.data[0].receiverId
-            : messages.data[0].authorId;
+          contacts.data[0].userId == contacts.data[0].authorId
+            ? contacts.data[0].receiverId
+            : contacts.data[0].authorId;
         const result = await fetchUser({ id: id });
 
         setTalkingWith(result);
       };
       fetchTalkingWith();
     }
-  }, [messages]);
+  }, [contacts]);
 
   useEffect(() => {
     if (talkingWith.id == user.id) {
@@ -74,7 +77,7 @@ function MessageBoard() {
   return (
     <div className={styles.MessageBoard}>
       <MessageSidebar
-        messages={messages}
+        contacts={contacts}
         talkingWith={talkingWith}
         handleTalkingWith={handleTalkingWith}
       />

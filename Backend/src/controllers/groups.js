@@ -55,11 +55,14 @@ async function postGroup(req, res) {
         data: {
             title: req.body.title,
             portrait: req.body.portrait,
-            users: req.user.id
+            users: {
+                create: [
+                    { user: { connect: { id: req.user.id } } }
+                ],
         }
-    })
+    }})
 
-    res.json(message)
+    res.json(group)
 }
 
 async function postMembersToGroup(req, res) {

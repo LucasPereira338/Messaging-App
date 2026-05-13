@@ -1,5 +1,5 @@
 
-export async function fetchUserMessages(data) {
+export async function fetchUserContacts(data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'messages/user/' + data.id;

@@ -60,8 +60,26 @@ async function getAllUserChatPartners(req, res) {
         select: {
             authorId: true,
             receiverId: true
+        }
+    })
+
+    /*
+    const messages = await prisma.message.findMany({
+        where: {
+            OR: [
+                {authorId: req.params.userId},
+                {receiverId: req.params.userId}
+            ]
+        },
+        orderBy: {
+            updatedAt: "desc"
+        },
+        select: {
+            authorId: true,
+            receiverId: true
         } 
     })
+    */
 
     res.json(messages)
 }

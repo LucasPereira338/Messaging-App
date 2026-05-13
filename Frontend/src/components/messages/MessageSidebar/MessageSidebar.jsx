@@ -5,19 +5,22 @@ import { fetchUsersInList } from "../../../services/userServices";
 import { pushUniqueIds } from "../../../helpers/arrayHelpers";
 import { useState, useEffect } from "react";
 
-function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
+function MessageSidebar({ contacts, talkingWith, handleTalkingWith }) {
   const [users, setUsers] = useState([{ id: 0, name: "pending..." }]);
 
+  const [section, setSection] = useState("All");
+  console.log(section);
+
   useEffect(() => {
-    if (typeof messages.data !== "undefined") {
+    if (typeof contacts.data !== "undefined") {
       try {
         const fetchUsers = async () => {
-          const arr = messages.data;
+          const arr = contacts.data;
 
-          const messagesIds = [];
-          pushUniqueIds(messagesIds, arr);
+          const contactsIds = [];
+          pushUniqueIds(contactsIds, arr);
 
-          const obj = { data: messagesIds };
+          const obj = { data: contactsIds };
 
           const response = await fetchUsersInList(obj);
 
@@ -28,7 +31,7 @@ function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
         console.error(e);
       }
     }
-  }, [messages]);
+  }, [contacts]);
 
   const handleNewUser = (data) => {
     const hasData = users.some((item) => item.id === data.id);
@@ -51,6 +54,29 @@ function MessageSidebar({ messages, talkingWith, handleTalkingWith }) {
     >
       <h3 className={styles.messagesSidebarTitle}> Messages </h3>
       <SearchUser handleNewUser={handleNewUser} />
+      <div>Create Group</div>
+      <div className={styles.contentChoiceContainer}>
+        <ul className={styles.contentChoiceList}>
+          <li
+            id={styles.contentChoiceItem}
+            onClick={(e) => setSection(e.target.textContent)}
+          >
+            All
+          </li>
+          <li
+            id={styles.contentChoiceItem}
+            onClick={(e) => setSection(e.target.textContent)}
+          >
+            Contacts
+          </li>
+          <li
+            id={styles.contentChoiceItem}
+            onClick={(e) => setSection(e.target.textContent)}
+          >
+            Groups
+          </li>
+        </ul>
+      </div>
       {typeof users == "undefined" ? (
         <div>Loading...</div>
       ) : (

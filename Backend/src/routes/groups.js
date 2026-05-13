@@ -15,6 +15,4 @@ groups.post('/:id', passport.authenticate('jwt', {session:false}), (req, res) =>
 
 groups.post('/', passport.authenticate('jwt', {session:false}), (req, res) => controllers.postGroup(req, res));
 
-
-
 module.exports = groups

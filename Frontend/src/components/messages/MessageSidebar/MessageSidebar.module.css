@@ -5,3 +5,16 @@
   grid-row-end: 3;
   gap: 10px;
 }
+
+.contentChoiceList {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  justify-content: space-around;
+  padding: 0;
+}
+
+#contentChoiceItem:hover {
+  background-color: #31789b;
+}
