@@ -23,8 +23,7 @@ model User {
   background       String?
   isAdmin          Boolean   @default(false)
   messagesSent     Message[] @relation("author")
-  messagesReceived Message[] @relation("receiver")
-  groups  GroupMembers[]
+  chats Chat[]
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   lastActive        DateTime?
@@ -36,28 +35,27 @@ model Message {
   image      String?
   author     User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   authorId   String
-  receiver   User?     @relation("receiver", fields: [receiverId], references: [id], onDelete: Cascade)
-  receiverId String?
-  group Group? @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId  String?
+  chat  Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chatId  String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Chat {
+  id  String @id @unique @default(uuid())
+  messages Message[]
+  members User[]
+  group Group? 
 }
 
 model Group {
   id  String  @id @unique @default(uuid())
   title String 
   portrait String?
-  users GroupMembers[]
-  messages Message[]
+  chat  Chat @relation(fields: [chatId], references: [id])
+  chatId  String @unique
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 }
 
-model GroupMembers {
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String
-  group Group @relation(fields:[groupId], references: [id], onDelete: Cascade)
-  groupId  String
-  @@id([userId, groupId])
-}
+

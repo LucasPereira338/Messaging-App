@@ -2,6 +2,9 @@ const {Router} = require('express')
 const groups = Router({mergeParams: true})
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const controllers = require('../controllers/groups.js')
+const chats = require('./chats.js');
+
+//groups.use('/:id/chats', chats)
 
 groups.get('/:id/messages', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getGroupMessages(req, res));
 

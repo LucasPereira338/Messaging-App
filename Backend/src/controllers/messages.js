@@ -1,6 +1,6 @@
 const {prisma} = require('../../lib/prisma.js')
 
-async function getMessagesByChat(req, res) {
+/*async function getMessagesByChat(req, res) {
 
     if (req.user.id != req.params.authorId && req.user.id != req.params.receiverId) {
         return res.status(401).json({message: 'Unauthorized'})
@@ -25,7 +25,7 @@ async function getMessagesByChat(req, res) {
     })
 
     res.json(messages)
-}
+}*/
 
 async function getMessage(req, res) {
     const message = await prisma.message.findUnique({
@@ -34,14 +34,16 @@ async function getMessage(req, res) {
         }
     })
 
-    if (req.user.id != message.authorId && req.user.id != message.receiverId) {
+    console.log('user: ' + req.user.id + ', author: ' + message.authorId)
+
+    if (req.user.id != message.authorId) {
         return res.status(401).json({message: "Unauthorized"})
     }
 
     res.json(message)
 }
 
-async function getAllUserChatPartners(req, res) {
+/*async function getAllUserChatPartners(req, res) {
     
     if (req.user.id != req.params.userId) {
         return res.status(401).json({message: "Unauthorized"})
@@ -63,26 +65,9 @@ async function getAllUserChatPartners(req, res) {
         }
     })
 
-    /*
-    const messages = await prisma.message.findMany({
-        where: {
-            OR: [
-                {authorId: req.params.userId},
-                {receiverId: req.params.userId}
-            ]
-        },
-        orderBy: {
-            updatedAt: "desc"
-        },
-        select: {
-            authorId: true,
-            receiverId: true
-        } 
-    })
-    */
-
+    
     res.json(messages)
-}
+}*/
 
 async function getMessagesByAuthor(req, res) {
 
@@ -93,21 +78,6 @@ async function getMessagesByAuthor(req, res) {
     const messages = await prisma.message.findMany({
         where: {
             authorId: req.params.authorId
-        }
-    })
-
-    res.json(messages)
-}
-
-async function getMessagesByReceiver(req, res) {
-    
-    if (req.user.id != req.params.receiverId) {
-        return res.status(401).json({message: "Unauthorized"})
-    }
-
-    const messages = await prisma.message.findMany({
-        where: {
-            receiverId: req.params.receiverId
         }
     })
 
@@ -141,8 +111,7 @@ async function postNewMessage(req, res) {
             authorId: req.body.authorId,
             content: req.body.content,
             image: req.body.image || undefined,
-            receiverId: req.body.receiverId || undefined,
-            groupId: req.body.groupId || undefined
+            chatId: req.body.chatId 
         }
     })
 
@@ -198,11 +167,8 @@ async function deleteMessage(req, res) {
 }
 
 module.exports = {
-    getMessagesByChat,
     getMessage,
-    getAllUserChatPartners,
     getMessagesByAuthor,
-    getMessagesByReceiver,
     getMessages,
     postNewMessage,
     updateMessage,
