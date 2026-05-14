@@ -51,7 +51,7 @@ model Chat {
 model Group {
   id  String  @id @unique @default(uuid())
   title String 
-  portrait String?
+  portrait String    @default("profiles/portraits/blank.svg")
   chat  Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId  String @unique
   createdAt        DateTime  @default(now())
