@@ -116,30 +116,6 @@ test('get a existing message', done => {
         .expect(200, done)
 })
 
-/*test('get messages in a chat', done => {
-    request(app)
-        .get(`/messages/${user.id}/chat/${secondUser.id}`)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})*/
-
-/*test('gets all the messages of a user', done => {
-    request(app)
-        .get('/messages/user/' + user.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})*/
-
-/*test("user cannot view someone else's messages", done => {
-    request(app) 
-        .get('/messages/user/' + secondUser.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(401, done)
-})*/
-
 test('gets all the messages that a user sent', done => {
     request(app)
         .get('/messages/author/' + user.id)

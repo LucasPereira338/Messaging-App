@@ -51,27 +51,79 @@ async function main() {
         }
     })
 
+    const chatOne = await prisma.chat.create({
+        data: {
+            members: {
+                connect: [
+                    { id: Jonathan.id},
+                    { id: Brad.id}
+                ],
+            }
+    }})
+
     const messageOne = await prisma.message.create({
         data: {
             content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum elementum urna sit amet iaculis. Praesent sed orci quis velit tristique pretium. Morbi nisl nisi, eleifend sed purus sit amet, hendrerit sagittis metus.",
             authorId: Jonathan.id,
-            receiverId: Brad.id
+            chatId: chatOne.id
         }
     })
+
+    const chatTwo = await prisma.chat.create({
+        data: {
+            members: {
+                connect: [
+                    { id: Brad.id},
+                    { id: Jonathan.id}
+                ],
+            }
+    }})
 
     const messageTwo = await prisma.message.create({
         data: {
             content: "Morbi consectetur tellus vestibulum leo suscipit sodales. Praesent eros leo, lacinia et tellus vitae, mattis dignissim libero. Nunc eu sollicitudin mauris.",
             authorId: Brad.id,
-            receiverId: Jonathan.id
+            chatId: chatTwo.id
         }
     })
+
+    const chatThree = await prisma.chat.create({
+        data: {
+            members: {
+                connect: [
+                    { id: Jason.id},
+                    { id: Jonathan.id}
+                ],
+            }
+    }})
 
     const messageThree = await prisma.message.create({
         data: {
             content: "Mauris quam magna, aliquam quis pulvinar a, feugiat in nisi. Nullam vitae volutpat massa. Pellentesque sodales risus arcu, rhoncus fringilla lectus aliquet at?",
             authorId: Jason.id,
-            receiverId: Jonathan.id
+            chatId: chatThree.id
+        }
+    })
+
+    const group = await prisma.group.create({
+        data: {
+            title: "Group 1",
+            chat: {
+                create: 
+                    {
+                    members: {
+                        connect: [{id: Jonathan.id}, {id: Brad.id}, {id: Jason.id}]
+                    }
+                }
+            }
+        }
+    })
+
+    const messageFour = await prisma.message.create({
+        data: {
+            content: "Everyone doing alright?",
+            authorId: Jason.id,
+            chatId: group.chatId
         }
     })
 }
