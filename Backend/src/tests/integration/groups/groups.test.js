@@ -35,30 +35,29 @@ beforeAll(async () => {
 
     const firstGroup = await prisma.group.create({
         data: {
-            title: 'first group ever'
+            title: 'Group 1',
+            chat: {
+                create: 
+                    {
+                    members: {
+                        connect: [{id: user.id}]
+                    }
+                }
+            }
+        },
+        include: {
+            chat: {
+                include: {
+                    members: true
+                }
+            }
         }
     })
 
-    const firstGroupMembers = await prisma.groupMembers.create({
-            
-        data: {
-            groupId: firstGroup.id,
-            userId: user.id
-        }
-    })
     group = firstGroup
 })
 
-test('add a user to group', done => {
-    request(app)
-        .post('/groups/' + group.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({userId: secondUser.id })
-        .expect(200, done)
-})
-
-test("get a group's messages ", done => {
+test("get's a group's messages", done => {
     request(app)
         .get('/groups/' + group.id + '/messages')
         .set('Authorization', `Bearer ${userToken}`)
@@ -66,7 +65,8 @@ test("get a group's messages ", done => {
         .expect(200, done)
 })
 
-test("get a group's members", done => {
+
+test("get's a group's members", done => {
     request(app)
         .get('/groups/' + group.id + '/users')
         .set('Authorization', `Bearer ${userToken}`)
@@ -74,10 +74,29 @@ test("get a group's members", done => {
         .expect(200, done)
 })
 
-test('get all groups a user is a member of', done => {
+test("get's a group", done => {
     request(app)
-        .get('/users/' + user.id + '/groups/')
+        .get('/groups/' + group.id)
         .set('Authorization', `Bearer ${userToken}`)
+        .expect(/Group 1/)
+        .expect('Content-Type', /json/)
+        .expect(200, done)
+})
+
+test("get's all groups a user is part of", done => {
+    request(app)
+        .get('/users/' + user.id + "/groups")
+        .set('Authorization', `Bearer ${userToken}`)
+        .expect('Content-Type', /json/)
+        .expect(200, done)
+})
+
+test("add's new members to a group", done => {
+    request(app)
+        .put('/groups/' + group.id)
+        .set('Authorization', `Bearer ${userToken}`)
+        .type('form')
+        .send({id: secondUser.id})
         .expect('Content-Type', /json/)
         .expect(200, done)
 })
@@ -85,11 +104,10 @@ test('get all groups a user is a member of', done => {
 
 
 
-
-
 afterAll(async () => {
-    await prisma.group.delete({where: {id: group.id} })
+    await prisma.chat.delete({where: {id: group.chatId} })
     await prisma.user.delete({where: {username: 'john3safsafasd2'}})
     await prisma.user.delete({where: {username: 'jaimsdadsadsadase32'}})
+    
     await prisma.$disconnect()
 })

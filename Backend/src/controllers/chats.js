@@ -12,8 +12,6 @@ async function getUserChats(req, res) {
         }
     })
 
-    console.log(chats)
-
     res.json(chats)
 }
 
@@ -27,8 +25,6 @@ async function getChatMessages(req, res) {
         }
     })
 
-    console.log(chat)
-
     res.json(chat)
 }
 
@@ -41,6 +37,7 @@ async function getChatMembers(req, res) {
             members: true
         }
     })
+
 
     res.json(chat)
 }
@@ -61,8 +58,6 @@ async function getChat(req, res) {
         }
     })
 
-    console.log(chat)
-
     res.json(chat)
 }
 
@@ -74,7 +69,7 @@ async function postChat(req, res) {
             members: {
                 connect: [
                     { id: req.user.id },
-                    { id: req.body.userId}
+                    { id: req.body.id}
                 ],
             }
     }})

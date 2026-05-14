@@ -1,22 +1,37 @@
 const {prisma} = require('../../lib/prisma.js')
 
 async function getGroupMessages(req, res) {
-    const groupMsgs = await prisma.message.findMany({
+    const group = await prisma.group.findUnique({
         where: {
-            groupId: req.params.id
+            id: req.params.id
+        },
+        include: {
+            chat: {
+                include: {
+                    messages: true
+                }
+            }
         }
     })
 
-    res.json(groupMsgs)
+    res.json(group)
 }
 
 async function getGroupMembers(req, res) {
-    const group = await prisma.groupMembers.findMany({
+    const group = await prisma.group.findUnique({
         where: {
-            groupId: req.params.id
+            id: req.params.id
         },
-        select: {
-            userId: true
+        include: {
+            chat: {
+                include: {
+                    members: {
+                        select: {
+                            id: true
+                        }
+                    }
+                }
+            }
         }
     })
 
@@ -28,6 +43,24 @@ async function getGroup(req, res) {
     const group = await prisma.group.findUnique({
         where: {
             id: req.params.id
+        },
+        include: {
+            chat: {
+                include: {
+                    members: {
+                        select: {
+                            id: true
+                        }
+                    },
+                    messages: {
+                        select: {
+                            id: true
+                        }
+                    }
+                }
+            }
+            
+            
         }
     })
 
@@ -36,13 +69,15 @@ async function getGroup(req, res) {
 
 
 async function getUserGroups(req, res) {
-    console.log('searching for groups that ' + req.params.id + " is a part of")
-    const groups = await prisma.groupMembers.findMany({
+    const groups = await prisma.group.findMany({
         where: {
-            userId: req.params.id
-        },
-        select: {
-            groupId: true
+            chat: {
+                members: {
+                    some: {
+                        id: req.params.id
+                    }
+                }
+            }
         }
     })
 
@@ -55,23 +90,50 @@ async function postGroup(req, res) {
         data: {
             title: req.body.title,
             portrait: req.body.portrait,
-            users: {
-                create: [
-                    { user: { connect: { id: req.user.id } } }
-                ],
+            chat: {
+                create: 
+                    {
+                    members: {
+                        connect: [{id: req.user.id}, {id: req.body.id}]
+                    }
+                }
+            }
+        },
+        include: {
+            chat: {
+                include: {
+                    members: true
+                }
+            }
         }
-    }})
+    })
 
     res.json(group)
 }
 
-async function postMembersToGroup(req, res) {
+async function putMembersInGroup(req, res) {
 
-    const group = await prisma.groupMembers.createMany({
-        data: [{groupId: req.params.id, userId: req.body.userId}
-            ]
-    })
-    
+    const group = await prisma.group.update({
+        where: {
+            id: req.params.id
+        },
+        data: {
+            chat: {
+                create: 
+                    {
+                    members: {
+                        connect: [{id: req.body.id}]
+                    }
+                }
+            }
+        },
+        include: {
+            chat: {
+                include: {
+                    members: true
+                }
+            }
+        }})
     
     res.json(group)
 }
@@ -82,5 +144,5 @@ module.exports = {
     getGroup,
     getUserGroups,
     postGroup,
-    postMembersToGroup
+    putMembersInGroup
 }

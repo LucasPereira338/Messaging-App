@@ -18,7 +18,6 @@ let userMsg;
 let chat;
 
 beforeAll(async () => {
-    
     const Timmy = await prisma.user.create({
         data: {
             name:'Timmy',
