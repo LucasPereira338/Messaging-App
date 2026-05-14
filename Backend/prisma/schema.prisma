@@ -52,7 +52,7 @@ model Group {
   id  String  @id @unique @default(uuid())
   title String 
   portrait String?
-  chat  Chat @relation(fields: [chatId], references: [id])
+  chat  Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId  String @unique
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
