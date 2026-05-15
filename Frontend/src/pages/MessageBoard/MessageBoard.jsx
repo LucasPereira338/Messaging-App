@@ -2,7 +2,7 @@ import UserCard from "../../components/users/UserCard/UserCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import { fetchUserChats } from "../../services/chatServices";
-import { fetchUser } from "../../services/userServices";
+//import { fetchUser } from "../../services/userServices";
 //import { fetchUserGroups } from "../../services/groupServices";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -34,7 +34,6 @@ function MessageBoard() {
         setChats(response);
         console.log("current chat chosen shall be");
         console.log(response[0]);
-        setCurrentChat(response[0]);
       };
       fetchChats();
     } catch (e) {

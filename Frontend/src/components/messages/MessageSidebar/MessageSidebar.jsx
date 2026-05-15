@@ -45,7 +45,7 @@ function MessageSidebar({ chats, talkingWith, handleTalkingWith }) {
 
   useEffect(() => {
     try {
-      if (chatsMembers[0].id != 0) {
+      if (chatsMembers[0].id != 0 && talkingWith.id == 0) {
         handleTalkingWith(chatsMembers[0]);
       }
     } catch (e) {
