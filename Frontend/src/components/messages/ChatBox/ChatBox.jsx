@@ -49,7 +49,10 @@ function ChatBox({ currentChat }) {
 
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
-      <UserCard user={currentChat} />
+      <UserCard
+        user={currentChat.username ? currentChat : "null"}
+        group={currentChat.title ? currentChat : "null"}
+      />
       <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
       <MessageInput
         user={localStorage.getItem("userId")}
