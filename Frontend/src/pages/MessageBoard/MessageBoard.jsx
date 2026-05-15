@@ -1,8 +1,7 @@
 import UserCard from "../../components/users/UserCard/UserCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
-import { addUserId } from "../../helpers/arrayHelpers";
-import { fetchUserContacts } from "../../services/messageServices";
+import { fetchUserChats } from "../../services/chatServices";
 import { fetchUser } from "../../services/userServices";
 //import { fetchUserGroups } from "../../services/groupServices";
 import { useEffect, useState } from "react";
@@ -13,75 +12,57 @@ function MessageBoard() {
   let user = useLocation().state;
   const userId = user.id;
 
-  const [contacts, setContacts] = useState([{ id: 0 }]);
-  const [talkingWith, setTalkingWith] = useState({
+  const [chats, setChats] = useState([{ id: 0 }]);
+  const [currentChat, setCurrentChat] = useState({
     id: 0,
     name: "fetching... ",
   });
+  console.log("current chat: ");
+  console.log(currentChat);
   let navigate = useNavigate();
 
   useEffect(() => {
     try {
-      const fetchContacts = async () => {
-        const response = await fetchUserContacts({
+      const fetchChats = async () => {
+        const response = await fetchUserChats({
           id: userId,
-        }); //there is a inefficiency in this, as i only really want the user ids
-        console.log("response is");
-        console.log(response);
-        if (response.message) {
-          console.log("there is a response message indeed" + response);
-          localStorage.removeItem("token");
-          return "logging out";
-        }
-        let allMessages = response;
-        addUserId(allMessages, userId);
+        });
 
-        const result = { data: allMessages };
         console.log("messages is gonna be");
-        console.log(result);
+        console.log(response);
 
-        setContacts(result);
+        setChats(response);
+        console.log("current chat chosen shall be");
+        console.log(response[0]);
+        setCurrentChat(response[0]);
       };
-      fetchContacts();
+      fetchChats();
     } catch (e) {
       console.error(e);
     }
   }, [userId]);
 
   useEffect(() => {
-    if (typeof contacts.data !== "undefined") {
-      const fetchTalkingWith = async () => {
-        const id =
-          contacts.data[0].userId == contacts.data[0].authorId
-            ? contacts.data[0].receiverId
-            : contacts.data[0].authorId;
-        const result = await fetchUser({ id: id });
-
-        setTalkingWith(result);
-      };
-      fetchTalkingWith();
-    }
-  }, [contacts]);
-
-  useEffect(() => {
-    if (talkingWith.id == user.id) {
+    if (currentChat.id == user.id) {
       navigate("/profile", { state: user });
     }
-  }, [talkingWith, navigate, user]);
+  }, [currentChat, navigate, user]);
 
   const handleTalkingWith = (twData) => {
+    console.log("handle talking with triggered");
     const twUserData = twData;
-    setTalkingWith(twUserData);
+    console.log(twUserData);
+    setCurrentChat(twUserData);
   };
 
   return (
     <div className={styles.MessageBoard}>
       <MessageSidebar
-        contacts={contacts}
-        talkingWith={talkingWith}
+        chats={chats}
+        talkingWith={currentChat}
         handleTalkingWith={handleTalkingWith}
       />
-      <ChatBox user={user} talkingWith={talkingWith} />
+      <ChatBox currentChat={currentChat} />
       <div id={styles.loggedUser} className="general-borders">
         <UserCard user={user} handleTalkingWith={handleTalkingWith} />
       </div>
@@ -90,3 +71,18 @@ function MessageBoard() {
 }
 
 export default MessageBoard;
+
+/* when i was havin issues due to chat not being properly updated
+return (
+    <div className={styles.MessageBoard}>
+      <MessageSidebar
+        chats={chats}
+        talkingWith={currentChat}
+        handleTalkingWith={handleTalkingWith}
+      />
+      <ChatBox currentChat={currentChat} />
+      <div id={styles.loggedUser} className="general-borders">
+        <UserCard chat={currentChat} handleTalkingWith={handleTalkingWith} />
+      </div>
+    </div>
+  ); */

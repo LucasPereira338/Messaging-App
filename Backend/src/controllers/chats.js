@@ -9,6 +9,9 @@ async function getUserChats(req, res) {
                     id: req.params.id
                 }
             }
+        },
+        include: {
+            group: true,
         }
     })
 
@@ -21,14 +24,15 @@ async function getChatMessages(req, res) {
             id: req.params.id
         },
         include: {
-            messages: true
+            messages: true,
+            group: true
         }
     })
 
     res.json(chat)
 }
 
-async function getChatMembers(req, res) {
+/*async function getChatMembers(req, res) {
     const chat = await prisma.chat.findMany({
         where: {
             id: req.params.id
@@ -40,6 +44,23 @@ async function getChatMembers(req, res) {
 
 
     res.json(chat)
+}*/
+
+async function getChatsMembers(req, res) {
+    const strList = req.params.ids.split(',')
+    const chatUsers = await prisma.chat.findMany({
+        where: {
+            id: {
+                in: strList
+            }
+        },
+        include: {
+            members: true,
+            group: true,
+        },
+    })
+
+    res.json(chatUsers)
 }
 
 async function getChat(req, res) {
@@ -49,11 +70,7 @@ async function getChat(req, res) {
             id: req.params.id
         }, 
         include: {
-            members: {
-                select: {
-                    id: true
-                }
-            },
+            members: true,
             messages: true
         }
     })
@@ -89,7 +106,7 @@ async function deleteChat(req, res) {
 
 module.exports = {
     getUserChats,
-    getChatMembers,
+    getChatsMembers,
     getChatMessages,
     getChat,
     postChat,

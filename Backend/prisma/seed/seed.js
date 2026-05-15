@@ -74,7 +74,7 @@ async function main() {
             members: {
                 connect: [
                     { id: Brad.id},
-                    { id: Jonathan.id}
+                    { id: Jason.id}
                 ],
             }
     }})

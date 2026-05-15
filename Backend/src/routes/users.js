@@ -14,7 +14,7 @@ users.use('/:id/chats', chats)
 
 users.get('/:id', (req, res) => controllers.getUser(req, res))
 
-users.get('/chats/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
+users.get('/list/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
 
 users.get('/', (req, res) => controllers.getUsers(req, res))
 

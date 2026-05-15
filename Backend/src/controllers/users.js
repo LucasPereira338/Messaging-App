@@ -26,8 +26,10 @@ async function getUser(req, res) {
 }
 
 async function getUsersInList(req, res) {
+    console.log('users in list:')
+    console.log(req.params.usersIds)
     const strList = req.params.usersIds.split(',')
-
+    console.log(strList)
     const users = await prisma.user.findMany({
         take: 5,
         where: {

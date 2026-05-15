@@ -3,14 +3,12 @@ import MessageInput from "../../../features/messages/MessageInput/MessageInput";
 import UserCard from "../../users/UserCard/UserCard";
 import Message from "../Message/Message";
 import ChatMessages from "../ChatMessages/ChatMessages";
-import {
-  deleteMessage,
-  fetchChatMessages,
-} from "../../../services/messageServices";
+import { deleteMessage } from "../../../services/messageServices";
+import { fetchChatMessages } from "../../../services/chatServices";
 import { addUserId } from "../../../helpers/arrayHelpers";
 import { useState, useEffect } from "react";
 
-function ChatBox({ user, talkingWith }) {
+function ChatBox({ currentChat }) {
   const [messages, setMessages] = useState([
     { id: "0", content: "pending..." },
   ]);
@@ -24,14 +22,18 @@ function ChatBox({ user, talkingWith }) {
 
   useEffect(() => {
     const fetchChat = async () => {
-      const result = await fetchChatMessages(user, talkingWith);
+      console.log("trying to fetch messages of a chat involving ");
+      console.log(currentChat);
+      const result = await fetchChatMessages(currentChat.chatId);
 
-      addUserId(result, user.id);
+      addUserId(result[0].messages, localStorage.getItem("userId"));
+      console.log("chat mgs: ");
+      console.log(result[0].messages);
 
-      setMessages(result);
+      setMessages(result[0].messages);
     };
     fetchChat();
-  }, [user, talkingWith, isNewMessage]);
+  }, [currentChat, isNewMessage]);
 
   useEffect(() => {
     if (msgToDel) {
@@ -47,11 +49,11 @@ function ChatBox({ user, talkingWith }) {
 
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
-      <UserCard user={talkingWith} />
+      <UserCard user={currentChat} />
       <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
       <MessageInput
-        user={user}
-        talkingWith={talkingWith}
+        user={localStorage.getItem("userId")}
+        talkingWith={currentChat}
         updateIsNewMessage={updateIsNewMessage}
       />
     </div>

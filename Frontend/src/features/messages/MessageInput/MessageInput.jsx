@@ -32,8 +32,8 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
         className={styles.messageInputForm}
         onSubmit={handleSubmit}
       >
-        <input type="hidden" name="authorId" value={user.id} />
-        <input type="hidden" name="receiverId" value={talkingWith.id} />
+        <input type="hidden" name="chatId" value={talkingWith.chatId} />
+        <input type="hidden" name="authorId" value={user} />
         <textarea
           type="text"
           name="content"

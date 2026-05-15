@@ -13,21 +13,6 @@ export async function fetchUserContacts(data) {
     return response.json()
 }
 
-export async function fetchChatMessages(author, receiver) {
-    const backend= import.meta.env.VITE_BACKEND;
-
-    const url = backend + "messages/" + author.id + "/chat/" + receiver.id
-
-    const token = localStorage.getItem('token')
-
-    const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        }
-    })
-
-    return response.json()
-}
-
 export async function postNewMessage(data) {
     const backend= import.meta.env.VITE_BACKEND;
 

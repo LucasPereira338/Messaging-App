@@ -1,48 +1,68 @@
 import * as styles from "./MessageSidebar.module.css";
 import UserCard from "../../users/UserCard/UserCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
-import { fetchUsersInList } from "../../../services/userServices";
-import { pushUniqueIds } from "../../../helpers/arrayHelpers";
+import {
+  arrayOfObjToArrayOfStr,
+  pushUniqueIdsAndChatId,
+} from "../../../helpers/arrayHelpers";
+//import { fetchUsersInList } from "../../../services/userServices";
+import { fetchChatsMembers } from "../../../services/chatServices";
 import { useState, useEffect } from "react";
 
-function MessageSidebar({ contacts, talkingWith, handleTalkingWith }) {
-  const [users, setUsers] = useState([{ id: 0, name: "pending..." }]);
+function MessageSidebar({ chats, talkingWith, handleTalkingWith }) {
+  const [chatsMembers, setChatsMembers] = useState([
+    { id: 0, name: "pending..." },
+  ]);
 
   const [section, setSection] = useState("All");
   console.log(section);
 
   useEffect(() => {
-    if (typeof contacts.data !== "undefined") {
+    if (typeof chats !== "undefined") {
       try {
         const fetchUsers = async () => {
-          const arr = contacts.data;
+          const arr = arrayOfObjToArrayOfStr(chats);
 
-          const contactsIds = [];
-          pushUniqueIds(contactsIds, arr);
+          const response = await fetchChatsMembers(arr);
+          console.log("chat members");
+          console.log(response);
 
-          const obj = { data: contactsIds };
+          const uniqueUsers = [];
 
-          const response = await fetchUsersInList(obj);
+          pushUniqueIdsAndChatId(uniqueUsers, response);
 
-          setUsers(response);
+          console.log("unique ids");
+          console.log(uniqueUsers);
+
+          setChatsMembers(uniqueUsers);
         };
         fetchUsers();
       } catch (e) {
         console.error(e);
       }
     }
-  }, [contacts]);
+  }, [chats]);
+
+  useEffect(() => {
+    try {
+      if (chatsMembers[0].id != 0) {
+        handleTalkingWith(chatsMembers[0]);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
 
   const handleNewUser = (data) => {
-    const hasData = users.some((item) => item.id === data.id);
+    const hasData = chatsMembers.some((item) => item.id === data.id);
     if (hasData == false) {
-      const newArr = users.map((item) => {
+      const newArr = chatsMembers.map((item) => {
         return item;
       });
 
       newArr.push(data);
 
-      setUsers(newArr);
+      setChatsMembers(newArr);
     }
   };
 
@@ -67,7 +87,7 @@ function MessageSidebar({ contacts, talkingWith, handleTalkingWith }) {
             id={styles.contentChoiceItem}
             onClick={(e) => setSection(e.target.textContent)}
           >
-            Contacts
+            Chats
           </li>
           <li
             id={styles.contentChoiceItem}
@@ -77,12 +97,12 @@ function MessageSidebar({ contacts, talkingWith, handleTalkingWith }) {
           </li>
         </ul>
       </div>
-      {typeof users == "undefined" ? (
+      {typeof chats == "undefined" ? (
         <div>Loading...</div>
       ) : (
         <div>
           <div className={styles.sidebarUsersList}>
-            {users.map((item) => {
+            {chatsMembers.map((item) => {
               return (
                 <UserCard
                   key={item.id}

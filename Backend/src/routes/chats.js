@@ -3,7 +3,7 @@ const chats = Router({mergeParams: true})
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const controllers = require('../controllers/chats.js');
 
-chats.get('/:id/users', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatMembers(req, res));
+chats.get('/:ids/users', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatsMembers(req, res));
 
 chats.get('/:id/messages', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatMessages(req, res));
 
