@@ -11,7 +11,11 @@ async function getUserChats(req, res) {
             }
         },
         include: {
-            group: true,
+            group: {
+                select: {
+                    id: true
+                }
+            }
         }
     })
 

@@ -17,8 +17,7 @@ function MessageBoard() {
     id: 0,
     name: "fetching... ",
   });
-  console.log("current chat: ");
-  console.log(currentChat);
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -28,12 +27,7 @@ function MessageBoard() {
           id: userId,
         });
 
-        console.log("messages is gonna be");
-        console.log(response);
-
         setChats(response);
-        console.log("current chat chosen shall be");
-        console.log(response[0]);
       };
       fetchChats();
     } catch (e) {

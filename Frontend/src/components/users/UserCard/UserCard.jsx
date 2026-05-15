@@ -1,8 +1,15 @@
 import * as styles from "./UserCard.module.css";
 
-function UserCard({ user, talkingWith = "null", handleTalkingWith = "null" }) {
+function UserCard({
+  user = "null",
+  group = "null",
+  talkingWith = "null",
+  handleTalkingWith = "null",
+}) {
+  const path = user != "null" ? user.portrait : group.portrait;
   const backend = import.meta.env.VITE_BACKEND;
-  const portrait = backend + "assets/" + user.portrait;
+  const portrait = backend + "assets/" + path;
+  const name = user != "null" ? user.name : group.title;
 
   return (
     <div
@@ -10,7 +17,9 @@ function UserCard({ user, talkingWith = "null", handleTalkingWith = "null" }) {
       className="general-borders"
       data-testid="container"
       onClick={
-        handleTalkingWith != "null" ? () => handleTalkingWith(user) : null
+        handleTalkingWith != "null"
+          ? () => handleTalkingWith(user != "null" ? user : group)
+          : null
       }
     >
       <img
@@ -19,8 +28,8 @@ function UserCard({ user, talkingWith = "null", handleTalkingWith = "null" }) {
         className={styles.cardPortrait}
       />
       <div className={styles.userInfo}>
-        <div className={styles.cardName}>{user.name}</div>
-        <div className={styles.cardUsername}>{user.username}</div>
+        <div className={styles.cardName}>{name}</div>
+        <div className={styles.cardUsername}>{user ? user.username : null}</div>
       </div>
       <div
         id={user.isActive ? styles.onlineCircle : null}

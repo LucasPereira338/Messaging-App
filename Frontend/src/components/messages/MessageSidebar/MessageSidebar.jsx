@@ -24,17 +24,24 @@ function MessageSidebar({ chats, talkingWith, handleTalkingWith }) {
           const arr = arrayOfObjToArrayOfStr(chats);
 
           const response = await fetchChatsMembers(arr);
-          console.log("chat members");
-          console.log(response);
 
           const uniqueUsers = [];
 
           pushUniqueIdsAndChatId(uniqueUsers, response);
 
-          console.log("unique ids");
-          console.log(uniqueUsers);
+          let groups = [];
+          response.forEach((item) => {
+            if (item.group != null) {
+              item.group.chatId = item.id;
+              groups.push(item.group);
+            }
+          });
+          const uniqueUsersAndGroups = uniqueUsers;
+          groups.forEach((item) => {
+            uniqueUsersAndGroups.push(item);
+          });
 
-          setChatsMembers(uniqueUsers);
+          setChatsMembers(uniqueUsersAndGroups);
         };
         fetchUsers();
       } catch (e) {
@@ -106,7 +113,8 @@ function MessageSidebar({ chats, talkingWith, handleTalkingWith }) {
               return (
                 <UserCard
                   key={item.id}
-                  user={item}
+                  user={item.username ? item : "null"}
+                  group={item.title ? item : "null"}
                   talkingWith={talkingWith}
                   handleTalkingWith={handleTalkingWith}
                 />
