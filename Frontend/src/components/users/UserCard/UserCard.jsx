@@ -10,10 +10,11 @@ function UserCard({
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + path;
   const name = user != "null" ? user.name : group.title;
+  const id = group != "null" ? group.id : user.id;
 
   return (
     <div
-      id={talkingWith.id == user.id ? styles.userCardActive : styles.userCard}
+      id={talkingWith.id == id ? styles.userCardActive : styles.userCard}
       className="general-borders"
       data-testid="container"
       onClick={

@@ -3,10 +3,10 @@ import MessageInput from "../../../features/messages/MessageInput/MessageInput";
 import UserCard from "../../users/UserCard/UserCard";
 import Message from "../Message/Message";
 import ChatMessages from "../ChatMessages/ChatMessages";
+import { useState, useEffect } from "react";
 import { deleteMessage } from "../../../services/messageServices";
 import { fetchChatMessages } from "../../../services/chatServices";
 import { addUserId } from "../../../helpers/arrayHelpers";
-import { useState, useEffect } from "react";
 
 function ChatBox({ currentChat }) {
   const [messages, setMessages] = useState([
@@ -22,13 +22,9 @@ function ChatBox({ currentChat }) {
 
   useEffect(() => {
     const fetchChat = async () => {
-      console.log("trying to fetch messages of a chat involving ");
-      console.log(currentChat);
       const result = await fetchChatMessages(currentChat.chatId);
 
       addUserId(result[0].messages, localStorage.getItem("userId"));
-      console.log("chat mgs: ");
-      console.log(result[0].messages);
 
       setMessages(result[0].messages);
     };
@@ -37,10 +33,9 @@ function ChatBox({ currentChat }) {
 
   useEffect(() => {
     if (msgToDel) {
-      console.log("deleting a message");
       const delMsg = async () => {
-        const result = await deleteMessage(msgToDel);
-        console.log(result);
+        await deleteMessage(msgToDel);
+
         setIsNewMessage(Math.random());
       };
       delMsg();

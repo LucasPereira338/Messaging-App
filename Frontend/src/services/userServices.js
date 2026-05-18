@@ -64,8 +64,6 @@ export async function fetchUsersInList(data) {
     const backend = import.meta.env.VITE_BACKEND;
 
     const url = backend + "users/list" + data.id 
-    console.log('sending to ')
-    console.log(url)
 
     const token = localStorage.getItem('token')
 
