@@ -1,3 +1,4 @@
+import * as styles from "./Registration.module.css";
 import SignUpForm from "../../features/auth/SignUpForm/SignUpForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
@@ -22,8 +23,10 @@ function Registration() {
     }
   }, [isLoggedIn, navigate, user]);
   return (
-    <div className="registration-content">
-      <SignUpForm handleLogin={handleLogin} handleUser={handleUser} />
+    <div className={styles.registration}>
+      <div className={styles.registrationContent}>
+        <SignUpForm handleLogin={handleLogin} handleUser={handleUser} />
+      </div>
     </div>
   );
 }
