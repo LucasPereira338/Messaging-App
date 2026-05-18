@@ -33,7 +33,7 @@ function UserCard({
       </div>
       <div
         id={user.isActive ? styles.onlineCircle : null}
-        className={styles.statusCircle}
+        className={user != "null" ? styles.statusCircle : null}
       >
         {" "}
       </div>

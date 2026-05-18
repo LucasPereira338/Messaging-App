@@ -86,6 +86,13 @@ async function getUserGroups(req, res) {
 
 async function postGroup(req, res) {
 
+    console.log('body')
+    console.log(req.body)
+    console.log('query')
+    console.log(req.query)
+
+    const users = req.body.users.split(' ') 
+    users.unshift(req.user.id)
     const group = await prisma.group.create({
         data: {
             title: req.body.title,
@@ -94,7 +101,7 @@ async function postGroup(req, res) {
                 create: 
                     {
                     members: {
-                        connect: [{id: req.user.id}, {id: req.body.id}]
+                        connect: users.map(i => ({id: i})) || []
                     }
                 }
             }
@@ -113,16 +120,22 @@ async function postGroup(req, res) {
 
 async function putMembersInGroup(req, res) {
 
+    const users = req.body.users
+    console.log(users)
+    console.log(req.body)
+
     const group = await prisma.group.update({
         where: {
             id: req.params.id
         },
         data: {
             chat: {
-                create: 
-                    {
-                    members: {
-                        connect: [{id: req.body.id}]
+                upsert: {
+                    create: 
+                        {
+                        members: {
+                            connect: users.map(i => ({id: i})) || []
+                        }
                     }
                 }
             }

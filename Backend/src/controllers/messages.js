@@ -43,6 +43,10 @@ async function getMessages(req, res) {
 
 async function postNewMessage(req, res) {
 
+    if (req.body.authorId != req.user.id) {
+        res.status(401).json({message: 'Unauthorized'})
+    }
+
     if (typeof req.file !== "undefined") {
         req.body.image = req.file.path.slice(7)
     }

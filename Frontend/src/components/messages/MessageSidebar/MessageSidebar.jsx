@@ -9,7 +9,12 @@ import {
 import { fetchChatsMembers } from "../../../services/chatServices";
 import { useState, useEffect } from "react";
 
-function MessageSidebar({ chats, talkingWith, handleTalkingWith }) {
+function MessageSidebar({
+  chats,
+  talkingWith,
+  handleTalkingWith,
+  handleCreateGroup,
+}) {
   const [chatsMembers, setChatsMembers] = useState([
     { id: 0, name: "pending..." },
   ]);
@@ -80,6 +85,9 @@ function MessageSidebar({ chats, talkingWith, handleTalkingWith }) {
       data-testid="MessageSidebar"
     >
       <h3 className={styles.messagesSidebarTitle}> Messages </h3>
+      <button type="submit" onClick={handleCreateGroup}>
+        Create Group
+      </button>
       <SearchUser handleNewUser={handleNewUser} />
       <div>Create Group</div>
       <div className={styles.contentChoiceContainer}>

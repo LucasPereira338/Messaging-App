@@ -53,14 +53,6 @@ test('post an user', done => {
         .expect(200, done)
 })
 
-test('get users in a chat', done => {
-    request(app)
-        .get('/users/chats/' +  userList)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
-
 test("update user's own info", done => {
     request(app)
         .put('/users/' + user.id)

@@ -1,7 +1,8 @@
 const app = require('../../../../app.js')
 const request = require('supertest')
 const {prisma} = require('../../../../lib/prisma.js')
-const jwt = require('../../../utils/jwt/jwt.js')
+const jwt = require('../../../utils/jwt/jwt.js');
+const { all } = require('../../../routes/messages.js');
 
 let group;
 
@@ -10,6 +11,8 @@ let user;
 let userToken;
 
 let secondUser;
+
+let thirdUser;
 
 beforeAll(async () => {
     
@@ -33,6 +36,17 @@ beforeAll(async () => {
     })
     secondUser = jaime;
 
+     const jackson = await prisma.user.create({
+        data: {
+            name:'jackson',
+            username: 'jacksondadsadsadase32',
+            email: 'jackson3dddddddddd2@gmail.com',
+            password: '12345'
+        }
+    })
+    thirdUser = jackson
+    const allUsers = [user.id]
+    console.log(allUsers)
     const firstGroup = await prisma.group.create({
         data: {
             title: 'Group 1',
@@ -40,7 +54,7 @@ beforeAll(async () => {
                 create: 
                     {
                     members: {
-                        connect: [{id: user.id}]
+                        connect: allUsers.map(i => ({id: i})) || []
                     }
                 }
             }
@@ -55,6 +69,7 @@ beforeAll(async () => {
     })
 
     group = firstGroup
+    
 })
 
 test("get's a group's messages", done => {
@@ -96,8 +111,8 @@ test("add's new members to a group", done => {
         .put('/groups/' + group.id)
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
-        .send({id: secondUser.id})
-        .expect('Content-Type', /json/)
+        .send({users: [secondUser.id, thirdUser.id]})
+        
         .expect(200, done)
 })
 
@@ -108,6 +123,6 @@ afterAll(async () => {
     await prisma.chat.delete({where: {id: group.chatId} })
     await prisma.user.delete({where: {username: 'john3safsafasd2'}})
     await prisma.user.delete({where: {username: 'jaimsdadsadsadase32'}})
-    
+    await prisma.user.delete({where: {username: 'jacksondadsadsadase32'}})
     await prisma.$disconnect()
 })

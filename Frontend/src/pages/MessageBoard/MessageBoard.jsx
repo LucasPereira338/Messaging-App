@@ -2,6 +2,7 @@ import UserCard from "../../components/users/UserCard/UserCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import { fetchUserChats } from "../../services/chatServices";
+import GroupForm from "../../features/groups/GroupForm/GroupForm";
 //import { fetchUser } from "../../services/userServices";
 //import { fetchUserGroups } from "../../services/groupServices";
 import { useEffect, useState } from "react";
@@ -17,6 +18,16 @@ function MessageBoard() {
     id: 0,
     name: "fetching... ",
   });
+
+  const [isCreateGroup, setIsCreateGroup] = useState(false);
+
+  const handleCreateGroup = () => {
+    if (isCreateGroup) {
+      setIsCreateGroup(false);
+    } else {
+      setIsCreateGroup(true);
+    }
+  };
 
   let navigate = useNavigate();
 
@@ -54,8 +65,14 @@ function MessageBoard() {
         chats={chats}
         talkingWith={currentChat}
         handleTalkingWith={handleTalkingWith}
+        handleCreateGroup={handleCreateGroup}
       />
-      <ChatBox currentChat={currentChat} />
+      {isCreateGroup == false ? (
+        <ChatBox currentChat={currentChat} />
+      ) : (
+        <GroupForm />
+      )}
+
       <div id={styles.loggedUser} className="general-borders">
         <UserCard user={user} handleTalkingWith={handleTalkingWith} />
       </div>
