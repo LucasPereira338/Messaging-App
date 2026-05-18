@@ -4,17 +4,15 @@ import { updateUser, fetchUser } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 
 function ProfileForm({ userId }) {
-  const backend = import.meta.env.VITE_BACKEND;
   const [user, setUser] = useState({ id: userId, name: "pending..." });
+
+  const backend = import.meta.env.VITE_BACKEND;
 
   const portrait = backend + "assets/" + user.portrait;
 
   const userKeys = Object.keys(user);
-  console.log("the userKeys are");
-  console.log(userKeys);
 
   const [userValues, setUserValues] = useState(Object.values(user));
-  console.log(userValues);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -22,8 +20,6 @@ function ProfileForm({ userId }) {
 
       setUser(result);
       const newArr = Object.values(result);
-      console.log("newArr: ");
-      console.log(newArr);
 
       setUserValues(Object.values(newArr));
     };
@@ -41,12 +37,13 @@ function ProfileForm({ userId }) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    console.log("the user form data is: ");
-    console.log(formData);
 
+    const formValues = Object.fromEntries(formData.entries());
+
+    formData.id = formValues.id;
     const result = await updateUser(formData);
 
-    setUser(result);
+    console.log(result);
   };
 
   return (

@@ -186,7 +186,7 @@ async function updateUser(req, res) {
             ...req.body
         },
         omit: {
-            password: true
+            password: true,
         }
     })
 

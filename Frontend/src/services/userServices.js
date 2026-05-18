@@ -81,7 +81,7 @@ export async function fetchUsersInList(data) {
 export async function updateUser(data) {
     const backend = import.meta.env.VITE_BACKEND;
 
-    const url = backend + "users/"
+    const url = backend + "users/" + data.id
 
     const token = localStorage.getItem('token')
 

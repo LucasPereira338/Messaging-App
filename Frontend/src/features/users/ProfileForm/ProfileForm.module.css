@@ -8,7 +8,9 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  background-color: #e7ecef;
+  background-color: #6096ba;
+  color: #e7ecef;
+  border: groove 3px #6096ba;
 }
 
 #profileForm {
@@ -48,8 +50,7 @@ input[type="file"] {
 }
 
 .childInp {
-  grid-column-start: 2;
-  grid-column-end: 6;
+  width: 99%;
 }
 /*#imgInpOverlay {
   position: absolute;
