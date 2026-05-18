@@ -13,7 +13,7 @@ messages.get('/author/:authorId', passport.authenticate('jwt', {session: false})
 
 messages.get('/', (req, res) => controllers.getMessages(req, res)) 
 
-messages.post('/', passport.authenticate('jwt', {session: false}), upload.single('portrait'), (req, res) => controllers.postNewMessage(req, res))
+messages.post('/', passport.authenticate('jwt', {session: false}), upload.single('image'), (req, res) => controllers.postNewMessage(req, res))
 
 messages.put('/:id', passport.authenticate('jwt', {session: false}), (req, res) => controllers.updateMessage(req, res)) 
 

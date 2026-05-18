@@ -17,3 +17,7 @@
   background-color: #5f5fe7;
   color: white;
 }
+#msgImg {
+  max-width: 100px;
+  min-height: 100px;
+}

@@ -86,11 +86,6 @@ async function getUserGroups(req, res) {
 
 async function postGroup(req, res) {
 
-    console.log('body')
-    console.log(req.body)
-    console.log('query')
-    console.log(req.query)
-
     const users = req.body.users.split(' ') 
     users.unshift(req.user.id)
     const group = await prisma.group.create({

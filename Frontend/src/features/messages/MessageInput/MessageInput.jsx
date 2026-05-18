@@ -11,11 +11,8 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const formValues = Object.fromEntries(formData.entries());
 
-    formValues.token = user.token;
-
-    await postNewMessage(formValues);
+    await postNewMessage(formData);
 
     updateIsNewMessage();
 
@@ -42,6 +39,7 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
           value={msg}
           onChange={handleTyping}
         />
+        <input type="file" name="image" />
         <button id={styles.msgInpBtn} type="submit">
           Send
         </button>
