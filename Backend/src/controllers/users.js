@@ -45,7 +45,7 @@ async function getUsersInList(req, res) {
             lastActive: true
         },
         orderBy: {
-            name: "asc"
+            name: "desc"
         }
     })
 

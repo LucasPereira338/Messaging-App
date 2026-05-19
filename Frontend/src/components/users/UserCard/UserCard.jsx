@@ -5,6 +5,7 @@ function UserCard({
   group = "null",
   talkingWith = "null",
   handleTalkingWith = "null",
+  msg = "null",
 }) {
   const path = user != "null" ? user.portrait : group.portrait;
   const backend = import.meta.env.VITE_BACKEND;
@@ -31,7 +32,11 @@ function UserCard({
       <div className={styles.userInfo}>
         <div className={styles.cardName}>{name}</div>
         <div className={styles.cardUsername}>{user ? user.username : null}</div>
+        {msg != "null" ? (
+          <div className={styles.lastMsg}>{msg.content}</div>
+        ) : null}
       </div>
+
       <div
         id={user.isActive ? styles.onlineCircle : null}
         className={user != "null" ? styles.statusCircle : null}

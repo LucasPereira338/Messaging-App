@@ -37,7 +37,8 @@ function MessageBoard() {
         const response = await fetchUserChats({
           id: userId,
         });
-
+        console.log("the chat ids:");
+        console.log(response);
         setChats(response);
       };
       fetchChats();

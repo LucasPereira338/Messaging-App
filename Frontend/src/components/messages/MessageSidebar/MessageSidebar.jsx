@@ -29,6 +29,8 @@ function MessageSidebar({
           const arr = arrayOfObjToArrayOfStr(chats);
 
           const response = await fetchChatsMembers(arr);
+          console.log("resp b4 other funcs");
+          console.log(response);
 
           const uniqueUsers = [];
 
@@ -38,6 +40,7 @@ function MessageSidebar({
           response.forEach((item) => {
             if (item.group != null) {
               item.group.chatId = item.id;
+              item.group.message = item.messages[0];
               groups.push(item.group);
             }
           });
@@ -45,6 +48,8 @@ function MessageSidebar({
           groups.forEach((item) => {
             uniqueUsersAndGroups.push(item);
           });
+          console.log("the members are");
+          console.log(uniqueUsersAndGroups);
 
           setChatsMembers(uniqueUsersAndGroups);
         };
@@ -125,6 +130,7 @@ function MessageSidebar({
                   group={item.title ? item : "null"}
                   talkingWith={talkingWith}
                   handleTalkingWith={handleTalkingWith}
+                  msg={item.message}
                 />
               );
             })}

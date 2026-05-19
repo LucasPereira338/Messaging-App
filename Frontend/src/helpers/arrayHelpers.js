@@ -4,6 +4,7 @@ export function pushUniqueIdsAndChatId(uniqueIds, allIds) {
   allIds.forEach((item) => {
     for (let i = 0; i <= item.members.length - 1; i++) {
       item.members[i].chatId = item.id
+      item.members[i].message = item.messages[0]
       const doesArrHaveUser = uniqueIds.some(user => user.id === item.members[i].id)
       if (item.members[i].id != userId) {
         if (doesArrHaveUser == false) {

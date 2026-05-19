@@ -36,20 +36,6 @@ async function getChatMessages(req, res) {
     res.json(chat)
 }
 
-/*async function getChatMembers(req, res) {
-    const chat = await prisma.chat.findMany({
-        where: {
-            id: req.params.id
-        },
-        include: {
-            members: true
-        }
-    })
-
-
-    res.json(chat)
-}*/
-
 async function getChatsMembers(req, res) {
     const strList = req.params.ids.split(',')
     const chatUsers = await prisma.chat.findMany({
@@ -59,8 +45,18 @@ async function getChatsMembers(req, res) {
             }
         },
         include: {
-            members: true,
+            members: {
+                omit: {
+                    password: true
+                }
+            },
             group: true,
+            messages: {
+                select: {
+                    id: true,
+                    content: true
+                }
+            }
         },
     })
 

@@ -12,10 +12,7 @@
 
 #userCardActive {
   display: flex;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  /*border: groove 1px #5f5fe7;*/
-  border-width: 1px;
+  border: groove 1px #5f5fe7;
   background-color: #5f5fe7;
   color: #e7ecef;
 }
@@ -27,6 +24,10 @@
   object-fit: cover;
 }
 
+.userInfo {
+  overflow: hidden;
+}
+
 .cardName {
   font-weight: 550;
 }
@@ -36,9 +37,17 @@
   font-family: "Miranda Sans", Times, serif;
 }
 
+.lastMsg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Miranda Sans", Times, serif;
+  margin-left: 5px;
+}
+
 .statusCircle {
-  height: 10px;
-  width: 10px;
+  min-height: 10px;
+  min-width: 10px;
   background-color: #9d3535;
   border-radius: 50%;
   display: inline-block;
