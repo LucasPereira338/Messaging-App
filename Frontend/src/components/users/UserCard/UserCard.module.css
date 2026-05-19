@@ -8,6 +8,7 @@
 #userCard:hover {
   background-color: #6096ba;
   color: #e7ecef;
+  cursor: grab;
 }
 
 #userCardActive {

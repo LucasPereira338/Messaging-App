@@ -28,7 +28,17 @@ async function getChatMessages(req, res) {
             id: req.params.id
         },
         include: {
-            messages: true,
+            messages: {
+                select: {
+                    id: true,
+                    authorId: true,
+                    content: true,
+                    createdAt: true,
+                }, 
+                orderBy: {
+                    createdAt: 'asc'
+                }
+            },
             group: true
         }
     })
@@ -55,7 +65,11 @@ async function getChatsMembers(req, res) {
                 select: {
                     id: true,
                     content: true
-                }
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 1
             }
         },
     })
