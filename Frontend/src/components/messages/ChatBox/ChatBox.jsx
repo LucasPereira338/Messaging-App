@@ -36,7 +36,7 @@ function ChatBox({ currentChat }) {
       const delMsg = async () => {
         await deleteMessage(msgToDel);
 
-        setIsNewMessage(Math.random());
+        updateIsNewMessage();
       };
       delMsg();
     }

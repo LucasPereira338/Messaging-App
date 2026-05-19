@@ -8,9 +8,6 @@
 
 .homeContainer {
   background-color: #6096ba;
-  grid-column-start: 2;
-  grid-row-start: 2;
-  grid-row-end: 3;
   border: groove 3px #6096ba;
   border-radius: 5px;
   font-size: 1.3em;
