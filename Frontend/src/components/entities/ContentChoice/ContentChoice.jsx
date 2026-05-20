@@ -1,7 +1,7 @@
 import * as styles from "./ContentChoice.module.css";
 
 function ContentChoice({ content, handleContent }) {
-  const possibleChoices = ["All", "Users", "Groups"];
+  const possibleChoices = ["All", "Chats", "Groups"];
   return (
     <section className={styles.contentChoice}>
       <div

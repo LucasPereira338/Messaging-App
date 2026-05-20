@@ -1,7 +1,7 @@
 .MessageBoard {
   display: grid;
   height: 100vh;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 0.3fr 2.7fr 7fr;
   grid-template-rows: 1.5fr 8fr 0.5fr;
   background-color: #e7ecef;
   /*background-color: #e0e0e2;*/
@@ -13,5 +13,5 @@
 #loggedUser {
   grid-row-start: 3;
   grid-row-end: 3;
-  grid-column-start: 1;
+  grid-column-start: 2;
 }

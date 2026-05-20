@@ -50,7 +50,7 @@ export async function fetchChatMessages(chat) {
 export async function fetchChatsMembers(chats) {
     const backend = import.meta.env.VITE_BACKEND
     
-    const url = backend + 'chats/' + chats + '/users' 
+    const url = backend + 'chats/' + chats + '/members' 
 
     const token = localStorage.getItem('token')
     

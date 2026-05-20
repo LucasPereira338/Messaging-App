@@ -27,8 +27,9 @@ function MessageSidebar({
       try {
         const fetchUsers = async () => {
           const arr = arrayOfObjToArrayOfStr(chats);
+          let response;
 
-          const response = await fetchChatsMembers(arr);
+          response = await fetchChatsMembers(arr);
 
           const uniqueUsers = [];
 
@@ -54,7 +55,7 @@ function MessageSidebar({
         console.error(e);
       }
     }
-  }, [chats]);
+  }, [chats, section]);
 
   useEffect(() => {
     try {

@@ -5,6 +5,7 @@ import { fetchUserChats } from "../../services/chatServices";
 import GroupForm from "../../features/groups/GroupForm/GroupForm";
 //import { fetchUser } from "../../services/userServices";
 //import { fetchUserGroups } from "../../services/groupServices";
+import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import * as styles from "./MessageBoard.module.css";
@@ -60,6 +61,7 @@ function MessageBoard() {
 
   return (
     <div className={styles.MessageBoard}>
+      <PageSidebar />
       <MessageSidebar
         chats={chats}
         talkingWith={currentChat}

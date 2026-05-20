@@ -1,0 +1,16 @@
+.pageSidebar {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  gap: 5px;
+  position: relative;
+  min-height: 100vh;
+}
+
+.icon {
+  max-width: 40px;
+}
+
+#logoutIcon {
+  position: absolute;
+  bottom: 0;
+}
