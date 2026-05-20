@@ -41,6 +41,18 @@ function Home() {
 
   return (
     <div id={styles.home}>
+      <img
+        src="https://images.pexels.com/photos/7135020/pexels-photo-7135020.jpeg"
+        className={styles.backgroundImg}
+      />
+      <img
+        src="../images/svgs/message_sent.svg"
+        className={styles.homeElements}
+        id={styles.vectorImg}
+      />
+      <h3 className={styles.homeElements} id={styles.homeText}>
+        Chat with your old friends and meet new people!
+      </h3>
       <div className={styles.homeContainer}>
         <h3 className={styles.loginHeader}>Log into a existing account: </h3>
         <div className={styles.loginContainer}>

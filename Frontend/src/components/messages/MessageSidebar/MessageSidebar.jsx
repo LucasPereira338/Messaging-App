@@ -1,12 +1,11 @@
 import * as styles from "./MessageSidebar.module.css";
-import UserCard from "../../users/UserCard/UserCard";
+import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
-import ContentChoice from "../../entity/ContentChoice/ContentChoice";
+import ContentChoice from "../../entities/ContentChoice/ContentChoice";
 import {
   arrayOfObjToArrayOfStr,
   pushUniqueIdsAndChatId,
 } from "../../../helpers/arrayHelpers";
-//import { fetchUsersInList } from "../../../services/userServices";
 import { fetchChatsMembers } from "../../../services/chatServices";
 import { useState, useEffect } from "react";
 
@@ -85,7 +84,7 @@ function MessageSidebar({
   };
 
   return (
-    <div
+    <section
       id={styles.messagesSidebar}
       className="general-borders"
       data-testid="MessageSidebar"
@@ -103,7 +102,7 @@ function MessageSidebar({
           <div className={styles.sidebarUsersList}>
             {chatsMembers.map((item) => {
               return (
-                <UserCard
+                <EntityCard
                   key={item.id}
                   user={item.username ? item : "null"}
                   group={item.title ? item : "null"}
@@ -116,7 +115,7 @@ function MessageSidebar({
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 

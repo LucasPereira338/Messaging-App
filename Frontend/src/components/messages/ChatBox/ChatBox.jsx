@@ -1,6 +1,6 @@
 import * as styles from "./ChatBox.module.css";
 import MessageInput from "../../../features/messages/MessageInput/MessageInput";
-import UserCard from "../../users/UserCard/UserCard";
+import EntityCard from "../../entities/EntityCard/EntityCard";
 import Message from "../Message/Message";
 import ChatMessages from "../ChatMessages/ChatMessages";
 import { useState, useEffect } from "react";
@@ -44,7 +44,7 @@ function ChatBox({ currentChat }) {
 
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
-      <UserCard
+      <EntityCard
         user={currentChat.username ? currentChat : "null"}
         group={currentChat.title ? currentChat : "null"}
       />

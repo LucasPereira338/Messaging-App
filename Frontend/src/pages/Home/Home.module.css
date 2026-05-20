@@ -1,12 +1,45 @@
 #home {
-  display: flex;
-  justify-content: center;
+  display: grid;
   /*box-shadow:
     0px 0px 4px 4px #495057 inset,
-    0px 0px 4px 5px #495057 inset;*/
+    0px 0px 4px 5px #495057 inset; */
+  grid-template-columns: 0.5fr 0.25fr 0.25fr;
+  grid-template-rows: 0.2fr 0.5fr 0.2fr;
+  width: 100%;
+  height: 100%;
 }
 
+.backgroundImg {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  position: absolute;
+  z-index: 10;
+}
+
+.homeElements {
+  z-index: 11;
+}
+
+#vectorImg {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  max-width: 400px;
+  min-height: 100px;
+  grid-row-start: 2;
+  margin-left: 150px;
+}
+
+#homeText {
+  grid-row-start: 1;
+  font-size: 1.5em;
+  color: #274c77;
+}
 .homeContainer {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
   background-color: #6096ba;
   border: groove 3px #6096ba;
   border-radius: 5px;
@@ -18,8 +51,9 @@
   gap: 50px;
   display: flex;
   flex-direction: column;
-  width: 50%;
   color: #e7ecef;
+  z-index: 11;
+  opacity: 0.65;
 }
 
 .signUpBtn {
@@ -29,10 +63,3 @@
   border: solid 3px #e7ecef;
   border-radius: 10px;
 }
-/* flex attempt
-.homeContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}*/

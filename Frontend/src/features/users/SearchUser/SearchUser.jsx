@@ -3,7 +3,7 @@ import { fetchUsers } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { useOutsideClick } from "../../../hooks/hooks";
-import UserCard from "../../../components/users/UserCard/UserCard";
+import UserCard from "../../../components/entities/EntityCard/EntityCard";
 
 function SearchUser({ handleNewUser }) {
   const [term, setTerm] = useState("");

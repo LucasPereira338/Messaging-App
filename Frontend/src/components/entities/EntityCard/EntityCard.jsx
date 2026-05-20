@@ -1,4 +1,4 @@
-import * as styles from "./UserCard.module.css";
+import * as styles from "./EntityCard.module.css";
 
 function UserCard({
   user = "null",

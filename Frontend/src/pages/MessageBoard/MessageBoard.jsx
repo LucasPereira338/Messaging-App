@@ -1,4 +1,4 @@
-import UserCard from "../../components/users/UserCard/UserCard";
+import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import { fetchUserChats } from "../../services/chatServices";
@@ -37,8 +37,7 @@ function MessageBoard() {
         const response = await fetchUserChats({
           id: userId,
         });
-        console.log("the chat ids:");
-        console.log(response);
+
         setChats(response);
       };
       fetchChats();
@@ -54,9 +53,8 @@ function MessageBoard() {
   }, [currentChat, navigate, user]);
 
   const handleTalkingWith = (twData) => {
-    console.log("handle talking with triggered");
     const twUserData = twData;
-    console.log(twUserData);
+
     setCurrentChat(twUserData);
   };
 
@@ -75,7 +73,7 @@ function MessageBoard() {
       )}
 
       <div id={styles.loggedUser} className="general-borders">
-        <UserCard user={user} handleTalkingWith={handleTalkingWith} />
+        <EntityCard user={user} handleTalkingWith={handleTalkingWith} />
       </div>
     </div>
   );
@@ -93,7 +91,7 @@ return (
       />
       <ChatBox currentChat={currentChat} />
       <div id={styles.loggedUser} className="general-borders">
-        <UserCard chat={currentChat} handleTalkingWith={handleTalkingWith} />
+        <EntityCard chat={currentChat} handleTalkingWith={handleTalkingWith} />
       </div>
     </div>
   ); */
