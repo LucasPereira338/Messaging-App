@@ -1,6 +1,7 @@
 import * as styles from "./MessageSidebar.module.css";
 import UserCard from "../../users/UserCard/UserCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
+import ContentChoice from "../../entity/ContentChoice/ContentChoice";
 import {
   arrayOfObjToArrayOfStr,
   pushUniqueIdsAndChatId,
@@ -29,8 +30,6 @@ function MessageSidebar({
           const arr = arrayOfObjToArrayOfStr(chats);
 
           const response = await fetchChatsMembers(arr);
-          console.log("resp b4 other funcs");
-          console.log(response);
 
           const uniqueUsers = [];
 
@@ -48,8 +47,6 @@ function MessageSidebar({
           groups.forEach((item) => {
             uniqueUsersAndGroups.push(item);
           });
-          console.log("the members are");
-          console.log(uniqueUsersAndGroups);
 
           setChatsMembers(uniqueUsersAndGroups);
         };
@@ -83,40 +80,22 @@ function MessageSidebar({
     }
   };
 
+  const handleContent = (choice) => {
+    setSection(choice.target.textContent);
+  };
+
   return (
     <div
       id={styles.messagesSidebar}
       className="general-borders"
       data-testid="MessageSidebar"
     >
-      <h3 className={styles.messagesSidebarTitle}> Messages </h3>
+      <h3 className={styles.messagesSidebarTitle}> Your Messages </h3>
       <button type="submit" onClick={handleCreateGroup}>
         Create Group
       </button>
       <SearchUser handleNewUser={handleNewUser} />
-      <div>Create Group</div>
-      <div className={styles.contentChoiceContainer}>
-        <ul className={styles.contentChoiceList}>
-          <li
-            id={styles.contentChoiceItem}
-            onClick={(e) => setSection(e.target.textContent)}
-          >
-            All
-          </li>
-          <li
-            id={styles.contentChoiceItem}
-            onClick={(e) => setSection(e.target.textContent)}
-          >
-            Chats
-          </li>
-          <li
-            id={styles.contentChoiceItem}
-            onClick={(e) => setSection(e.target.textContent)}
-          >
-            Groups
-          </li>
-        </ul>
-      </div>
+      <ContentChoice content={section} handleContent={handleContent} />
       {typeof chats == "undefined" ? (
         <div>Loading...</div>
       ) : (

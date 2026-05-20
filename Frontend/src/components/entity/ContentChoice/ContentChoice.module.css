@@ -1,0 +1,19 @@
+.contentChoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.contentChoiceItem {
+  flex: 1;
+}
+
+.contentChoiceItem:hover {
+  background-color: #76aed3;
+  cursor: grab;
+}
+
+#chosen {
+  background-color: #6096ba;
+}

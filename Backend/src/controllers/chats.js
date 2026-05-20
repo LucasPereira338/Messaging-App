@@ -15,7 +15,8 @@ async function getUserChats(req, res) {
                 select: {
                     id: true
                 }
-            }
+            },
+            
         }
     })
 
