@@ -30,8 +30,7 @@ function MessageSidebar({
           let response;
 
           response = await fetchChatsMembers(arr);
-          console.log("after the fetch");
-          console.log(response);
+
           const uniqueUsers = [];
 
           uniqueUsers.forEach((item) => {
@@ -50,14 +49,12 @@ function MessageSidebar({
               groups.push(item.group);
             }
           });
-          console.log("after the forEach");
-          console.log(groups);
+
           const uniqueUsersAndGroups = uniqueUsers;
           groups.forEach((item) => {
             uniqueUsersAndGroups.push(item);
           });
-          console.log("uniqueUsersAndGroups");
-          console.log(uniqueUsersAndGroups);
+
           if (content == "Groups") {
             setChatsMembers(groups);
           } else {

@@ -5,13 +5,11 @@ const controllers = require('../controllers/chats.js');
 
 chats.get('/:ids/members', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatsMembers(req, res));
 
-chats.get('/:ids/users', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatsUsers(req, res));
-
 chats.get('/:id/messages', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatMessages(req, res));
 
-chats.get('/users', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserChatsUsersOnly(req, res));
+chats.get('/private', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserPrivateChats(req, res));
 
-chats.get('/groups', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserChatsGroupsOnly(req, res));
+chats.get('/groups', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserGroupChats(req, res));
 
 chats.get('/:id', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChat(req, res));
 

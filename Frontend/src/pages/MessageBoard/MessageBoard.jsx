@@ -2,8 +2,6 @@ import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import GroupForm from "../../features/groups/GroupForm/GroupForm";
-//import { fetchUser } from "../../services/userServices";
-//import { fetchUserGroups } from "../../services/groupServices";
 import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -40,11 +38,8 @@ function MessageBoard() {
   useEffect(() => {
     try {
       const fetchChats = async () => {
-        console.log("fetching for userId:");
-        console.log(userId);
         const response = await fetchUserChoices(content, userId);
-        console.log("msg board response: ");
-        console.log(response);
+
         setChats(response);
       };
       fetchChats();
@@ -89,18 +84,3 @@ function MessageBoard() {
 }
 
 export default MessageBoard;
-
-/* when i was havin issues due to chat not being properly updated
-return (
-    <div className={styles.MessageBoard}>
-      <MessageSidebar
-        chats={chats}
-        talkingWith={currentChat}
-        handleTalkingWith={handleTalkingWith}
-      />
-      <ChatBox currentChat={currentChat} />
-      <div id={styles.loggedUser} className="general-borders">
-        <EntityCard chat={currentChat} handleTalkingWith={handleTalkingWith} />
-      </div>
-    </div>
-  ); */

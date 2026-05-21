@@ -63,10 +63,10 @@ export async function fetchChatsMembers(chats) {
     return response.json()
 }
 
-export async function fetchUserChatsUsersOnly(id) {
+export async function fetchUserPrivateChats(id) {
     const backend = import.meta.env.VITE_BACKEND
     
-    const url = backend + 'users/' + id + '/chats/users' 
+    const url = backend + 'users/' + id + '/chats/private' 
 
     const token = localStorage.getItem('token')
     
@@ -79,7 +79,7 @@ export async function fetchUserChatsUsersOnly(id) {
     return response.json()
 }
 
-export async function fetchUserChatsGroupsOnly(id) {
+export async function fetchUserGroupChats(id) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'users/' + id + '/chats/groups' 
