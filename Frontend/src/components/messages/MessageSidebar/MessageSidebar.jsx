@@ -14,13 +14,13 @@ function MessageSidebar({
   talkingWith,
   handleTalkingWith,
   handleCreateGroup,
+  content,
 }) {
   const [chatsMembers, setChatsMembers] = useState([
     { id: 0, name: "pending..." },
   ]);
 
-  const [section, setSection] = useState("All");
-  console.log(section);
+  console.log(content);
 
   useEffect(() => {
     if (typeof chats !== "undefined") {
@@ -55,7 +55,7 @@ function MessageSidebar({
         console.error(e);
       }
     }
-  }, [chats, section]);
+  }, [chats, content]);
 
   useEffect(() => {
     try {
@@ -80,10 +80,6 @@ function MessageSidebar({
     }
   };
 
-  const handleContent = (choice) => {
-    setSection(choice.target.textContent);
-  };
-
   return (
     <section
       id={styles.messagesSidebar}
@@ -95,7 +91,7 @@ function MessageSidebar({
         Create Group
       </button>
       <SearchUser handleNewUser={handleNewUser} />
-      <ContentChoice content={section} handleContent={handleContent} />
+
       {typeof chats == "undefined" ? (
         <div>Loading...</div>
       ) : (

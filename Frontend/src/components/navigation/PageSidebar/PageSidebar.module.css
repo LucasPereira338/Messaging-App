@@ -1,13 +1,27 @@
-.pageSidebar {
+#pageSidebar {
   grid-column-start: 1;
   grid-column-end: 2;
-  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   position: relative;
   min-height: 100vh;
+  background-color: #e7ecef;
+  border: groove 1px #becad0;
+  border-radius: 5px;
+}
+
+.pageSidebarItem:hover {
+  background-color: #a5adb1;
+  cursor: grab;
 }
 
 .icon {
   max-width: 40px;
+}
+
+#chosen {
+  background-color: #a5adb1;
 }
 
 #logoutIcon {

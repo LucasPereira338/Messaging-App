@@ -2,29 +2,32 @@ import * as styles from "./PageSidebar.module.css";
 
 function PageSidebar({ content, handleContent }) {
   const possibleChoices = ["All", "Chats", "Groups"];
+  const commonPath = "../../../../icons/";
   return (
-    <section className={styles.pageSidebar}>
-      <div
-        className={styles.pageSidebarItem}
-        id={possibleChoices[0] == content ? styles.chosen : null}
-        onClick={handleContent}
-      >
-        <img src="../../../../icons/all.png" className={styles.icon} alt="" />
-      </div>
-      <div
-        className={styles.pageSidebarItem}
-        id={possibleChoices[1] == content ? styles.chosen : null}
-        onClick={handleContent}
-      >
-        <img src="../../../../icons/user.png" className={styles.icon} alt="" />
-      </div>
-      <div
-        className={styles.pageSidebarItem}
-        id={possibleChoices[2] == content ? styles.chosen : null}
-        onClick={handleContent}
-      >
-        <img src="../../../../icons/group.png" className={styles.icon} alt="" />
-      </div>
+    <section id={styles.pageSidebar}>
+      {possibleChoices.map((item, ind) => {
+        return (
+          <div
+            key={item}
+            className={styles.pageSidebarItem}
+            id={possibleChoices[ind] == content ? styles.chosen : null}
+            o
+          >
+            <img
+              src={
+                item == "All"
+                  ? commonPath + "all.png"
+                  : item == "Chats"
+                    ? commonPath + "user.png"
+                    : commonPath + "group.png"
+              }
+              className={styles.icon}
+              onClick={() => handleContent(item)}
+              alt="All"
+            />
+          </div>
+        );
+      })}
 
       <img
         src="../../../../icons/logout.png"

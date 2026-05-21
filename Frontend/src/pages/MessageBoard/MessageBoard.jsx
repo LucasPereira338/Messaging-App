@@ -20,6 +20,12 @@ function MessageBoard() {
     name: "fetching... ",
   });
 
+  const [content, setContent] = useState("All");
+
+  const handleContent = (choice) => {
+    setContent(choice);
+  };
+
   const [isCreateGroup, setIsCreateGroup] = useState(false);
 
   const handleCreateGroup = () => {
@@ -61,12 +67,13 @@ function MessageBoard() {
 
   return (
     <div className={styles.MessageBoard}>
-      <PageSidebar />
+      <PageSidebar content={content} handleContent={handleContent} />
       <MessageSidebar
         chats={chats}
         talkingWith={currentChat}
         handleTalkingWith={handleTalkingWith}
         handleCreateGroup={handleCreateGroup}
+        content={content}
       />
       {isCreateGroup == false ? (
         <ChatBox currentChat={currentChat} />
