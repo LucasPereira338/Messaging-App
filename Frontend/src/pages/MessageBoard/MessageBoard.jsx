@@ -82,7 +82,7 @@ function MessageBoard() {
       )}
 
       <div id={styles.loggedUser} className="general-borders">
-        <EntityCard user={user} handleTalkingWith={handleTalkingWith} />
+        <EntityCard entity={user} handleTalkingWith={handleTalkingWith} />
       </div>
     </div>
   );

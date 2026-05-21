@@ -44,10 +44,7 @@ function ChatBox({ currentChat }) {
 
   return (
     <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
-      <EntityCard
-        user={currentChat.username ? currentChat : "null"}
-        group={currentChat.title ? currentChat : "null"}
-      />
+      <EntityCard entity={currentChat} />
       <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
       <MessageInput
         user={localStorage.getItem("userId")}

@@ -27,6 +27,9 @@
 
 .userInfo {
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .cardName {

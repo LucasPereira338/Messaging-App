@@ -101,8 +101,7 @@ function MessageSidebar({
               return (
                 <EntityCard
                   key={item.id}
-                  user={item.username ? item : "null"}
-                  group={item.title ? item : "null"}
+                  entity={item}
                   talkingWith={talkingWith}
                   handleTalkingWith={handleTalkingWith}
                   msg={item.message}
