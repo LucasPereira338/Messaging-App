@@ -23,6 +23,52 @@ async function getUserChats(req, res) {
     res.json(chats)
 }
 
+async function getUserChatsUsersOnly(req, res) {
+    console.log('chats with users only')
+    const chats = await prisma.chat.findMany({
+        where: {
+            AND: {
+                members: {
+                    some: {
+                        id: req.params.id
+                    }
+                },
+                group: null
+            }
+        }
+    })
+
+    res.json(chats)
+}
+
+async function getUserChatsGroupsOnly(req, res) {
+    
+    const chats = await prisma.chat.findMany({
+        where: {
+            AND: {
+                members: {
+                    some: {
+                        id: req.params.id
+                    }
+                },
+                group: {
+                    isNot: null
+                }
+            }
+        },
+        include: {
+            group: {
+                select: {
+                    id: true
+                }
+            },
+            
+        }
+    })
+
+    res.json(chats)
+}
+
 async function getChatMessages(req, res) {
     const chat = await prisma.chat.findMany({
         where: {
@@ -48,6 +94,7 @@ async function getChatMessages(req, res) {
 }
 
 async function getChatsMembers(req, res) {
+    
     const strList = req.params.ids.split(',')
     const chatUsers = await prisma.chat.findMany({
         where: {
@@ -62,6 +109,40 @@ async function getChatsMembers(req, res) {
                 }
             },
             group: true,
+            messages: {
+                select: {
+                    id: true,
+                    content: true
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 1
+            }
+        },
+    })
+
+    res.json(chatUsers)
+}
+
+async function getChatsUsers(req, res) {
+    
+    const strList = req.params.ids.split(',')
+    const chatUsers = await prisma.chat.findMany({
+        where: {
+            AND: {
+                id: {
+                    in: strList
+                },
+                group: null
+            }
+        },
+        include: {
+            members: {
+                omit: {
+                    password: true
+                }
+            },
             messages: {
                 select: {
                     id: true,
@@ -122,6 +203,9 @@ async function deleteChat(req, res) {
 module.exports = {
     getUserChats,
     getChatsMembers,
+    getUserChatsGroupsOnly,
+    getUserChatsUsersOnly,
+    getChatsUsers,
     getChatMessages,
     getChat,
     postChat,

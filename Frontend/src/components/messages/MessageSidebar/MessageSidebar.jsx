@@ -25,13 +25,20 @@ function MessageSidebar({
   useEffect(() => {
     if (typeof chats !== "undefined") {
       try {
-        const fetchUsers = async () => {
+        const fetchMembers = async () => {
           const arr = arrayOfObjToArrayOfStr(chats);
           let response;
 
           response = await fetchChatsMembers(arr);
-
+          console.log("after the fetch");
+          console.log(response);
           const uniqueUsers = [];
+
+          uniqueUsers.forEach((item) => {
+            if (item.group != null) {
+              item.members = null;
+            }
+          });
 
           pushUniqueIdsAndChatId(uniqueUsers, response);
 
@@ -43,14 +50,21 @@ function MessageSidebar({
               groups.push(item.group);
             }
           });
+          console.log("after the forEach");
+          console.log(groups);
           const uniqueUsersAndGroups = uniqueUsers;
           groups.forEach((item) => {
             uniqueUsersAndGroups.push(item);
           });
-
-          setChatsMembers(uniqueUsersAndGroups);
+          console.log("uniqueUsersAndGroups");
+          console.log(uniqueUsersAndGroups);
+          if (content == "Groups") {
+            setChatsMembers(groups);
+          } else {
+            setChatsMembers(uniqueUsersAndGroups);
+          }
         };
-        fetchUsers();
+        fetchMembers();
       } catch (e) {
         console.error(e);
       }

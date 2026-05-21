@@ -1,13 +1,13 @@
 import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
-import { fetchUserChats } from "../../services/chatServices";
 import GroupForm from "../../features/groups/GroupForm/GroupForm";
 //import { fetchUser } from "../../services/userServices";
 //import { fetchUserGroups } from "../../services/groupServices";
 import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { fetchUserChoices } from "../../helpers/helpers";
 import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {
@@ -37,21 +37,21 @@ function MessageBoard() {
   };
 
   let navigate = useNavigate();
-
   useEffect(() => {
     try {
       const fetchChats = async () => {
-        const response = await fetchUserChats({
-          id: userId,
-        });
-
+        console.log("fetching for userId:");
+        console.log(userId);
+        const response = await fetchUserChoices(content, userId);
+        console.log("msg board response: ");
+        console.log(response);
         setChats(response);
       };
       fetchChats();
     } catch (e) {
       console.error(e);
     }
-  }, [userId]);
+  }, [userId, content]);
 
   useEffect(() => {
     if (currentChat.id == user.id) {

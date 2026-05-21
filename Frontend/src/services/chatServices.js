@@ -1,7 +1,7 @@
-export async function fetchUserChats(user) {
+export async function fetchUserChats(ids) {
     const backend = import.meta.env.VITE_BACKEND
     
-    const url = backend + 'users/' + user.id + '/chats' 
+    const url = backend + 'users/' + ids + '/chats' 
 
     const token = localStorage.getItem('token')
     
@@ -51,6 +51,54 @@ export async function fetchChatsMembers(chats) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'chats/' + chats + '/members' 
+
+    const token = localStorage.getItem('token')
+    
+    const response = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json", 
+            "Authorization": "Bearer " + token
+        }
+    })
+    return response.json()
+}
+
+export async function fetchUserChatsUsersOnly(id) {
+    const backend = import.meta.env.VITE_BACKEND
+    
+    const url = backend + 'users/' + id + '/chats/users' 
+
+    const token = localStorage.getItem('token')
+    
+    const response = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json", 
+            "Authorization": "Bearer " + token
+        }
+    })
+    return response.json()
+}
+
+export async function fetchUserChatsGroupsOnly(id) {
+    const backend = import.meta.env.VITE_BACKEND
+    
+    const url = backend + 'users/' + id + '/chats/groups' 
+
+    const token = localStorage.getItem('token')
+    
+    const response = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json", 
+            "Authorization": "Bearer " + token
+        }
+    })
+    return response.json()
+}
+
+export async function fetchChatsUsers(chats) {
+    const backend = import.meta.env.VITE_BACKEND
+    
+    const url = backend + 'chats/' + chats + '/users' 
 
     const token = localStorage.getItem('token')
     
