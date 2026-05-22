@@ -7,6 +7,8 @@ chats.get('/:ids/members', passport.authenticate('jwt', {session:false}), (req, 
 
 chats.get('/:id/messages', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatMessages(req, res));
 
+chats.get('/active', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserActiveChats(req, res));
+
 chats.get('/private', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserPrivateChats(req, res));
 
 chats.get('/groups', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserGroupChats(req, res));

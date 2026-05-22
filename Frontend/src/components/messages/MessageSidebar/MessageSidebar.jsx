@@ -3,7 +3,7 @@ import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
 import ContentChoice from "../../entities/ContentChoice/ContentChoice";
 import {
-  arrayOfObjToArrayOfStr,
+  arrayObjToStr,
   pushUniqueIdsAndChatId,
 } from "../../../helpers/arrayHelpers";
 import { fetchChatsMembers } from "../../../services/chatServices";
@@ -20,27 +20,30 @@ function MessageSidebar({
     { id: 0, name: "pending..." },
   ]);
 
+  const [onlineOnly, setOnlineOnly] = useState(false);
+
+  const handleOnline = () => {
+    setOnlineOnly(!onlineOnly);
+  };
   console.log(content);
 
   useEffect(() => {
     if (typeof chats !== "undefined") {
       try {
         const fetchMembers = async () => {
-          const arr = arrayOfObjToArrayOfStr(chats);
+          const arr = arrayObjToStr(chats);
           let response;
 
           response = await fetchChatsMembers(arr);
-
-          const uniqueUsers = [];
-
-          uniqueUsers.forEach((item) => {
-            if (item.group != null) {
-              item.members = null;
-            }
-          });
+          console.log("response: ");
+          console.log(response);
+          let uniqueUsers = [];
 
           pushUniqueIdsAndChatId(uniqueUsers, response);
 
+          console.log("unique ids with chatId");
+          console.log(uniqueUsers);
+          console.log;
           let groups = [];
           response.forEach((item) => {
             if (item.group != null) {
@@ -50,14 +53,22 @@ function MessageSidebar({
             }
           });
 
-          const uniqueUsersAndGroups = uniqueUsers;
+          let uniqueUsersAndGroups = uniqueUsers;
           groups.forEach((item) => {
             uniqueUsersAndGroups.push(item);
           });
-
+          if (onlineOnly) {
+            uniqueUsersAndGroups = uniqueUsersAndGroups.filter((item) => {
+              if (item.isActive || item.title) {
+                return item;
+              }
+            });
+          }
           if (content == "Groups") {
             setChatsMembers(groups);
           } else {
+            console.log("unique users and groups");
+            console.log(uniqueUsersAndGroups);
             setChatsMembers(uniqueUsersAndGroups);
           }
         };
@@ -66,7 +77,7 @@ function MessageSidebar({
         console.error(e);
       }
     }
-  }, [chats, content]);
+  }, [chats, content, onlineOnly]);
 
   useEffect(() => {
     try {
@@ -98,11 +109,15 @@ function MessageSidebar({
       data-testid="MessageSidebar"
     >
       <h3 className={styles.messagesSidebarTitle}> Your Messages </h3>
-      <button type="submit" onClick={handleCreateGroup}>
-        Create Group
-      </button>
-      <SearchUser handleNewUser={handleNewUser} />
-
+      {content == "All" || content == "Chats" ? (
+        <SearchUser handleNewUser={handleNewUser} />
+      ) : (
+        <button type="submit" onClick={handleCreateGroup}>
+          Create Group
+        </button>
+      )}
+      <label>Show only online use users</label>
+      <input type="checkbox" checked={onlineOnly} onChange={handleOnline} />
       {typeof chats == "undefined" ? (
         <div>Loading...</div>
       ) : (

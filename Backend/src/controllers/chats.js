@@ -24,7 +24,7 @@ async function getUserChats(req, res) {
 }
 
 async function getUserPrivateChats(req, res) {
-    console.log('chats with users only')
+    
     const chats = await prisma.chat.findMany({
         where: {
             AND: {
@@ -37,6 +37,8 @@ async function getUserPrivateChats(req, res) {
             }
         }
     })
+
+    const dateNow = new Date()
 
     res.json(chats)
 }
@@ -120,6 +122,21 @@ async function getChatsMembers(req, res) {
                 take: 1
             }
         },
+    })
+
+    const dateNow = new Date()
+    
+    chatUsers.forEach((i, ind) => {
+        i.members.forEach((item) => {
+            const dateDif = dateNow - item.lastActive
+            const dateDifConv = dateDif/1000
+            if (dateDifConv <= 300) {
+            item.isActive = true
+            } else {
+            item.isActive = false
+            }
+        })
+        
     })
 
     res.json(chatUsers)

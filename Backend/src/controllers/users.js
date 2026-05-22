@@ -47,18 +47,6 @@ async function getUsersInList(req, res) {
             name: "desc"
         }
     })
-
-    const dateNow = new Date()
-    
-    users.forEach((item, ind) => {
-        const dateDif = dateNow - item.lastActive
-        const dateDifConv = dateDif/1000
-        if (dateDifConv <= 3000) {
-            item.isActive = true
-        } else {
-            item.isActive = false
-        }
-    })
     
     res.json(users)
 }

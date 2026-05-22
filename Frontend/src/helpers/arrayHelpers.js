@@ -6,6 +6,7 @@ export function pushUniqueIdsAndChatId(uniqueIds, allIds) {
       item.members[i].chatId = item.id
       item.members[i].message = item.messages[0]
       const doesArrHaveUser = uniqueIds.some(user => user.id === item.members[i].id)
+      
       if (item.members[i].id != userId) {
         if (doesArrHaveUser == false) {
           uniqueIds.push(item.members[i]);
@@ -15,7 +16,7 @@ export function pushUniqueIdsAndChatId(uniqueIds, allIds) {
   });
 }
 
-export function arrayOfObjToArrayOfStr(oldArr) {
+export function arrayObjToStr(oldArr) {
   let newArr = []
   for (let i =0; i<=oldArr.length -1; i++) {
     newArr.push(oldArr[i].id)
