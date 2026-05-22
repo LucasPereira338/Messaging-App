@@ -2,7 +2,8 @@
 export function pushUniqueIdsAndChatId(uniqueIds, allIds) { 
   const userId = localStorage.getItem("userId");//except the user currently logged in's
   allIds.forEach((item) => {
-    for (let i = 0; i <= item.members.length - 1; i++) {
+    if (item.group == null) {
+      for (let i = 0; i <= item.members.length - 1; i++) {
       item.members[i].chatId = item.id
       item.members[i].message = item.messages[0]
       const doesArrHaveUser = uniqueIds.some(user => user.id === item.members[i].id)
@@ -13,6 +14,8 @@ export function pushUniqueIdsAndChatId(uniqueIds, allIds) {
         }
       }
     }
+    }
+    
   });
 }
 
@@ -31,6 +34,16 @@ export function addUserId(messages, userId) {
   for (let i = 0; i <= messages.length - 1; i++) {
         messages[i].userId = userId;
       }
+}
+
+export function filterChatGroups(groups, all) {
+  all.forEach((item) => {
+    if (item.group != null) {
+      item.group.chatId = item.id;
+      item.group.message = item.messages[0];
+      groups.push(item.group);
+    }
+  });
 }
 
 export function filterUserValues(arr, obj) {

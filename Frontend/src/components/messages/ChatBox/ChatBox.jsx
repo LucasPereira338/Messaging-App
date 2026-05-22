@@ -22,7 +22,7 @@ function ChatBox({ currentChat }) {
 
   useEffect(() => {
     const fetchChat = async () => {
-      const result = await fetchChatMessages(currentChat.chatId);
+      let result = await fetchChatMessages(currentChat.chatId);
 
       addUserId(result[0].messages, localStorage.getItem("userId"));
 

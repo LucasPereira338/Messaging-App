@@ -2,8 +2,8 @@ import * as styles from "./EntityCard.module.css";
 
 function EntityCard({
   entity,
-  talkingWith = "null",
-  handleTalkingWith = "null",
+  currentChat = "null",
+  handleCurrentChat = "null",
   msg = "null",
 }) {
   const backend = import.meta.env.VITE_BACKEND;
@@ -12,11 +12,11 @@ function EntityCard({
 
   return (
     <div
-      id={talkingWith.id == entity.id ? styles.userCardActive : styles.userCard}
+      id={currentChat.id == entity.id ? styles.userCardActive : styles.userCard}
       className="general-borders"
       data-testid="container"
       onClick={
-        handleTalkingWith != "null" ? () => handleTalkingWith(entity) : null
+        handleCurrentChat != "null" ? () => handleCurrentChat(entity) : null
       }
     >
       <img

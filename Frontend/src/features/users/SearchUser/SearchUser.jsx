@@ -3,7 +3,7 @@ import { fetchUsers } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { useOutsideClick } from "../../../hooks/hooks";
-import UserCard from "../../../components/entities/EntityCard/EntityCard";
+import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 
 function SearchUser({ handleNewUser }) {
   const [term, setTerm] = useState("");
@@ -49,7 +49,7 @@ function SearchUser({ handleNewUser }) {
             users.map((item, ind) => {
               return (
                 <div onClick={() => handleNewUser(item)}>
-                  <UserCard key={ind} user={item} />
+                  <EntityCard key={ind} entity={item} />
                 </div>
               );
             })
