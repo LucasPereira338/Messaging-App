@@ -1,10 +1,11 @@
 import * as styles from "./MessageInput.module.css";
 import { postNewMessage } from "../../../services/messageServices";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { MessageContext } from "../../../contexts/MessageContext";
 
-function MessageInput({ user, talkingWith, updateIsNewMessage }) {
+function MessageInput({ user, updateIsNewMessage }) {
+  const { currentChat } = useContext(MessageContext);
   const [msg, setMsg] = useState("");
-
   const handleTyping = (e) => {
     setMsg(e.target.value);
   };
@@ -39,7 +40,7 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
         className={styles.messageInputForm}
         onSubmit={handleSubmit}
       >
-        <input type="hidden" name="chatId" value={talkingWith.chatId} />
+        <input type="hidden" name="chatId" value={currentChat.chatId} />
         <input type="hidden" name="authorId" value={user} />
         <textarea
           type="text"

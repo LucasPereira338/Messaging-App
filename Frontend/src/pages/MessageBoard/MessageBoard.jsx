@@ -68,11 +68,7 @@ function MessageBoard() {
           handleCreateGroup={handleCreateGroup}
           content={content}
         />
-        {isCreateGroup == false ? (
-          <ChatBox currentChat={currentChat} />
-        ) : (
-          <GroupForm />
-        )}
+        {isCreateGroup == false ? <ChatBox /> : <GroupForm />}
 
         <article id={styles.loggedUser} className="general-borders">
           <EntityCard entity={user} handleCurrentChat={handleCurrentChat} />

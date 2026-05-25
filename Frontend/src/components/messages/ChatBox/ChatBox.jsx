@@ -3,16 +3,17 @@ import MessageInput from "../../../features/messages/MessageInput/MessageInput";
 import EntityCard from "../../entities/EntityCard/EntityCard";
 import Message from "../Message/Message";
 import ChatMessages from "../ChatMessages/ChatMessages";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { deleteMessage } from "../../../services/messageServices";
 import { fetchChatMessages } from "../../../services/chatServices";
 import { addUserId } from "../../../helpers/arrayHelpers";
+import { MessageContext } from "../../../contexts/MessageContext";
 
-function ChatBox({ currentChat }) {
+function ChatBox() {
+  const { currentChat } = useContext(MessageContext);
   const [messages, setMessages] = useState([
     { id: "0", content: "pending..." },
   ]);
-
   const [isNewMessage, setIsNewMessage] = useState(false);
   const [msgToDel, setMsgToDel] = useState(false);
 
@@ -43,15 +44,18 @@ function ChatBox({ currentChat }) {
   }, [msgToDel]);
 
   return (
-    <div id={styles.chatBox} className="general-borders" data-testid="ChatBox">
+    <section
+      id={styles.chatBox}
+      className="general-borders"
+      data-testid="ChatBox"
+    >
       <EntityCard entity={currentChat} />
       <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
       <MessageInput
         user={localStorage.getItem("userId")}
-        talkingWith={currentChat}
         updateIsNewMessage={updateIsNewMessage}
       />
-    </div>
+    </section>
   );
 }
 
