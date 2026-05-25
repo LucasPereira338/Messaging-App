@@ -1,6 +1,6 @@
 import * as styles from "./PageSidebar.module.css";
 
-function PageSidebar({ content, handleContent }) {
+function PageSidebar({ content, handleContent, handleLogout }) {
   const possibleChoices = ["All", "Chats", "Groups"];
   const commonPath = "../../../../icons/";
   return (
@@ -33,7 +33,8 @@ function PageSidebar({ content, handleContent }) {
         src="../../../../icons/logout.png"
         className={styles.icon}
         id={styles.logoutIcon}
-        alt=""
+        alt="logout"
+        onClick={handleLogout}
       />
     </section>
   );

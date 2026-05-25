@@ -60,10 +60,19 @@ function MessageBoard() {
     setCurrentChat(twUserData);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <MessageContext value={{ chats, currentChat }}>
       <main className={styles.MessageBoard}>
-        <PageSidebar content={content} handleContent={handleContent} />
+        <PageSidebar
+          content={content}
+          handleContent={handleContent}
+          handleLogout={handleLogout}
+        />
         <MessageSidebar
           handleCurrentChat={handleCurrentChat}
           handleCreateGroup={handleCreateGroup}
