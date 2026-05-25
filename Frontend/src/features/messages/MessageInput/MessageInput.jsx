@@ -4,9 +4,18 @@ import { useState } from "react";
 
 function MessageInput({ user, talkingWith, updateIsNewMessage }) {
   const [msg, setMsg] = useState("");
+
   const handleTyping = (e) => {
     setMsg(e.target.value);
   };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      e.currentTarget.form.requestSubmit();
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -18,6 +27,7 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
 
     setMsg("");
   };
+
   return (
     <div
       id={styles.messageInputContainer}
@@ -38,6 +48,7 @@ function MessageInput({ user, talkingWith, updateIsNewMessage }) {
           placeholder="Type a message..."
           value={msg}
           onChange={handleTyping}
+          onKeyDown={handleEnter}
         />
         <input type="file" name="image" />
         <button id={styles.msgInpBtn} type="submit">
