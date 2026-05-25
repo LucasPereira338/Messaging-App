@@ -52,6 +52,7 @@ function ProfileForm({ userId }) {
         encType="multipart/form-data"
         onSubmit={handleSubmit}
         id={styles.profileForm}
+        autoComplete="off"
       >
         <div id={styles.imgInpContainer}>
           {" "}

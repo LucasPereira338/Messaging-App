@@ -42,6 +42,7 @@ function SearchUser({ handleNewUser }) {
         placeholder="Search users"
         className={styles.searchUserInput}
         ref={ref}
+        autoComplete="off"
       />
       {isSearching ? (
         <div className={styles.searchUserDropdown}>
