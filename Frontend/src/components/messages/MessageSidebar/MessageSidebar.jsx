@@ -9,6 +9,7 @@ import {
 } from "../../../helpers/arrayHelpers";
 import { fetchChatsMembers } from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
+import { postNewChat } from "../../../services/chatServices";
 import Checkbox from "../../ui/Checkbox/Checkbox";
 import { useState, useEffect, useContext } from "react";
 
@@ -83,8 +84,12 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup, content }) {
     }
   });
 
-  const handleNewUser = (data) => {
+  const handleNewUser = async (data) => {
     const hasData = chatsMembers.some((item) => item.id === data.id);
+    if (data.chatId == null) {
+      const chat = await postNewChat(data);
+      data.chatId = chat.id;
+    }
     if (hasData == false) {
       const newArr = chatsMembers.map((item) => {
         return item;

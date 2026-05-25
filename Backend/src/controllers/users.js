@@ -74,7 +74,8 @@ async function getUsers(req, res) {
         },
         omit: {
                 password: true
-            }
+            },
+        
     })
     
     const dateNow = new Date()

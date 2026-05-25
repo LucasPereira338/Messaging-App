@@ -33,7 +33,7 @@ function SearchUser({ handleNewUser }) {
     }
   }, [debouncedTerm]);
   return (
-    <div className={styles.searchUserContainer}>
+    <article className={styles.searchUserContainer}>
       <input
         type="text"
         name="name"
@@ -45,7 +45,7 @@ function SearchUser({ handleNewUser }) {
         autoComplete="off"
       />
       {isSearching ? (
-        <div className={styles.searchUserDropdown}>
+        <section className={styles.searchUserDropdown}>
           {users.length > 0 ? (
             users.map((item, ind) => {
               return (
@@ -57,9 +57,9 @@ function SearchUser({ handleNewUser }) {
           ) : (
             <div className={styles.searchUserPending}> Pending... </div>
           )}
-        </div>
+        </section>
       ) : null}
-    </div>
+    </article>
   );
 }
 
