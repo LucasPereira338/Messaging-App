@@ -34,6 +34,7 @@ function MessageBoard() {
   };
 
   let navigate = useNavigate();
+
   useEffect(() => {
     try {
       const fetchChats = async () => {
