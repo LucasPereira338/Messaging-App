@@ -85,9 +85,15 @@ async function getUserGroups(req, res) {
 }
 
 async function postGroup(req, res) {
+    console.log(req.file)
+    if (typeof req.file !== "undefined") {
+        req.body.portrait = req.file.path.slice(7)
+    }
 
-    const users = req.body.users.split(' ') 
+    const users = req.body.users.split(',') 
     users.unshift(req.user.id)
+    console.log(req.body)
+    console.log(users)
     const group = await prisma.group.create({
         data: {
             title: req.body.title,
@@ -115,10 +121,14 @@ async function postGroup(req, res) {
 
 async function putMembersInGroup(req, res) {
 
+    if (typeof req.file !== "undefined") {
+        req.body.portrait = req.file.path.slice(7)
+    }
+
     const users = req.body.users
     console.log(users)
     console.log(req.body)
-
+    
     const group = await prisma.group.update({
         where: {
             id: req.params.id

@@ -1,0 +1,12 @@
+.groupFormContainer {
+  display: flex;
+}
+
+.groupForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.members {
+  display: flex;
+}

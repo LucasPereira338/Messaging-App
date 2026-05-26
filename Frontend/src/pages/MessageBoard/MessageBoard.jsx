@@ -68,7 +68,10 @@ function MessageBoard() {
 
   return (
     <MessageContext value={{ chats, currentChat, content }}>
-      <main className={styles.MessageBoard}>
+      <main
+        className={styles.MessageBoard}
+        id={isCreateGroup ? styles.popUpBackground : null}
+      >
         <PageSidebar
           handleContent={handleContent}
           handleLogout={handleLogout}

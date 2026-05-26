@@ -1,5 +1,8 @@
 const {Router} = require('express')
 const groups = Router({mergeParams: true})
+const multer = require('multer')
+const storage = require('../utils/multer/storage.js')
+const upload = multer({storage: storage})
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const controllers = require('../controllers/groups.js')
 const chats = require('./chats.js');
@@ -12,8 +15,10 @@ groups.get('/:id', passport.authenticate('jwt', {session:false}), (req, res) => 
 
 groups.get('/', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserGroups(req, res));
 
-groups.put('/:id', passport.authenticate('jwt', {session:false}), (req, res) => controllers.putMembersInGroup(req, res));
+groups.post('/', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.postGroup(req, res));
 
-groups.post('/', passport.authenticate('jwt', {session:false}), (req, res) => controllers.postGroup(req, res));
+groups.put('/:id', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.putMembersInGroup(req, res));
+
+
 
 module.exports = groups

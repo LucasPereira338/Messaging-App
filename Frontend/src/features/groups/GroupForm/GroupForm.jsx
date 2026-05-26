@@ -2,39 +2,58 @@ import * as styles from "./GroupForm.module.css";
 import { useState } from "react";
 import { createGroup } from "../../../services/groupServices";
 import SearchUser from "../../users/SearchUser/SearchUser";
-// must implement portraits
+import EntityCard from "../../../components/entities/EntityCard/EntityCard";
+
 function GroupForm() {
-  const [members, setMembers] = useState("");
+  const [membersIds, setMembersIds] = useState("");
+  const [members, setMembers] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.currentTarget);
-    console.log("form data for group");
-    console.log(formData);
-    const formValues = Object.fromEntries(formData.entries());
 
-    const result = await createGroup(formValues);
+    formData.name = null;
+
+    const result = await createGroup(formData);
 
     console.log(result);
   };
 
   const handleNewUser = (item) => {
-    let newStrList = item.id + "";
-    console.log("newStrList");
-    console.log(newStrList);
-    setMembers(newStrList);
+    let newStrList;
+    if (!membersIds) {
+      newStrList = item.id;
+    } else {
+      newStrList = membersIds + "," + item.id;
+    }
+    setMembersIds(newStrList);
+    const newArr = members.concat(item);
+    setMembers(newArr);
   };
 
   return (
     <div className={styles.groupFormContainer}>
-      <form encType="multipart/form-data" onSubmit={handleSubmit}>
-        <label htmlFor="title">Title: </label>
-        <input type="text" name="title" />
-        <label htmlFor="users">Members: </label>
-        <SearchUser handleNewUser={handleNewUser} />
-        <input type="text" name="users" value={members} />
+      <form
+        encType="multipart/form-data"
+        className={styles.groupForm}
+        onSubmit={handleSubmit}
+      >
+        <label>
+          Portrait: <input type="file" name="portrait" />{" "}
+        </label>
 
+        <label htmlFor="title">
+          Title: <input type="text" name="title" />
+        </label>
+
+        <label htmlFor="users" className={styles.members}>
+          Members: <SearchUser handleNewUser={handleNewUser} />
+        </label>
+
+        <input type="hidden" name="users" value={membersIds} />
+        {members.map((item, ind) => {
+          return <EntityCard key={ind} entity={item} />;
+        })}
         <button type="submit">Submit</button>
       </form>
     </div>
