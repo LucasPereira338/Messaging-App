@@ -82,6 +82,7 @@ async function getChatMessages(req, res) {
                     id: true,
                     authorId: true,
                     content: true,
+                    image: true,
                     createdAt: true,
                 }, 
                 orderBy: {
