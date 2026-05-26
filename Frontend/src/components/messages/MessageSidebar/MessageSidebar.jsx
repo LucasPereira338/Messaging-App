@@ -13,9 +13,10 @@ import { postNewChat } from "../../../services/chatServices";
 import Checkbox from "../../ui/Checkbox/Checkbox";
 import { useState, useEffect, useContext } from "react";
 
-function MessageSidebar({ handleCurrentChat, handleCreateGroup, content }) {
+function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   const { chats } = useContext(MessageContext);
   const { currentChat } = useContext(MessageContext);
+  const { content } = useContext(MessageContext);
   console.log(chats);
   const [chatsMembers, setChatsMembers] = useState([
     { id: 0, name: "pending..." },

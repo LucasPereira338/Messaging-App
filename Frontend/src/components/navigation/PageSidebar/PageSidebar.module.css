@@ -11,13 +11,13 @@
   border-radius: 5px;
 }
 
-.icon {
-  max-width: 40px;
-}
-
-.icon:hover {
+.pageSidebarItem:hover {
   background-color: #a5adb1;
   cursor: grab;
+}
+
+.icon {
+  max-width: 40px;
 }
 
 #chosen {

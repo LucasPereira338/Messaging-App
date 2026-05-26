@@ -123,7 +123,7 @@ async function postLogin(req, res) {
     token = jwt.generateAccessToken(user)
 
     user.token = token
-    
+
     res.json(user)
 
 

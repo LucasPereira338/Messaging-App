@@ -61,22 +61,21 @@ function MessageBoard() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("userId");
     localStorage.removeItem("token");
     navigate("/");
   };
 
   return (
-    <MessageContext value={{ chats, currentChat }}>
+    <MessageContext value={{ chats, currentChat, content }}>
       <main className={styles.MessageBoard}>
         <PageSidebar
-          content={content}
           handleContent={handleContent}
           handleLogout={handleLogout}
         />
         <MessageSidebar
           handleCurrentChat={handleCurrentChat}
           handleCreateGroup={handleCreateGroup}
-          content={content}
         />
         {isCreateGroup == false ? <ChatBox /> : <GroupForm />}
 

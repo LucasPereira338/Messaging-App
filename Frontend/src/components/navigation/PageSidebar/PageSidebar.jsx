@@ -1,7 +1,10 @@
 import * as styles from "./PageSidebar.module.css";
+import { MessageContext } from "../../../contexts/MessageContext";
+import { useContext } from "react";
 
-function PageSidebar({ content, handleContent, handleLogout }) {
+function PageSidebar({ handleContent, handleLogout }) {
   const possibleChoices = ["All", "Chats", "Groups"];
+  const { content } = useContext(MessageContext);
   const commonPath = "../../../../icons/";
   return (
     <section id={styles.pageSidebar}>
@@ -28,14 +31,15 @@ function PageSidebar({ content, handleContent, handleLogout }) {
           </div>
         );
       })}
-
-      <img
-        src="../../../../icons/logout.png"
-        className={styles.icon}
-        id={styles.logoutIcon}
-        alt="logout"
-        onClick={handleLogout}
-      />
+      <div className={styles.pageSidebarItem}>
+        <img
+          src="../../../../icons/logout.png"
+          className={styles.icon}
+          id={styles.logoutIcon}
+          alt="logout"
+          onClick={handleLogout}
+        />
+      </div>
     </section>
   );
 }
