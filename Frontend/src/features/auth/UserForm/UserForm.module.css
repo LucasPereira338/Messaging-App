@@ -11,6 +11,7 @@
 
 .childLabel {
   grid-column-start: 2;
+  display: flex;
 }
 
 .childInp {
@@ -21,6 +22,14 @@
 }
 
 .childInp[type="file"] {
+  border: 0;
+}
+
+#userImg {
+  max-width: 75px;
+  border-radius: 50%;
+  min-height: 80px;
+  object-fit: cover;
   border: 0;
 }
 
