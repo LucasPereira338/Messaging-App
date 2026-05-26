@@ -1,10 +1,13 @@
 .groupFormContainer {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .groupForm {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .members {

@@ -12,8 +12,6 @@ function GroupForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    formData.name = null;
-
     const result = await createGroup(formData);
 
     console.log(result);
