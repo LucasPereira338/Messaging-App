@@ -14,7 +14,6 @@ function PageSidebar({ handleContent, handleLogout }) {
             key={item}
             className={styles.pageSidebarItem}
             id={possibleChoices[ind] == content ? styles.chosen : null}
-            o
           >
             <img
               src={
@@ -36,8 +35,8 @@ function PageSidebar({ handleContent, handleLogout }) {
           src="../../../../icons/logout.png"
           className={styles.icon}
           id={styles.logoutIcon}
-          alt="logout"
           onClick={handleLogout}
+          alt="logout"
         />
       </div>
     </section>
