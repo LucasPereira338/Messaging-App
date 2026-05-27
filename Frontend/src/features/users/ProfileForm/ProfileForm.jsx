@@ -2,6 +2,7 @@ import * as styles from "./ProfileForm.module.css";
 import { capitalize } from "../../../helpers/strHelpers";
 import { updateUser, fetchUser } from "../../../services/userServices";
 import { useState, useEffect } from "react";
+import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function ProfileForm({ userId }) {
@@ -25,10 +26,8 @@ function ProfileForm({ userId }) {
   };
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type.startsWith("image/")) {
-      setFile(selectedFile);
-    }
+    const selectedFile = getImageFile(e);
+    setFile(selectedFile);
   };
 
   const handleSubmit = async (event) => {

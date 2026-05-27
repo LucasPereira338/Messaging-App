@@ -2,6 +2,7 @@ import * as styles from "./UserForm.module.css";
 import { postNewUser, fetchLogin } from "../../../services/userServices";
 import { capitalize } from "../../../helpers/strHelpers";
 import { useState } from "react";
+import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function UserForm({ action, handleLogin, handleUser }) {
@@ -19,10 +20,8 @@ function UserForm({ action, handleLogin, handleUser }) {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type.startsWith("image/")) {
-      setFile(selectedFile);
-    }
+    const selectedFile = getImageFile(e);
+    setFile(selectedFile);
   };
 
   const handleSubmit = async (event) => {

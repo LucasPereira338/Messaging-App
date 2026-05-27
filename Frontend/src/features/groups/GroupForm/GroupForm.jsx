@@ -4,6 +4,7 @@ import { createGroup } from "../../../services/groupServices";
 import SearchUser from "../../users/SearchUser/SearchUser";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
+import { getImageFile } from "../../../helpers/fileHelpers";
 
 function GroupForm() {
   const [membersIds, setMembersIds] = useState("");
@@ -11,10 +12,8 @@ function GroupForm() {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type.startsWith("image/")) {
-      setFile(selectedFile);
-    }
+    const selectedFile = getImageFile(e);
+    setFile(selectedFile);
   };
 
   const handleSubmit = async (event) => {
