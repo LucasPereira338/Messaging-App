@@ -1,21 +1,22 @@
 .childInp {
   grid-column-start: 4;
   grid-column-end: 6;
-  border: solid 3px #e9ecef;
-  border-radius: 10px;
 }
 
 #smallImg {
+  min-width: 70px;
   max-width: 75px;
   border-radius: 50%;
-  min-height: 80px;
+  min-height: 75px;
+  max-height: 80px;
   object-fit: cover;
-  border: 0;
 }
 
 #mediumImg {
-  max-width: 200px;
+  min-width: 200px;
+  max-width: 250px;
   border-radius: 50%;
   min-height: 200px;
+  max-height: 250px;
   object-fit: cover;
 }
