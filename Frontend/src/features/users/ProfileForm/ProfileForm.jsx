@@ -75,7 +75,12 @@ function ProfileForm({ userId }) {
               id={styles.profilePortrait}
             />
           )}
-          <input type="file" name="portrait" onChange={handleFileChange} />
+          <input
+            type="file"
+            name="portrait"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
         </div>
 
         {userValues.map((item, ind) => {
