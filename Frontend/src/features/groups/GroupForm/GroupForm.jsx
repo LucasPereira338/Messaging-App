@@ -3,10 +3,19 @@ import { useState } from "react";
 import { createGroup } from "../../../services/groupServices";
 import SearchUser from "../../users/SearchUser/SearchUser";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
+import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function GroupForm() {
   const [membersIds, setMembersIds] = useState("");
   const [members, setMembers] = useState([]);
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.type.startsWith("image/")) {
+      setFile(selectedFile);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,7 +46,13 @@ function GroupForm() {
         onSubmit={handleSubmit}
       >
         <label>
-          Portrait: <input type="file" name="portrait" />{" "}
+          Portrait: {file && <ImagePreview file={file} size="small" />}
+          <input
+            type="file"
+            name="portrait"
+            accept="image/*"
+            onChange={handleFileChange}
+          />{" "}
         </label>
 
         <label htmlFor="title">
