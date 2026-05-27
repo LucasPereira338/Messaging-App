@@ -24,6 +24,10 @@ function Registration() {
   }, [isLoggedIn, navigate, user]);
   return (
     <div className={styles.registration}>
+      <img
+        src="https://images.pexels.com/photos/7135020/pexels-photo-7135020.jpeg"
+        className={styles.backgroundImg}
+      />
       <div className={styles.registrationContent}>
         <SignUpForm handleLogin={handleLogin} handleUser={handleUser} />
       </div>

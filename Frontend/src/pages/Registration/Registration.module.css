@@ -1,3 +1,11 @@
+.backgroundImg {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  position: absolute;
+  z-index: 10;
+}
+
 .registration {
   color: #e7ecef;
   display: grid;
@@ -18,4 +26,5 @@
   box-shadow:
     0px 0px 2px 2px #6096ba inset,
     0px 0px 2px 2px #6096ba inset;
+  z-index: 11;
 }
