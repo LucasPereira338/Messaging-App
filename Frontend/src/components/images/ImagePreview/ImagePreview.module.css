@@ -1,0 +1,14 @@
+.childInp {
+  grid-column-start: 4;
+  grid-column-end: 6;
+  border: solid 3px #e9ecef;
+  border-radius: 10px;
+}
+
+#userImg {
+  max-width: 75px;
+  border-radius: 50%;
+  min-height: 80px;
+  object-fit: cover;
+  border: 0;
+}

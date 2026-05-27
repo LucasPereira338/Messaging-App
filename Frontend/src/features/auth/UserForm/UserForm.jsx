@@ -1,7 +1,8 @@
 import * as styles from "./UserForm.module.css";
 import { postNewUser, fetchLogin } from "../../../services/userServices";
 import { capitalize } from "../../../helpers/strHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function UserForm({ action, handleLogin, handleUser }) {
   let userValues = ["username", "password"];
@@ -15,26 +16,14 @@ function UserForm({ action, handleLogin, handleUser }) {
       "password",
     ];
   }
-
-  const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.startsWith("image/")) {
       setFile(selectedFile);
-      const objectUrl = URL.createObjectURL(selectedFile);
-      setPreview(objectUrl);
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (preview) {
-        URL.revokeObjectURL(preview);
-      }
-    };
-  }, [preview]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -80,14 +69,7 @@ function UserForm({ action, handleLogin, handleUser }) {
             <label htmlFor={item} className={styles.childLabel}>
               {capitalize(item)}:{" "}
             </label>
-            {item == "portrait" && preview && (
-              <img
-                src={preview}
-                alt="Preview"
-                className={styles.childInp}
-                id={styles.userImg}
-              />
-            )}
+            {item == "portrait" && file && <ImagePreview file={file} />}
             {item == "description" ? (
               <textarea
                 name={item}
