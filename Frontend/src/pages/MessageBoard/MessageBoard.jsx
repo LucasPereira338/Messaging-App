@@ -11,6 +11,8 @@ import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {
   let user = useLocation().state;
+  let navigate = useNavigate();
+
   const userId = user.id;
 
   const [chats, setChats] = useState([{ id: 0 }]);
@@ -19,11 +21,11 @@ function MessageBoard() {
 
   const [content, setContent] = useState("All");
 
+  const [isCreateGroup, setIsCreateGroup] = useState(false);
+
   const handleContent = (choice) => {
     setContent(choice);
   };
-
-  const [isCreateGroup, setIsCreateGroup] = useState(false);
 
   const handleCreateGroup = () => {
     if (isCreateGroup) {
@@ -33,7 +35,17 @@ function MessageBoard() {
     }
   };
 
-  let navigate = useNavigate();
+  const handleCurrentChat = (twData) => {
+    const twUserData = twData;
+
+    setCurrentChat(twUserData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   useEffect(() => {
     try {
@@ -53,18 +65,6 @@ function MessageBoard() {
       navigate("/profile", { state: user });
     }
   }, [currentChat, navigate, user]);
-
-  const handleCurrentChat = (twData) => {
-    const twUserData = twData;
-
-    setCurrentChat(twUserData);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    navigate("/");
-  };
 
   return (
     <MessageContext value={{ chats, currentChat, content }}>

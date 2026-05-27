@@ -1,11 +1,20 @@
 import * as styles from "./MessageInput.module.css";
 import { postNewMessage } from "../../../services/messageServices";
+import { getImageFile } from "../../../helpers/fileHelpers";
 import { useState, useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
+import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function MessageInput({ user, updateIsNewMessage }) {
   const { currentChat } = useContext(MessageContext);
   const [msg, setMsg] = useState("");
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const selectedFile = getImageFile(e);
+    setFile(selectedFile);
+  };
+
   const handleTyping = (e) => {
     setMsg(e.target.value);
   };
@@ -51,7 +60,13 @@ function MessageInput({ user, updateIsNewMessage }) {
           onChange={handleTyping}
           onKeyDown={handleEnter}
         />
-        <input type="file" name="image" />
+        {file ? <ImagePreview file={file} size="small" /> : null}
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
         <button id={styles.msgInpBtn} type="submit">
           Send
         </button>

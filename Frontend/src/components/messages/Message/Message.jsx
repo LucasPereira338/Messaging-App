@@ -1,5 +1,4 @@
 import * as styles from "./Message.module.css";
-//import { useState, useEffect } from "react";
 
 function Message({ message, setMsgToDel }) {
   const backend = import.meta.env.VITE_BACKEND;
