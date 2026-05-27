@@ -1,13 +1,17 @@
 import * as styles from "./ImagePreview.module.css";
 import { useEffect, useState } from "react";
 
-function ImagePreview({ file = "" }) {
+function ImagePreview({ file = null, size = "medium" }) {
   const [preview, setPreview] = useState(null);
 
-  if (file && preview == null) {
-    const objectUrl = URL.createObjectURL(file);
-    setPreview(objectUrl);
-  }
+  useEffect(() => {
+    const updatePreview = async () => {
+      const objectUrl = URL.createObjectURL(file);
+
+      setPreview(objectUrl);
+    };
+    updatePreview();
+  }, [file]);
 
   useEffect(() => {
     return () => {
@@ -22,7 +26,7 @@ function ImagePreview({ file = "" }) {
       src={preview}
       alt="Preview"
       className={styles.childInp}
-      id={styles.userImg}
+      id={size == "medium" ? styles.mediumImg : styles.smallImg}
     />
   );
 }

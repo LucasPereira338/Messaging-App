@@ -69,7 +69,9 @@ function UserForm({ action, handleLogin, handleUser }) {
             <label htmlFor={item} className={styles.childLabel}>
               {capitalize(item)}:{" "}
             </label>
-            {item == "portrait" && file && <ImagePreview file={file} />}
+            {item == "portrait" && file && (
+              <ImagePreview file={file} size="small" />
+            )}
             {item == "description" ? (
               <textarea
                 name={item}

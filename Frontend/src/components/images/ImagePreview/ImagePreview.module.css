@@ -5,10 +5,17 @@
   border-radius: 10px;
 }
 
-#userImg {
+#smallImg {
   max-width: 75px;
   border-radius: 50%;
   min-height: 80px;
   object-fit: cover;
   border: 0;
+}
+
+#mediumImg {
+  max-width: 200px;
+  border-radius: 50%;
+  min-height: 200px;
+  object-fit: cover;
 }
