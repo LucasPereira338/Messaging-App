@@ -68,6 +68,7 @@
 #msgImg {
   max-width: 400px;
   min-height: 200px;
+  max-height: 225px;
   align-self: center;
   padding: 0;
 }

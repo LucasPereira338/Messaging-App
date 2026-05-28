@@ -60,13 +60,20 @@ function MessageInput({ user, updateIsNewMessage }) {
           onChange={handleTyping}
           onKeyDown={handleEnter}
         />
-        {file ? <ImagePreview file={file} size="small" /> : null}
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
+        <div className={styles.msgImgContainer}>
+          {file ? (
+            <div className={styles.msgImgPreview}>
+              <ImagePreview file={file} size="small" />
+            </div>
+          ) : null}
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+        </div>
+
         <button id={styles.msgInpBtn} type="submit">
           Send
         </button>
