@@ -10,10 +10,57 @@ function Message({ message, setMsgToDel }) {
   const portrait = backend + "assets/" + message.portrait;
 
   return (
-    <div
-      id={isAuthor ? styles.messageContainerAuthor : null}
-      className={styles.messageContainer}
-    >
+    <div className={styles.messageContainer}>
+      {" "}
+      <img src={portrait} className={styles.userPortrait} />
+      <div
+        id={isAuthor ? styles.messageAuthor : styles.message}
+        className="general-borders"
+        aria-label="message"
+      >
+        <div
+          id={isAuthor ? styles.messageContentAuthor : null}
+          className={styles.messageContent}
+        >
+          {message.image ? (
+            <img
+              src={msgImg}
+              id={isAuthor ? styles.msgImgAuthor : msgImg}
+              className={styles.messageContent}
+            />
+          ) : null}
+          <div id={isAuthor ? styles.msgTxtReceiver : styles.msgTxt}>
+            {message.content}
+          </div>
+          {isAuthor && (
+            <img
+              src="../../../../icons/trash-can.png"
+              alt="trash can"
+              onClick={() => setMsgToDel(message)}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Message;
+
+/* b4 simplification
+import * as styles from "./Message.module.css";
+
+function Message({ message, setMsgToDel }) {
+  const backend = import.meta.env.VITE_BACKEND;
+  const msgImg = backend + "assets/" + message.image;
+  const isAuthor = message.userId == message.authorId ? true : false;
+  console.log("messages");
+  console.log(message);
+
+  const portrait = backend + "assets/" + message.portrait;
+
+  return (
+    <div className={styles.messageContainer}>
       {" "}
       <img src={portrait} className={styles.userPortrait} />
       <div
@@ -62,3 +109,4 @@ function Message({ message, setMsgToDel }) {
 }
 
 export default Message;
+*/
