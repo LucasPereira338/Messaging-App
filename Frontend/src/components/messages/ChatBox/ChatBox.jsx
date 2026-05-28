@@ -6,7 +6,7 @@ import ChatMessages from "../ChatMessages/ChatMessages";
 import { useState, useEffect, useContext } from "react";
 import { deleteMessage } from "../../../services/messageServices";
 import { fetchChatMessages } from "../../../services/chatServices";
-import { addUserIdAndPortrait } from "../../../helpers/arrayHelpers";
+import { addMemberDataToMsg } from "../../../helpers/arrayHelpers";
 import { MessageContext } from "../../../contexts/MessageContext";
 
 function ChatBox() {
@@ -25,7 +25,7 @@ function ChatBox() {
     const fetchChat = async () => {
       let result = await fetchChatMessages(currentChat.chatId);
 
-      const msgs = addUserIdAndPortrait(result, localStorage.getItem("userId"));
+      const msgs = addMemberDataToMsg(result, localStorage.getItem("userId"));
 
       setMessages(msgs);
     };

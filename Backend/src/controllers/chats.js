@@ -93,6 +93,7 @@ async function getChatMessages(req, res) {
             members: {
                 select: {
                     id: true,
+                    username: true,
                     portrait: true
                 }
             }

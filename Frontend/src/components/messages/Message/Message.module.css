@@ -1,7 +1,7 @@
 .messageContainer {
   display: flex;
   justify-content: space-between;
-  background-color: #dfe4e7;
+
   gap: 10px;
 }
 
@@ -14,22 +14,40 @@
   object-fit: cover;
 }
 
+.msgWithTime {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.authorInfo {
+  display: flex;
+  gap: 20px;
+}
+
+.msgUsername {
+  color: #615e5e;
+  font-weight: 500;
+  margin-left: 1px;
+  font-size: 1.1em;
+}
+
+.msgTime {
+  color: #8b8c89;
+}
+
 #messageAuthor {
   border-color: #5f5fe7;
   flex: 2;
   background-color: #5f5fe7;
 }
 
-#message {
-  flex: 2;
-  display: flex;
-}
-
 #messageContentAuthor {
   background-color: #5f5fe7;
   color: white;
   display: grid;
-  grid-template-columns: 0.9fr 0.1fr;
+  grid-template-columns: 0.95fr 0.05fr;
 }
 
 .messageContent {

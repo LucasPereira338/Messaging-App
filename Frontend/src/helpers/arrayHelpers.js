@@ -27,7 +27,7 @@ export function arrayObjToStr(oldArr) {
   return newArr
 }
 
-export function addUserIdAndPortrait(chat, loggedUserId) {
+export function addMemberDataToMsg(chat, loggedUserId) {
   const messages = chat[0].messages;
  
   const members = chat[0].members;
@@ -40,6 +40,7 @@ export function addUserIdAndPortrait(chat, loggedUserId) {
         for (let j = 0; j <= members.length - 1; j++) {
           if (messages[i].authorId == members[j].id) {
             messages[i].portrait = members[j].portrait
+            messages[i].username = members[j].username
           } 
         }
   }
