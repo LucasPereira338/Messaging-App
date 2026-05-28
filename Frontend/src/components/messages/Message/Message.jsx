@@ -11,7 +11,13 @@ function Message({ message, setMsgToDel }) {
       className="general-borders"
       aria-label="message"
     >
-      {message.image ? <img src={msgImg} id={styles.msgImg} /> : null}
+      {message.image ? (
+        <img
+          src={msgImg}
+          id={isAuthor ? styles.msgImgAuthor : msgImg}
+          className={styles.messageContent}
+        />
+      ) : null}
       {isAuthor ? (
         <div id={styles.messageContentAuthor} className={styles.messageContent}>
           <div className={styles.msgTxt}>{message.content}</div>

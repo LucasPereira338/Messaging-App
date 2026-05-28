@@ -21,3 +21,9 @@
   max-width: 100px;
   min-height: 100px;
 }
+
+#msgImgAuthor {
+  max-width: 100px;
+  min-height: 100px;
+  background-color: #5f5fe7;
+}
