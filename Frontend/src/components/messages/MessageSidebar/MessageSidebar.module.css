@@ -4,7 +4,7 @@
   grid-row-start: 1;
   grid-row-end: 3;
   gap: 5px;
-  overflow: hidden;
   grid-column-start: 2;
   grid-column-end: 3;
+  overflow: scroll;
 }
