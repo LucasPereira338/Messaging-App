@@ -27,13 +27,24 @@ export function arrayObjToStr(oldArr) {
   return newArr
 }
 
-export function addUserId(messages, userId) {
-  if (typeof messages == 'undefined') {
+export function addUserIdAndPortrait(chat, loggedUserId) {
+  const messages = chat[0].messages;
+ 
+  const members = chat[0].members;
+  
+  if (typeof chat == 'undefined') {
     return "undefined 'array'"
   }
   for (let i = 0; i <= messages.length - 1; i++) {
-        messages[i].userId = userId;
-      }
+        messages[i].userId = loggedUserId;
+        for (let j = 0; j <= members.length - 1; j++) {
+          if (messages[i].authorId == members[j].id) {
+            messages[i].portrait = members[j].portrait
+          } 
+        }
+  }
+  
+  return messages
 }
 
 export function filterChatGroups(groups, all) {

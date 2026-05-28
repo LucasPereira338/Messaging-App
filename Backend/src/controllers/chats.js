@@ -89,7 +89,13 @@ async function getChatMessages(req, res) {
                     createdAt: 'asc'
                 }
             },
-            group: true
+            group: true,
+            members: {
+                select: {
+                    id: true,
+                    portrait: true
+                }
+            }
         }
     })
 
