@@ -4,7 +4,10 @@ import Message from "../Message/Message";
 function ChatMessages({ messages = [{ id: 0 }], setMsgToDel }) {
   console.log(messages);
   return (
-    <div className={styles.chatMessagesContainer} aria-label="chat-messages">
+    <section
+      className={styles.chatMessagesContainer}
+      aria-label="chat-messages"
+    >
       {messages
         ? messages.map((item) => {
             return (
@@ -12,7 +15,7 @@ function ChatMessages({ messages = [{ id: 0 }], setMsgToDel }) {
             );
           })
         : null}
-    </div>
+    </section>
   );
 }
 

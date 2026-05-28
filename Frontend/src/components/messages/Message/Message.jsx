@@ -11,7 +11,7 @@ function Message({ message, setMsgToDel }) {
   const isAuthor = message.userId == message.authorId ? true : false;
 
   return (
-    <div className={styles.messageContainer}>
+    <article className={styles.messageContainer}>
       {" "}
       <img src={portrait} className={styles.userPortrait} />
       <div className={styles.msgWithTime}>
@@ -19,7 +19,13 @@ function Message({ message, setMsgToDel }) {
           <div className={styles.msgUsername}>{message.username}</div>
           <div className={styles.msgTime}>{time}</div>
         </div>
-
+        {message.image ? (
+          <img
+            src={msgImg}
+            id={styles.msgImg}
+            className={styles.messageContent}
+          />
+        ) : null}
         <div
           id={isAuthor ? styles.messageAuthor : styles.message}
           className="general-borders"
@@ -29,14 +35,6 @@ function Message({ message, setMsgToDel }) {
             id={isAuthor ? styles.messageContentAuthor : null}
             className={styles.messageContent}
           >
-            {message.image ? (
-              <img
-                src={msgImg}
-                id={isAuthor ? styles.msgImgAuthor : msgImg}
-                className={styles.messageContent}
-              />
-            ) : null}
-
             <div id={isAuthor ? styles.msgTxtReceiver : styles.msgTxt}>
               {message.content}
             </div>
@@ -50,7 +48,7 @@ function Message({ message, setMsgToDel }) {
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
