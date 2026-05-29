@@ -173,6 +173,9 @@ async function updateUser(req, res) {
         },
         omit: {
             password: true,
+            createdAt: true,
+            updatedAt: true,
+            isAdmin: true
         }
     })
 
