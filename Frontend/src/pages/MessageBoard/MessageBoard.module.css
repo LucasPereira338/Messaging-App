@@ -4,6 +4,33 @@
   grid-template-columns: 0.3fr 2.7fr 7fr;
   grid-template-rows: 3fr 3fr 1fr 1fr;
   background-color: #e7ecef;
+  overflow: hidden;
+}
+
+.pageSidebarContainer {
+  grid-row-start: 1;
+  grid-row-end: 5;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.messageSidebarContainer {
+  grid-row-start: 1;
+  grid-row-end: 4;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  overflow: hidden;
+}
+
+.messageSidebarContainer:hover {
+  overflow-y: scroll;
+}
+
+.chatBoxContainer {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 5;
 }
 
 #loggedUser {
@@ -11,4 +38,5 @@
   grid-row-end: 5;
   grid-column-start: 2;
   grid-column-end: 3;
+  height: 100%;
 }

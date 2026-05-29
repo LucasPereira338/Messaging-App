@@ -1,16 +1,7 @@
 #messagesSidebar {
   display: flex;
   flex-direction: column;
-  grid-row-start: 1;
-  grid-row-end: 4;
   gap: 5px;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  overflow: hidden;
-}
-
-#messagesSidebar:hover {
-  overflow-y: scroll;
 }
 
 #messagesSidebarTitle {

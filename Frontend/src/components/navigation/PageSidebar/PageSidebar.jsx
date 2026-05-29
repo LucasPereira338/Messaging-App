@@ -8,29 +8,45 @@ function PageSidebar({ handleContent, handleLogout }) {
   const commonPath = "../../../../icons/";
   return (
     <aside id={styles.pageSidebar}>
-      {possibleChoices.map((item, ind) => {
-        return (
-          <div
-            key={item}
-            className={styles.pageSidebarItem}
-            id={possibleChoices[ind] == content ? styles.chosen : null}
-            onClick={() => handleContent(item)}
-          >
-            <img
-              src={
-                item == "All"
-                  ? commonPath + "all.png"
-                  : item == "Chats"
-                    ? commonPath + "user.png"
-                    : commonPath + "group.png"
-              }
-              className={styles.icon}
-              alt={item}
-            />
-            <div id={styles.pageSidebarItemTxt}>{item}</div>
-          </div>
-        );
-      })}
+      {handleContent ? (
+        possibleChoices.map((item, ind) => {
+          return (
+            <div
+              key={item}
+              className={styles.pageSidebarItem}
+              id={possibleChoices[ind] == content ? styles.chosen : null}
+              onClick={() => handleContent(item)}
+            >
+              <img
+                src={
+                  item == "All"
+                    ? commonPath + "all.png"
+                    : item == "Chats"
+                      ? commonPath + "user.png"
+                      : commonPath + "group.png"
+                }
+                className={styles.icon}
+                alt={item}
+              />
+              <div id={styles.pageSidebarItemTxt}>{item}</div>
+            </div>
+          );
+        })
+      ) : (
+        <div
+          className={styles.pageSidebarItem}
+          id={styles.pageSidebarChatsPage}
+          onClick={() => alert("i should return to the chats page")}
+        >
+          <img
+            src={commonPath + "all.png"}
+            className={styles.icon}
+            alt="Chats"
+          />
+          <div id={styles.pageSidebarItemTxt}>Messages</div>
+        </div>
+      )}
+
       <div
         className={styles.pageSidebarItem}
         id={styles.logoutContainer}

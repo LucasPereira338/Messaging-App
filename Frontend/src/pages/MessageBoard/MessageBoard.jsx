@@ -72,15 +72,26 @@ function MessageBoard() {
         className={styles.MessageBoard}
         id={isCreateGroup ? styles.popUpBackground : null}
       >
-        <PageSidebar
-          handleContent={handleContent}
-          handleLogout={handleLogout}
-        />
-        <MessageSidebar
-          handleCurrentChat={handleCurrentChat}
-          handleCreateGroup={handleCreateGroup}
-        />
-        {isCreateGroup == false ? <ChatBox /> : <GroupForm />}
+        <div className={styles.pageSidebarContainer}>
+          <PageSidebar
+            handleContent={handleContent}
+            handleLogout={handleLogout}
+          />
+        </div>
+        <div className={styles.messageSidebarContainer}>
+          <MessageSidebar
+            handleCurrentChat={handleCurrentChat}
+            handleCreateGroup={handleCreateGroup}
+          />
+        </div>
+
+        {isCreateGroup == false ? (
+          <div className={styles.chatBoxContainer}>
+            <ChatBox />
+          </div>
+        ) : (
+          <GroupForm />
+        )}
 
         <article id={styles.loggedUser} className="general-borders">
           <EntityCard entity={user} handleCurrentChat={handleCurrentChat} />
