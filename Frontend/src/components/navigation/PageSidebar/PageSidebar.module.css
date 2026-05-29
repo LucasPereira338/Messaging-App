@@ -32,12 +32,7 @@
 }
 
 #logoutContainer {
-  display: flex;
   position: absolute;
   bottom: 0;
-}
-
-#logoutIcon:hover {
-  background-color: #a5adb1;
-  cursor: grab;
+  width: 100%;
 }
