@@ -56,7 +56,7 @@ function ProfileForm({ userId }) {
   }, [userId]);
 
   return (
-    <div id={styles.profileFormContainer} className="general-borders">
+    <div id={styles.profileFormContainer}>
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
