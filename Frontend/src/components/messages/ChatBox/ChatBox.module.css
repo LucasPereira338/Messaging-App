@@ -1,7 +1,8 @@
 #chatBox {
   grid-column-start: 3;
+  grid-column-end: 4;
   grid-row-start: 1;
-  grid-row-end: 4;
+  grid-row-end: 5;
   display: grid;
   grid-template-columns: 1fr 7fr 1fr;
   grid-template-rows: 1fr 7fr 2fr;

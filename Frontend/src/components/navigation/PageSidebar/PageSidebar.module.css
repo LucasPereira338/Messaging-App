@@ -5,10 +5,11 @@
   flex-direction: column;
   gap: 10px;
   position: relative;
-  min-height: 100vh;
   background-color: #e7ecef;
   border: groove 1px #becad0;
   border-radius: 5px;
+  grid-row-start: 1;
+  grid-row-end: 5;
 }
 
 .pageSidebarItem:hover {

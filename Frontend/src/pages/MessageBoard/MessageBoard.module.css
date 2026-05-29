@@ -2,12 +2,13 @@
   display: grid;
   height: 100vh;
   grid-template-columns: 0.3fr 2.7fr 7fr;
-  grid-template-rows: 1.5fr 8fr 0.5fr;
+  grid-template-rows: 3fr 3fr 1fr 1fr;
   background-color: #e7ecef;
 }
 
 #loggedUser {
-  grid-row-start: 3;
-  grid-row-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
   grid-column-start: 2;
+  grid-column-end: 3;
 }
