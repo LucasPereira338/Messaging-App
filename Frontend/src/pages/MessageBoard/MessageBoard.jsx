@@ -5,16 +5,18 @@ import GroupForm from "../../features/groups/GroupForm/GroupForm";
 import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
 import ProfileForm from "../../features/users/ProfileForm/ProfileForm";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { fetchUserChoices } from "../../helpers/helpers";
 import { MessageContext } from "../../contexts/MessageContext";
+import { fetchUser } from "../../services/userServices";
 import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {
-  let user = useLocation().state;
   let navigate = useNavigate();
 
-  const userId = user.id;
+  const userId = localStorage.getItem("userId");
+
+  const [user, setUser] = useState({ id: "fetching..." });
 
   const [chats, setChats] = useState([{ id: 0 }]);
 
@@ -25,6 +27,8 @@ function MessageBoard() {
   const [isCreateGroup, setIsCreateGroup] = useState(false);
 
   const [openProfile, setOpenProfile] = useState(false);
+
+  const [userUpdated, setUserUpdated] = useState();
 
   const handleContent = (choice) => {
     setContent(choice);
@@ -54,6 +58,7 @@ function MessageBoard() {
 
   const handleProfile = () => {
     setOpenProfile(false);
+    setUserUpdated(Math.random());
   };
 
   const handleLogout = () => {
@@ -61,6 +66,15 @@ function MessageBoard() {
     localStorage.removeItem("token");
     navigate("/");
   };
+
+  useEffect(() => {
+    const getLoggedUser = async () => {
+      const result = await fetchUser(userId);
+
+      setUser(result);
+    };
+    getLoggedUser();
+  }, [userId, userUpdated]);
 
   useEffect(() => {
     try {
@@ -76,13 +90,13 @@ function MessageBoard() {
   }, [userId, content]);
 
   useEffect(() => {
-    if (currentChat.id == user.id) {
+    if (currentChat.id == userId) {
       const openProf = async () => {
         setOpenProfile(true);
       };
       openProf();
     }
-  }, [currentChat, user]);
+  }, [currentChat, userId]);
 
   return (
     <MessageContext value={{ chats, currentChat, content }}>
@@ -93,7 +107,7 @@ function MessageBoard() {
         {openProfile && (
           <div className={styles.profileFormContainer}>
             <div className={styles.profileFormContent}>
-              <ProfileForm userId={user.id} handleProfile={handleProfile} />
+              <ProfileForm userId={userId} handleProfile={handleProfile} />
             </div>
           </div>
         )}
@@ -119,7 +133,10 @@ function MessageBoard() {
         )}
 
         <article id={styles.loggedUser} className="general-borders">
-          <EntityCard entity={user} handleCurrentChat={handleCurrentChat} />
+          <EntityCard
+            entity={user.username ? user : { name: "aaaa" }}
+            handleCurrentChat={handleCurrentChat}
+          />
         </article>
       </main>
     </MessageContext>

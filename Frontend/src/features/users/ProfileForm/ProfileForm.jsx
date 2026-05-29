@@ -36,13 +36,16 @@ function ProfileForm({ userId, handleProfile }) {
     const formData = new FormData(event.currentTarget);
 
     const result = await updateUser(formData, userId);
+    console.log(result);
 
     setUser(result);
+
+    handleProfile();
   };
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const result = await fetchUser({ id: userId });
+      const result = await fetchUser(userId);
 
       setUser(result);
       const newArr = Object.values(result);
@@ -113,10 +116,7 @@ function ProfileForm({ userId, handleProfile }) {
             </div>
           );
         })}
-        <button type="submit" onClick={handleProfile}>
-          {" "}
-          Save Changes
-        </button>
+        <button type="submit"> Save Changes</button>
       </form>
     </div>
   );

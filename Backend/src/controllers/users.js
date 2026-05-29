@@ -3,7 +3,6 @@ const jwt = require('../utils/jwt/jwt.js')
 const bcrypt = require('bcryptjs')
 
 async function getUser(req, res) {
-    
     const user = await prisma.user.findUnique({
         where: {
             id: req.params.id
@@ -17,8 +16,7 @@ async function getUser(req, res) {
             portrait: true
         }
     })
-
-    if(typeof user.description != 'string') {
+    if(!user.description) {
         user.description = ''
     }
 
@@ -158,7 +156,7 @@ async function postNewUser(req, res) {
 }
 
 async function updateUser(req, res) {
-
+    
     if (typeof req.file !== "undefined") {
         req.body.portrait = req.file.path.slice(7)
     }
