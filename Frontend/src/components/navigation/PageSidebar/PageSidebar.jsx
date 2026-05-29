@@ -7,7 +7,7 @@ function PageSidebar({ handleContent, handleLogout }) {
   const { content } = useContext(MessageContext);
   const commonPath = "../../../../icons/";
   return (
-    <section id={styles.pageSidebar}>
+    <aside id={styles.pageSidebar}>
       {possibleChoices.map((item, ind) => {
         return (
           <div
@@ -25,23 +25,26 @@ function PageSidebar({ handleContent, handleLogout }) {
                     : commonPath + "group.png"
               }
               className={styles.icon}
-              alt="All"
+              alt={item}
             />
             <div id={styles.pageSidebarItemTxt}>{item}</div>
           </div>
         );
       })}
-      <div className={styles.pageSidebarItem}>
+      <div
+        className={styles.pageSidebarItem}
+        id={styles.logoutContainer}
+        onClick={handleLogout}
+      >
         <img
           src="../../../../icons/logout.png"
           className={styles.icon}
           id={styles.logoutIcon}
-          onClick={handleLogout}
           alt="logout"
         />
         <div id={styles.pageSidebarItemTxt}>Logout</div>
       </div>
-    </section>
+    </aside>
   );
 }
 

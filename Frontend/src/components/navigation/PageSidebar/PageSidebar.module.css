@@ -31,7 +31,8 @@
   background-color: #a5adb1;
 }
 
-#logoutIcon {
+#logoutContainer {
+  display: flex;
   position: absolute;
   bottom: 0;
 }
