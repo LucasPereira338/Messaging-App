@@ -46,7 +46,7 @@ function MessageBoard() {
       setCurrentChat(twData);
       setTimeout(() => {
         setCurrentChat(actualChat);
-      }, 100);
+      }, 10);
     } else {
       setCurrentChat(twData);
     }
