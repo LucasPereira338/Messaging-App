@@ -11,10 +11,16 @@
 }
 
 #groupForm {
+  height: 100%;
+}
+
+.groupFormContent {
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
   gap: 25px;
-  height: 100%;
+  margin-top: 10px;
 }
 
 #groupFormHeader {
@@ -41,7 +47,10 @@
 }
 
 #groupFormBtn {
-  font-size: 1em;
+  font-size: 1.3em;
+  margin-top: 20px;
+  align-self: center;
+  width: 100%;
 }
 
 input[type="file"] {

@@ -12,6 +12,12 @@
   grid-row-end: 5;
 }
 
+.pageSidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .pageSidebarItem:hover {
   background-color: #a5adb1;
   cursor: grab;

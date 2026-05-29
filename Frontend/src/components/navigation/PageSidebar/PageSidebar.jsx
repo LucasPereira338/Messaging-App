@@ -14,6 +14,7 @@ function PageSidebar({ handleContent, handleLogout }) {
             key={item}
             className={styles.pageSidebarItem}
             id={possibleChoices[ind] == content ? styles.chosen : null}
+            onClick={() => handleContent(item)}
           >
             <img
               src={
@@ -24,9 +25,9 @@ function PageSidebar({ handleContent, handleLogout }) {
                     : commonPath + "group.png"
               }
               className={styles.icon}
-              onClick={() => handleContent(item)}
               alt="All"
             />
+            <div id={styles.pageSidebarItemTxt}>{item}</div>
           </div>
         );
       })}
@@ -38,6 +39,7 @@ function PageSidebar({ handleContent, handleLogout }) {
           onClick={handleLogout}
           alt="logout"
         />
+        <div id={styles.pageSidebarItemTxt}>Logout</div>
       </div>
     </section>
   );

@@ -51,40 +51,42 @@ function GroupForm() {
         id={styles.groupForm}
         onSubmit={handleSubmit}
       >
-        <label id={styles.imgLabel}>
-          Portrait:{" "}
-          {file ? (
-            <ImagePreview file={file} size="medium" />
-          ) : (
-            <img src={defaultImg} id={styles.defaultGroupImg} />
-          )}
-          <input
-            type="file"
-            name="portrait"
-            accept="image/*"
-            onChange={handleFileChange}
-          />{" "}
-        </label>
+        <div className={styles.groupFormContent}>
+          <label id={styles.imgLabel}>
+            Portrait:{" "}
+            {file ? (
+              <ImagePreview file={file} size="medium" />
+            ) : (
+              <img src={defaultImg} id={styles.defaultGroupImg} />
+            )}
+            <input
+              type="file"
+              name="portrait"
+              accept="image/*"
+              onChange={handleFileChange}
+            />{" "}
+          </label>
 
-        <label htmlFor="title" className={styles.groupFormInp}>
-          Title: <input type="text" name="title" />
-        </label>
+          <label htmlFor="title" className={styles.groupFormInp}>
+            Title: <input type="text" name="title" />
+          </label>
 
-        <label
-          htmlFor="users"
-          className={styles.groupFormInp}
-          id={styles.members}
-        >
-          Members: <SearchUser handleNewUser={handleNewUser} width="group" />
-        </label>
+          <label
+            htmlFor="users"
+            className={styles.groupFormInp}
+            id={styles.members}
+          >
+            Members: <SearchUser handleNewUser={handleNewUser} width="group" />
+          </label>
 
-        <input type="hidden" name="users" value={membersIds} />
-        {members.map((item, ind) => {
-          return <EntityCard key={ind} entity={item} />;
-        })}
-        <button type="submit" id={styles.groupFormBtn}>
-          Create Group
-        </button>
+          <input type="hidden" name="users" value={membersIds} />
+          {members.map((item, ind) => {
+            return <EntityCard key={ind} entity={item} />;
+          })}
+          <button type="submit" id={styles.groupFormBtn}>
+            Create Group
+          </button>
+        </div>
       </form>
     </div>
   );
