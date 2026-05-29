@@ -1,5 +1,4 @@
 #profileFormContainer {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,14 +6,14 @@
   background-color: #6096ba;
   color: #e7ecef;
   border: groove 3px #6096ba;
+  min-width: 500px;
+  max-width: 700px;
 }
 
 #profileForm {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: unset;
+  width: 100%;
   gap: 25px;
 }
 
@@ -42,12 +41,19 @@ input[type="file"] {
 }
 .childLabel {
   display: grid;
-  grid-template-columns: 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr;
+  grid-template-columns: 0.2fr 0.05fr 0.75fr;
 }
 
 .childInp {
-  width: 99%;
+  grid-column-start: 3;
+  grid-column-end: 4;
 }
+/* .childLabel {
+  display: grid;
+  grid-template-columns: 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr;
+}
+  */
+
 /*#imgInpOverlay {
   position: absolute;
   top: 0;

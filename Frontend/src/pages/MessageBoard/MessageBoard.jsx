@@ -3,6 +3,7 @@ import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import GroupForm from "../../features/groups/GroupForm/GroupForm";
 import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
+import ProfileForm from "../../features/users/ProfileForm/ProfileForm";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { fetchUserChoices } from "../../helpers/helpers";
@@ -22,6 +23,8 @@ function MessageBoard() {
   const [content, setContent] = useState("All");
 
   const [isCreateGroup, setIsCreateGroup] = useState(false);
+
+  const [openProfile, setOpenProfile] = useState(false);
 
   const handleContent = (choice) => {
     setContent(choice);
@@ -62,7 +65,10 @@ function MessageBoard() {
 
   useEffect(() => {
     if (currentChat.id == user.id) {
-      navigate("/profile", { state: user });
+      const openProf = async () => {
+        setOpenProfile(true);
+      };
+      openProf(); //navigate("/profile", { state: user });
     }
   }, [currentChat, navigate, user]);
 
@@ -72,6 +78,13 @@ function MessageBoard() {
         className={styles.MessageBoard}
         id={isCreateGroup ? styles.popUpBackground : null}
       >
+        {openProfile && (
+          <div className={styles.profileFormContainer}>
+            <div className={styles.profileFormContent}>
+              <ProfileForm userId={user.id} />
+            </div>
+          </div>
+        )}
         <div className={styles.pageSidebarContainer}>
           <PageSidebar
             handleContent={handleContent}

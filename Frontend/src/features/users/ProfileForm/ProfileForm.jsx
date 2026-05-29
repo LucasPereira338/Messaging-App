@@ -88,28 +88,28 @@ function ProfileForm({ userId }) {
               {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
                 <label htmlFor={userKeys[ind]} className={styles.childLabel}>
                   {capitalize(userKeys[ind])}:{" "}
+                  {userKeys[ind] == "description" ? (
+                    <textarea
+                      name={userKeys[ind]}
+                      className={styles.childInp}
+                      value={item == null ? "" : item}
+                      onChange={() => handleChange(event, ind)}
+                    ></textarea>
+                  ) : (
+                    <input
+                      type={
+                        userKeys[ind] == "id" || userKeys[ind] == "portrait"
+                          ? "hidden"
+                          : "text"
+                      }
+                      name={userKeys[ind]}
+                      value={item == null ? "" : item}
+                      onChange={() => handleChange(event, ind)}
+                      className={styles.childInp}
+                    />
+                  )}{" "}
                 </label>
               ) : null}
-              {userKeys[ind] == "description" ? (
-                <textarea
-                  name={userKeys[ind]}
-                  className={styles.childInp}
-                  value={item == null ? "" : item}
-                  onChange={() => handleChange(event, ind)}
-                ></textarea>
-              ) : (
-                <input
-                  type={
-                    userKeys[ind] == "id" || userKeys[ind] == "portrait"
-                      ? "hidden"
-                      : "text"
-                  }
-                  name={userKeys[ind]}
-                  value={item == null ? "" : item}
-                  onChange={() => handleChange(event, ind)}
-                  className={styles.childInp}
-                />
-              )}{" "}
             </div>
           );
         })}
