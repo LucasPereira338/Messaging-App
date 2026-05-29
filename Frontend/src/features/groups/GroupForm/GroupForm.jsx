@@ -7,6 +7,9 @@ import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import { getImageFile } from "../../../helpers/fileHelpers";
 
 function GroupForm() {
+  const defaultImg =
+    import.meta.env.VITE_BACKEND + "assets/profiles/portraits/blank.svg";
+  console.log(defaultImg);
   const [membersIds, setMembersIds] = useState("");
   const [members, setMembers] = useState([]);
   const [file, setFile] = useState(null);
@@ -38,14 +41,23 @@ function GroupForm() {
   };
 
   return (
-    <div className={styles.groupFormContainer}>
+    <div id={styles.groupFormContainer} className="general-borders">
+      <header className="general-borders" id={styles.groupFormHeader}>
+        <h3>Group Creation</h3>
+      </header>
       <form
         encType="multipart/form-data"
-        className={styles.groupForm}
+        className="general-borders"
+        id={styles.groupForm}
         onSubmit={handleSubmit}
       >
-        <label>
-          Portrait: {file && <ImagePreview file={file} size="small" />}
+        <label id={styles.imgLabel}>
+          Portrait:{" "}
+          {file ? (
+            <ImagePreview file={file} size="medium" />
+          ) : (
+            <img src={defaultImg} id={styles.defaultGroupImg} />
+          )}
           <input
             type="file"
             name="portrait"
@@ -54,19 +66,25 @@ function GroupForm() {
           />{" "}
         </label>
 
-        <label htmlFor="title">
+        <label htmlFor="title" className={styles.groupFormInp}>
           Title: <input type="text" name="title" />
         </label>
 
-        <label htmlFor="users" className={styles.members}>
-          Members: <SearchUser handleNewUser={handleNewUser} />
+        <label
+          htmlFor="users"
+          className={styles.groupFormInp}
+          id={styles.members}
+        >
+          Members: <SearchUser handleNewUser={handleNewUser} width="group" />
         </label>
 
         <input type="hidden" name="users" value={membersIds} />
         {members.map((item, ind) => {
           return <EntityCard key={ind} entity={item} />;
         })}
-        <button type="submit">Submit</button>
+        <button type="submit" id={styles.groupFormBtn}>
+          Create Group
+        </button>
       </form>
     </div>
   );

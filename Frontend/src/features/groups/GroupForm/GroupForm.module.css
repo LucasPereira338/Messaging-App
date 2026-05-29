@@ -1,15 +1,51 @@
-.groupFormContainer {
+#groupFormContainer {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 5;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0;
+  border-width: 1px;
+  font-size: 1.1em;
 }
 
-.groupForm {
+#groupForm {
   display: flex;
   flex-direction: column;
+  gap: 25px;
+  height: 100%;
+}
+
+#groupFormHeader {
+  margin: 0;
+  padding: 0;
+}
+
+#imgLabel {
+  display: flex;
   justify-content: space-between;
 }
 
-.members {
+#defaultGroupImg {
+  min-width: 200px;
+  max-width: 250px;
+  border-radius: 50%;
+  min-height: 200px;
+  max-height: 250px;
+}
+
+.groupFormInp {
   display: flex;
+  flex-direction: column;
+}
+
+#groupFormBtn {
+  font-size: 1em;
+}
+
+input[type="file"] {
+  color: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  width: 65px;
 }

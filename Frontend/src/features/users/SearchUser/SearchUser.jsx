@@ -5,7 +5,7 @@ import { useDebounce } from "use-debounce";
 import { useOutsideClick } from "../../../hooks/hooks";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 
-function SearchUser({ handleNewUser }) {
+function SearchUser({ handleNewUser, width = "default" }) {
   const [term, setTerm] = useState("");
   const [debouncedTerm] = useDebounce(term, 1000);
   const [isSearching, setIsSearching] = useState(false);
@@ -40,7 +40,11 @@ function SearchUser({ handleNewUser }) {
         value={term}
         onChange={handleChange}
         placeholder="Search users"
-        className={styles.searchUserInput}
+        className={
+          width == "group"
+            ? styles.searchUserInputGroup
+            : styles.searchUserInput
+        }
         ref={ref}
         autoComplete="off"
       />

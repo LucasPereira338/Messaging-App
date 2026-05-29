@@ -6,6 +6,10 @@
   width: 96%;
 }
 
+.searchUserInputGroup {
+  width: 99.3%;
+}
+
 .searchUserDropdown {
   background-color: white;
   position: absolute;
