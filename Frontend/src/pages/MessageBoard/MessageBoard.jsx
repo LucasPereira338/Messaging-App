@@ -39,7 +39,7 @@ function MessageBoard() {
   };
 
   const handleCurrentChat = (twData) => {
-    //this is inefficient and lazy as fuck, i should change this later
+    //this certainly works, but it is a weird (and lazy) way to do it, i should change this later
     if (twData.id == user.id) {
       const actualChat = currentChat;
 

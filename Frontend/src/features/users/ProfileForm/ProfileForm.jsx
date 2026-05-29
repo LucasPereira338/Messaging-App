@@ -35,12 +35,9 @@ function ProfileForm({ userId, handleProfile }) {
 
     const formData = new FormData(event.currentTarget);
 
-    const formValues = Object.fromEntries(formData.entries());
+    const result = await updateUser(formData, userId);
 
-    formData.id = formValues.id;
-    const result = await updateUser(formData);
-
-    console.log(result);
+    setUser(result);
   };
 
   useEffect(() => {
@@ -116,7 +113,10 @@ function ProfileForm({ userId, handleProfile }) {
             </div>
           );
         })}
-        <button type="submit"> Save Changes</button>
+        <button type="submit" onClick={handleProfile}>
+          {" "}
+          Save Changes
+        </button>
       </form>
     </div>
   );

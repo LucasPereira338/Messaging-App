@@ -76,16 +76,16 @@ export async function fetchUsersInList(data) {
     return response.json()
 }
 
-export async function updateUser(data) {
+export async function updateUser(data, id) {
     const backend = import.meta.env.VITE_BACKEND;
 
-    const url = backend + "users/" + data.id
+    const url = backend + "users/" + id
 
     const token = localStorage.getItem('token')
 
     const response = await fetch(url, {
         method: "PUT",
-        headers: { "Authorization": "Bearer " + token},
+        headers: {"Authorization": "Bearer " + token},
         body: data
         
     })
