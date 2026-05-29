@@ -8,6 +8,7 @@
   min-width: 500px;
   max-width: 700px;
   border: groove 1px #6096ba;
+  border-radius: 10px;
 }
 
 #profileForm {

@@ -39,9 +39,17 @@ function MessageBoard() {
   };
 
   const handleCurrentChat = (twData) => {
-    const twUserData = twData;
+    //this is inefficient and lazy as fuck, i should change this later
+    if (twData.id == user.id) {
+      const actualChat = currentChat;
 
-    setCurrentChat(twUserData);
+      setCurrentChat(twData);
+      setTimeout(() => {
+        setCurrentChat(actualChat);
+      }, 100);
+    } else {
+      setCurrentChat(twData);
+    }
   };
 
   const handleProfile = () => {
@@ -74,7 +82,7 @@ function MessageBoard() {
       };
       openProf();
     }
-  }, [currentChat, navigate, user]);
+  }, [currentChat, user]);
 
   return (
     <MessageContext value={{ chats, currentChat, content }}>
