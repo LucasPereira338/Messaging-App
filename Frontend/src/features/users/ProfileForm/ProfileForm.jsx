@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
-function ProfileForm({ userId }) {
+function ProfileForm({ userId, handleProfile }) {
   const [user, setUser] = useState({ id: userId, name: "pending..." });
 
   const backend = import.meta.env.VITE_BACKEND;
@@ -63,6 +63,9 @@ function ProfileForm({ userId }) {
         id={styles.profileForm}
         autoComplete="off"
       >
+        <h5 className={styles.formClose} onClick={handleProfile}>
+          X
+        </h5>
         <div id={styles.imgInpContainer}>
           {" "}
           {file ? (

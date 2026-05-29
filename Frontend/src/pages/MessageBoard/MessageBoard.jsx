@@ -44,6 +44,10 @@ function MessageBoard() {
     setCurrentChat(twUserData);
   };
 
+  const handleProfile = () => {
+    setOpenProfile(false);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
@@ -68,7 +72,7 @@ function MessageBoard() {
       const openProf = async () => {
         setOpenProfile(true);
       };
-      openProf(); //navigate("/profile", { state: user });
+      openProf();
     }
   }, [currentChat, navigate, user]);
 
@@ -81,7 +85,7 @@ function MessageBoard() {
         {openProfile && (
           <div className={styles.profileFormContainer}>
             <div className={styles.profileFormContent}>
-              <ProfileForm userId={user.id} />
+              <ProfileForm userId={user.id} handleProfile={handleProfile} />
             </div>
           </div>
         )}

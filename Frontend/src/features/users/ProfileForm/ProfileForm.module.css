@@ -15,6 +15,21 @@
   flex-direction: column;
   width: 100%;
   gap: 25px;
+  position: relative;
+}
+
+.formClose {
+  padding: 5px;
+  border-radius: 50%;
+  background-color: white;
+  color: red;
+  font-size: 1.1em;
+  position: absolute;
+  right: 0;
+}
+
+.formClose:hover {
+  cursor: grab;
 }
 
 #profilePortrait {
