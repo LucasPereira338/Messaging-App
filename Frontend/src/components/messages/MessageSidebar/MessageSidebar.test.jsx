@@ -1,43 +1,32 @@
 import { vi, describe, it, expect } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import MessageSidebar from "./MessageSidebar";
-import { fetchUsersInList } from "../../../services/userServices";
+import * as chatFuncs from "../../../services/chatServices";
+import { MessageContext } from "../../../contexts/MessageContext";
 
-const mocks = vi.hoisted(() => {
-  return {
-    fetchUsersInList: vi.fn(),
-  };
-});
+const fetchChatsMembers = vi
+  .spyOn(chatFuncs, "fetchChatsMembers")
+  .mockImplementation(() => {});
 
-vi.mock("../../../services/userServices", () => {
-  return {
-    fetchUsersInList: mocks.fetchUsersInList,
-  };
-});
-
-const talkingWith = {
-  id: "sdassdsssdsa",
-  username: "peter",
-  name: "peter the meeker",
-  portrait: "peter.jpg",
+const values = {
+  chats: [0],
+  currentChat: [{ id: 0 }],
+  content: "All",
 };
 
-const messages = {
-  data: [
-    { id: "safs21", authorId: "sdada", receiverId: "s221", content: "testing" },
-  ],
-};
-
-const handleTalkingWith = vi.fn();
+const handleCurrentChat = vi.fn();
+const handleCurrentGroup = vi.fn();
 
 describe("MessageSidebar", () => {
   it("Renders the sidebar", () => {
     render(
-      <MessageSidebar
-        messages={messages}
-        talkingWith={talkingWith}
-        handleTalkingWith={handleTalkingWith}
-      />,
+      <MessageContext value={values}>
+        <MessageSidebar
+          handleCurrentChat={handleCurrentChat}
+          handleCurrentGroup={handleCurrentGroup}
+        />
+        ,
+      </MessageContext>,
     );
 
     const sidebar = screen.getByTestId("MessageSidebar");
@@ -47,11 +36,13 @@ describe("MessageSidebar", () => {
 
   it("Should call the function on page load", async () => {
     render(
-      <MessageSidebar
-        messages={messages}
-        talkingWith={talkingWith}
-        handleTalkingWith={handleTalkingWith}
-      />,
+      <MessageContext value={values}>
+        <MessageSidebar
+          handleCurrentChat={handleCurrentChat}
+          handleCurrentGroup={handleCurrentGroup}
+        />
+        ,
+      </MessageContext>,
     );
 
     const sidebar = screen.getByTestId("MessageSidebar");
@@ -60,6 +51,6 @@ describe("MessageSidebar", () => {
       fireEvent.submit(sidebar);
     });
 
-    expect(fetchUsersInList).toHaveBeenCalled();
+    expect(fetchChatsMembers).toHaveBeenCalled();
   });
 });
