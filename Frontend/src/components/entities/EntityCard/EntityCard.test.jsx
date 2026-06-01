@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import UserCard from "./EntityCard";
+import EntityCard from "./EntityCard";
 
 const user = {
   id: "sdasdsa",
@@ -16,9 +16,9 @@ const talkingWith = {
   portrait: "peter.jpg",
 };
 const handleTalkingWith = vi.fn();
-describe("UserCard", () => {
+describe("EntityCard", () => {
   it("should render the main container with only the mandatory prop", () => {
-    render(<UserCard user={user} />);
+    render(<EntityCard entity={user} />);
 
     const container = screen.getByTestId("container");
 
@@ -27,8 +27,8 @@ describe("UserCard", () => {
 
   it("should render the main container with all optional props included", () => {
     render(
-      <UserCard
-        user={user}
+      <EntityCard
+        entity={user}
         talkingWith={talkingWith}
         handleTalkingWith={handleTalkingWith}
       />,
@@ -40,7 +40,7 @@ describe("UserCard", () => {
   });
 
   it("should render the user's profile picture", () => {
-    render(<UserCard user={user} />);
+    render(<EntityCard entity={user} />);
 
     const image = screen.getByRole("img");
 
@@ -49,8 +49,8 @@ describe("UserCard", () => {
 
   it("should not call the function", async () => {
     render(
-      <UserCard
-        user={user}
+      <EntityCard
+        entity={user}
         talkingWith={talkingWith}
         handleTalkingWith={handleTalkingWith}
       />,
@@ -63,7 +63,7 @@ describe("UserCard", () => {
     const user = userEvent.setup();
     render(
       <UserCard
-        user={user}
+        entity={user}
         talkingWith={talkingWith}
         handleTalkingWith={handleTalkingWith}
       />,
