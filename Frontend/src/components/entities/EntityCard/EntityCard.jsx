@@ -12,7 +12,11 @@ function EntityCard({
 
   return (
     <div
-      id={currentChat.id == entity.id ? styles.userCardActive : styles.userCard}
+      id={
+        currentChat.id == entity.id
+          ? styles.entityCardActive
+          : styles.entityCard
+      }
       className="general-borders"
       data-testid="container"
       onClick={
@@ -24,7 +28,7 @@ function EntityCard({
         alt={`portrait of ${entity.name}`}
         className={styles.cardPortrait}
       />
-      <div className={styles.userInfo}>
+      <div className={styles.entityInfo}>
         <div className={styles.cardName}>{name}</div>
         {entity.username != undefined ? (
           <div className={styles.cardUsername}>{entity.username}</div>
