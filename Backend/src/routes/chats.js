@@ -1,6 +1,6 @@
-const {Router} = require('express')
-const chats = Router({mergeParams: true})
-const passport = require('../config/passport-jwt/passport-jwt.js')
+const {Router} = require('express');
+const chats = Router({mergeParams: true});
+const passport = require('../config/passport-jwt/passport-jwt.js');
 const controllers = require('../controllers/chats.js');
 
 chats.get('/:ids/members', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getChatsMembers(req, res));
