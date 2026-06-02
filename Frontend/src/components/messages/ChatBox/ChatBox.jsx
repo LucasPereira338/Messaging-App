@@ -12,17 +12,13 @@ import { MessageContext } from "../../../contexts/MessageContext";
 function ChatBox() {
   const { currentChat } = useContext(MessageContext);
 
-  const [messages, setMessages] = useState([
-    { id: "0", content: "pending..." },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [isNewMessage, setIsNewMessage] = useState(false);
   const [msgToDel, setMsgToDel] = useState(false);
 
   const updateIsNewMessage = () => {
     setIsNewMessage(Math.random());
   };
-
-  console.log(currentChat);
 
   useEffect(() => {
     if (currentChat) {

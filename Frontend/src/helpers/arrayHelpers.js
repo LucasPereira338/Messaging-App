@@ -1,6 +1,7 @@
 
 export function pushUniqueIdsAndChatId(uniqueIds, allIds) { 
   const userId = localStorage.getItem("userId");//except the user currently logged in's
+  
   allIds.forEach((item) => {
     if (item.group == null) {
       for (let i = 0; i <= item.members.length - 1; i++) {

@@ -9,8 +9,8 @@ const fetchChatsMembers = vi
   .mockImplementation(() => {});
 
 const values = {
-  chats: [0],
-  currentChat: [{ id: 0 }],
+  chats: [{ id: "dsada21" }],
+  currentChat: { id: "dsada21" },
   content: "All",
 };
 
