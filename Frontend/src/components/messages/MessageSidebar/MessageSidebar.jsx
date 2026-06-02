@@ -18,9 +18,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   const { currentChat } = useContext(MessageContext);
   const { content } = useContext(MessageContext);
 
-  const [chatsMembers, setChatsMembers] = useState([
-    { id: 0, name: "pending..." },
-  ]);
+  const [chatsMembers, setChatsMembers] = useState([]);
 
   const [onlineOnly, setOnlineOnly] = useState(false);
 
@@ -29,7 +27,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   };
 
   useEffect(() => {
-    if (typeof chats !== "undefined" && chats.length > 0) {
+    if (chats.length > 0) {
       try {
         const fetchMembers = async () => {
           const arr = arrayObjToStr(chats);
@@ -70,7 +68,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
 
   useEffect(() => {
     try {
-      if (chatsMembers[0].id != 0 && currentChat.id == 0) {
+      if (chatsMembers.length > 0 && !currentChat) {
         handleCurrentChat(chatsMembers[0]);
       }
     } catch (e) {
@@ -110,7 +108,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
         </button>
       )}
       <Checkbox handleToggle={handleOnline} />
-      {typeof chats == "undefined" ? (
+      {chats.length > 0 && !currentChat ? (
         <div className={styles.MessageSidebarLoading}>Loading Chats...</div>
       ) : (
         <div>

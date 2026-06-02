@@ -1,6 +1,4 @@
 .chatMessagesContainer {
-  grid-column-start: 2;
-  grid-column-end: 3;
   display: flex;
   flex-direction: column;
   gap: 5px;

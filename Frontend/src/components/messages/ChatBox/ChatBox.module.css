@@ -5,3 +5,16 @@
   gap: 5px;
   height: 100%;
 }
+
+.entityCardContainer {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.chatMessagesContainer {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}

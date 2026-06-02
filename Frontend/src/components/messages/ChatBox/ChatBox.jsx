@@ -11,6 +11,7 @@ import { MessageContext } from "../../../contexts/MessageContext";
 
 function ChatBox() {
   const { currentChat } = useContext(MessageContext);
+
   const [messages, setMessages] = useState([
     { id: "0", content: "pending..." },
   ]);
@@ -21,15 +22,20 @@ function ChatBox() {
     setIsNewMessage(Math.random());
   };
 
+  console.log(currentChat);
+
   useEffect(() => {
-    const fetchChat = async () => {
-      let result = await fetchChatMessages(currentChat.chatId);
+    if (currentChat) {
+      const fetchChat = async () => {
+        let result = await fetchChatMessages(currentChat.chatId);
 
-      const msgs = addMemberDataToMsg(result, localStorage.getItem("userId"));
+        const msgs = addMemberDataToMsg(result, localStorage.getItem("userId"));
 
-      setMessages(msgs);
-    };
-    fetchChat();
+        setMessages(msgs);
+      };
+
+      fetchChat();
+    }
   }, [currentChat, isNewMessage]);
 
   useEffect(() => {
@@ -49,12 +55,25 @@ function ChatBox() {
       className="general-borders"
       data-testid="ChatBox"
     >
-      <EntityCard entity={currentChat} />
-      <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
-      <MessageInput
-        user={localStorage.getItem("userId")}
-        updateIsNewMessage={updateIsNewMessage}
-      />
+      <div className={styles.entityCardContainer}>
+        {!currentChat ? (
+          <h3>Use the search bar to find new people to chat with! </h3>
+        ) : (
+          <EntityCard entity={currentChat} />
+        )}
+      </div>
+      {currentChat && (
+        <div className={styles.chatMessagesContainer}>
+          <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
+        </div>
+      )}
+
+      {currentChat && (
+        <MessageInput
+          user={localStorage.getItem("userId")}
+          updateIsNewMessage={updateIsNewMessage}
+        />
+      )}
     </section>
   );
 }

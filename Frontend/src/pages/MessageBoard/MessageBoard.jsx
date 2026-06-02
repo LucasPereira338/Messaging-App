@@ -18,9 +18,9 @@ function MessageBoard() {
 
   const [user, setUser] = useState({ id: "fetching..." });
 
-  const [chats, setChats] = useState([{ id: 0 }]);
+  const [chats, setChats] = useState([]);
 
-  const [currentChat, setCurrentChat] = useState({ id: 0 });
+  const [currentChat, setCurrentChat] = useState(null);
 
   const [content, setContent] = useState("All");
 
@@ -90,11 +90,13 @@ function MessageBoard() {
   }, [userId, content]);
 
   useEffect(() => {
-    if (currentChat.id == userId) {
-      const openProf = async () => {
-        setOpenProfile(true);
-      };
-      openProf();
+    if (currentChat) {
+      if (currentChat.id == userId) {
+        const openProf = async () => {
+          setOpenProfile(true);
+        };
+        openProf();
+      }
     }
   }, [currentChat, userId]);
 
