@@ -133,10 +133,7 @@ function MessageBoard() {
         )}
 
         <article id={styles.loggedUser} className="general-borders">
-          <EntityCard
-            entity={user.username ? user : { name: "aaaa" }}
-            handleCurrentChat={handleCurrentChat}
-          />
+          <EntityCard entity={user} handleCurrentChat={handleCurrentChat} />
         </article>
       </main>
     </MessageContext>
