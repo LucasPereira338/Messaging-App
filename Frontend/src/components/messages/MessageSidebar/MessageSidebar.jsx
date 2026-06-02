@@ -29,7 +29,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   };
 
   useEffect(() => {
-    if (typeof chats !== "undefined") {
+    if (typeof chats !== "undefined" && chats.length > 0) {
       try {
         const fetchMembers = async () => {
           const arr = arrayObjToStr(chats);
@@ -111,22 +111,30 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
       )}
       <Checkbox handleToggle={handleOnline} />
       {typeof chats == "undefined" ? (
-        <div>Loading...</div>
+        <div className={styles.MessageSidebarLoading}>Loading Chats...</div>
       ) : (
         <div>
-          <div className={styles.sidebarUsersList}>
-            {chatsMembers.map((item) => {
-              return (
-                <EntityCard
-                  key={item.id}
-                  entity={item}
-                  currentChat={currentChat}
-                  handleCurrentChat={handleCurrentChat}
-                  msg={item.message}
-                />
-              );
-            })}
-          </div>
+          {chats.length == 0 ? (
+            <h5 className={styles.messageSidebarNoChats}>
+              You don't have any chats yet!
+            </h5>
+          ) : (
+            <div>
+              <div className={styles.sidebarUsersList}>
+                {chatsMembers.map((item) => {
+                  return (
+                    <EntityCard
+                      key={item.id}
+                      entity={item}
+                      currentChat={currentChat}
+                      handleCurrentChat={handleCurrentChat}
+                      msg={item.message}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </section>

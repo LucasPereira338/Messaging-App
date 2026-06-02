@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const MessageContext = createContext({ chats: [{ id: 0 }], currentChat: {id: 0}, content: 'All'});
+export const MessageContext = createContext({ chats: [{ id: 0 }], currentChat: null, content: 'All'});
