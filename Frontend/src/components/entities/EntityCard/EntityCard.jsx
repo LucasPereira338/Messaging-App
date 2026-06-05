@@ -7,7 +7,11 @@ function EntityCard({
   msg = null,
 }) {
   if (!entity) {
-    return <div id={styles.entityCard}>Loading...</div>;
+    return (
+      <div id={styles.entityCard} data-testid="Loading">
+        Loading...
+      </div>
+    );
   }
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + entity.portrait;
@@ -23,12 +27,11 @@ function EntityCard({
       }
     }
   })();
-
   return (
     <div
       id={cardContId}
       className="general-borders"
-      data-testid="container"
+      data-testid="EntityCard"
       onClick={
         handleCurrentChat != null ? () => handleCurrentChat(entity) : null
       }
@@ -45,7 +48,9 @@ function EntityCard({
         ) : null}
 
         {msg != null ? (
-          <div className={styles.lastMsg}>{msg.content}</div>
+          <div className={styles.lastMsg} role="msg">
+            {msg.content}
+          </div>
         ) : null}
       </div>
       {entity.name ? (

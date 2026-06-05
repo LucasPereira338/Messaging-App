@@ -3,76 +3,89 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EntityCard from "./EntityCard";
 
-const user = {
+const entity = {
   id: "sdasdsa",
   username: "pete",
   name: "pete the meek",
   portrait: "pete.jpg",
 };
-const talkingWith = {
+const currentChat = {
   id: "sdassdsssdsa",
   username: "peter",
   name: "peter the meeker",
   portrait: "peter.jpg",
 };
-const handleTalkingWith = vi.fn();
-describe("EntityCard", () => {
-  it("should render the main container with only the mandatory prop", () => {
-    render(<EntityCard entity={user} />);
 
-    const container = screen.getByTestId("container");
+const msg = { id: "dsadsa12321", content: "Hey!" };
+
+const handleCurrentChat = vi.fn();
+
+describe("EntityCard", () => {
+  it("should render the warning that the entity data is loading", () => {
+    render(<EntityCard entity={null} />);
+
+    const loading = screen.getByTestId("Loading");
+
+    expect(loading).toBeInTheDocument();
+  });
+
+  it("should render the main container with only the mandatory prop", () => {
+    render(<EntityCard entity={entity} />);
+
+    const container = screen.getByTestId("EntityCard");
+    const image = screen.getByRole("img");
 
     expect(container).toBeInTheDocument();
+    expect(image).toBeInTheDocument();
   });
 
   it("should render the main container with all optional props included", () => {
     render(
       <EntityCard
-        entity={user}
-        talkingWith={talkingWith}
-        handleTalkingWith={handleTalkingWith}
+        entity={entity}
+        currentChat={currentChat}
+        handleCurrentChat={handleCurrentChat}
+        msg={msg}
       />,
     );
 
-    const container = screen.getByTestId("container");
+    const container = screen.getByTestId("EntityCard");
+    const image = screen.getByRole("img");
+    const message = screen.getByText("Hey!");
 
     expect(container).toBeInTheDocument();
-  });
-
-  it("should render the user's profile picture", () => {
-    render(<EntityCard entity={user} />);
-
-    const image = screen.getByRole("img");
-
     expect(image).toBeInTheDocument();
+    expect(message).toBeInTheDocument();
   });
 
-  it("should not call the function", async () => {
+  it("should not select the entity as the current chat", async () => {
     render(
       <EntityCard
-        entity={user}
-        talkingWith={talkingWith}
-        handleTalkingWith={handleTalkingWith}
+        entity={entity}
+        currentChat={currentChat}
+        handleCurrentChat={handleCurrentChat}
+        msg={msg}
       />,
     );
 
-    expect(handleTalkingWith).not.toHaveBeenCalled();
+    expect(handleCurrentChat).not.toHaveBeenCalled();
   });
 
-  it("should call the function", async () => {
+  it("should select the entity as the current chat", async () => {
     const user = userEvent.setup();
     render(
-      <UserCard
-        entity={user}
-        talkingWith={talkingWith}
-        handleTalkingWith={handleTalkingWith}
+      <EntityCard
+        entity={entity}
+        currentChat={currentChat}
+        handleCurrentChat={handleCurrentChat}
+        msg={msg}
       />,
     );
 
-    const container = screen.getByTestId("container");
+    const container = await screen.findByTestId("EntityCard");
 
     await user.click(container);
 
-    expect(handleTalkingWith).toHaveBeenCalled();
+    expect(handleCurrentChat).toHaveBeenCalled();
   });
 });
