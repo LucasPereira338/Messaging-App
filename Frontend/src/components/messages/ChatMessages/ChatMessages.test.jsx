@@ -8,7 +8,7 @@ describe("Chat Messages", () => {
   it("Renders the chat messages", () => {
     render(<ChatMessages messages={messages} />);
 
-    const chatMsgs = screen.getByLabelText("chat-messages");
+    const chatMsgs = screen.getByTestId("ChatMessages");
 
     expect(chatMsgs).toBeInTheDocument();
   });
