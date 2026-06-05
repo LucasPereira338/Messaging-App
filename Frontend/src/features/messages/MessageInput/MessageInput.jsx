@@ -1,9 +1,9 @@
 import * as styles from "./MessageInput.module.css";
+import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import { postNewMessage } from "../../../services/messageServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import { useState, useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
-import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function MessageInput({ user, updateIsNewMessage }) {
   const { currentChat } = useContext(MessageContext);
@@ -63,7 +63,7 @@ function MessageInput({ user, updateIsNewMessage }) {
         />
         <div className={styles.msgImgContainer}>
           {file ? (
-            <div className={styles.msgImgPreview}>
+            <div className={styles.msgImgPreview} data-testid="msgImgPreview">
               <ImagePreview file={file} size="small" />
             </div>
           ) : null}

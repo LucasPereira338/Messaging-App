@@ -2,6 +2,7 @@ import { vi, describe, it, expect } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import MessageInput from "./MessageInput";
 import { postNewMessage } from "../../../services/messageServices";
+import { MessageContext } from "../../../contexts/MessageContext";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -16,33 +17,17 @@ vi.mock("../../../services/messageServices", () => {
 });
 
 const user = { id: "sdadsao0" };
-const talkingWith = { id: "ffddds1" };
+const currentChat = { id: "ffddds1" };
 const updateIsNewMessage = () => {
   return 1;
 };
 
 describe("MessageInput", () => {
-  it("Renders the form", () => {
-    render(
-      <MessageInput
-        user={user}
-        talkingWith={talkingWith}
-        updateIsNewMessage={updateIsNewMessage}
-      />,
-    );
-
-    const form = screen.getByLabelText("message-input-form");
-
-    expect(form).toBeInTheDocument();
-  });
-
   it("Renders the message input", () => {
     render(
-      <MessageInput
-        user={user}
-        talkingWith={talkingWith}
-        updateIsNewMessage={updateIsNewMessage}
-      />,
+      <MessageContext value={{ currentChat: currentChat }}>
+        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
+      </MessageContext>,
     );
 
     const msgInp = screen.getByTestId("MessageInput");
@@ -52,11 +37,9 @@ describe("MessageInput", () => {
 
   it("Should not call the function", () => {
     render(
-      <MessageInput
-        user={user}
-        talkingWith={talkingWith}
-        updateIsNewMessage={updateIsNewMessage}
-      />,
+      <MessageContext value={{ currentChat: currentChat }}>
+        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
+      </MessageContext>,
     );
 
     expect(postNewMessage).not.toHaveBeenCalled();
@@ -64,11 +47,9 @@ describe("MessageInput", () => {
 
   it("Should submit the form", async () => {
     render(
-      <MessageInput
-        user={user}
-        talkingWith={talkingWith}
-        updateIsNewMessage={updateIsNewMessage}
-      />,
+      <MessageContext value={{ currentChat: currentChat }}>
+        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
+      </MessageContext>,
     );
 
     const form = screen.getByLabelText("message-input-form");
