@@ -7,6 +7,7 @@ import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function MessageInput({ user, updateIsNewMessage }) {
   const { currentChat } = useContext(MessageContext);
+
   const [msg, setMsg] = useState("");
   const [file, setFile] = useState(null);
 

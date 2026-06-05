@@ -11,7 +11,7 @@ import { MessageContext } from "../../../contexts/MessageContext";
 
 function ChatBox() {
   const { currentChat } = useContext(MessageContext);
-
+  const user = localStorage.getItem("userId");
   const [messages, setMessages] = useState([]);
   const [isNewMessage, setIsNewMessage] = useState(false);
   const [msgToDel, setMsgToDel] = useState(false);
@@ -22,17 +22,21 @@ function ChatBox() {
 
   useEffect(() => {
     if (currentChat) {
-      const fetchChat = async () => {
-        let result = await fetchChatMessages(currentChat.chatId);
+      try {
+        const fetchChat = async () => {
+          let result = await fetchChatMessages(currentChat.chatId);
+          console.log(result);
+          const msgs = addMemberDataToMsg(result, user);
 
-        const msgs = addMemberDataToMsg(result, localStorage.getItem("userId"));
+          setMessages(msgs);
+        };
 
-        setMessages(msgs);
-      };
-
-      fetchChat();
+        fetchChat();
+      } catch (e) {
+        console.error(e);
+      }
     }
-  }, [currentChat, isNewMessage]);
+  }, [currentChat, isNewMessage, user]);
 
   useEffect(() => {
     if (msgToDel) {
@@ -65,10 +69,7 @@ function ChatBox() {
       )}
 
       {currentChat && (
-        <MessageInput
-          user={localStorage.getItem("userId")}
-          updateIsNewMessage={updateIsNewMessage}
-        />
+        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />
       )}
     </section>
   );

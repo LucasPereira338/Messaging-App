@@ -2,6 +2,8 @@ import * as styles from "./MessageSidebar.module.css";
 import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
 import ContentChoice from "../../entities/ContentChoice/ContentChoice";
+import Checkbox from "../../ui/Checkbox/Checkbox";
+import { useState, useEffect, useContext } from "react";
 import {
   arrayObjToStr,
   pushUniqueIdsAndChatId,
@@ -10,9 +12,8 @@ import {
 import { fetchChatsMembers } from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
 import { postNewChat } from "../../../services/chatServices";
-import Checkbox from "../../ui/Checkbox/Checkbox";
-import { useState, useEffect, useContext } from "react";
 
+//There's a logic issue to be fixed in the differentiation between not having any chats vs fetching the chats
 function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   const { chats } = useContext(MessageContext);
   const { currentChat } = useContext(MessageContext);
@@ -34,13 +35,11 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
           let response;
 
           response = await fetchChatsMembers(arr);
-          console.log("resp");
           console.log(response);
-
           let uniqueUsers = [];
 
           pushUniqueIdsAndChatId(uniqueUsers, response);
-
+          console.log(uniqueUsers);
           let groups = [];
           filterChatGroups(groups, response);
 
@@ -110,17 +109,24 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
         </button>
       )}
       <Checkbox handleToggle={handleOnline} />
-      {chats.length > 0 && !currentChat ? (
+      {chatsMembers.length > 0 && !currentChat ? (
         <div className={styles.MessageSidebarLoading}>Loading Chats...</div>
       ) : (
         <div>
-          {chats.length == 0 ? (
-            <h5 className={styles.messageSidebarNoChats}>
+          {chatsMembers.length == 0 ? (
+            <h5
+              className={styles.messageSidebarNoChats}
+              data-testid="NoChatHeader"
+            >
               You don't have any chats yet!
             </h5>
           ) : (
             <div>
-              <div className={styles.sidebarUsersList}>
+              <div
+                className={styles.sidebarUsersList}
+                data-testid="ChatsMembers"
+                role="presentation"
+              >
                 {chatsMembers.map((item) => {
                   return (
                     <EntityCard

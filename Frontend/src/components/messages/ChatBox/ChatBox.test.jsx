@@ -1,7 +1,9 @@
 import { vi, describe, it, expect } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import ChatBox from "./ChatBox";
-import { fetchChatMessages } from "../../../services/messageServices";
+import { MessageContext } from "../../../contexts/MessageContext";
+import { fetchChatMessages } from "../../../services/chatServices";
+import Message from "../Message/Message";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -9,28 +11,36 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock("../../../services/messageServices", () => {
+vi.mock("../../../services/chatServices", () => {
   return {
     fetchChatMessages: mocks.fetchChatMessages,
   };
 });
 
-const user = {
-  id: "sdasdsa",
-  username: "pete",
-  name: "pete the meek",
-  portrait: "pete.jpg",
-};
-const talkingWith = {
-  id: "sdassdsssdsa",
-  username: "peter",
-  name: "peter the meeker",
-  portrait: "peter.jpg",
+const values = {
+  chats: [{ id: "dsada21" }],
+  currentChat: { chatId: "dsada21" },
+  content: "All",
 };
 
 describe("ChatBox", () => {
+  it("Renders the empty chat box message", () => {
+    render(
+      <MessageContext value={values}>
+        <ChatBox />
+      </MessageContext>,
+    );
+
+    const chatBox = screen.getByTestId("ChatBox");
+
+    expect(chatBox).toBeInTheDocument();
+  });
   it("Renders the chat box", () => {
-    render(<ChatBox user={user} talkingWith={talkingWith} />);
+    render(
+      <MessageContext value={values}>
+        <ChatBox />
+      </MessageContext>,
+    );
 
     const chatBox = screen.getByTestId("ChatBox");
 
@@ -38,7 +48,11 @@ describe("ChatBox", () => {
   });
 
   it("Should call the function on page load", async () => {
-    render(<ChatBox user={user} talkingWith={talkingWith} />);
+    render(
+      <MessageContext value={values}>
+        <ChatBox />
+      </MessageContext>,
+    );
 
     const chatBox = screen.getByTestId("ChatBox");
 
