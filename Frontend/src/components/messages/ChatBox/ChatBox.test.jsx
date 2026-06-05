@@ -1,65 +1,74 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import ChatBox from "./ChatBox";
-import { MessageContext } from "../../../contexts/MessageContext";
-import { fetchChatMessages } from "../../../services/chatServices";
 import Message from "../Message/Message";
+import * as chatFuncs from "../../../services/chatServices";
+import { MessageContext } from "../../../contexts/MessageContext";
 
-const mocks = vi.hoisted(() => {
+vi.mock(import("../../entities/EntityCard/EntityCard.jsx"), () => {
   return {
-    fetchChatMessages: vi.fn(),
+    default: vi.fn(({ entity }) => (
+      <div data-testid="EntityCard">Entity: {entity.name}</div>
+    )),
   };
 });
 
-vi.mock("../../../services/chatServices", () => {
-  return {
-    fetchChatMessages: mocks.fetchChatMessages,
-  };
-});
+const fetchChatMessages = vi
+  .spyOn(chatFuncs, "fetchChatMessages")
+  .mockImplementation(() =>
+    Promise.resolve([
+      {
+        id: "dsada21",
+        members: [
+          {
+            id: "user21",
+            name: "user",
+            username: "user1",
+            portrait: "user.png",
+          },
+        ],
+        messages: [{ id: "321e3", content: "Hi" }],
+      },
+    ]),
+  );
 
 const values = {
-  chats: [{ id: "dsada21" }],
-  currentChat: { chatId: "dsada21" },
-  content: "All",
+  currentChat: {
+    chatId: "dsada21",
+    id: "user21",
+    name: "user",
+    username: "user1",
+    portrait: "user.png",
+  },
 };
 
 describe("ChatBox", () => {
-  it("Renders the empty chat box message", () => {
+  it("renders the empty chat box message", async () => {
     render(
-      <MessageContext value={values}>
+      <MessageContext value={{ chats: [], currentChat: null, content: "All" }}>
         <ChatBox />
       </MessageContext>,
     );
 
-    const chatBox = screen.getByTestId("ChatBox");
-
-    expect(chatBox).toBeInTheDocument();
-  });
-  it("Renders the chat box", () => {
-    render(
-      <MessageContext value={values}>
-        <ChatBox />
-      </MessageContext>,
+    const emptyMsg = await screen.findByText(
+      "Use the search bar to find new people to chat with!",
     );
 
-    const chatBox = screen.getByTestId("ChatBox");
-
-    expect(chatBox).toBeInTheDocument();
+    expect(emptyMsg).toBeInTheDocument();
   });
 
-  it("Should call the function on page load", async () => {
+  it("renders the chat box where the two users chat", async () => {
     render(
       <MessageContext value={values}>
         <ChatBox />
       </MessageContext>,
     );
 
-    const chatBox = screen.getByTestId("ChatBox");
-
-    await waitFor(() => {
-      fireEvent.submit(chatBox);
-    });
+    const chatBox = await screen.findByTestId("ChatBox");
+    const txt = await screen.findByText("Entity: user");
 
     expect(fetchChatMessages).toHaveBeenCalled();
+    expect(chatBox).toBeInTheDocument();
+    expect(txt).toBeInTheDocument();
   });
 });

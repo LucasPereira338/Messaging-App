@@ -1,13 +1,13 @@
 import * as styles from "./ChatBox.module.css";
-import MessageInput from "../../../features/messages/MessageInput/MessageInput";
-import EntityCard from "../../entities/EntityCard/EntityCard";
-import Message from "../Message/Message";
-import ChatMessages from "../ChatMessages/ChatMessages";
 import { useState, useEffect, useContext } from "react";
 import { deleteMessage } from "../../../services/messageServices";
 import { fetchChatMessages } from "../../../services/chatServices";
 import { addMemberDataToMsg } from "../../../helpers/arrayHelpers";
 import { MessageContext } from "../../../contexts/MessageContext";
+import MessageInput from "../../../features/messages/MessageInput/MessageInput";
+import EntityCard from "../../entities/EntityCard/EntityCard";
+import Message from "../Message/Message";
+import ChatMessages from "../ChatMessages/ChatMessages";
 
 function ChatBox() {
   const { currentChat } = useContext(MessageContext);
@@ -19,7 +19,7 @@ function ChatBox() {
   const updateIsNewMessage = () => {
     setIsNewMessage(Math.random());
   };
-
+  console.log(currentChat);
   useEffect(() => {
     if (currentChat) {
       try {
@@ -57,7 +57,7 @@ function ChatBox() {
     >
       <div className={styles.entityCardContainer}>
         {!currentChat ? (
-          <h3>Use the search bar to find new people to chat with! </h3>
+          <h3>Use the search bar to find new people to chat with!</h3>
         ) : (
           <EntityCard entity={currentChat} />
         )}
