@@ -11,9 +11,9 @@ function Message({ message, setMsgToDel }) {
   const isAuthor = message.userId == message.authorId ? true : false;
 
   return (
-    <article className={styles.messageContainer}>
+    <article className={styles.messageContainer} data-testid="Message">
       {" "}
-      <img src={portrait} className={styles.userPortrait} />
+      <img src={portrait} className={styles.userPortrait} role="Portrait" />
       <div className={styles.msgWithTime}>
         <div className={styles.authorInfo}>
           <div className={styles.msgUsername}>{message.username}</div>
@@ -24,12 +24,12 @@ function Message({ message, setMsgToDel }) {
             src={msgImg}
             id={styles.msgImg}
             className={styles.messageContent}
+            role="MsgImg"
           />
         ) : null}
         <div
           id={isAuthor ? styles.messageAuthor : styles.message}
           className="general-borders"
-          aria-label="message"
         >
           <div
             id={isAuthor ? styles.messageContentAuthor : null}
@@ -43,6 +43,7 @@ function Message({ message, setMsgToDel }) {
                 src="../../../../icons/trash-can.png"
                 alt="trash can"
                 onClick={() => setMsgToDel(message)}
+                role="Delete"
               />
             )}
           </div>
