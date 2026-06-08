@@ -1,15 +1,25 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import LoginForm from "./LoginForm";
 
-const handleState = () => console.log("");
+const handleState = vi.fn();
+
+vi.mock(import("../UserForm/UserForm.jsx"), () => {
+  return {
+    default: vi.fn(({ action }) => (
+      <form data-testid="UserForm">Form for user {action}</form>
+    )),
+  };
+});
 
 describe("Login Form", () => {
-  it("should render the login form container", () => {
+  it("should render the login form container", async () => {
     render(<LoginForm handleLogin={handleState} handleUser={handleState} />);
 
-    const form = screen.getByLabelText("login-form-container");
+    const loginForm = screen.getByTestId("LoginForm");
+    const userForm = await screen.findByText("Form for user login");
 
-    expect(form).toBeInTheDocument();
+    expect(loginForm).toBeInTheDocument();
+    expect(userForm).toBeInTheDocument();
   });
 });
