@@ -11,7 +11,7 @@ vi.mock(import("../UserForm/UserForm.jsx"), () => {
 });
 
 describe("Login Form", () => {
-  it("should render the login form container", async () => {
+  it("should render the login form", async () => {
     const handleLogin = vi.fn();
     const handleUser = vi.fn();
     render(<LoginForm handleLogin={handleLogin} handleUser={handleUser} />);

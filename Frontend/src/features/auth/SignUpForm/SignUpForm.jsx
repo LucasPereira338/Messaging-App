@@ -3,7 +3,7 @@ import UserForm from "../UserForm/UserForm";
 
 function SignUpForm({ handleLogin, handleUser }) {
   return (
-    <div className={styles.signUpContainer} aria-label="sign-up-container">
+    <div className={styles.signUpContainer} data-testid="SignUpContainer">
       <UserForm
         action="sign-up"
         handleLogin={handleLogin}
