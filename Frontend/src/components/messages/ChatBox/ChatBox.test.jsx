@@ -14,8 +14,10 @@ vi.mock(import("../../entities/EntityCard/EntityCard.jsx"), () => {
 
 vi.mock(import("../ChatMessages/ChatMessages.jsx"), () => {
   return {
-    default: vi.fn(({ messages }) => (
-      <div data-testid="ChatMessages">Messages: {messages.content}</div>
+    default: vi.fn(({ messages, setMsgToDel }) => (
+      <div data-testid="ChatMessages" onDelete={setMsgToDel}>
+        Messages: {messages.content}
+      </div>
     )),
   };
 });
@@ -24,7 +26,9 @@ vi.mock(
   import("../../../features/messages/MessageInput/MessageInput.jsx"),
   () => {
     return {
-      default: vi.fn(() => <form data-testid="MessageInput" onSubmit></form>),
+      default: vi.fn(({ updateIsNewMessage }) => (
+        <form data-testid="MessageInput" onSubmit={updateIsNewMessage}></form>
+      )),
     };
   },
 );
@@ -67,12 +71,14 @@ describe("ChatBox", () => {
         <ChatBox />
       </MessageContext>,
     );
-
+    const chatBox = await screen.findByTestId("ChatBox");
     const emptyMsg = await screen.findByText(
       "Use the search bar to find new people to chat with!",
     );
 
+    expect(fetchChatMessages).not.toHaveBeenCalled();
     expect(emptyMsg).toBeInTheDocument();
+    expect(chatBox).toBeInTheDocument();
   });
 
   it("renders the chat box where the two users chat", async () => {

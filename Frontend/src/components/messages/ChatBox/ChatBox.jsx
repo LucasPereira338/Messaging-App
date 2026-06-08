@@ -21,19 +21,13 @@ function ChatBox() {
   };
 
   useEffect(() => {
-    console.log("running currentChat useEffect");
-    console.log(currentChat);
     if (currentChat) {
       try {
         const fetchChat = async () => {
-          console.log("currentChat detected");
-          console.log(currentChat);
           let result = await fetchChatMessages(currentChat.chatId);
-          console.log("result");
-          console.log(result);
+
           const msgs = addMemberDataToMsg(result, user);
-          console.log("msgs");
-          console.log(msgs);
+
           setMessages(msgs);
         };
 
