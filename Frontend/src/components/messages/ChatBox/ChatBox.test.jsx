@@ -1,7 +1,6 @@
 import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ChatBox from "./ChatBox";
-import Message from "../Message/Message";
 import * as chatFuncs from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
 
@@ -12,6 +11,23 @@ vi.mock(import("../../entities/EntityCard/EntityCard.jsx"), () => {
     )),
   };
 });
+
+vi.mock(import("../ChatMessages/ChatMessages.jsx"), () => {
+  return {
+    default: vi.fn(({ messages }) => (
+      <div data-testid="ChatMessages">Messages: {messages.content}</div>
+    )),
+  };
+});
+
+vi.mock(
+  import("../../../features/messages/MessageInput/MessageInput.jsx"),
+  () => {
+    return {
+      default: vi.fn(() => <form data-testid="MessageInput" onSubmit></form>),
+    };
+  },
+);
 
 const fetchChatMessages = vi
   .spyOn(chatFuncs, "fetchChatMessages")
@@ -27,12 +43,13 @@ const fetchChatMessages = vi
             portrait: "user.png",
           },
         ],
-        messages: [{ id: "321e3", content: "Hi" }],
+        messages: { id: "321e3", content: "Hi", userId: "user21" },
       },
     ]),
   );
 
 const values = {
+  chats: [],
   currentChat: {
     chatId: "dsada21",
     id: "user21",
@@ -40,6 +57,7 @@ const values = {
     username: "user1",
     portrait: "user.png",
   },
+  content: "All",
 };
 
 describe("ChatBox", () => {
@@ -65,10 +83,14 @@ describe("ChatBox", () => {
     );
 
     const chatBox = await screen.findByTestId("ChatBox");
-    const txt = await screen.findByText("Entity: user");
+    const entCardTxt = await screen.findByText("Entity: user");
+    const chatMsgs = await screen.findByText("Messages: Hi");
+    const form = await screen.findByTestId("MessageInput");
 
     expect(fetchChatMessages).toHaveBeenCalled();
     expect(chatBox).toBeInTheDocument();
-    expect(txt).toBeInTheDocument();
+    expect(entCardTxt).toBeInTheDocument();
+    expect(chatMsgs).toBeInTheDocument();
+    expect(form).toBeInTheDocument();
   });
 });

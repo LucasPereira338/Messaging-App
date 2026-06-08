@@ -19,15 +19,21 @@ function ChatBox() {
   const updateIsNewMessage = () => {
     setIsNewMessage(Math.random());
   };
-  console.log(currentChat);
+
   useEffect(() => {
+    console.log("running currentChat useEffect");
+    console.log(currentChat);
     if (currentChat) {
       try {
         const fetchChat = async () => {
+          console.log("currentChat detected");
+          console.log(currentChat);
           let result = await fetchChatMessages(currentChat.chatId);
+          console.log("result");
           console.log(result);
           const msgs = addMemberDataToMsg(result, user);
-
+          console.log("msgs");
+          console.log(msgs);
           setMessages(msgs);
         };
 
@@ -68,9 +74,7 @@ function ChatBox() {
         </div>
       )}
 
-      {currentChat && (
-        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />
-      )}
+      {currentChat && <MessageInput updateIsNewMessage={updateIsNewMessage} />}
     </section>
   );
 }
