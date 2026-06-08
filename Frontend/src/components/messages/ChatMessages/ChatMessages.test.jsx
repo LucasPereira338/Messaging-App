@@ -1,15 +1,29 @@
-import { describe, it, expect } from "vitest";
+import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ChatMessages from "./ChatMessages";
 
 const messages = [{ id: "adasd9j90", content: "testing" }];
 
+vi.mock(import("../Message/Message.jsx"), () => {
+  return {
+    default: vi.fn(({ message, setMsgToDel }) => (
+      <div data-testid="Message" onClick={setMsgToDel}>
+        Message: {message.content}
+      </div>
+    )),
+  };
+});
+
+const setMsgToDel = vi.fn();
+
 describe("Chat Messages", () => {
-  it("Renders the chat messages", () => {
-    render(<ChatMessages messages={messages} />);
+  it("renders the chat messages", async () => {
+    render(<ChatMessages messages={messages} setMsgToDel={setMsgToDel} />);
 
     const chatMsgs = screen.getByTestId("ChatMessages");
+    const msg = await screen.findByText("Message: testing");
 
     expect(chatMsgs).toBeInTheDocument();
+    expect(msg).toBeInTheDocument();
   });
 });
