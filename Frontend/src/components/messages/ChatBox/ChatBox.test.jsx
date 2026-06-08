@@ -15,7 +15,7 @@ vi.mock(import("../../entities/EntityCard/EntityCard.jsx"), () => {
 vi.mock(import("../ChatMessages/ChatMessages.jsx"), () => {
   return {
     default: vi.fn(({ messages, setMsgToDel }) => (
-      <div data-testid="ChatMessages" onDelete={setMsgToDel}>
+      <div data-testid="ChatMessages" onClick={setMsgToDel}>
         Messages: {messages.content}
       </div>
     )),
