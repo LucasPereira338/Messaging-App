@@ -71,7 +71,11 @@ async function getUsers(req, res) {
             ],
         },
         omit: {
-                password: true
+                id: true,
+                name: true,
+                username: true,
+                portrait: true,
+                lastActive: true
             },
         
     })

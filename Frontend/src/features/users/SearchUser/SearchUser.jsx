@@ -32,8 +32,9 @@ function SearchUser({ handleNewUser, width = "default" }) {
       getUsers();
     }
   }, [debouncedTerm]);
+
   return (
-    <article className={styles.searchUserContainer}>
+    <article className={styles.searchUserContainer} data-testid="SearchUser">
       <input
         type="text"
         name="name"
