@@ -11,10 +11,9 @@ const message = {
   createdAt: Date.now(),
 };
 
-const setMsgToDel = vi.fn();
-
 describe("Message", () => {
-  it("Renders the message", () => {
+  it("renders the message", () => {
+    const setMsgToDel = vi.fn();
     render(<Message message={message} setMsgToDel={setMsgToDel} />);
 
     const msg = screen.getByTestId("Message");
