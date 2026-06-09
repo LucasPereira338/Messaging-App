@@ -14,10 +14,9 @@ vi.mock(import("../Message/Message.jsx"), () => {
   };
 });
 
-const setMsgToDel = vi.fn();
-
 describe("Chat Messages", () => {
   it("renders the chat messages", async () => {
+    const setMsgToDel = vi.fn();
     render(<ChatMessages messages={messages} setMsgToDel={setMsgToDel} />);
 
     const chatMsgs = screen.getByTestId("ChatMessages");
