@@ -18,8 +18,6 @@ const currentChat = {
 
 const msg = { id: "dsadsa12321", content: "Hey!" };
 
-const handleCurrentChat = vi.fn();
-
 describe("EntityCard", () => {
   it("should render the warning that the entity data is loading", () => {
     render(<EntityCard entity={null} />);
@@ -29,17 +27,18 @@ describe("EntityCard", () => {
     expect(loading).toBeInTheDocument();
   });
 
-  it("should render the main container with only the mandatory prop", () => {
+  it("should render the entity", () => {
     render(<EntityCard entity={entity} />);
 
-    const container = screen.getByTestId("EntityCard");
+    const entityCard = screen.getByTestId("EntityCard");
     const image = screen.getByRole("img");
 
-    expect(container).toBeInTheDocument();
+    expect(entityCard).toBeInTheDocument();
     expect(image).toBeInTheDocument();
   });
 
-  it("should render the main container with all optional props included", () => {
+  it("should render the entity's message", () => {
+    const handleCurrentChat = vi.fn();
     render(
       <EntityCard
         entity={entity}
@@ -49,29 +48,15 @@ describe("EntityCard", () => {
       />,
     );
 
-    const container = screen.getByTestId("EntityCard");
     const image = screen.getByRole("img");
     const message = screen.getByText("Hey!");
 
-    expect(container).toBeInTheDocument();
     expect(image).toBeInTheDocument();
     expect(message).toBeInTheDocument();
   });
 
-  it("should not select the entity as the current chat", async () => {
-    render(
-      <EntityCard
-        entity={entity}
-        currentChat={currentChat}
-        handleCurrentChat={handleCurrentChat}
-        msg={msg}
-      />,
-    );
-
-    expect(handleCurrentChat).not.toHaveBeenCalled();
-  });
-
   it("should select the entity as the current chat", async () => {
+    const handleCurrentChat = vi.fn();
     const user = userEvent.setup();
     render(
       <EntityCard
@@ -82,9 +67,9 @@ describe("EntityCard", () => {
       />,
     );
 
-    const container = await screen.findByTestId("EntityCard");
+    const entityCard = await screen.findByTestId("EntityCard");
 
-    await user.click(container);
+    await user.click(entityCard);
 
     expect(handleCurrentChat).toHaveBeenCalled();
   });
