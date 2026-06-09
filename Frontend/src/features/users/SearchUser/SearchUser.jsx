@@ -7,7 +7,7 @@ import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 
 function SearchUser({ handleNewUser, width = "default" }) {
   const [term, setTerm] = useState("");
-  const [debouncedTerm] = useDebounce(term, 1000);
+  const [debouncedTerm] = useDebounce(term, 300);
   const [isSearching, setIsSearching] = useState(false);
   const [users, setUsers] = useState([]);
 
@@ -26,8 +26,8 @@ function SearchUser({ handleNewUser, width = "default" }) {
     if (debouncedTerm.length > 0) {
       const getUsers = async () => {
         const result = await fetchUsers(debouncedTerm);
+
         setUsers(result);
-        console.log(result);
       };
       getUsers();
     }
@@ -50,12 +50,15 @@ function SearchUser({ handleNewUser, width = "default" }) {
         autoComplete="off"
       />
       {isSearching ? (
-        <section className={styles.searchUserDropdown}>
+        <section
+          className={styles.searchUserDropdown}
+          data-testid="SearchUserDropdown"
+        >
           {users.length > 0 ? (
-            users.map((item, ind) => {
+            users.map((item) => {
               return (
-                <div onClick={() => handleNewUser(item)}>
-                  <EntityCard key={ind} entity={item} />
+                <div key={item.id} onClick={() => handleNewUser(item)}>
+                  <EntityCard entity={item} />
                 </div>
               );
             })
