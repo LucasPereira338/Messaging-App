@@ -1,5 +1,6 @@
 import { vi, describe, it, expect } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import UserForm from "./UserForm";
 import { fetchLogin, postNewUser } from "../../../services/userServices";
 
@@ -17,59 +18,73 @@ vi.mock("../../../services/userServices", () => {
   };
 });
 
-const handleState = () => console.log("");
+const handleLogin = vi.fn();
+const handleUser = vi.fn();
+
+//new test: check the proper amount of label/inps for each action type
 
 describe("User Form", () => {
   it("should render the user form login variant", () => {
     render(
       <UserForm
         action="login"
-        handleLogin={handleState}
-        handleUser={handleState}
+        handleLogin={handleLogin}
+        handleUser={handleUser}
       />,
     );
 
-    const form = screen.getByRole("form", { name: /user-form/ });
+    const form = screen.getByTestId("UserForm");
+    const labels = screen.getAllByRole("label");
 
     expect(form).toBeInTheDocument();
+    expect(labels.length).toEqual(2);
   });
 
   it("should render the user form sign-up variant", () => {
     render(
       <UserForm
         action="sign-up"
-        handleLogin={handleState}
-        handleUser={handleState}
+        handleLogin={handleLogin}
+        handleUser={handleUser}
       />,
     );
 
-    const form = screen.getByRole("form", { name: /user-form/ });
+    const form = screen.getByTestId("UserForm");
+    const labels = screen.getAllByRole("label");
 
     expect(form).toBeInTheDocument();
+    expect(labels.length).toEqual(6);
   });
 
-  it("should not call the login function", () => {
+  it("should update the input value", async () => {
+    const user = userEvent.setup();
     render(
       <UserForm
         action="login"
-        handleLogin={handleState}
-        handleUser={handleState}
+        handleLogin={handleLogin}
+        handleUser={handleUser}
       />,
     );
 
-    expect(fetchLogin).not.toHaveBeenCalled();
+    const form = screen.getByTestId("UserForm");
+    const input = screen.getByTestId("usernameInput");
+
+    await user.type(input, "test");
+
+    expect(form).toBeInTheDocument();
+    expect(input.value).toBe("test");
   });
 
-  it("should call the login function", async () => {
+  it("should log in the user", async () => {
     render(
       <UserForm
         action="login"
-        handleLogin={handleState}
-        handleUser={handleState}
+        handleLogin={handleLogin}
+        handleUser={handleUser}
       />,
     );
 
-    const form = screen.getByRole("form", { name: /user-form/ });
+    const form = screen.getByTestId("UserForm");
 
     await waitFor(() => {
       fireEvent.submit(form);
@@ -78,28 +93,16 @@ describe("User Form", () => {
     expect(fetchLogin).toHaveBeenCalled();
   });
 
-  it("should not call the sign-up function", () => {
+  it("should create the user's account", async () => {
     render(
       <UserForm
         action="sign-up"
-        handleLogin={handleState}
-        handleUser={handleState}
+        handleLogin={handleLogin}
+        handleUser={handleUser}
       />,
     );
 
-    expect(postNewUser).not.toHaveBeenCalled();
-  });
-
-  it("should call the sign-up function", async () => {
-    render(
-      <UserForm
-        action="sign-up"
-        handleLogin={handleState}
-        handleUser={handleState}
-      />,
-    );
-
-    const form = screen.getByRole("form", { name: /user-form/ });
+    const form = screen.getByTestId("UserForm");
 
     await waitFor(() => {
       fireEvent.submit(form);

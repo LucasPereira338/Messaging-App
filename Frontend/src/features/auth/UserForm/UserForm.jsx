@@ -59,13 +59,13 @@ function UserForm({ action, handleLogin, handleUser }) {
   return (
     <form
       className={styles.userForm}
-      aria-label="user-form"
+      data-testid="UserForm"
       onSubmit={handleSubmit}
     >
       {userValues.map((item, ind) => {
         return (
           <div key={ind} className={styles.userFormChild}>
-            <label htmlFor={item} className={styles.childLabel}>
+            <label htmlFor={item} className={styles.childLabel} role="label">
               {capitalize(item)}:{" "}
             </label>
             {item == "portrait" && file && (
@@ -92,6 +92,7 @@ function UserForm({ action, handleLogin, handleUser }) {
                 className={styles.childInp}
                 {...(item === "portrait" ? { accept: "image/*" } : {})}
                 onChange={item == "portrait" ? handleFileChange : null}
+                data-testid={item + "Input"}
               />
             )}
           </div>
