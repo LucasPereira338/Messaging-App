@@ -1,7 +1,6 @@
 import * as styles from "./MessageSidebar.module.css";
 import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
-import ContentChoice from "../../entities/ContentChoice/ContentChoice";
 import Checkbox from "../../ui/Checkbox/Checkbox";
 import { useState, useEffect, useContext } from "react";
 import {
