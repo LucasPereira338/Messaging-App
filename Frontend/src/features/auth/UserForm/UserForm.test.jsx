@@ -21,8 +21,6 @@ vi.mock("../../../services/userServices", () => {
 const handleLogin = vi.fn();
 const handleUser = vi.fn();
 
-//new test: check the proper amount of label/inps for each action type
-
 describe("User Form", () => {
   it("should render the user form login variant", () => {
     render(
