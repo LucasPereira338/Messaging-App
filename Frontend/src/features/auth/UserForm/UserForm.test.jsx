@@ -19,9 +19,9 @@ vi.mock("../../../services/userServices", () => {
 });
 
 describe("User Form", () => {
-  const handleLogin = vi.fn();
-  const handleUser = vi.fn();
   it("should render the user form login variant", () => {
+    const handleLogin = vi.fn();
+    const handleUser = vi.fn();
     render(
       <UserForm
         action="login"

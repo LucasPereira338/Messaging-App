@@ -36,7 +36,6 @@ function ProfileForm({ userId, handleProfile }) {
     const formData = new FormData(event.currentTarget);
 
     const result = await updateUser(formData, userId);
-    console.log(result);
 
     setUser(result);
 
@@ -56,12 +55,13 @@ function ProfileForm({ userId, handleProfile }) {
   }, [userId]);
 
   return (
-    <div id={styles.profileFormContainer}>
+    <div id={styles.profileFormContainer} data-testid="ProfileFormContainer">
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
         id={styles.profileForm}
         autoComplete="off"
+        data-testid="ProfileForm"
       >
         <h5 className={styles.formClose} onClick={handleProfile}>
           X
@@ -89,7 +89,11 @@ function ProfileForm({ userId, handleProfile }) {
           return (
             <div key={ind} id={styles.labelInputContainer}>
               {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
-                <label htmlFor={userKeys[ind]} className={styles.childLabel}>
+                <label
+                  htmlFor={userKeys[ind]}
+                  className={styles.childLabel}
+                  role="label"
+                >
                   {capitalize(userKeys[ind])}:{" "}
                   {userKeys[ind] == "description" ? (
                     <textarea
@@ -109,6 +113,7 @@ function ProfileForm({ userId, handleProfile }) {
                       value={item == null ? "" : item}
                       onChange={() => handleChange(event, ind)}
                       className={styles.childInp}
+                      data-testid={userKeys[ind] + "Input"}
                     />
                   )}{" "}
                 </label>
