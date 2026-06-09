@@ -35,11 +35,11 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
           let response;
 
           response = await fetchChatsMembers(arr);
-          console.log(response);
+
           let uniqueUsers = [];
 
           pushUniqueIdsAndChatId(uniqueUsers, response);
-          console.log(uniqueUsers);
+
           let groups = [];
           filterChatGroups(groups, response);
 

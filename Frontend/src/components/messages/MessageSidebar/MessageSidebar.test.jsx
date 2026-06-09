@@ -4,6 +4,14 @@ import MessageSidebar from "./MessageSidebar";
 import * as chatFuncs from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
 
+vi.mock(import("../../entities/EntityCard/EntityCard"), () => {
+  return {
+    default: vi.fn(({ entity }) => (
+      <div data-testid="EntityCard">Entity: {entity.name}</div>
+    )),
+  };
+});
+
 const fetchChatsMembers = vi
   .spyOn(chatFuncs, "fetchChatsMembers")
   .mockImplementation(() =>
@@ -29,11 +37,10 @@ const values = {
   content: "All",
 };
 
-const handleCurrentChat = vi.fn();
-const handleCurrentGroup = vi.fn();
-
 describe("MessageSidebar", () => {
-  it("Renders the sidebar", async () => {
+  it("renders the sidebar and it's entities", async () => {
+    const handleCurrentChat = vi.fn();
+    const handleCurrentGroup = vi.fn();
     render(
       <MessageContext value={values}>
         <MessageSidebar
@@ -45,11 +52,15 @@ describe("MessageSidebar", () => {
     );
 
     const sidebar = await screen.findByTestId("MessageSidebar");
+    const entity = await screen.findByText("Entity: user");
 
     expect(sidebar).toBeInTheDocument();
+    expect(entity).toBeInTheDocument();
   });
 
   it("should inform that no chats were found", async () => {
+    const handleCurrentChat = vi.fn();
+    const handleCurrentGroup = vi.fn();
     render(
       <MessageContext value={{ chats: [], currentChat: null, content: "All" }}>
         <MessageSidebar
@@ -69,7 +80,9 @@ describe("MessageSidebar", () => {
     expect(text).toBeInTheDocument();
   });
 
-  it("Should call the function on page load", async () => {
+  it("should start fetching for the chats members on page load", async () => {
+    const handleCurrentChat = vi.fn();
+    const handleCurrentGroup = vi.fn();
     render(
       <MessageContext value={values}>
         <MessageSidebar
@@ -80,12 +93,9 @@ describe("MessageSidebar", () => {
       </MessageContext>,
     );
 
-    const sidebar = await screen.findByTestId("MessageSidebar");
     const chatsMembers = await screen.findByRole("presentation");
 
     expect(fetchChatsMembers).toHaveBeenCalled();
-
-    expect(sidebar).toBeInTheDocument();
 
     expect(chatsMembers).toBeInTheDocument();
   });
