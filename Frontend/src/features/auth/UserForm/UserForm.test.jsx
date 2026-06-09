@@ -18,10 +18,9 @@ vi.mock("../../../services/userServices", () => {
   };
 });
 
-const handleLogin = vi.fn();
-const handleUser = vi.fn();
-
 describe("User Form", () => {
+  const handleLogin = vi.fn();
+  const handleUser = vi.fn();
   it("should render the user form login variant", () => {
     render(
       <UserForm
@@ -39,6 +38,8 @@ describe("User Form", () => {
   });
 
   it("should render the user form sign-up variant", () => {
+    const handleLogin = vi.fn();
+    const handleUser = vi.fn();
     render(
       <UserForm
         action="sign-up"
@@ -55,6 +56,8 @@ describe("User Form", () => {
   });
 
   it("should update the input value", async () => {
+    const handleLogin = vi.fn();
+    const handleUser = vi.fn();
     const user = userEvent.setup();
     render(
       <UserForm
@@ -74,6 +77,8 @@ describe("User Form", () => {
   });
 
   it("should log in the user", async () => {
+    const handleLogin = vi.fn();
+    const handleUser = vi.fn();
     render(
       <UserForm
         action="login"
@@ -92,6 +97,8 @@ describe("User Form", () => {
   });
 
   it("should create the user's account", async () => {
+    const handleLogin = vi.fn();
+    const handleUser = vi.fn();
     render(
       <UserForm
         action="sign-up"
