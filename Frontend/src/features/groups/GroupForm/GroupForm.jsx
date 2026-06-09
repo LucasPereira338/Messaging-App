@@ -1,15 +1,15 @@
 import * as styles from "./GroupForm.module.css";
 import { useState } from "react";
 import { createGroup } from "../../../services/groupServices";
+import { getImageFile } from "../../../helpers/fileHelpers";
 import SearchUser from "../../users/SearchUser/SearchUser";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
-import { getImageFile } from "../../../helpers/fileHelpers";
 
 function GroupForm() {
   const defaultImg =
     import.meta.env.VITE_BACKEND + "assets/profiles/portraits/blank.svg";
-  console.log(defaultImg);
+
   const [membersIds, setMembersIds] = useState("");
   const [members, setMembers] = useState([]);
   const [file, setFile] = useState(null);
@@ -25,7 +25,7 @@ function GroupForm() {
 
     const result = await createGroup(formData);
 
-    console.log(result);
+    alert(`Group "${result.title}" created successfully!`);
   };
 
   const handleNewUser = (item) => {
@@ -68,7 +68,7 @@ function GroupForm() {
           </label>
 
           <label htmlFor="title" className={styles.groupFormInp}>
-            Title: <input type="text" name="title" />
+            Title: <input type="text" name="title" autoComplete="off" />
           </label>
 
           <label
@@ -80,8 +80,8 @@ function GroupForm() {
           </label>
 
           <input type="hidden" name="users" value={membersIds} />
-          {members.map((item, ind) => {
-            return <EntityCard key={ind} entity={item} />;
+          {members.map((item) => {
+            return <EntityCard key={item.id} entity={item} />;
           })}
           <button type="submit" id={styles.groupFormBtn}>
             Create Group

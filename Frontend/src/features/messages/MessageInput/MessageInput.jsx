@@ -46,7 +46,7 @@ function MessageInput({ updateIsNewMessage }) {
       data-testid="MessageInput"
     >
       <form
-        aria-label="message-input-form"
+        data-testid="MessageInputForm"
         className={styles.messageInputForm}
         onSubmit={handleSubmit}
       >
@@ -60,6 +60,7 @@ function MessageInput({ updateIsNewMessage }) {
           value={msg}
           onChange={handleTyping}
           onKeyDown={handleEnter}
+          data-testid="TextArea"
         />
         <div className={styles.msgImgContainer}>
           {file ? (

@@ -102,10 +102,7 @@ function MessageBoard() {
 
   return (
     <MessageContext value={{ chats, currentChat, content }}>
-      <main
-        className={styles.MessageBoard}
-        id={isCreateGroup ? styles.popUpBackground : null}
-      >
+      <main className={styles.MessageBoard}>
         {openProfile && (
           <div className={styles.profileFormContainer}>
             <div className={styles.profileFormContent}>

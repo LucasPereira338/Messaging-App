@@ -70,7 +70,7 @@ async function getUsers(req, res) {
                 }}
             ],
         },
-        omit: {
+        select: {
                 id: true,
                 name: true,
                 username: true,

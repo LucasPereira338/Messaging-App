@@ -1,8 +1,9 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import MessageInput from "./MessageInput";
+import { render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import { postNewMessage } from "../../../services/messageServices";
 import { MessageContext } from "../../../contexts/MessageContext";
+import MessageInput from "./MessageInput";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -23,7 +24,7 @@ const updateIsNewMessage = () => {
 };
 
 describe("MessageInput", () => {
-  it("Renders the message input", () => {
+  it("renders the message input", () => {
     render(
       <MessageContext value={{ currentChat: currentChat }}>
         <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
@@ -35,29 +36,35 @@ describe("MessageInput", () => {
     expect(msgInp).toBeInTheDocument();
   });
 
-  it("Should not call the function", () => {
+  it("allows the user to type a message", async () => {
+    const user = userEvent.setup();
     render(
       <MessageContext value={{ currentChat: currentChat }}>
         <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
       </MessageContext>,
     );
 
-    expect(postNewMessage).not.toHaveBeenCalled();
+    const textarea = await screen.findByTestId("TextArea");
+
+    await user.type(textarea, "test");
+
+    expect(textarea.value).toBe("test");
   });
 
-  it("Should submit the form", async () => {
+  it("allows the user to send a message", async () => {
+    const user = userEvent.setup();
     render(
       <MessageContext value={{ currentChat: currentChat }}>
         <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
       </MessageContext>,
     );
 
-    const form = screen.getByLabelText("message-input-form");
+    const textarea = await screen.findByTestId("TextArea");
 
-    await waitFor(() => {
-      fireEvent.submit(form);
-    });
+    await user.type(textarea, "test");
+    await user.keyboard("{Enter}");
 
     expect(postNewMessage).toHaveBeenCalled();
+    expect(textarea.value).toBe("");
   });
 });
