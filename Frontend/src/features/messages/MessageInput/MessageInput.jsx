@@ -1,13 +1,13 @@
 import * as styles from "./MessageInput.module.css";
-import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
+import { useState, useContext } from "react";
 import { postNewMessage } from "../../../services/messageServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
-import { useState, useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
+import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function MessageInput({ updateIsNewMessage }) {
   const { currentChat } = useContext(MessageContext);
-  const user = localStorage.getItem("userId");
+  const user = localStorage.getItem("userId") || "";
   const [msg, setMsg] = useState("");
   const [file, setFile] = useState(null);
 
