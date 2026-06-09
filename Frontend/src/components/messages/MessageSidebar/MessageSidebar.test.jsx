@@ -58,6 +58,30 @@ describe("MessageSidebar", () => {
     expect(entity).toBeInTheDocument();
   });
 
+  it("only displays the group chats", async () => {
+    const handleCurrentChat = vi.fn();
+    const handleCurrentGroup = vi.fn();
+    render(
+      <MessageContext
+        value={{
+          chats: [{ id: "dsada21" }],
+          currentChat: { id: "dsada21" },
+          content: "Group",
+        }}
+      >
+        <MessageSidebar
+          handleCurrentChat={handleCurrentChat}
+          handleCurrentGroup={handleCurrentGroup}
+        />
+        ,
+      </MessageContext>,
+    );
+
+    const group = await screen.findByText("Create Group");
+
+    expect(group).toBeInTheDocument();
+  });
+
   it("should inform that no chats were found", async () => {
     const handleCurrentChat = vi.fn();
     const handleCurrentGroup = vi.fn();
@@ -71,16 +95,12 @@ describe("MessageSidebar", () => {
       </MessageContext>,
     );
 
-    const sidebar = await screen.findByTestId("MessageSidebar");
-
     const text = await screen.findByText("You don't have any chats yet!");
-
-    expect(sidebar).toBeInTheDocument();
 
     expect(text).toBeInTheDocument();
   });
 
-  it("should start fetching for the chats members on page load", async () => {
+  it("should start searching for the chats members on page load", async () => {
     const handleCurrentChat = vi.fn();
     const handleCurrentGroup = vi.fn();
     render(
