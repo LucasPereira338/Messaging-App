@@ -53,6 +53,9 @@ function MessageBoard() {
       }, 10);
     } else {
       setCurrentChat(twData);
+      if (isCreateGroup) {
+        setIsCreateGroup(false);
+      }
     }
   };
 
