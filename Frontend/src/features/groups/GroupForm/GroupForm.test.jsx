@@ -2,24 +2,21 @@ import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import GroupForm from "./GroupForm";
 
-vi.mock(import("../../../components/entities/EntityCard/EntityCard"), () => {
+vi.mock(import("../../users/SearchUser/SearchUser"), () => {
   return {
-    default: vi.fn(({ entity }) => (
-      <div data-testid="EntityCard">Entity: {entity.name}</div>
-    )),
+    default: vi.fn(() => <div data-testid="SearchUser">Search for users</div>),
   };
 });
 
 describe("GroupForm", () => {
-  it("renders the empty chat box message", async () => {
+  it("renders the group form component", async () => {
     render(<GroupForm />);
-    const GroupForm = await screen.findByTestId("GroupForm");
-    const emptyMsg = await screen.findByText(
-      "Use the search bar to find new people to chat with!",
-    );
+    const container = await screen.findByTestId("GroupFormContainer");
+    const form = await screen.findByRole("form");
+    const searchUser = await screen.findByText("Search for users");
 
-    expect(fetchChatMessages).not.toHaveBeenCalled();
-    expect(emptyMsg).toBeInTheDocument();
-    expect(GroupForm).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
+    expect(form).toBeInTheDocument();
+    expect(searchUser).toBeInTheDocument();
   });
 });

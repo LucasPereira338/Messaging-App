@@ -41,7 +41,11 @@ function GroupForm() {
   };
 
   return (
-    <div id={styles.groupFormContainer} className="general-borders">
+    <div
+      id={styles.groupFormContainer}
+      className="general-borders"
+      data-testid="GroupFormContainer"
+    >
       <header className="general-borders" id={styles.groupFormHeader}>
         <h3>Group Creation</h3>
       </header>
@@ -50,6 +54,7 @@ function GroupForm() {
         className="general-borders"
         id={styles.groupForm}
         onSubmit={handleSubmit}
+        role="form"
       >
         <div className={styles.groupFormContent}>
           <label id={styles.imgLabel}>
