@@ -1,7 +1,7 @@
 import * as styles from "./Registration.module.css";
-import SignUpForm from "../../features/auth/SignUpForm/SignUpForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import SignUpForm from "../../features/auth/SignUpForm/SignUpForm";
 
 function Registration() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

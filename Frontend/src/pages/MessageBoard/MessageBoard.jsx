@@ -1,15 +1,15 @@
+import * as styles from "./MessageBoard.module.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { fetchUserChoices } from "../../helpers/helpers";
+import { MessageContext } from "../../contexts/MessageContext";
+import { fetchUser } from "../../services/userServices";
 import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
 import GroupForm from "../../features/groups/GroupForm/GroupForm";
 import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
 import ProfileForm from "../../features/users/ProfileForm/ProfileForm";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { fetchUserChoices } from "../../helpers/helpers";
-import { MessageContext } from "../../contexts/MessageContext";
-import { fetchUser } from "../../services/userServices";
-import * as styles from "./MessageBoard.module.css";
 
 function MessageBoard() {
   let navigate = useNavigate();
