@@ -16,6 +16,7 @@ async function getUser(req, res) {
             portrait: true
         }
     })
+    
     if(user && user.description == null) {
         user.description = ''
     }
