@@ -16,7 +16,7 @@ function MessageBoard() {
 
   const userId = localStorage.getItem("userId");
 
-  const [user, setUser] = useState({ id: "fetching..." });
+  const [user, setUser] = useState(null);
 
   const [chats, setChats] = useState([]);
 

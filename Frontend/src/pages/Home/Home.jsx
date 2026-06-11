@@ -23,7 +23,7 @@ function Home() {
   useEffect(() => {
     if (token) {
       const getUserIfToken = async () => {
-        const result = await fetchUser({ id: localStorage.getItem("userId") });
+        const result = await fetchUser(localStorage.getItem("userId"));
 
         if (result.id) {
           setUser(result);
