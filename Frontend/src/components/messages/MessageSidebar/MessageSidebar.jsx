@@ -101,13 +101,16 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
     >
       <h3 id={styles.messagesSidebarTitle}> Your Messages </h3>
       {content == "All" || content == "Chats" ? (
-        <SearchUser handleNewUser={handleNewUser} />
+        <div>
+          <SearchUser handleNewUser={handleNewUser} />
+          <Checkbox handleToggle={handleOnline} />
+        </div>
       ) : (
         <button type="submit" onClick={handleCreateGroup}>
           Create Group
         </button>
       )}
-      <Checkbox handleToggle={handleOnline} />
+
       {chatsMembers.length > 0 && !currentChat ? (
         <div className={styles.MessageSidebarLoading}>Loading Chats...</div>
       ) : (
