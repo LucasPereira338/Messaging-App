@@ -12,7 +12,7 @@ users.use('/:id/groups', groups)
 
 users.use('/:id/chats', chats)
 
-users.get('/:id', (req, res) => controllers.getUser(req, res))
+users.get('/:id', passport.authenticate('jwt', {session: false}), (req, res) => controllers.getUser(req, res))
 
 users.get('/list/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
 

@@ -25,7 +25,7 @@ export async function postNewMessage(data) {
         headers: {"Authorization": "Bearer " + token},
         body: data
     })
-
+    
     return response.json()
 }
 

@@ -30,6 +30,7 @@ function Home() {
           setIsLoggedIn(true);
         } else {
           localStorage.removeItem("token");
+          localStorage.removeItem("userId");
         }
       };
       getUserIfToken();
