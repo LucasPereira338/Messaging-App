@@ -41,7 +41,7 @@ function MessageInput({ updateIsNewMessage }) {
 
   return (
     <div
-      id={styles.messageInputContainer}
+      id={styles.messageInput}
       className="general-borders"
       data-testid="MessageInput"
     >
@@ -55,7 +55,7 @@ function MessageInput({ updateIsNewMessage }) {
         <textarea
           type="text"
           name="content"
-          id={styles.messageInput}
+          id={styles.messageTxtArea}
           placeholder="Type a message..."
           value={msg}
           onChange={handleTyping}
