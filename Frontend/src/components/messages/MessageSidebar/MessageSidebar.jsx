@@ -1,7 +1,4 @@
 import * as styles from "./MessageSidebar.module.css";
-import EntityCard from "../../entities/EntityCard/EntityCard";
-import SearchUser from "../../../features/users/SearchUser/SearchUser";
-import Checkbox from "../../ui/Checkbox/Checkbox";
 import { useState, useEffect, useContext } from "react";
 import {
   arrayObjToStr,
@@ -11,6 +8,9 @@ import {
 import { fetchChatsMembers } from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
 import { postNewChat } from "../../../services/chatServices";
+import EntityCard from "../../entities/EntityCard/EntityCard";
+import SearchUser from "../../../features/users/SearchUser/SearchUser";
+import Checkbox from "../../ui/Checkbox/Checkbox";
 
 //There's a logic issue to be fixed in the differentiation between not having any chats vs fetching the chats
 function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {

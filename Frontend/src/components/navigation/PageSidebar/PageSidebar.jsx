@@ -1,6 +1,6 @@
 import * as styles from "./PageSidebar.module.css";
-import { MessageContext } from "../../../contexts/MessageContext";
 import { useContext } from "react";
+import { MessageContext } from "../../../contexts/MessageContext";
 
 function PageSidebar({ handleContent, handleLogout }) {
   const possibleChoices = ["All", "Chats", "Groups"];

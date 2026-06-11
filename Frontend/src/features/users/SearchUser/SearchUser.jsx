@@ -1,7 +1,7 @@
 import * as styles from "./SearchUser.module.css";
-import { fetchUsers } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
+import { fetchUsers } from "../../../services/userServices";
 import { useOutsideClick } from "../../../hooks/hooks";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 

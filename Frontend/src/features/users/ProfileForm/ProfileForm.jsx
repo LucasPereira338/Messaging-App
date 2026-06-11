@@ -1,7 +1,7 @@
 import * as styles from "./ProfileForm.module.css";
+import { useState, useEffect } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
 import { updateUser, fetchUser } from "../../../services/userServices";
-import { useState, useEffect } from "react";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
