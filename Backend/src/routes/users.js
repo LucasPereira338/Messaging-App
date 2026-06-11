@@ -16,7 +16,7 @@ users.get('/:id', (req, res) => controllers.getUser(req, res))
 
 users.get('/list/:usersIds', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsersInList(req, res))
 
-users.get('/',  (req, res) => controllers.getUsers(req, res))
+users.get('/',  passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUsers(req, res))
 
 users.post('/log-in', (req, res) => controllers.postLogin(req, res))
 

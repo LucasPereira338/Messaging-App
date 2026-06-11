@@ -3,6 +3,7 @@ const jwt = require('../utils/jwt/jwt.js')
 const bcrypt = require('bcryptjs')
 
 async function getUser(req, res) {
+    
     const user = await prisma.user.findUnique({
         where: {
             id: req.params.id
@@ -53,23 +54,30 @@ async function getUsersInList(req, res) {
 async function getUsers(req, res) {
     
     const searchTerm = req.query.name
-
+    console.log(searchTerm)
+    console.log(req.user.id)
     const users = await prisma.user.findMany({
         where: {
-            OR: [
-                {
-                    name: {
-                        contains: searchTerm
-                }},
-                 {
-                    username: {
-                        contains: searchTerm
-                }}, 
-                {
-                    email: {
-                        contains: searchTerm
-                }}
-            ],
+            AND: {
+                OR: [
+                    {
+                        name: {
+                            contains: searchTerm
+                    }},
+                    {
+                        username: {
+                            contains: searchTerm
+                    }}, 
+                    {
+                        email: {
+                            contains: searchTerm
+                    }}
+                ],
+                NOT: {
+                    id: req.user.id
+                }
+            }
+            
         },
         select: {
                 id: true,

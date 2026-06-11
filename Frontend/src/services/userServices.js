@@ -35,9 +35,11 @@ export async function fetchUsers(data) {
 
     const url = backend + "users/?name=" + data
 
+    const token = localStorage.getItem('token')
+
     const response = await fetch(url, {
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", "Authorization": "Bearer " + token
         }
     })
 
