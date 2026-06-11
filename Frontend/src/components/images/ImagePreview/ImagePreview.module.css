@@ -1,8 +1,3 @@
-.childInp {
-  grid-column-start: 4;
-  grid-column-end: 6;
-}
-
 #smallImg {
   min-width: 70px;
   max-width: 75px;

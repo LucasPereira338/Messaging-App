@@ -25,6 +25,11 @@
   border: 0;
 }
 
+.userFormImgPrev {
+  grid-column-start: 4;
+  grid-column-end: 6;
+}
+
 #userImg {
   max-width: 75px;
   border-radius: 50%;

@@ -71,7 +71,9 @@ function UserForm({ action, handleLogin, handleUser }) {
               {capitalize(item)}:{" "}
             </label>
             {item == "portrait" && file && (
-              <ImagePreview file={file} size="small" />
+              <div className={styles.userFormImgPrev}>
+                <ImagePreview file={file} size="small" />{" "}
+              </div>
             )}
             {item == "description" ? (
               <textarea
