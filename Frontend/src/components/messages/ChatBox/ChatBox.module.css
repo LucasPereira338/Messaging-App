@@ -1,6 +1,6 @@
 #chatBox {
   display: grid;
-  grid-template-columns: 1fr 7fr 1fr;
+  grid-template-columns: 0.75fr 8.5fr 0.75fr;
   grid-template-rows: 1fr 7fr 2fr;
   gap: 5px;
   height: 100%;
