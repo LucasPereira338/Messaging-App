@@ -68,7 +68,11 @@ function ChatBox() {
         </div>
       )}
 
-      {currentChat && <MessageInput updateIsNewMessage={updateIsNewMessage} />}
+      {currentChat && (
+        <div className={styles.messageInputContainer}>
+          <MessageInput updateIsNewMessage={updateIsNewMessage} />
+        </div>
+      )}
     </section>
   );
 }

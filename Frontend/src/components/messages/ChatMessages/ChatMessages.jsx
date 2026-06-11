@@ -3,10 +3,7 @@ import Message from "../Message/Message";
 
 function ChatMessages({ messages = [], setMsgToDel }) {
   return (
-    <section
-      className={styles.chatMessagesContainer}
-      data-testid="ChatMessages"
-    >
+    <section className={styles.chatMessages} data-testid="ChatMessages">
       {messages
         ? messages.map((item) => {
             return (

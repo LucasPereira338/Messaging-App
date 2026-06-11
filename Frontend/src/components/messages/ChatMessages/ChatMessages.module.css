@@ -1,11 +1,11 @@
-.chatMessagesContainer {
+.chatMessages {
   display: flex;
   flex-direction: column;
-  gap: 5px;
   gap: 10px;
   overflow: hidden;
+  height: 100%;
 }
 
-.chatMessagesContainer:hover {
+.chatMessages:hover {
   overflow: scroll;
 }
