@@ -1,6 +1,7 @@
 const {prisma} = require('../../lib/prisma.js')
 const jwt = require('../utils/jwt/jwt.js')
 const bcrypt = require('bcryptjs')
+const {deleteImage} = require('../helpers/folders.js')
 
 async function getUser(req, res) {
     
@@ -54,8 +55,7 @@ async function getUsersInList(req, res) {
 async function getUsers(req, res) {
     
     const searchTerm = req.query.name
-    console.log(searchTerm)
-    console.log(req.user.id)
+    
     const users = await prisma.user.findMany({
         where: {
             AND: {
@@ -172,11 +172,25 @@ async function updateUser(req, res) {
     
     if (typeof req.file !== "undefined") {
         req.body.portrait = req.file.path.slice(7)
+        const oldPort = await prisma.user.findUnique({
+            where: {
+                id: req.user.id
+            },
+            select: {
+                portrait: true
+            }
+        })
+        
+        if (oldPort.portrait != "profiles/portraits/blank.svg") {
+            await deleteImage(oldPort.portrait)
+        }
+        
     }
     
     if (req.user.id != req.params.id) {
         return res.status(401).json({message:"unauthorized"})
     }
+
     const user = await prisma.user.update({
         where: {
             id: req.params.id
@@ -188,7 +202,6 @@ async function updateUser(req, res) {
             password: true,
             createdAt: true,
             updatedAt: true,
-            isAdmin: true
         }
     })
 

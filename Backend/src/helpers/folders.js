@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const basePath = "assets/";
 
-async function deleteImage(folder, img) {
+async function deleteImage(img) {
     const imgPath = path.join(basePath, img)
     fs.unlink(imgPath, (err) => {
         if (err) {
