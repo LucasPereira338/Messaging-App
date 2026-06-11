@@ -50,6 +50,13 @@
   grid-row-end: 5;
 }
 
+.groupFormPageContainer {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
+}
+
 #loggedUser {
   grid-row-start: 4;
   grid-row-end: 5;

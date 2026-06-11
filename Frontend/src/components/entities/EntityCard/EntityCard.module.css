@@ -1,7 +1,5 @@
 #entityCard {
   display: flex;
-  grid-column-start: 1;
-  grid-column-end: 4;
   border-width: 1px;
   height: 100%;
 }

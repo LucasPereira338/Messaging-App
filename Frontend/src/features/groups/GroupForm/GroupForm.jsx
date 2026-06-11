@@ -72,22 +72,33 @@ function GroupForm() {
             />{" "}
           </label>
 
-          <label htmlFor="title" className={styles.groupFormInp}>
+          <label
+            htmlFor="title"
+            id={styles.groupFormTitle}
+            className={styles.groupFormInp}
+          >
             Title: <input type="text" name="title" autoComplete="off" />
           </label>
 
           <label
             htmlFor="users"
+            id={styles.groupFormMembers}
             className={styles.groupFormInp}
-            id={styles.members}
           >
             Members: <SearchUser handleNewUser={handleNewUser} width="group" />
           </label>
 
           <input type="hidden" name="users" value={membersIds} />
-          {members.map((item) => {
-            return <EntityCard key={item.id} entity={item} />;
-          })}
+          <div id={styles.groupMembers}>
+            {members.map((item) => {
+              return (
+                <div id={styles.groupMember}>
+                  {" "}
+                  <EntityCard key={item.id} entity={item} />
+                </div>
+              );
+            })}
+          </div>
           <button type="submit" id={styles.groupFormBtn}>
             Create Group
           </button>

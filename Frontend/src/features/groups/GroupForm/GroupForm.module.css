@@ -1,10 +1,5 @@
 #groupFormContainer {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 5;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
   gap: 0;
   border-width: 1px;
   font-size: 1.1em;
@@ -15,12 +10,96 @@
 }
 
 .groupFormContent {
-  margin-left: 10px;
-  margin-right: 10px;
+  display: grid;
+  grid-template-rows: 1.5fr 1.25fr 1.25fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr;
+  height: 100%;
+}
+
+#groupFormHeader {
+  margin: 0;
+  padding: 0;
+}
+
+#imgLabel {
+  display: flex;
+  justify-content: space-between;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+#defaultGroupImg {
+  min-width: 100px;
+  max-width: 250px;
+  border-radius: 50%;
+  min-height: 100px;
+  max-height: 250px;
+}
+
+.groupFormInp {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  margin-top: 10px;
+}
+
+#groupFormTitle {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+#groupFormMembers {
+  grid-row-start: 3;
+  grid-row-end: 4;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+#groupMembers {
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  overflow: auto;
+}
+
+#groupFormBtn {
+  font-size: 1.2em;
+  margin-top: 20px;
+  align-self: center;
+  width: 100%;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+input[type="file"] {
+  color: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  width: 65px;
+}
+
+/*
+#groupFormContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0;
+  border-width: 1px;
+  font-size: 1.1em;
+}
+
+#groupForm {
+  height: 100%;
+}
+
+.groupFormContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 #groupFormHeader {
@@ -34,10 +113,10 @@
 }
 
 #defaultGroupImg {
-  min-width: 200px;
+  min-width: 100px;
   max-width: 250px;
   border-radius: 50%;
-  min-height: 200px;
+  min-height: 100px;
   max-height: 250px;
 }
 
@@ -58,3 +137,4 @@ input[type="file"] {
   overflow: hidden;
   width: 65px;
 }
+*/

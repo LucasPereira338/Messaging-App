@@ -130,7 +130,9 @@ function MessageBoard() {
             <ChatBox />
           </div>
         ) : (
-          <GroupForm />
+          <div className={styles.groupFormPageContainer}>
+            <GroupForm />
+          </div>
         )}
 
         <article id={styles.loggedUser} className="general-borders">
