@@ -21,7 +21,6 @@ model User {
   description      String?
   portrait         String    @default("profiles/portraits/blank.svg")
   background       String?
-  isAdmin          Boolean   @default(false)
   messagesSent     Message[] @relation("author")
   chats Chat[]
   createdAt        DateTime  @default(now())
