@@ -1,11 +1,6 @@
-@font-face {
-  font-family: "Miranda Sans";
-  src: url(https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap);
-}
-
 .full-page {
   height: 100vh;
-  font-family: "Miranda Sans", sans-serif, serif;
+  font-family: Arial;
   font-size: 1em;
   display: grid;
   grid-template-rows: 0.5fr 9fr 0.5fr;
