@@ -39,6 +39,9 @@ async function getUserPrivateChats(req, res) {
                 },
                 group: null
             }
+        },
+        orderBy: {
+            lastActive: "desc"
         }
     })
 
@@ -69,6 +72,9 @@ async function getUserGroupChats(req, res) {
                 }
             },
             
+        },
+        orderBy: {
+            lastActive: 'desc'
         }
     })
 

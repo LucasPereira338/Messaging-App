@@ -107,7 +107,7 @@ async function deleteAllMessages(req, res) {
 }
 
 async function deleteMessage(req, res) {
-
+    
     const messageId = await prisma.message.findUnique({
         where: {
             id: req.params.id
