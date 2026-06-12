@@ -2,7 +2,7 @@ import * as styles from "./ChatMessages.module.css";
 import { useRef, useEffect } from "react";
 import Message from "../Message/Message";
 
-function ChatMessages({ messages = [], setMsgToDel }) {
+function ChatMessages({ messages = [], handleMsgToDel }) {
   const msgsRef = useRef(null);
 
   useEffect(() => {
@@ -21,7 +21,11 @@ function ChatMessages({ messages = [], setMsgToDel }) {
       {messages
         ? messages.map((item) => {
             return (
-              <Message key={item.id} message={item} setMsgToDel={setMsgToDel} />
+              <Message
+                key={item.id}
+                message={item}
+                handleMsgToDel={handleMsgToDel}
+              />
             );
           })
         : null}

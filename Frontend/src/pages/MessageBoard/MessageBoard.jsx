@@ -30,8 +30,14 @@ function MessageBoard() {
 
   const [userUpdated, setUserUpdated] = useState();
 
+  const [updateChats, setupdateChats] = useState();
+
   const handleContent = (choice) => {
     setContent(choice);
+  };
+
+  const handleChats = () => {
+    setupdateChats(Math.random());
   };
 
   const handleCreateGroup = () => {
@@ -82,7 +88,7 @@ function MessageBoard() {
     } catch (e) {
       console.error(e);
     }
-  }, [userId, user, content]);
+  }, [userId, user, updateChats, content]);
 
   return (
     <MessageContext value={{ user, chats, currentChat, content }}>
@@ -109,7 +115,7 @@ function MessageBoard() {
 
         {isCreateGroup == false ? (
           <div className={styles.chatBoxContainer}>
-            <ChatBox />
+            <ChatBox updateChats={updateChats} handleChats={handleChats} />
           </div>
         ) : (
           <div className={styles.groupFormPageContainer}>

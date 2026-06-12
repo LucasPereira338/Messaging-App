@@ -9,15 +9,14 @@ import EntityCard from "../../entities/EntityCard/EntityCard";
 import Message from "../Message/Message";
 import ChatMessages from "../ChatMessages/ChatMessages";
 
-function ChatBox() {
+function ChatBox({ updateChats, handleChats }) {
   const { currentChat } = useContext(MessageContext);
   const { user } = useContext(MessageContext);
   const [messages, setMessages] = useState([]);
-  const [isNewMessage, setIsNewMessage] = useState(false);
   const [msgToDel, setMsgToDel] = useState(false);
 
-  const updateIsNewMessage = () => {
-    setIsNewMessage(Math.random());
+  const handleMsgToDel = (data) => {
+    setMsgToDel(data);
   };
 
   useEffect(() => {
@@ -36,18 +35,22 @@ function ChatBox() {
         console.error(e);
       }
     }
-  }, [currentChat, isNewMessage, user]);
+  }, [currentChat, updateChats, user]);
 
   useEffect(() => {
     if (msgToDel) {
       const delMsg = async () => {
         await deleteMessage(msgToDel);
 
-        updateIsNewMessage();
+        handleChats();
       };
       delMsg();
     }
-  }, [msgToDel]);
+
+    return () => {
+      setMsgToDel(null);
+    };
+  }, [msgToDel, handleChats]);
 
   return (
     <section
@@ -64,13 +67,13 @@ function ChatBox() {
       </div>
       {currentChat && (
         <div className={styles.chatMessagesContainer}>
-          <ChatMessages messages={messages} setMsgToDel={setMsgToDel} />
+          <ChatMessages messages={messages} handleMsgToDel={handleMsgToDel} />
         </div>
       )}
 
       {currentChat && (
         <div className={styles.messageInputContainer}>
-          <MessageInput updateIsNewMessage={updateIsNewMessage} />
+          <MessageInput handleChats={handleChats} />
         </div>
       )}
     </section>

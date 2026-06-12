@@ -5,7 +5,7 @@ import { getImageFile } from "../../../helpers/fileHelpers";
 import { MessageContext } from "../../../contexts/MessageContext";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
-function MessageInput({ updateIsNewMessage }) {
+function MessageInput({ handleChats }) {
   const { currentChat } = useContext(MessageContext);
   const user = localStorage.getItem("userId") || "";
   const [msg, setMsg] = useState("");
@@ -34,7 +34,7 @@ function MessageInput({ updateIsNewMessage }) {
 
     await postNewMessage(formData);
 
-    updateIsNewMessage();
+    handleChats();
 
     setMsg("");
   };

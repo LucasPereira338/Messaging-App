@@ -1,6 +1,6 @@
 import * as styles from "./Message.module.css";
 
-function Message({ message, setMsgToDel }) {
+function Message({ message, handleMsgToDel }) {
   const backend = import.meta.env.VITE_BACKEND;
   const msgImg = backend + "assets/" + message.image;
   const portrait = backend + "assets/" + message.portrait;
@@ -42,7 +42,7 @@ function Message({ message, setMsgToDel }) {
               <img
                 src="../../../../icons/trash-can.png"
                 alt="trash can"
-                onClick={() => setMsgToDel(message)}
+                onClick={() => handleMsgToDel(message)}
                 role="Delete"
               />
             )}
