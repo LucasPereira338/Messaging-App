@@ -50,8 +50,10 @@ function MessageBoard() {
   };
 
   const handleProfile = () => {
+    if (openProfile) {
+      setUserUpdated(Math.random());
+    }
     setOpenProfile(!openProfile);
-    setUserUpdated(Math.random());
   };
 
   const handleLogout = () => {
@@ -72,6 +74,7 @@ function MessageBoard() {
   useEffect(() => {
     try {
       const fetchChats = async () => {
+        console.log("fetching chats");
         const response = await fetchUserChoices(content, userId);
 
         setChats(response);
@@ -80,21 +83,10 @@ function MessageBoard() {
     } catch (e) {
       console.error(e);
     }
-  }, [userId, content]);
-
-  useEffect(() => {
-    if (currentChat) {
-      if (currentChat.id == userId) {
-        const openProf = async () => {
-          setOpenProfile(true);
-        };
-        openProf();
-      }
-    }
-  }, [currentChat, userId]);
+  }, [userId, user, content]);
 
   return (
-    <MessageContext value={{ chats, currentChat, content }}>
+    <MessageContext value={{ user, chats, currentChat, content }}>
       <main className={styles.MessageBoard}>
         {openProfile && (
           <div className={styles.profileFormContainer}>

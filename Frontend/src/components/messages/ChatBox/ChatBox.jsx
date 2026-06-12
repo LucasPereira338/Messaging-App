@@ -11,7 +11,7 @@ import ChatMessages from "../ChatMessages/ChatMessages";
 
 function ChatBox() {
   const { currentChat } = useContext(MessageContext);
-  const user = localStorage.getItem("userId");
+  const { user } = useContext(MessageContext);
   const [messages, setMessages] = useState([]);
   const [isNewMessage, setIsNewMessage] = useState(false);
   const [msgToDel, setMsgToDel] = useState(false);
@@ -26,7 +26,7 @@ function ChatBox() {
         const fetchChat = async () => {
           let result = await fetchChatMessages(currentChat.chatId);
 
-          const msgs = addMemberDataToMsg(result, user);
+          const msgs = addMemberDataToMsg(result, user.id);
 
           setMessages(msgs);
         };
