@@ -120,11 +120,7 @@ function ProfileForm({ userId, handleProfile }) {
                       ></textarea>
                     ) : (
                       <input
-                        type={
-                          userKeys[ind] == "id" || userKeys[ind] == "portrait"
-                            ? "hidden"
-                            : "text"
-                        }
+                        type="text"
                         name={userKeys[ind]}
                         value={item == null ? "" : item}
                         onChange={() => handleChange(event, ind)}

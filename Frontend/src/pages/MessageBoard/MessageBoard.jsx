@@ -43,23 +43,14 @@ function MessageBoard() {
   };
 
   const handleCurrentChat = (twData) => {
-    if (twData.id == user.id) {
-      const actualChat = currentChat;
-
-      setCurrentChat(twData);
-      setTimeout(() => {
-        setCurrentChat(actualChat);
-      }, 10);
-    } else {
-      setCurrentChat(twData);
-      if (isCreateGroup) {
-        setIsCreateGroup(false);
-      }
+    setCurrentChat(twData);
+    if (isCreateGroup) {
+      setIsCreateGroup(false);
     }
   };
 
   const handleProfile = () => {
-    setOpenProfile(false);
+    setOpenProfile(!openProfile);
     setUserUpdated(Math.random());
   };
 
@@ -136,7 +127,7 @@ function MessageBoard() {
         )}
 
         <article id={styles.loggedUser} className="general-borders">
-          <EntityCard entity={user} handleCurrentChat={handleCurrentChat} />
+          <EntityCard entity={user} handleClick={handleProfile} />
         </article>
       </main>
     </MessageContext>

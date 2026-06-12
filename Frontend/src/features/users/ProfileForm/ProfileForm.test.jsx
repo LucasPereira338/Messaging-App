@@ -34,8 +34,6 @@ describe("ProfileForm", () => {
 
     const loadingElement = await screen.findByText("Loading data...");
 
-    screen.debug();
-
     expect(loadingElement).toBeInTheDocument();
   });
 

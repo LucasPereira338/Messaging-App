@@ -135,7 +135,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
                       key={item.id}
                       entity={item}
                       currentChat={currentChat}
-                      handleCurrentChat={handleCurrentChat}
+                      handleClick={handleCurrentChat}
                       msg={item.message}
                     />
                   );

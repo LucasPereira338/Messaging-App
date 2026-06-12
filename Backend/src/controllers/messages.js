@@ -109,7 +109,9 @@ async function deleteMessage(req, res) {
         }
     })
 
-    await deleteImage(message.image)
+    if(message.image != null) {
+        await deleteImage(message.image)
+    }
     
     res.json(message)
 }

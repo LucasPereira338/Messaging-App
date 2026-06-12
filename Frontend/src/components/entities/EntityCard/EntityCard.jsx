@@ -3,7 +3,7 @@ import * as styles from "./EntityCard.module.css";
 function EntityCard({
   entity,
   currentChat = null,
-  handleCurrentChat = null,
+  handleClick = null,
   msg = null,
 }) {
   if (!entity) {
@@ -32,9 +32,7 @@ function EntityCard({
       id={cardContId}
       className="general-borders"
       data-testid="EntityCard"
-      onClick={
-        handleCurrentChat != null ? () => handleCurrentChat(entity) : null
-      }
+      onClick={handleClick != null ? () => handleClick(entity) : null}
     >
       <img
         src={portrait}
