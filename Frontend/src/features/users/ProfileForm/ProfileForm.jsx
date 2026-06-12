@@ -6,15 +6,13 @@ import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function ProfileForm({ userId, handleProfile }) {
-  const [user, setUser] = useState({ id: userId, name: "pending..." });
+  const [user, setUser] = useState(null);
 
-  const backend = import.meta.env.VITE_BACKEND;
+  const [portrait, setPortrait] = useState(null);
 
-  const portrait = backend + "assets/" + user.portrait;
+  const [userKeys, setUserKeys] = useState([]);
 
-  const userKeys = Object.keys(user);
-
-  const [userValues, setUserValues] = useState(Object.values(user));
+  const [userValues, setUserValues] = useState([]);
 
   const [file, setFile] = useState(null);
 
@@ -43,86 +41,101 @@ function ProfileForm({ userId, handleProfile }) {
   };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const result = await fetchUser(userId);
+    try {
+      const fetchUserData = async () => {
+        const result = await fetchUser(userId);
 
-      setUser(result);
-      const newArr = Object.values(result);
+        setUser(result);
+        const newArrK = Object.keys(result);
+        const newArrV = Object.values(result);
 
-      setUserValues(Object.values(newArr));
-    };
-    fetchUserData();
+        setUserKeys(newArrK);
+
+        setUserValues(newArrV);
+
+        const backend = import.meta.env.VITE_BACKEND;
+
+        setPortrait(backend + "assets/" + result.portrait);
+      };
+      fetchUserData();
+    } catch (e) {
+      console.error(e);
+    }
   }, [userId]);
 
   return (
     <div id={styles.profileFormContainer} data-testid="ProfileFormContainer">
-      <form
-        encType="multipart/form-data"
-        onSubmit={handleSubmit}
-        id={styles.profileForm}
-        autoComplete="off"
-        data-testid="ProfileForm"
-      >
-        <h5 className={styles.formClose} onClick={handleProfile}>
-          X
-        </h5>
-        <div id={styles.imgInpContainer}>
-          {" "}
-          {file ? (
-            <ImagePreview file={file} />
-          ) : (
-            <img
-              src={portrait}
-              alt="your portrait"
-              id={styles.profilePortrait}
+      {!user ? (
+        <div className={styles.profileFormLoading}>loading data...</div>
+      ) : (
+        <form
+          encType="multipart/form-data"
+          onSubmit={handleSubmit}
+          id={styles.profileForm}
+          autoComplete="off"
+          data-testid="ProfileForm"
+        >
+          <h5 className={styles.formClose} onClick={handleProfile}>
+            X
+          </h5>
+          <div id={styles.imgInpContainer}>
+            {" "}
+            {file ? (
+              <ImagePreview file={file} />
+            ) : (
+              <img
+                src={portrait}
+                alt="your portrait"
+                id={styles.profilePortrait}
+              />
+            )}
+            <input
+              type="file"
+              name="portrait"
+              accept="image/*"
+              onChange={handleFileChange}
             />
-          )}
-          <input
-            type="file"
-            name="portrait"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
+          </div>
 
-        {userValues.map((item, ind) => {
-          return (
-            <div key={ind} id={styles.labelInputContainer}>
-              {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
-                <label
-                  htmlFor={userKeys[ind]}
-                  className={styles.childLabel}
-                  role="label"
-                >
-                  {capitalize(userKeys[ind])}:{" "}
-                  {userKeys[ind] == "description" ? (
-                    <textarea
-                      name={userKeys[ind]}
-                      className={styles.childInp}
-                      value={item == null ? "" : item}
-                      onChange={() => handleChange(event, ind)}
-                    ></textarea>
-                  ) : (
-                    <input
-                      type={
-                        userKeys[ind] == "id" || userKeys[ind] == "portrait"
-                          ? "hidden"
-                          : "text"
-                      }
-                      name={userKeys[ind]}
-                      value={item == null ? "" : item}
-                      onChange={() => handleChange(event, ind)}
-                      className={styles.childInp}
-                      data-testid={userKeys[ind] + "Input"}
-                    />
-                  )}{" "}
-                </label>
-              ) : null}
-            </div>
-          );
-        })}
-        <button type="submit"> Save Changes</button>
-      </form>
+          {userValues.map((item, ind) => {
+            return (
+              <div key={ind} id={styles.labelInputContainer}>
+                {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
+                  <label
+                    htmlFor={userKeys[ind]}
+                    className={styles.childLabel}
+                    role="label"
+                  >
+                    {capitalize(userKeys[ind])}:{" "}
+                    {userKeys[ind] == "description" ? (
+                      <textarea
+                        name={userKeys[ind]}
+                        className={styles.childInp}
+                        value={item == null ? "" : item}
+                        onChange={() => handleChange(event, ind)}
+                      ></textarea>
+                    ) : (
+                      <input
+                        type={
+                          userKeys[ind] == "id" || userKeys[ind] == "portrait"
+                            ? "hidden"
+                            : "text"
+                        }
+                        name={userKeys[ind]}
+                        value={item == null ? "" : item}
+                        onChange={() => handleChange(event, ind)}
+                        className={styles.childInp}
+                        data-testid={userKeys[ind] + "Input"}
+                      />
+                    )}{" "}
+                  </label>
+                ) : null}
+              </div>
+            );
+          })}
+          <button type="submit"> Save Changes</button>
+        </form>
+      )}
     </div>
   );
 }
