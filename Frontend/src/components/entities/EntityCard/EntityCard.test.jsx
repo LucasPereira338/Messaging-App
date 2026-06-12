@@ -43,7 +43,7 @@ describe("EntityCard", () => {
       <EntityCard
         entity={entity}
         currentChat={currentChat}
-        handleCurrentChat={handleCurrentChat}
+        handleClick={handleCurrentChat}
         msg={msg}
       />,
     );
@@ -62,7 +62,7 @@ describe("EntityCard", () => {
       <EntityCard
         entity={entity}
         currentChat={currentChat}
-        handleCurrentChat={handleCurrentChat}
+        handleClick={handleCurrentChat}
         msg={msg}
       />,
     );
