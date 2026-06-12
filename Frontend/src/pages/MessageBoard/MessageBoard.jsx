@@ -74,7 +74,6 @@ function MessageBoard() {
   useEffect(() => {
     try {
       const fetchChats = async () => {
-        console.log("fetching chats");
         const response = await fetchUserChoices(content, userId);
 
         setChats(response);
