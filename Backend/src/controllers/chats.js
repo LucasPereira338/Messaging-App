@@ -1,4 +1,5 @@
 const {prisma} = require('../../lib/prisma.js')
+const messages = require('../routes/messages.js')
 
 async function getUserChats(req, res) {
     
@@ -17,6 +18,9 @@ async function getUserChats(req, res) {
                 }
             },
             
+        },
+        orderBy: {
+            lastActive: "desc"
         }
     })
 
@@ -130,6 +134,9 @@ async function getChatsMembers(req, res) {
                 take: 1
             }
         },
+        orderBy: {
+            lastActive: 'desc'
+        }
     })
 
     const dateNow = new Date()

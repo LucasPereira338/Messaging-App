@@ -42,6 +42,7 @@ model Message {
 
 model Chat {
   id  String @id @unique @default(uuid())
+  lastActive DateTime @default(now())
   messages Message[]
   members User[]
   group Group? 

@@ -61,6 +61,15 @@ async function postNewMessage(req, res) {
         }
     })
 
+    await prisma.chat.update({
+        where: {
+            id: message.chatId
+        },
+        data: {
+            lastActive: message.createdAt
+        }
+    })
+
     res.json(message)
 }
 
@@ -76,6 +85,15 @@ async function updateMessage(req, res) {
         },
         data: {
             content: req.body.content
+        }
+    })
+
+    await prisma.chat.update({
+        where: {
+            id: message.chatId
+        },
+        data: {
+            lastActive: message.updatedAt
         }
     })
 

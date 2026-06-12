@@ -34,6 +34,8 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
           let response;
 
           response = await fetchChatsMembers(arr);
+          console.log("chats membres");
+          console.log(response);
 
           let uniqueUsers = [];
 

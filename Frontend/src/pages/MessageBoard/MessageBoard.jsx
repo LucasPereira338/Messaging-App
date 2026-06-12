@@ -75,7 +75,8 @@ function MessageBoard() {
     try {
       const fetchChats = async () => {
         const response = await fetchUserChoices(content, userId);
-
+        console.log(content + ": ");
+        console.log(response);
         setChats(response);
       };
       fetchChats();
