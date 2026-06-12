@@ -29,6 +29,16 @@ const updateUser = vi.spyOn(userFuncs, "updateUser").mockImplementation(() =>
 );
 
 describe("ProfileForm", () => {
+  it("should inform that the data is loading", async () => {
+    render(<ProfileForm />);
+
+    const loadingElement = await screen.findByText("Loading data...");
+
+    screen.debug();
+
+    expect(loadingElement).toBeInTheDocument();
+  });
+
   it("should render the profile form", async () => {
     const handleProfile = vi.fn();
     render(<ProfileForm userId={userId} handleProfile={handleProfile} />);
@@ -58,7 +68,7 @@ describe("ProfileForm", () => {
     const user = userEvent.setup();
     render(<ProfileForm userId={userId} handleProfile={handleProfile} />);
 
-    const btn = screen.getByRole("button");
+    const btn = await screen.findByRole("button");
 
     await user.click(btn);
 

@@ -41,37 +41,36 @@ function ProfileForm({ userId, handleProfile }) {
   };
 
   useEffect(() => {
-    try {
-      const fetchUserData = async () => {
-        const result = await fetchUser(userId);
+    if (userId) {
+      try {
+        const fetchUserData = async () => {
+          const result = await fetchUser(userId);
 
-        const backend = import.meta.env.VITE_BACKEND;
+          const backend = import.meta.env.VITE_BACKEND;
 
-        setPortrait(backend + "assets/" + result.portrait);
+          setPortrait(backend + "assets/" + result.portrait);
 
-        delete result.id;
-        delete result.portrait;
-        setUser(result);
-        const newArrK = Object.keys(result);
-        const newArrV = Object.values(result);
+          delete result.id;
+          delete result.portrait;
+          setUser(result);
+          const newArrK = Object.keys(result);
+          const newArrV = Object.values(result);
 
-        setUserKeys(newArrK);
+          setUserKeys(newArrK);
 
-        setUserValues(newArrV);
-
-        console.log(newArrK);
-        console.log(newArrV);
-      };
-      fetchUserData();
-    } catch (e) {
-      console.error(e);
+          setUserValues(newArrV);
+        };
+        fetchUserData();
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [userId]);
 
   return (
     <div id={styles.profileFormContainer} data-testid="ProfileFormContainer">
       {!user ? (
-        <div className={styles.profileFormLoading}>loading data...</div>
+        <div className={styles.profileFormLoading}>Loading data...</div>
       ) : (
         <form
           encType="multipart/form-data"
