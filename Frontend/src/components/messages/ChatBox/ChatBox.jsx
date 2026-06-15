@@ -9,7 +9,7 @@ import EntityCard from "../../entities/EntityCard/EntityCard";
 import Message from "../Message/Message";
 import ChatMessages from "../ChatMessages/ChatMessages";
 
-function ChatBox({ updateChats, handleChats }) {
+function ChatBox({ updateChats, handleChats, handleProfile }) {
   const { currentChat } = useContext(MessageContext);
   const { user } = useContext(MessageContext);
   const [messages, setMessages] = useState([]);
@@ -62,7 +62,7 @@ function ChatBox({ updateChats, handleChats }) {
         {!currentChat ? (
           <h3>Use the search bar to find new people to chat with!</h3>
         ) : (
-          <EntityCard entity={currentChat} />
+          <EntityCard entity={currentChat} handleClick={handleProfile} />
         )}
       </div>
       {currentChat && (

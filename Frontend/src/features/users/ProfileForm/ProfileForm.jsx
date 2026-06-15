@@ -3,12 +3,12 @@ import { useState, useEffect, useRef } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
 import { updateUser, fetchUser } from "../../../services/userServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
-import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
+import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function ProfileForm({ userId, handleProfile }) {
   let ref = useRef(null);
-
+  const loggedUserId = localStorage.getItem("userId");
   const [user, setUser] = useState(null);
 
   const [portrait, setPortrait] = useState(null);
@@ -18,6 +18,8 @@ function ProfileForm({ userId, handleProfile }) {
   const [userValues, setUserValues] = useState([]);
 
   const [file, setFile] = useState(null);
+
+  const readOnly = loggedUserId == userId ? false : true;
 
   const handleChange = (event, ind) => {
     const newValue = event.target.value;
@@ -104,12 +106,14 @@ function ProfileForm({ userId, handleProfile }) {
                 id={styles.profilePortrait}
               />
             )}
-            <input
-              type="file"
-              name="portrait"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
+            {!readOnly && (
+              <input
+                type="file"
+                name="portrait"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            )}
           </div>
 
           {userValues.map((item, ind) => {
@@ -136,6 +140,7 @@ function ProfileForm({ userId, handleProfile }) {
                         value={item == null ? "" : item}
                         onChange={() => handleChange(event, ind)}
                         className={styles.childInp}
+                        readOnly={readOnly ? true : false}
                         data-testid={userKeys[ind] + "Input"}
                       />
                     )}{" "}
@@ -144,7 +149,7 @@ function ProfileForm({ userId, handleProfile }) {
               </div>
             );
           })}
-          <button type="submit"> Save Changes</button>
+          {!readOnly && <button type="submit"> Save Changes</button>}
         </form>
       )}
     </div>

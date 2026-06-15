@@ -55,11 +55,16 @@ function MessageBoard() {
     }
   };
 
-  const handleProfile = () => {
-    if (openProfile) {
+  const handleProfile = (entity) => {
+    if (openProfile == userId) {
       setUserUpdated(Math.random());
     }
-    setOpenProfile(!openProfile);
+    if (openProfile) {
+      setOpenProfile(false);
+    }
+    if (!openProfile) {
+      setOpenProfile(entity.id);
+    }
   };
 
   const handleLogout = () => {
@@ -96,7 +101,7 @@ function MessageBoard() {
         {openProfile && (
           <div className={styles.profileFormContainer}>
             <div className={styles.profileFormContent}>
-              <ProfileForm userId={userId} handleProfile={handleProfile} />
+              <ProfileForm userId={openProfile} handleProfile={handleProfile} />
             </div>
           </div>
         )}
@@ -115,7 +120,11 @@ function MessageBoard() {
 
         {isCreateGroup == false ? (
           <div className={styles.chatBoxContainer}>
-            <ChatBox updateChats={updateChats} handleChats={handleChats} />
+            <ChatBox
+              updateChats={updateChats}
+              handleChats={handleChats}
+              handleProfile={handleProfile}
+            />
           </div>
         ) : (
           <div className={styles.groupFormPageContainer}>
