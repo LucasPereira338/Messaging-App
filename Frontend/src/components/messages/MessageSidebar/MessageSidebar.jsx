@@ -69,8 +69,6 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   useEffect(() => {
     try {
       if (chatsMembers.length > 0 && !currentChat) {
-        console.log("chats members");
-        console.log(chatsMembers);
         handleCurrentChat(chatsMembers[0]);
       }
     } catch (e) {
