@@ -1,5 +1,5 @@
 import * as styles from "./ProfileForm.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { capitalize } from "../../../helpers/strHelpers";
 import { updateUser, fetchUser } from "../../../services/userServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
@@ -7,6 +7,8 @@ import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
 
 function ProfileForm({ userId, handleProfile }) {
+  let ref = useRef(null);
+
   const [user, setUser] = useState(null);
 
   const [portrait, setPortrait] = useState(null);
@@ -25,8 +27,15 @@ function ProfileForm({ userId, handleProfile }) {
   };
 
   const handleFileChange = (e) => {
+    ref.current = e;
     const selectedFile = getImageFile(e);
     setFile(selectedFile);
+  };
+
+  const cancelFile = () => {
+    const e = ref.current;
+    e.target.value = null;
+    setFile(null);
   };
 
   const handleSubmit = async (event) => {
@@ -87,7 +96,7 @@ function ProfileForm({ userId, handleProfile }) {
           <div id={styles.imgInpContainer}>
             {" "}
             {file ? (
-              <ImagePreview file={file} />
+              <ImagePreview file={file} cancelFile={cancelFile} />
             ) : (
               <img
                 src={portrait}
