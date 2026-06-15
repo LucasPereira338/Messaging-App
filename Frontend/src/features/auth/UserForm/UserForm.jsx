@@ -1,12 +1,13 @@
 import * as styles from "./UserForm.module.css";
 import { postNewUser, fetchLogin } from "../../../services/userServices";
 import { capitalize } from "../../../helpers/strHelpers";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
 function UserForm({ action, handleLogin, handleUser }) {
   let userValues = ["username", "password"];
+  let ref = useRef(null);
   if (action == "sign-up") {
     userValues = [
       "username",
@@ -20,10 +21,15 @@ function UserForm({ action, handleLogin, handleUser }) {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
-    console.log("file change recognized");
-    console.log(e);
+    ref.current = e;
     const selectedFile = getImageFile(e);
     setFile(selectedFile);
+  };
+
+  const cancelFile = () => {
+    const e = ref.current;
+    e.target.value = null;
+    setFile(null);
   };
 
   const handleSubmit = async (event) => {
@@ -72,7 +78,11 @@ function UserForm({ action, handleLogin, handleUser }) {
             </label>
             {item == "portrait" && file && (
               <div className={styles.userFormImgPrev}>
-                <ImagePreview file={file} size="small" />{" "}
+                <ImagePreview
+                  file={file}
+                  cancelFile={cancelFile}
+                  size="small"
+                />{" "}
               </div>
             )}
             {item == "description" ? (

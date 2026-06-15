@@ -1,7 +1,8 @@
 import * as styles from "./ImagePreview.module.css";
 import { useEffect, useState } from "react";
+import CloseButton from "../../common/CloseButton/CloseButton";
 
-function ImagePreview({ file = null, size = "medium" }) {
+function ImagePreview({ file = null, cancelFile, size = "medium" }) {
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
@@ -22,12 +23,15 @@ function ImagePreview({ file = null, size = "medium" }) {
   }, [preview]);
 
   return (
-    <img
-      src={preview}
-      alt="Preview"
-      className={styles.childInp}
-      id={size == "medium" ? styles.mediumImg : styles.smallImg}
-    />
+    <div id={size == "medium" ? styles.mediumImg : styles.smallImg}>
+      <img
+        src={preview}
+        alt="Preview"
+        className={styles.childInp}
+        id={size == "medium" ? styles.mediumImg : styles.smallImg}
+      />
+      <CloseButton handleClick={cancelFile} />
+    </div>
   );
 }
 
