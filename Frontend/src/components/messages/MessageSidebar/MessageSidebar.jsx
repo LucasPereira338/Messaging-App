@@ -27,7 +27,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   };
 
   useEffect(() => {
-    if (chats.length > 0) {
+    if (chats && chats.length > 0) {
       try {
         const fetchMembers = async () => {
           const arr = arrayObjToStr(chats);
@@ -69,6 +69,8 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   useEffect(() => {
     try {
       if (chatsMembers.length > 0 && !currentChat) {
+        console.log("chats members");
+        console.log(chatsMembers);
         handleCurrentChat(chatsMembers[0]);
       }
     } catch (e) {
@@ -111,11 +113,11 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
         </button>
       )}
 
-      {chatsMembers.length > 0 && !currentChat ? (
+      {!chats ? (
         <div className={styles.MessageSidebarLoading}>Loading Chats...</div>
       ) : (
         <div>
-          {chatsMembers.length == 0 ? (
+          {chats.length == 0 ? (
             <h5
               className={styles.messageSidebarNoChats}
               data-testid="NoChatHeader"

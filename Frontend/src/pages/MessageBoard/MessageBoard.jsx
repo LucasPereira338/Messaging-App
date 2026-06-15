@@ -18,7 +18,7 @@ function MessageBoard() {
 
   const [user, setUser] = useState(null);
 
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState(null);
 
   const [currentChat, setCurrentChat] = useState(null);
 
