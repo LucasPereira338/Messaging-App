@@ -1,5 +1,5 @@
 import * as styles from "./GroupForm.module.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createGroup } from "../../../services/groupServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import SearchUser from "../../users/SearchUser/SearchUser";
@@ -10,13 +10,22 @@ function GroupForm() {
   const defaultImg =
     import.meta.env.VITE_BACKEND + "assets/profiles/portraits/blank.svg";
 
+  let ref = useRef(null);
+
   const [membersIds, setMembersIds] = useState("");
   const [members, setMembers] = useState([]);
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
+    ref.current = e;
     const selectedFile = getImageFile(e);
     setFile(selectedFile);
+  };
+
+  const cancelFile = () => {
+    const e = ref.current;
+    e.target.value = null;
+    setFile(null);
   };
 
   const handleSubmit = async (event) => {
@@ -60,7 +69,7 @@ function GroupForm() {
           <label id={styles.imgLabel}>
             Portrait:{" "}
             {file ? (
-              <ImagePreview file={file} size="medium" />
+              <ImagePreview file={file} cancelFile={cancelFile} size="medium" />
             ) : (
               <img src={defaultImg} id={styles.defaultGroupImg} />
             )}

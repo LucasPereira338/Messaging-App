@@ -1,5 +1,5 @@
 import * as styles from "./MessageInput.module.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { postNewMessage } from "../../../services/messageServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import { MessageContext } from "../../../contexts/MessageContext";
@@ -8,12 +8,20 @@ import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 function MessageInput({ handleChats }) {
   const { currentChat } = useContext(MessageContext);
   const user = localStorage.getItem("userId") || "";
+  let ref = useRef(null);
   const [msg, setMsg] = useState("");
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
+    ref.current = e;
     const selectedFile = getImageFile(e);
     setFile(selectedFile);
+  };
+
+  const cancelFile = () => {
+    const e = ref.current;
+    e.target.value = null;
+    setFile(null);
   };
 
   const handleTyping = (e) => {
@@ -65,7 +73,7 @@ function MessageInput({ handleChats }) {
         <div className={styles.msgImgContainer}>
           {file ? (
             <div className={styles.msgImgPreview} data-testid="msgImgPreview">
-              <ImagePreview file={file} size="small" />
+              <ImagePreview file={file} cancelFile={cancelFile} size="small" />
             </div>
           ) : null}
           <input
