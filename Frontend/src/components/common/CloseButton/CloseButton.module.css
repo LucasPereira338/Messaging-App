@@ -1,0 +1,12 @@
+.closeBtn {
+  padding: 5px;
+  border-radius: 50%;
+  background-color: white;
+  color: red;
+  font-size: 1.1em;
+}
+
+.closeBtn:hover {
+  cursor: grab;
+  background-color: rgb(212, 209, 209);
+}

@@ -19,18 +19,9 @@
   position: relative;
 }
 
-.formClose {
-  padding: 5px;
-  border-radius: 50%;
-  background-color: white;
-  color: red;
-  font-size: 1.1em;
+.closeBtnContainer {
   position: absolute;
   right: 0;
-}
-
-.formClose:hover {
-  cursor: grab;
 }
 
 #profilePortrait {
