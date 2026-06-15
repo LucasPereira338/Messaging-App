@@ -12,7 +12,6 @@ import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
 import Checkbox from "../../ui/Checkbox/Checkbox";
 
-//There's a logic issue to be fixed in the differentiation between not having any chats vs fetching the chats
 function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   const { chats } = useContext(MessageContext);
   const { currentChat } = useContext(MessageContext);
@@ -53,11 +52,8 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
               }
             });
           }
-          if (content == "Groups") {
-            setChatsMembers(groups);
-          } else {
-            setChatsMembers(uniqueUsersAndGroups);
-          }
+
+          setChatsMembers(uniqueUsersAndGroups);
         };
         fetchMembers();
       } catch (e) {
