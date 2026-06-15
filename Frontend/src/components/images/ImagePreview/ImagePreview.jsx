@@ -23,14 +23,13 @@ function ImagePreview({ file = null, cancelFile, size = "medium" }) {
   }, [preview]);
 
   return (
-    <div id={size == "medium" ? styles.mediumImg : styles.smallImg}>
+    <div className={styles.imgPrevContainer}>
       <img
         src={preview}
         alt="Preview"
-        className={styles.childInp}
         id={size == "medium" ? styles.mediumImg : styles.smallImg}
       />
-      <CloseButton handleClick={cancelFile} />
+      <CloseButton handleClick={cancelFile} size={size} />
     </div>
   );
 }

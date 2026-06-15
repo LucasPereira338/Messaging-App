@@ -4,10 +4,14 @@
   border-radius: 50%;
   background-color: white;
   color: red;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .closeBtn:hover {
   cursor: grab;
   background-color: rgb(212, 209, 209);
+}
+
+#smallCloseBtn {
+  font-size: 0.8em;
 }
