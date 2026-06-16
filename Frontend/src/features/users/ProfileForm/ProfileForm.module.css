@@ -3,13 +3,12 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  background-color: #6096ba;
-  color: #e7ecef;
+  background-color: #e7ecef;
   min-width: 500px;
   max-width: 700px;
-  min-height: 472px;
+  min-height: 400px;
   max-height: 700px;
-  border: groove 1px #6096ba;
+  border: groove 1px #e7ecef;
   border-radius: 10px;
 }
 
@@ -21,19 +20,25 @@
   display: flex;
   width: 100%;
   justify-content: space-around;
+  border: 0;
 }
 
 .profileFormChoice {
+  background-color: #e7ecef;
+  border-radius: 5px;
   width: 100%;
 }
 
 .profileFormChoice:hover {
-  background-color: #3d86b6;
+  background-color: #6096ba;
+  color: #e7ecef;
   cursor: grab;
 }
 
 #profileChosenOption {
+  border: groove 1px #5f5fe7;
   background-color: #5f5fe7;
+  color: #e7ecef;
 }
 
 .passwordFormBackground {
