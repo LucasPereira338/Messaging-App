@@ -1,20 +1,24 @@
 
 export function pushUniqueIdsAndChatId(uniqueIds, allIds) { 
-  const userId = localStorage.getItem("userId");//except the user currently logged in's
+  const userId = localStorage.getItem("userId");
   
   allIds.forEach((item) => {
-    if (item.group == null) {
-      for (let i = 0; i <= item.members.length - 1; i++) {
-        item.members[i].chatId = item.id
-        item.members[i].message = item.messages[0]
-        const doesArrHaveUser = uniqueIds.some(user => user.id === item.members[i].id)
-        
-        if (item.members[i].id != userId) {
-          if (doesArrHaveUser == false) {
-            uniqueIds.push(item.members[i]);
+    if (item.group != null) {
+      item.group.chatId = item.id;
+      item.group.message = item.messages[0];
+      uniqueIds.push(item.group);
+    } else {
+        for (let i = 0; i <= item.members.length - 1; i++) {
+          item.members[i].chatId = item.id
+          item.members[i].message = item.messages[0]
+          const doesArrHaveUser = uniqueIds.some(user => user.id === item.members[i].id)
+          
+          if (item.members[i].id != userId) {
+            if (doesArrHaveUser == false) {
+              uniqueIds.push(item.members[i]);
+            }
           }
         }
-      }
     }
     
   });
@@ -47,16 +51,6 @@ export function addMemberDataToMsg(chat, loggedUserId) {
   }
   
   return messages
-}
-
-export function filterChatGroups(groups, all) {
-  all.forEach((item) => {
-    if (item.group != null) {
-      item.group.chatId = item.id;
-      item.group.message = item.messages[0];
-      groups.push(item.group);
-    }
-  });
 }
 
 export function filterUserValues(arr, obj) {

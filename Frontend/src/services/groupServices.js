@@ -26,10 +26,10 @@ export async function fetchGroupUsers(data) {
     return response.json()
 }
 
-export async function fetchGroup(data) {
+export async function fetchGroup(id) {
     const backend = import.meta.env.VITE_BACKEND
     
-    const url = backend + 'groups/' + data.id 
+    const url = backend + 'groups/' + id
 
     const token = localStorage.getItem('token')
     

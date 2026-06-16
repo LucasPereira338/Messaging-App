@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from "react";
 import {
   arrayObjToStr,
   pushUniqueIdsAndChatId,
-  filterChatGroups,
 } from "../../../helpers/arrayHelpers";
 import { fetchChatsMembers } from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
@@ -34,26 +33,11 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
 
           response = await fetchChatsMembers(arr);
 
-          let uniqueUsers = [];
+          let usersAndGroups = [];
 
-          pushUniqueIdsAndChatId(uniqueUsers, response);
+          pushUniqueIdsAndChatId(usersAndGroups, response);
 
-          let groups = [];
-          filterChatGroups(groups, response);
-
-          let uniqueUsersAndGroups = uniqueUsers;
-          groups.forEach((item) => {
-            uniqueUsersAndGroups.push(item);
-          });
-          if (onlineOnly) {
-            uniqueUsersAndGroups = uniqueUsersAndGroups.filter((item) => {
-              if (item.isActive || item.title) {
-                return item;
-              }
-            });
-          }
-
-          setChatsMembers(uniqueUsersAndGroups);
+          setChatsMembers(usersAndGroups);
         };
         fetchMembers();
       } catch (e) {

@@ -51,18 +51,12 @@ async function getGroup(req, res) {
                 include: {
                     members: {
                         select: {
-                            id: true
-                        }
-                    },
-                    messages: {
-                        select: {
-                            id: true
+                            id: true,
+                            username: true
                         }
                     }
                 }
             }
-            
-            
         }
     })
 
