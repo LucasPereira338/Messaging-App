@@ -270,6 +270,7 @@ module.exports = {
     getUsers,
     postLogin,
     postNewUser,
+    updateUserPassword,
     updateUser,
     deleteAllUsers,
     deleteUser

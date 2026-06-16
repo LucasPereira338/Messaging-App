@@ -79,6 +79,7 @@ export async function fetchUsersInList(data) {
 }
 
 export async function updatePassword(id, data) {
+    console.log(id)
     const backend = import.meta.env.VITE_BACKEND;
 
     const url = backend + "users/" + id + "/password"
@@ -87,7 +88,7 @@ export async function updatePassword(id, data) {
 
     const response = await fetch(url, {
         method: "PUT",
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token},
+        headers: {'Content-Type': 'application/json',  "Authorization": "Bearer " + token},
         body: JSON.stringify(data)
     })
 

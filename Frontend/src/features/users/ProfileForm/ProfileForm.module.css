@@ -7,6 +7,8 @@
   color: #e7ecef;
   min-width: 500px;
   max-width: 700px;
+  min-height: 472px;
+  max-height: 700px;
   border: groove 1px #6096ba;
   border-radius: 10px;
 }
@@ -31,7 +33,24 @@
 }
 
 #profileChosenOption {
-  background-color: #256792;
+  background-color: #5f5fe7;
+}
+
+.passwordFormBackground {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 12;
+}
+
+.passwordFormContent {
+  display: flex;
+  align-items: center;
 }
 
 #profileForm {
@@ -82,16 +101,3 @@ input[type="file"] {
   grid-column-end: 4;
   border-radius: 5px;
 }
-/* .childLabel {
-  display: grid;
-  grid-template-columns: 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr;
-}
-  */
-
-/*#imgInpOverlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background-color: black;
-  opacity: 0.5;
-}*/

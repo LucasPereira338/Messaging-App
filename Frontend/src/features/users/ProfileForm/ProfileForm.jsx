@@ -22,6 +22,10 @@ function ProfileForm({ userId, handleProfile }) {
 
   const [isPwdChosen, setIsPwdChosen] = useState(false);
 
+  const handlePwdForm = () => {
+    setIsPwdChosen(false);
+  };
+
   const readOnly = loggedUserId == userId ? false : true;
 
   const handleChange = (event, ind) => {
@@ -88,23 +92,33 @@ function ProfileForm({ userId, handleProfile }) {
       id={readOnly ? styles.profileFormReadOnly : null}
       data-testid="ProfileFormContainer"
     >
-      <div className={styles.profileFormChoices}>
-        <div
-          className={styles.profileFormChoice}
-          id={!isPwdChosen ? styles.profileChosenOption : null}
-          onClick={() => setIsPwdChosen(false)}
-        >
-          Edit Profile
+      {!readOnly ? (
+        <div className={styles.profileFormChoices}>
+          <div
+            className={styles.profileFormChoice}
+            id={!isPwdChosen ? styles.profileChosenOption : null}
+            onClick={() => setIsPwdChosen(false)}
+          >
+            Edit Profile
+          </div>
+          <div
+            className={styles.profileFormChoice}
+            id={isPwdChosen ? styles.profileChosenOption : null}
+            onClick={() => setIsPwdChosen(true)}
+          >
+            Change Password
+          </div>
         </div>
-        <div
-          className={styles.profileFormChoice}
-          id={isPwdChosen ? styles.profileChosenOption : null}
-          onClick={() => setIsPwdChosen(true)}
-        >
-          Change Password
-        </div>
-      </div>
+      ) : null}
 
+      {isPwdChosen ? (
+        <div className={styles.passwordFormBackground}>
+          <div className={styles.passwordFormContent}>
+            {" "}
+            <PasswordForm userId={userId} handlePwdForm={handlePwdForm} />
+          </div>
+        </div>
+      ) : null}
       {!user ? (
         <div className={styles.profileFormLoading}>Loading data...</div>
       ) : (
