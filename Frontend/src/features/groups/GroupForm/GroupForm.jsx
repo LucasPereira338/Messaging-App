@@ -6,7 +6,7 @@ import SearchUser from "../../users/SearchUser/SearchUser";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
-function GroupForm() {
+function GroupForm({ handleCreateGroup }) {
   const defaultImg =
     import.meta.env.VITE_BACKEND + "assets/profiles/portraits/blank.svg";
 
@@ -34,7 +34,10 @@ function GroupForm() {
 
     const result = await createGroup(formData);
 
-    alert(`Group "${result.title}" created successfully!`);
+    if (result.title) {
+      alert(`Group "${result.title}" created successfully!`);
+      handleCreateGroup();
+    }
   };
 
   const handleNewUser = (item) => {

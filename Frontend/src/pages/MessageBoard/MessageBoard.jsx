@@ -43,6 +43,7 @@ function MessageBoard() {
   const handleCreateGroup = () => {
     if (isCreateGroup) {
       setIsCreateGroup(false);
+      handleChats();
     } else {
       setIsCreateGroup(true);
     }
@@ -128,7 +129,7 @@ function MessageBoard() {
           </div>
         ) : (
           <div className={styles.groupFormPageContainer}>
-            <GroupForm />
+            <GroupForm handleCreateGroup={handleCreateGroup} />
           </div>
         )}
 
