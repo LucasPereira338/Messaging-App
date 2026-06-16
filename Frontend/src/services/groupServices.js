@@ -77,10 +77,10 @@ export async function updateGroup(id, data) {
     const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
-        method: 'POST',
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
+        method: 'PUT',
+        headers: {"Authorization": "Bearer " + token
         },
-        body: JSON.stringify(data)
+        body: data
     })
     return response.json()
 }
@@ -93,7 +93,7 @@ export async function removeGroupMembers(id, data) {
     const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
-        method: 'POST',
+        method: 'PUT',
         headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
         },
         body: JSON.stringify(data)
@@ -101,3 +101,18 @@ export async function removeGroupMembers(id, data) {
     return response.json()
 }
 
+export async function deleteGroup(id, data) {
+    const backend = import.meta.env.VITE_BACKEND
+    
+    const url = backend + 'groups/' + id 
+
+    const token = localStorage.getItem('token')
+    
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(data)
+    })
+    return response.json()
+}
