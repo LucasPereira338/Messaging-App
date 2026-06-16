@@ -54,10 +54,25 @@ export async function fetchUserGroups(data) {
     return response.json()
 }
 
-export async function addGroupMembers(data) {
+export async function createGroup(data) {
     const backend = import.meta.env.VITE_BACKEND
     
-    const url = backend + 'groups/' + data.id 
+    const url = backend + 'groups/' 
+
+    const token = localStorage.getItem('token')
+    
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { "Authorization": "Bearer " + token},
+        body: data
+    })
+    return response.json()
+}
+
+export async function updateGroup(id, data) {
+    const backend = import.meta.env.VITE_BACKEND
+    
+    const url = backend + 'groups/' + id
 
     const token = localStorage.getItem('token')
     
@@ -70,17 +85,18 @@ export async function addGroupMembers(data) {
     return response.json()
 }
 
-export async function createGroup(data) {
+export async function removeGroupMembers(id, data) {
     const backend = import.meta.env.VITE_BACKEND
     
-    const url = backend + 'groups/' 
+    const url = backend + 'groups/' + id + '/members'
 
     const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
         method: 'POST',
-        headers: { "Authorization": "Bearer " + token},
-        body: data
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(data)
     })
     return response.json()
 }
