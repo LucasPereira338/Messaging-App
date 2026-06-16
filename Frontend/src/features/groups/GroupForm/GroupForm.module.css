@@ -82,59 +82,17 @@ input[type="file"] {
   width: 65px;
 }
 
-/*
-#groupFormContainer {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  gap: 0;
-  border-width: 1px;
-  font-size: 1.1em;
+#groupMember {
+  display: grid;
+  grid-template-columns: 0.8fr 0.15fr 0.05fr;
 }
 
-#groupForm {
-  height: 100%;
+.groupMemberCard {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
-.groupFormContent {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.groupMemberRmv {
+  grid-column-start: 3;
+  grid-column-end: 4;
 }
-
-#groupFormHeader {
-  margin: 0;
-  padding: 0;
-}
-
-#imgLabel {
-  display: flex;
-  justify-content: space-between;
-}
-
-#defaultGroupImg {
-  min-width: 100px;
-  max-width: 250px;
-  border-radius: 50%;
-  min-height: 100px;
-  max-height: 250px;
-}
-
-.groupFormInp {
-  display: flex;
-  flex-direction: column;
-}
-
-#groupFormBtn {
-  font-size: 1.2em;
-  margin-top: 20px;
-  align-self: center;
-  width: 100%;
-}
-
-input[type="file"] {
-  color: rgba(0, 0, 0, 0);
-  overflow: hidden;
-  width: 65px;
-}
-*/

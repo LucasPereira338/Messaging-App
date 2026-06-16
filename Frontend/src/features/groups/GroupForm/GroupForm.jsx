@@ -5,6 +5,7 @@ import { getImageFile } from "../../../helpers/fileHelpers";
 import SearchUser from "../../users/SearchUser/SearchUser";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
+import CloseButton from "../../../components/common/CloseButton/CloseButton";
 
 function GroupForm({ handleCreateGroup }) {
   const defaultImg =
@@ -30,13 +31,17 @@ function GroupForm({ handleCreateGroup }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    if (members.length == 0) {
+      alert("Please choose at least one member");
+    } else {
+      const formData = new FormData(event.currentTarget);
 
-    const result = await createGroup(formData);
+      const result = await createGroup(formData);
 
-    if (result.title) {
-      alert(`Group "${result.title}" created successfully!`);
-      handleCreateGroup();
+      if (result.title) {
+        alert(`Group "${result.title}" created successfully!`);
+        handleCreateGroup();
+      }
     }
   };
 
@@ -50,6 +55,22 @@ function GroupForm({ handleCreateGroup }) {
     setMembersIds(newStrList);
     const newArr = members.concat(item);
     setMembers(newArr);
+  };
+
+  const handleRemoveMember = (rmvInd) => {
+    let newStrList = members.filter((item, ind) => {
+      if (ind != rmvInd) {
+        return item;
+      }
+    });
+    console.log(newStrList);
+    const newStrListIds = newStrList.map((item) => {
+      return item;
+    });
+    setMembers(newStrList);
+    console.log(newStrList);
+    setMembersIds(newStrListIds);
+    console.log(newStrListIds);
   };
 
   return (
@@ -102,11 +123,16 @@ function GroupForm({ handleCreateGroup }) {
 
           <input type="hidden" name="users" value={membersIds} />
           <div id={styles.groupMembers}>
-            {members.map((item) => {
+            {members.map((item, ind) => {
               return (
                 <div id={styles.groupMember}>
                   {" "}
-                  <EntityCard key={item.id} entity={item} />
+                  <div className={styles.groupMemberCard}>
+                    <EntityCard key={item.id} entity={item} />
+                  </div>
+                  <div className={styles.groupMemberRmv}>
+                    <CloseButton handleClick={() => handleRemoveMember(ind)} />
+                  </div>
                 </div>
               );
             })}
