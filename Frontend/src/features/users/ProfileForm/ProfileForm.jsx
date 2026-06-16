@@ -80,7 +80,11 @@ function ProfileForm({ userId, handleProfile }) {
   }, [userId]);
 
   return (
-    <div id={styles.profileFormContainer} data-testid="ProfileFormContainer">
+    <div
+      className={styles.profileFormContainer}
+      id={readOnly ? styles.profileFormReadOnly : null}
+      data-testid="ProfileFormContainer"
+    >
       {!user ? (
         <div className={styles.profileFormLoading}>Loading data...</div>
       ) : (

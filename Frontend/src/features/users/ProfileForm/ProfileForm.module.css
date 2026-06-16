@@ -1,4 +1,4 @@
-#profileFormContainer {
+.profileFormContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +9,9 @@
   max-width: 700px;
   border: groove 1px #6096ba;
   border-radius: 10px;
+}
+
+#profileFormReadOnly {
   padding: 8px;
 }
 
