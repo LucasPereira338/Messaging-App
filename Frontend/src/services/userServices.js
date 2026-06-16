@@ -78,6 +78,23 @@ export async function fetchUsersInList(data) {
     return response.json()
 }
 
+export async function updatePassword(id, data) {
+    const backend = import.meta.env.VITE_BACKEND;
+
+    const url = backend + "users/" + id + "/password"
+    
+    const token = localStorage.getItem('token')
+
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token},
+        body: JSON.stringify(data)
+        
+    })
+
+    return response.json()
+}
+
 export async function updateUser(data, id) {
     const backend = import.meta.env.VITE_BACKEND;
 
@@ -93,5 +110,4 @@ export async function updateUser(data, id) {
     })
 
     return response.json()
-
 }

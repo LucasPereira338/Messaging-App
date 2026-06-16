@@ -168,6 +168,43 @@ async function postNewUser(req, res) {
     res.json(user)
 }
 
+async function updateUserPassword(req, res) {
+
+    if (req.user.id != req.params.id) {
+        return res.status(401).json({message:"unauthorized"})
+    }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: req.params.id
+        },
+        select: {
+            id: true,
+            password: true
+        }
+    })
+
+    const match = await bcrypt.compare(req.body.oldPassword, user.password)
+
+    if (!match) {
+        return res.json({message: "the current password field is incorrect"})
+    } 
+
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+
+    const pwdChange = await prisma.user.update({
+        where: {
+            id: req.params.id
+        }, 
+        data: {
+            password: hashedPassword
+        }
+    })
+
+    res.status(200).json({message: "Password successfully changed!"})
+
+}
+
 async function updateUser(req, res) {
     
     if (typeof req.file !== "undefined") {

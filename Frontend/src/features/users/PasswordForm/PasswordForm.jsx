@@ -1,4 +1,5 @@
 import * as styles from "./PasswordForm.module.css";
+import { updatePassword } from "../../../services/userServices";
 
 function PasswordForm({ userId }) {
   const handleSubmit = async (event) => {
@@ -7,13 +8,12 @@ function PasswordForm({ userId }) {
     const formData = new FormData(event.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
 
-    const result = await postNewPassword(formValues);
+    const result = await updatePassword(userId, formValues);
 
     alert(result);
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="hidden" value={userId} />
       <label htmlFor="oldPassword" className={styles.pwdFormLabel}>
         <input type="password" name="oldPassword" />
       </label>

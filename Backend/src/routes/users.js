@@ -22,6 +22,8 @@ users.post('/log-in', (req, res) => controllers.postLogin(req, res))
 
 users.post('/', upload.single('portrait'), (req, res) => controllers.postNewUser(req, res))
 
+users.put('/:id/password', (req, res) => controllers.updateUserPassword(req, res))
+
 users.put('/:id', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.updateUser(req, res)) 
 
 users.delete('/all', (req, res) => controllers.deleteAllUsers(req, res))
