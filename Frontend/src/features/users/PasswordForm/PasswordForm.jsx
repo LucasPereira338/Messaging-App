@@ -13,9 +13,9 @@ function PasswordForm({ userId }) {
     alert(result);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} data-testid="PasswordForm">
       <label htmlFor="oldPassword" className={styles.pwdFormLabel}>
-        <input type="password" name="oldPassword" />
+        <input type="password" name="oldPassword" data-testid="oldPwdInput" />
       </label>
       <label htmlFor="newPassword" className={styles.pwdFormLabel}>
         <input type="password" name="newPassword" />
