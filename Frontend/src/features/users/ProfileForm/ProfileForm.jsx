@@ -5,6 +5,7 @@ import { updateUser, fetchUser } from "../../../services/userServices";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
+import PasswordForm from "../PasswordForm/PasswordForm";
 
 function ProfileForm({ userId, handleProfile }) {
   let ref = useRef(null);
@@ -18,6 +19,8 @@ function ProfileForm({ userId, handleProfile }) {
   const [userValues, setUserValues] = useState([]);
 
   const [file, setFile] = useState(null);
+
+  const [isPwdChosen, setIsPwdChosen] = useState(false);
 
   const readOnly = loggedUserId == userId ? false : true;
 
@@ -85,6 +88,23 @@ function ProfileForm({ userId, handleProfile }) {
       id={readOnly ? styles.profileFormReadOnly : null}
       data-testid="ProfileFormContainer"
     >
+      <div className={styles.profileFormChoices}>
+        <div
+          className={styles.profileFormChoice}
+          id={!isPwdChosen ? styles.profileChosenOption : null}
+          onClick={() => setIsPwdChosen(false)}
+        >
+          Edit Profile
+        </div>
+        <div
+          className={styles.profileFormChoice}
+          id={isPwdChosen ? styles.profileChosenOption : null}
+          onClick={() => setIsPwdChosen(true)}
+        >
+          Change Password
+        </div>
+      </div>
+
       {!user ? (
         <div className={styles.profileFormLoading}>Loading data...</div>
       ) : (

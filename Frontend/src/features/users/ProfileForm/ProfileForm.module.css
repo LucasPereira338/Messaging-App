@@ -15,6 +15,25 @@
   padding: 8px;
 }
 
+.profileFormChoices {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.profileFormChoice {
+  width: 100%;
+}
+
+.profileFormChoice:hover {
+  background-color: #3d86b6;
+  cursor: grab;
+}
+
+#profileChosenOption {
+  background-color: #256792;
+}
+
 #profileForm {
   display: flex;
   flex-direction: column;

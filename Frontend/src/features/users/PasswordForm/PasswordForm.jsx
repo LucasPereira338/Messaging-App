@@ -9,7 +9,7 @@ function PasswordForm({ userId }) {
     const formValues = Object.fromEntries(formData.entries());
 
     const result = await updatePassword(userId, formValues);
-
+    console.log(result);
     alert(result);
   };
   return (
