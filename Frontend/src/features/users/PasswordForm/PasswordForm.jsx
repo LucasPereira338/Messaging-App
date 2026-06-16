@@ -25,11 +25,20 @@ function PasswordForm({ userId, handlePwdForm }) {
       >
         <label htmlFor="oldPassword" className={styles.pwdFormLabel}>
           Current Password:
-          <input type="password" name="oldPassword" data-testid="oldPwdInput" />
+          <input
+            type="password"
+            name="oldPassword"
+            className={styles.pwdFormInput}
+            data-testid="oldPwdInput"
+          />
         </label>
         <label htmlFor="newPassword" className={styles.pwdFormLabel}>
           New Password:
-          <input type="password" name="newPassword" />
+          <input
+            type="password"
+            name="newPassword"
+            className={styles.pwdFormInput}
+          />
         </label>
         <button type="submit">Change Password</button>
       </form>
