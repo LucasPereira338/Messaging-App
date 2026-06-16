@@ -20,7 +20,6 @@ model User {
   password         String
   description      String?
   portrait         String    @default("profiles/portraits/blank.svg")
-  background       String?
   messagesSent     Message[] @relation("author")
   chats Chat[]
   createdAt        DateTime  @default(now())
