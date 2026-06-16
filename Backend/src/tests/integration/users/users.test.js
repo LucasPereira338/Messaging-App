@@ -78,10 +78,10 @@ test("user cannot update another user's info", done => {
         .expect(401, done)
 })
 
-test('get an user', done => {
+test('get a user', done => {
     request(app)
         .get('/users/' + user.id)
-        .expect('Content-Type', /json/)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(200, done)
 })
 

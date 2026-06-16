@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs')
 const {deleteImage} = require('../helpers/folders.js')
 
 async function getUser(req, res) {
-    
     const user = await prisma.user.findUnique({
         where: {
             id: req.params.id

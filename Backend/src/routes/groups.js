@@ -17,8 +17,10 @@ groups.get('/', passport.authenticate('jwt', {session:false}), (req, res) => con
 
 groups.post('/', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.postGroup(req, res));
 
-groups.put('/:id', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.putMembersInGroup(req, res));
+groups.put('/:id/members', passport.authenticate('jwt', {session:false}),  (req, res) => controllers.removeGroupMembers(req, res));
 
+groups.put('/:id/', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.updateGroup(req, res));
 
+groups.delete('/:id', passport.authenticate('jwt', {session:false}), (req, res) => controllers.deleteGroup(req, res));
 
 module.exports = groups

@@ -85,7 +85,7 @@ test("get's all chat messages", done => {
 
 test("get's all chat members", done => {
     request(app)
-        .get('/chats/' + chat.id + '/users')
+        .get('/chats/' + chat.id + '/members')
         .set('Authorization', `Bearer ${userToken}`)
         .expect('Content-Type', /json/)
         .expect(200, done)

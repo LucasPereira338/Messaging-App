@@ -63,14 +63,13 @@ function GroupForm({ handleCreateGroup }) {
         return item;
       }
     });
-    console.log(newStrList);
+
     const newStrListIds = newStrList.map((item) => {
       return item;
     });
     setMembers(newStrList);
-    console.log(newStrList);
+
     setMembersIds(newStrListIds);
-    console.log(newStrListIds);
   };
 
   return (
