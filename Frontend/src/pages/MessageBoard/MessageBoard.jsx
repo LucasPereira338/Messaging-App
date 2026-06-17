@@ -33,6 +33,8 @@ function MessageBoard() {
 
   const [updateChats, setupdateChats] = useState();
 
+  const [onlineOnly, setOnlineOnly] = useState(false);
+
   const handleContent = (choice) => {
     if (choice != "Logout") {
       setContent(choice);
@@ -75,10 +77,14 @@ function MessageBoard() {
     }
   };
 
+  const handleOnline = () => {
+    setOnlineOnly(!onlineOnly);
+  };
+
   useEffect(() => {
     const getLoggedUser = async () => {
       const result = await fetchUser(userId);
-
+      console.log(result);
       setUser(result);
     };
     getLoggedUser();
@@ -93,6 +99,14 @@ function MessageBoard() {
           let chatsMembers = [];
           pushUniqueIdsAndChatId(chatsMembers, response);
 
+          if (onlineOnly) {
+            chatsMembers = chatsMembers.filter((item) => {
+              if (item.isActive == true) {
+                return item;
+              }
+            });
+          }
+
           setChats(chatsMembers);
         };
         fetchChats();
@@ -100,7 +114,7 @@ function MessageBoard() {
         console.error(e);
       }
     }
-  }, [userId, user, updateChats, content]);
+  }, [userId, user, updateChats, content, onlineOnly]);
 
   return (
     <MessageContext value={{ user, chats, currentChat, content }}>
@@ -120,6 +134,7 @@ function MessageBoard() {
             handleCurrentChat={handleCurrentChat}
             handleCreateGroup={handleCreateGroup}
             handleChats={handleChats}
+            handleOnline={handleOnline}
           />
         </div>
 

@@ -1,21 +1,20 @@
 import * as styles from "./MessageSidebar.module.css";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
 import { postNewChat } from "../../../services/chatServices";
 import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
 import Checkbox from "../../ui/Checkbox/Checkbox";
 
-function MessageSidebar({ handleCurrentChat, handleCreateGroup, handleChats }) {
+function MessageSidebar({
+  handleCurrentChat,
+  handleCreateGroup,
+  handleChats,
+  handleOnline,
+}) {
   const { chats } = useContext(MessageContext);
   const { currentChat } = useContext(MessageContext);
   const { content } = useContext(MessageContext);
-
-  const [onlineOnly, setOnlineOnly] = useState(false);
-
-  const handleOnline = () => {
-    setOnlineOnly(!onlineOnly);
-  };
 
   useEffect(() => {
     if (chats) {
@@ -48,7 +47,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup, handleChats }) {
       data-testid="MessageSidebar"
     >
       <h3 id={styles.messagesSidebarTitle}> Your Messages </h3>
-      {content == "All" || content == "Chats" ? (
+      {content != "Groups" ? (
         <div>
           <SearchUser handleNewUser={handleNewUser} />
           <Checkbox handleToggle={handleOnline} />

@@ -1,32 +1,6 @@
 const {prisma} = require('../../lib/prisma.js')
 const messages = require('../routes/messages.js')
 
-/* 
-async function getUserChats(req, res) {
-    
-    const chats = await prisma.chat.findMany({
-        where: {
-            members: {
-                some: {
-                    id: req.params.id
-                }
-            }
-        },
-        include: {
-            group: {
-                select: {
-                    id: true
-                }
-            },
-        },
-        orderBy: {
-            lastActive: "desc"
-        }
-    })
-
-    res.json(chats)
-}*/
-
 async function getUserChats(req, res) {
     
     const chats = await prisma.chat.findMany({
@@ -50,7 +24,8 @@ async function getUserChats(req, res) {
                     id: true,
                     name: true,
                     username: true,
-                    portrait: true
+                    portrait: true,
+                    lastActive: true
                 },
                 take: 2
             },
@@ -71,6 +46,21 @@ async function getUserChats(req, res) {
         orderBy: {
             lastActive: "desc"
         }
+    })
+
+    const dateNow = new Date()
+
+    chats.forEach((item, ind) => {
+        item.members.forEach((member) => {
+            const dateDif = dateNow - member.lastActive
+            const dateDifConv = dateDif/1000
+            if (dateDifConv <= 300) {
+                member.isActive = true
+            } else {
+                member.isActive = false
+            }
+        })
+        
     })
 
     res.json(chats)
@@ -95,7 +85,8 @@ async function getUserPrivateChats(req, res) {
                     id: true,
                     name: true,
                     username: true,
-                    portrait: true
+                    portrait: true,
+                    lastActive: true
                 },
                 take: 2
             },
@@ -118,8 +109,20 @@ async function getUserPrivateChats(req, res) {
         }
     })
     
-
     const dateNow = new Date()
+
+    chats.forEach((item, ind) => {
+        item.members.forEach((member) => {
+            const dateDif = dateNow - member.lastActive
+            const dateDifConv = dateDif/1000
+            if (dateDifConv <= 300) {
+                member.isActive = true
+            } else {
+                member.isActive = false
+            }
+        })
+        
+    })
 
     res.json(chats)
     

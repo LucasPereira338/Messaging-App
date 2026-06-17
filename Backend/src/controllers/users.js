@@ -14,13 +14,26 @@ async function getUser(req, res) {
             username: true,
             email: true,
             description: true,
-            portrait: true
+            portrait: true,
+            lastActive: true
         }
     })
     
     if(user && user.description == null) {
         user.description = ''
     }
+
+    const dateNow = new Date()
+    
+    
+    const dateDif = dateNow - user.lastActive
+    const dateDifConv = dateDif/1000
+    if (dateDifConv <= 300) {
+        user.isActive = true
+    } else {
+        user.isActive = false
+    }
+    
 
     res.json(user)
 }
