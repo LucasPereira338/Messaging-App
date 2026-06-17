@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { fetchUserChoices } from "../../helpers/helpers";
 import { MessageContext } from "../../contexts/MessageContext";
+import { pushUniqueIdsAndChatId } from "../../helpers/arrayHelpers";
 import { fetchUser } from "../../services/userServices";
 import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
@@ -87,8 +88,13 @@ function MessageBoard() {
     try {
       const fetchChats = async () => {
         const response = await fetchUserChoices(content, userId);
-
-        setChats(response);
+        console.log("chats: ");
+        console.log(response);
+        let chatsMembers = [];
+        pushUniqueIdsAndChatId(chatsMembers, response);
+        console.log("after organizing: ");
+        console.log(chatsMembers);
+        setChats(chatsMembers);
       };
       fetchChats();
     } catch (e) {

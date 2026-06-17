@@ -1,6 +1,7 @@
 const {prisma} = require('../../lib/prisma.js')
 const messages = require('../routes/messages.js')
 
+/* 
 async function getUserChats(req, res) {
     
     const chats = await prisma.chat.findMany({
@@ -17,7 +18,55 @@ async function getUserChats(req, res) {
                     id: true
                 }
             },
-            
+        },
+        orderBy: {
+            lastActive: "desc"
+        }
+    })
+
+    res.json(chats)
+}*/
+
+async function getUserChats(req, res) {
+    
+    const chats = await prisma.chat.findMany({
+        where: {
+            members: {
+                some: {
+                    id: req.params.id
+                }
+            }
+        },
+        include: {
+            group: {
+                select: {
+                        id: true,
+                        title: true,
+                        portrait: true
+                    }
+            },
+            members: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    portrait: true
+                },
+                take: 2
+            },
+            messages: {
+                select: {
+                    id: true,
+                    authorId: true,
+                    content: true,
+                    image: true,
+                    createdAt: true,
+                }, 
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 1
+            }
         },
         orderBy: {
             lastActive: "desc"
@@ -28,7 +77,7 @@ async function getUserChats(req, res) {
 }
 
 async function getUserPrivateChats(req, res) {
-    
+
     const chats = await prisma.chat.findMany({
         where: {
             AND: {
@@ -38,16 +87,42 @@ async function getUserPrivateChats(req, res) {
                     }
                 },
                 group: null
+            } 
+        },
+        include: {
+            members: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    portrait: true
+                },
+                take: 2
+            },
+            messages: {
+                select: {
+                    id: true,
+                    authorId: true,
+                    content: true,
+                    image: true,
+                    createdAt: true,
+                }, 
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 1
             }
         },
         orderBy: {
             lastActive: "desc"
         }
     })
+    
 
     const dateNow = new Date()
 
     res.json(chats)
+    
 }
 
 async function getUserGroupChats(req, res) {
@@ -63,20 +138,15 @@ async function getUserGroupChats(req, res) {
                 group: {
                     isNot: null
                 }
-            }
-        },
-        include: {
-            group: {
-                select: {
-                    id: true
-                }
-            },
-            
+            } 
         },
         orderBy: {
-            lastActive: 'desc'
+            lastActive: "desc"
         }
     })
+    
+
+    const dateNow = new Date()
 
     res.json(chats)
 }

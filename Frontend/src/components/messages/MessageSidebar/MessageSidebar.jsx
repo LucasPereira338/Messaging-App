@@ -1,10 +1,5 @@
 import * as styles from "./MessageSidebar.module.css";
 import { useState, useEffect, useContext } from "react";
-import {
-  arrayObjToStr,
-  pushUniqueIdsAndChatId,
-} from "../../../helpers/arrayHelpers";
-import { fetchChatsMembers } from "../../../services/chatServices";
 import { MessageContext } from "../../../contexts/MessageContext";
 import { postNewChat } from "../../../services/chatServices";
 import EntityCard from "../../entities/EntityCard/EntityCard";
@@ -25,34 +20,10 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   };
 
   useEffect(() => {
-    if (chats && chats.length > 0) {
-      try {
-        const fetchMembers = async () => {
-          const arr = arrayObjToStr(chats);
-          let response;
-
-          response = await fetchChatsMembers(arr);
-
-          let usersAndGroups = [];
-
-          pushUniqueIdsAndChatId(usersAndGroups, response);
-
-          setChatsMembers(usersAndGroups);
-        };
-        fetchMembers();
-      } catch (e) {
-        console.error(e);
+    if (chats) {
+      if (chats.length > 0 && !currentChat) {
+        handleCurrentChat(chats[0]);
       }
-    }
-  }, [chats, content, onlineOnly]);
-
-  useEffect(() => {
-    try {
-      if (chatsMembers.length > 0 && !currentChat) {
-        handleCurrentChat(chatsMembers[0]);
-      }
-    } catch (e) {
-      console.error(e);
     }
   });
 
@@ -109,7 +80,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
                 data-testid="ChatsMembers"
                 role="presentation"
               >
-                {chatsMembers.map((item) => {
+                {chats.map((item) => {
                   return (
                     <EntityCard
                       key={item.id}
