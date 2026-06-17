@@ -35,6 +35,7 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup, handleChats }) {
       const chat = await postNewChat(data);
       data.chatId = chat.id;
       handleChats();
+      handleCurrentChat(data);
     } else {
       handleCurrentChat(matchingItem[0]);
     }
