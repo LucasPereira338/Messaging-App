@@ -4,24 +4,20 @@ import { useNavigate } from "react-router";
 import SignUpForm from "../../features/auth/SignUpForm/SignUpForm";
 
 function Registration() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState();
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleUser = (data) => {
+  const handleLogin = (data) => {
     setUser(data);
   };
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn == true) {
+    if (user) {
       navigate("/messages", { state: user });
     }
-  }, [isLoggedIn, navigate, user]);
+  }, [navigate, user]);
+
   return (
     <div className={styles.registration}>
       <img
@@ -29,7 +25,7 @@ function Registration() {
         className={styles.backgroundImg}
       />
       <div className={styles.registrationContent}>
-        <SignUpForm handleLogin={handleLogin} handleUser={handleUser} />
+        <SignUpForm handleLogin={handleLogin} />
       </div>
     </div>
   );
