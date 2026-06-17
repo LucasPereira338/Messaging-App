@@ -7,11 +7,7 @@ function PageSidebar({ handleContent }) {
   const { content } = useContext(MessageContext);
   const commonPath = "../../../../icons/";
   return (
-    <aside
-      id={styles.pageSidebar}
-      className="general-borders"
-      data-testid="PageSidebar"
-    >
+    <aside id={styles.pageSidebar} data-testid="PageSidebar">
       {handleContent
         ? possibleChoices.map((item, ind) => {
             return (

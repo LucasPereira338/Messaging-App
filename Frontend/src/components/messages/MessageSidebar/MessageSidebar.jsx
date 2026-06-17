@@ -15,6 +15,7 @@ function MessageSidebar({
   const { chats } = useContext(MessageContext);
   const { currentChat } = useContext(MessageContext);
   const { content } = useContext(MessageContext);
+  const { onlineOnly } = useContext(MessageContext);
 
   useEffect(() => {
     if (chats) {
@@ -67,7 +68,11 @@ function MessageSidebar({
               className={styles.messageSidebarNoChats}
               data-testid="NoChatHeader"
             >
-              You don't have any chats yet!
+              {content == "Groups"
+                ? "You're not part of any groups yet!"
+                : onlineOnly
+                  ? "All of your contacts are offline!"
+                  : "You don't have any chats yet!"}
             </h5>
           ) : (
             <div>

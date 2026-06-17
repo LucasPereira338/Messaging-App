@@ -117,7 +117,7 @@ function MessageBoard() {
   }, [userId, user, updateChats, content, onlineOnly]);
 
   return (
-    <MessageContext value={{ user, chats, currentChat, content }}>
+    <MessageContext value={{ user, chats, currentChat, content, onlineOnly }}>
       <main className={styles.MessageBoard}>
         {openProfile && (
           <div className={styles.profileFormContainer}>

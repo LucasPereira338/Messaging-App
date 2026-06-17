@@ -57,8 +57,11 @@ function SearchUser({ handleNewUser, width = "default" }) {
           {users.length > 0 ? (
             users.map((item) => {
               return (
-                <div key={item.id} onClick={() => handleNewUser(item)}>
-                  <EntityCard entity={item} />
+                <div key={item.id}>
+                  <EntityCard
+                    entity={item}
+                    handleClick={() => handleNewUser(item)}
+                  />
                 </div>
               );
             })
