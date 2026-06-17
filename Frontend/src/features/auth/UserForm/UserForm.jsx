@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
-function UserForm({ action, handleLogin, handleUser }) {
+function UserForm({ action, handleLogin }) {
   let userValues = ["username", "password"];
   let ref = useRef(null);
   if (action == "sign-up") {
@@ -56,8 +56,7 @@ function UserForm({ action, handleLogin, handleUser }) {
           localStorage.setItem("userId", result.id);
         }
         result.isActive = true;
-        handleLogin();
-        handleUser(result);
+        handleLogin(result);
       } else {
         alert(result.message);
       }

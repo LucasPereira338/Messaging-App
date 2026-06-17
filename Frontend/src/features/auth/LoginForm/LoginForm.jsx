@@ -1,14 +1,10 @@
 import * as styles from "./LoginForm.module.css";
 import UserForm from "../UserForm/UserForm";
 
-function LoginForm({ handleLogin, handleUser }) {
+function LoginForm({ handleLogin }) {
   return (
     <div className={styles.loginContainer} data-testid="LoginForm">
-      <UserForm
-        action="login"
-        handleLogin={handleLogin}
-        handleUser={handleUser}
-      />
+      <UserForm action="login" handleLogin={handleLogin} />
     </div>
   );
 }

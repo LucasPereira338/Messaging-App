@@ -4,17 +4,11 @@ import { useNavigate } from "react-router";
 import { fetchUser } from "../../services/userServices";
 import LoginForm from "../../features/auth/LoginForm/LoginForm";
 
-// issue: i don't really, nor should i, send the user object back on login, since i already have what i need on the token
 function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const token = localStorage.getItem("token");
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleUser = (data) => {
+  const handleLogin = (data) => {
     setUser(data);
   };
 
@@ -27,7 +21,6 @@ function Home() {
 
         if (result.id) {
           setUser(result);
-          setIsLoggedIn(true);
         } else {
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
@@ -38,10 +31,10 @@ function Home() {
   }, [token]);
 
   useEffect(() => {
-    if (isLoggedIn == true) {
+    if (user) {
       navigate("/messages", { state: user });
     }
-  }, [isLoggedIn, navigate, user]);
+  }, [navigate, user]);
 
   return (
     <div id={styles.home} data-testid="Home">
@@ -60,7 +53,7 @@ function Home() {
       <div className={styles.homeContainer}>
         <h3 className={styles.loginHeader}>Log into a existing account: </h3>
         <div className={styles.loginContainer}>
-          <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
+          <LoginForm handleLogin={handleLogin} />
         </div>
         <h3 className={styles.signUpHeader}>
           Don't have a account? <br />
