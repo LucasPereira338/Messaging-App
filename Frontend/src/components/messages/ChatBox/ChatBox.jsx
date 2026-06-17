@@ -14,7 +14,7 @@ function ChatBox({ updateChats, handleChats, handleProfile }) {
   const { user } = useContext(MessageContext);
   const [messages, setMessages] = useState([]);
   const [msgToDel, setMsgToDel] = useState(false);
-
+  const [isGroup, setIsGroup] = useState(false);
   const handleMsgToDel = (data) => {
     setMsgToDel(data);
   };
@@ -24,7 +24,11 @@ function ChatBox({ updateChats, handleChats, handleProfile }) {
       try {
         const fetchChat = async () => {
           let result = await fetchChatMessages(currentChat.chatId);
-
+          if (currentChat.title) {
+            setIsGroup(true);
+          } else {
+            setIsGroup(false);
+          }
           const msgs = addMemberDataToMsg(result, user.id);
 
           setMessages(msgs);
@@ -62,7 +66,10 @@ function ChatBox({ updateChats, handleChats, handleProfile }) {
         {!currentChat ? (
           <h3>Use the search bar to find new people to chat with!</h3>
         ) : (
-          <EntityCard entity={currentChat} handleClick={handleProfile} />
+          <EntityCard
+            entity={currentChat}
+            handleClick={!isGroup ? handleProfile : null}
+          />
         )}
       </div>
       {currentChat && (

@@ -4,6 +4,12 @@
   height: 100%;
 }
 
+#entityCardGroupChatBox {
+  display: flex;
+  border-width: 1px;
+  height: 100%;
+}
+
 #entityCard:hover {
   background-color: #6096ba;
   color: #e7ecef;

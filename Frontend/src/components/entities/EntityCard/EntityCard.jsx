@@ -18,7 +18,11 @@ function EntityCard({
   const name = entity.name != null ? entity.name : entity.title;
   const cardContId = (() => {
     if (entity && !currentChat) {
-      return styles.entityCard;
+      if (!handleClick) {
+        return styles.entityCardGroupChatBox;
+      } else {
+        return styles.entityCard;
+      }
     } else {
       if (entity.id == currentChat.id) {
         return styles.entityCardActive;

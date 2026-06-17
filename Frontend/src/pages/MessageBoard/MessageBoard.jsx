@@ -92,8 +92,7 @@ function MessageBoard() {
 
           let chatsMembers = [];
           pushUniqueIdsAndChatId(chatsMembers, response);
-          console.log("organized data");
-          console.log(chatsMembers);
+
           setChats(chatsMembers);
         };
         fetchChats();
