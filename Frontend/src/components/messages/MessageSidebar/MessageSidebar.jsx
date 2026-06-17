@@ -26,15 +26,18 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup, handleChats }) {
   });
 
   const handleNewUser = async (data) => {
-    const hasData = chats.some((item) => item.id === data.id);
-    if (data.chatId == null) {
+    const matchingItem = chats.filter((item) => {
+      if (item.id == data.id) {
+        return item;
+      }
+    });
+    if (matchingItem.length == 0) {
       const chat = await postNewChat(data);
       data.chatId = chat.id;
-    }
-    if (hasData == false) {
       handleChats();
+    } else {
+      handleCurrentChat(matchingItem[0]);
     }
-    handleCurrentChat(data);
   };
 
   return (
