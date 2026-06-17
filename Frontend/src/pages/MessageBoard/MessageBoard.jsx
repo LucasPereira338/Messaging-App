@@ -89,12 +89,10 @@ function MessageBoard() {
       try {
         const fetchChats = async () => {
           const response = await fetchUserChoices(content, userId);
-          console.log("chats: ");
-          console.log(response);
+
           let chatsMembers = [];
           pushUniqueIdsAndChatId(chatsMembers, response);
-          console.log("after organizing: ");
-          console.log(chatsMembers);
+
           setChats(chatsMembers);
         };
         fetchChats();
@@ -121,6 +119,7 @@ function MessageBoard() {
           <MessageSidebar
             handleCurrentChat={handleCurrentChat}
             handleCreateGroup={handleCreateGroup}
+            handleChats={handleChats}
           />
         </div>
 

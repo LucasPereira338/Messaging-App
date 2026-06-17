@@ -6,12 +6,10 @@ import EntityCard from "../../entities/EntityCard/EntityCard";
 import SearchUser from "../../../features/users/SearchUser/SearchUser";
 import Checkbox from "../../ui/Checkbox/Checkbox";
 
-function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
+function MessageSidebar({ handleCurrentChat, handleCreateGroup, handleChats }) {
   const { chats } = useContext(MessageContext);
   const { currentChat } = useContext(MessageContext);
   const { content } = useContext(MessageContext);
-
-  const [chatsMembers, setChatsMembers] = useState([]);
 
   const [onlineOnly, setOnlineOnly] = useState(false);
 
@@ -28,20 +26,15 @@ function MessageSidebar({ handleCurrentChat, handleCreateGroup }) {
   });
 
   const handleNewUser = async (data) => {
-    const hasData = chatsMembers.some((item) => item.id === data.id);
+    const hasData = chats.some((item) => item.id === data.id);
     if (data.chatId == null) {
       const chat = await postNewChat(data);
       data.chatId = chat.id;
     }
     if (hasData == false) {
-      const newArr = chatsMembers.map((item) => {
-        return item;
-      });
-
-      newArr.push(data);
-
-      setChatsMembers(newArr);
+      handleChats();
     }
+    handleCurrentChat(data);
   };
 
   return (

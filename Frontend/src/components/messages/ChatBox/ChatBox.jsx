@@ -20,7 +20,7 @@ function ChatBox({ updateChats, handleChats, handleProfile }) {
   };
 
   useEffect(() => {
-    if (currentChat) {
+    if (currentChat && user) {
       try {
         const fetchChat = async () => {
           let result = await fetchChatMessages(currentChat.chatId);
