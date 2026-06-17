@@ -140,6 +140,28 @@ async function getUserGroupChats(req, res) {
                 }
             } 
         },
+        include: {
+            group: {
+                select: {
+                        id: true,
+                        title: true,
+                        portrait: true
+                    }
+            },
+            messages: {
+                select: {
+                    id: true,
+                    authorId: true,
+                    content: true,
+                    image: true,
+                    createdAt: true,
+                }, 
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 1
+            }
+        },
         orderBy: {
             lastActive: "desc"
         }
