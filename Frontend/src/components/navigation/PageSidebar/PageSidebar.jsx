@@ -2,7 +2,7 @@ import * as styles from "./PageSidebar.module.css";
 import { useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
 
-function PageSidebar({ handleContent, handleLogout }) {
+function PageSidebar({ handleContent }) {
   const possibleChoices = ["All", "Chats", "Groups"];
   const { content } = useContext(MessageContext);
   const commonPath = "../../../../icons/";
@@ -42,7 +42,7 @@ function PageSidebar({ handleContent, handleLogout }) {
       <div
         className={styles.pageSidebarItem}
         id={styles.logoutContainer}
-        onClick={handleLogout}
+        onClick={() => handleContent("Logout")}
         data-testid="LogoutChoice"
       >
         <img

@@ -34,7 +34,13 @@ function MessageBoard() {
   const [updateChats, setupdateChats] = useState();
 
   const handleContent = (choice) => {
-    setContent(choice);
+    if (choice != "Logout") {
+      setContent(choice);
+    } else {
+      localStorage.removeItem("userId");
+      localStorage.removeItem("token");
+      navigate("/");
+    }
   };
 
   const handleChats = () => {
@@ -69,12 +75,6 @@ function MessageBoard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    navigate("/");
-  };
-
   useEffect(() => {
     const getLoggedUser = async () => {
       const result = await fetchUser(userId);
@@ -85,20 +85,22 @@ function MessageBoard() {
   }, [userId, userUpdated]);
 
   useEffect(() => {
-    try {
-      const fetchChats = async () => {
-        const response = await fetchUserChoices(content, userId);
-        console.log("chats: ");
-        console.log(response);
-        let chatsMembers = [];
-        pushUniqueIdsAndChatId(chatsMembers, response);
-        console.log("after organizing: ");
-        console.log(chatsMembers);
-        setChats(chatsMembers);
-      };
-      fetchChats();
-    } catch (e) {
-      console.error(e);
+    if (content != "Logout") {
+      try {
+        const fetchChats = async () => {
+          const response = await fetchUserChoices(content, userId);
+          console.log("chats: ");
+          console.log(response);
+          let chatsMembers = [];
+          pushUniqueIdsAndChatId(chatsMembers, response);
+          console.log("after organizing: ");
+          console.log(chatsMembers);
+          setChats(chatsMembers);
+        };
+        fetchChats();
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [userId, user, updateChats, content]);
 
@@ -113,10 +115,7 @@ function MessageBoard() {
           </div>
         )}
         <div className={styles.pageSidebarContainer}>
-          <PageSidebar
-            handleContent={handleContent}
-            handleLogout={handleLogout}
-          />
+          <PageSidebar handleContent={handleContent} />
         </div>
         <div className={styles.messageSidebarContainer}>
           <MessageSidebar
