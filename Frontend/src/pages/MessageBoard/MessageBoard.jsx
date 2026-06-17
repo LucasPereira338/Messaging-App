@@ -84,7 +84,7 @@ function MessageBoard() {
   useEffect(() => {
     const getLoggedUser = async () => {
       const result = await fetchUser(userId);
-      console.log(result);
+
       setUser(result);
     };
     getLoggedUser();
