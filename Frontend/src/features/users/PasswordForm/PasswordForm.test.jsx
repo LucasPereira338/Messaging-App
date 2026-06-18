@@ -38,7 +38,7 @@ describe("PasswordForm", () => {
     const user = userEvent.setup();
     render(<PasswordForm userId={userId} />);
 
-    const btn = await screen.findByRole("button");
+    const btn = await screen.findByTestId("PasswordFormBtn");
 
     await user.click(btn);
 

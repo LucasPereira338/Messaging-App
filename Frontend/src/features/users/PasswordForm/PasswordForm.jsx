@@ -10,8 +10,7 @@ function PasswordForm({ userId, handlePwdForm }) {
     const formValues = Object.fromEntries(formData.entries());
 
     const result = await updatePassword(userId, formValues);
-    console.log(result);
-    alert(result.message);
+
     if (result.message == "Password successfully changed!") {
       handlePwdForm();
     }
@@ -40,7 +39,9 @@ function PasswordForm({ userId, handlePwdForm }) {
             className={styles.pwdFormInput}
           />
         </label>
-        <button type="submit">Change Password</button>
+        <button type="submit" data-testid="PasswordFormBtn">
+          Change Password
+        </button>
       </form>
       <div className={styles.closeBtnPwd}>
         <CloseButton handleClick={handlePwdForm} />

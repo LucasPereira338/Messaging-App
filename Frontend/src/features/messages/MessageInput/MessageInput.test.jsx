@@ -19,15 +19,13 @@ vi.mock("../../../services/messageServices", () => {
 
 const user = { id: "sdadsao0" };
 const currentChat = { id: "ffddds1" };
-const updateIsNewMessage = () => {
-  return 1;
-};
 
 describe("MessageInput", () => {
   it("renders the message input", () => {
+    const handleChats = vi.fn();
     render(
       <MessageContext value={{ currentChat: currentChat }}>
-        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
+        <MessageInput user={user} handleChats={handleChats} />,
       </MessageContext>,
     );
 
@@ -37,10 +35,11 @@ describe("MessageInput", () => {
   });
 
   it("allows the user to type a message", async () => {
+    const handleChats = vi.fn();
     const user = userEvent.setup();
     render(
       <MessageContext value={{ currentChat: currentChat }}>
-        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
+        <MessageInput user={user} handleChats={handleChats} />,
       </MessageContext>,
     );
 
@@ -52,10 +51,11 @@ describe("MessageInput", () => {
   });
 
   it("allows the user to send a message", async () => {
+    const handleChats = vi.fn();
     const user = userEvent.setup();
     render(
       <MessageContext value={{ currentChat: currentChat }}>
-        <MessageInput user={user} updateIsNewMessage={updateIsNewMessage} />,
+        <MessageInput user={user} handleChats={handleChats} />,
       </MessageContext>,
     );
 

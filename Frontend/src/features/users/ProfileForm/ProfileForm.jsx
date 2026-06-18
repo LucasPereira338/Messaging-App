@@ -26,7 +26,8 @@ function ProfileForm({ userId, handleProfile }) {
     setIsPwdChosen(false);
   };
 
-  const readOnly = loggedUserId == userId ? false : true;
+  const readOnly =
+    loggedUserId == null ? false : loggedUserId == userId ? false : true;
 
   const handleChange = (event, ind) => {
     const newValue = event.target.value;
@@ -187,7 +188,12 @@ function ProfileForm({ userId, handleProfile }) {
               </div>
             );
           })}
-          {!readOnly && <button type="submit"> Save Changes</button>}
+          {!readOnly && (
+            <button type="submit" data-testid="ProfileFormBtn">
+              {" "}
+              Save Changes
+            </button>
+          )}
         </form>
       )}
     </div>

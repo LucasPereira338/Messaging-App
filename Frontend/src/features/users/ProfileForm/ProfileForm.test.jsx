@@ -66,7 +66,7 @@ describe("ProfileForm", () => {
     const user = userEvent.setup();
     render(<ProfileForm userId={userId} handleProfile={handleProfile} />);
 
-    const btn = await screen.findByRole("button");
+    const btn = await screen.findByTestId("ProfileFormBtn");
 
     await user.click(btn);
 

@@ -11,13 +11,9 @@ const value = {
 describe("PageSidebar", () => {
   it("renders the page sidebar", () => {
     const handleContent = vi.fn();
-    const handleLogout = vi.fn();
     render(
       <MessageContext value={value}>
-        <PageSidebar
-          handleContent={handleContent}
-          handleLogout={handleLogout}
-        />
+        <PageSidebar handleContent={handleContent} />
       </MessageContext>,
     );
 
@@ -26,7 +22,7 @@ describe("PageSidebar", () => {
     expect(sidebar).toBeInTheDocument();
   });
 
-  it("allows the user to change content filter", async () => {
+  it("allows the user to change content filter or logout", async () => {
     const handleContent = vi.fn();
     const user = userEvent.setup();
     render(
@@ -43,24 +39,5 @@ describe("PageSidebar", () => {
     expect(sidebar).toBeInTheDocument();
     expect(choice).toBeInTheDocument();
     expect(handleContent).toHaveBeenCalled();
-  });
-
-  it("allows the user to logout", async () => {
-    const handleLogout = vi.fn();
-    const user = userEvent.setup();
-    render(
-      <MessageContext value={value}>
-        <PageSidebar handleLogout={handleLogout} />
-      </MessageContext>,
-    );
-
-    const sidebar = screen.getByTestId("PageSidebar");
-    const logout = screen.getByTestId("LogoutChoice");
-
-    await user.click(logout);
-
-    expect(sidebar).toBeInTheDocument();
-    expect(logout).toBeInTheDocument();
-    expect(handleLogout).toHaveBeenCalled();
   });
 });

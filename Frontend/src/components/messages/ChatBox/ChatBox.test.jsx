@@ -53,7 +53,6 @@ const fetchChatMessages = vi
   );
 
 const values = {
-  chats: [],
   currentChat: {
     chatId: "dsada21",
     id: "user21",
@@ -61,7 +60,9 @@ const values = {
     username: "user1",
     portrait: "user.png",
   },
-  content: "All",
+  user: {
+    id: "user20",
+  },
 };
 
 describe("ChatBox", () => {
