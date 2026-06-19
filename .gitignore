@@ -24,7 +24,6 @@ dist
 dist-ssr
 *.local
 
-
 Backend/node_modules
 Backend/.env
 Backend/generated/prisma
