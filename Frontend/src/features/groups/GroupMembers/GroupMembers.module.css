@@ -1,0 +1,17 @@
+.groupProfileMembersContainers {
+  overflow: auto;
+}
+
+.groupProfileMembersCards {
+  display: flex;
+  gap: 1px;
+}
+
+.groupProfileMemberCard {
+  width: 75%;
+}
+
+.memberBtn {
+  display: flex;
+  align-self: center;
+}

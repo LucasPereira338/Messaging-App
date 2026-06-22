@@ -6,9 +6,28 @@
   position: relative;
 }
 
+.groupProfInp {
+  border-radius: 5px;
+}
+
+.groupImgInpContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .groupProfilePortrait {
   max-width: 200px;
   border-radius: 50%;
   min-height: 200px;
   object-fit: cover;
+}
+
+.labelInputContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.groupProfInp {
+  width: 90%;
 }

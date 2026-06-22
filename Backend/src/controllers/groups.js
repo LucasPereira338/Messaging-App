@@ -52,7 +52,9 @@ async function getGroup(req, res) {
                     members: {
                         select: {
                             id: true,
-                            username: true
+                            name:true,
+                            username: true,
+                            portrait: true
                         }
                     }
                 }
@@ -128,7 +130,7 @@ async function updateGroup(req, res) {
     if (!Array.isArray(users)) {
         users = [users]
     }
-    
+    console.log(users)
     const group = await prisma.group.update({
         where: {
             id: req.params.id
