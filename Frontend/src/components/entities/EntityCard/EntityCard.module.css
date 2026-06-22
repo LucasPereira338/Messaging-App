@@ -43,7 +43,22 @@
 
 .cardUsername {
   margin-left: 5px;
-  font-family: "Miranda Sans", Times, serif;
+  font-family: "Timew New Roman";
+  font-size: 0.8em;
+  color: #4d4d4e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardUsernameActive {
+  margin-left: 5px;
+  font-family: "Timew New Roman";
+  font-size: 0.8em;
+  color: #e7ecef;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .lastMsg {

@@ -65,13 +65,16 @@ function ProfileForm({ userId, handleProfile }) {
       try {
         const fetchUserData = async () => {
           const result = await fetchUser(userId);
-
+          console.log("user data");
+          console.log(result);
           const backend = import.meta.env.VITE_BACKEND;
 
           setPortrait(backend + "assets/" + result.portrait);
 
           delete result.id;
           delete result.portrait;
+          delete result.isActive;
+          delete result.lastActive;
           setUser(result);
           const newArrK = Object.keys(result);
           const newArrV = Object.values(result);

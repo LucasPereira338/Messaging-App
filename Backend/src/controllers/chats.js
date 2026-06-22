@@ -27,8 +27,7 @@ async function getUserChats(req, res) {
                     username: true,
                     portrait: true,
                     lastActive: true
-                },
-                take: 2
+                }
             },
             messages: {
                 select: {

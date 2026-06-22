@@ -164,6 +164,7 @@ async function postNewUser(req, res) {
             name: req.body.name,
             username: req.body.username,
             email: req.body.email,
+            description: req.body.description,
             password: hashedPassword,
             portrait: req.body.portrait
         },

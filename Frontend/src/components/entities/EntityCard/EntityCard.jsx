@@ -16,17 +16,35 @@ function EntityCard({
   const backend = import.meta.env.VITE_BACKEND;
   const portrait = backend + "assets/" + entity.portrait;
   const name = entity.name != null ? entity.name : entity.title;
-  const cardContId = (() => {
-    if (entity && !currentChat) {
-      return styles.entityCard;
+  const members =
+    entity.members != null
+      ? entity.members
+          .map((member) => {
+            return member.username;
+          })
+          .toString()
+      : null;
+  console.log("members");
+  console.log(members);
+  const isActiveChat = (() => {
+    if (entity && currentChat == null) {
+      return false;
     } else {
       if (entity.id == currentChat.id) {
-        return styles.entityCardActive;
+        return true;
       } else {
-        return styles.entityCard;
+        return false;
       }
     }
   })();
+  const cardContId = (() => {
+    if (!isActiveChat) {
+      return styles.entityCard;
+    } else {
+      return styles.entityCardActive;
+    }
+  })();
+
   return (
     <div
       id={cardContId}
@@ -42,8 +60,22 @@ function EntityCard({
       <div className={styles.entityInfo}>
         <div className={styles.cardName}>{name}</div>
         {entity.username != undefined ? (
-          <div className={styles.cardUsername}>{entity.username}</div>
-        ) : null}
+          <div
+            className={
+              !isActiveChat ? styles.cardUsername : styles.cardUsernameActive
+            }
+          >
+            {entity.username}
+          </div>
+        ) : (
+          <div
+            className={
+              !isActiveChat ? styles.cardUsername : styles.cardUsernameActive
+            }
+          >
+            {members}
+          </div>
+        )}
 
         {msg != null ? (
           <div className={styles.lastMsg} role="msg">
