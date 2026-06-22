@@ -94,6 +94,12 @@ async function postGroup(req, res) {
         data: {
             title: req.body.title,
             portrait: req.body.portrait,
+            admin: {
+                connect: {
+                    id: req.user.id
+                }
+                
+            },
             chat: {
                 create: 
                     {
@@ -101,7 +107,8 @@ async function postGroup(req, res) {
                         connect: users.map(i => ({id: i})) || []
                     }
                 }
-            }
+            },
+            
         },
         include: {
             chat: {

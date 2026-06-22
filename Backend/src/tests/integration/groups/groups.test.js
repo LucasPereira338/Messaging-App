@@ -50,6 +50,7 @@ beforeAll(async () => {
     const firstGroup = await prisma.group.create({
         data: {
             title: 'Group 1',
+            adminId: user.id,
             chat: {
                 create: 
                     {
