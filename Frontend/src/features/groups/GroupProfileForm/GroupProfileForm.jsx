@@ -53,8 +53,7 @@ function GroupProfileForm({ groupId, readOnly }) {
 
         setGroup(result);
         setTitle(result.title);
-        console.log("group fetched ");
-        console.log(result);
+
         const backend = import.meta.env.VITE_BACKEND;
 
         setPortrait(backend + "assets/" + result.portrait);

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { removeGroupMembers } from "../../../services/groupServices";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 
-function GroupMembers({ groupId, members, readOnly, handleGroup }) {
+function GroupMembers({ groupId, members, readOnly, handleUpdate }) {
   const [removeMembers, setRemoveMembers] = useState([]);
 
-  const handleMember = (memberId) => {
+  const handleRmvMember = (memberId) => {
     let newArr = removeMembers.map((item) => {
       return item;
     });
@@ -15,9 +15,9 @@ function GroupMembers({ groupId, members, readOnly, handleGroup }) {
   };
 
   const handleConfirmation = async () => {
-    await removeGroupMembers(groupId, removeMembers);
+    await removeGroupMembers(groupId, { users: removeMembers });
 
-    handleGroup();
+    handleUpdate();
   };
 
   return (
@@ -33,7 +33,7 @@ function GroupMembers({ groupId, members, readOnly, handleGroup }) {
               {member.id != localStorage.getItem("userId") && !readOnly ? (
                 <button
                   type="button"
-                  onClick={() => handleMember(member.id)}
+                  onClick={() => handleRmvMember(member.id)}
                   className={styles.memberBtn}
                 >
                   Remove Member

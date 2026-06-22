@@ -72,8 +72,16 @@ function MessageBoard() {
     }
     if (openProfile) {
       setOpenProfile(false);
-      handleCurrentChat(chats[0]);
       handleChats();
+      if (!chats.includes(currentChat)) {
+        if (chats.length > 0) {
+          console.log("chat to current chat");
+          console.log(chats);
+          setCurrentChat(false);
+        } else {
+          console.log(chats);
+        }
+      }
     }
     if (!openProfile) {
       setOpenProfile(entity);
