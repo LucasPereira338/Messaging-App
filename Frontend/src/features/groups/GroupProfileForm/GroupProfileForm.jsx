@@ -10,6 +10,7 @@ function GroupProfileForm({ groupId, readOnly }) {
   const [group, setGroup] = useState(null);
   const [title, setTitle] = useState(null);
   const [portrait, setPortrait] = useState(null);
+  const [members, setMembers] = useState([]);
   const [file, setFile] = useState(null);
   const [update, setUpdate] = useState(null);
 
@@ -17,6 +18,27 @@ function GroupProfileForm({ groupId, readOnly }) {
     const e = ref.current;
     e.target.value = null;
     setFile(null);
+  };
+
+  const handleMembers = (member, op) => {
+    console.log("hand m");
+    console.log(member);
+    let newArr = [];
+    if (op == "rmv") {
+      newArr = members.filter((item) => {
+        if (item.id != member.id) {
+          return item;
+        }
+      });
+    } else {
+      newArr = members.map((item) => {
+        return item;
+      });
+
+      newArr.push(member);
+    }
+
+    setMembers(newArr);
   };
 
   const handleFileChange = (e) => {
@@ -53,6 +75,7 @@ function GroupProfileForm({ groupId, readOnly }) {
 
         setGroup(result);
         setTitle(result.title);
+        setMembers(result.chat.members);
 
         const backend = import.meta.env.VITE_BACKEND;
 
@@ -102,10 +125,12 @@ function GroupProfileForm({ groupId, readOnly }) {
       <div className={styles.groupProfileMembersContainer}>
         <GroupMembers
           groupId={group.id}
-          members={group.chat.members}
+          members={members}
           readOnly={readOnly}
           handleUpdate={handleUpdate}
+          handleMembers={handleMembers}
         />
+        <input type="hidden" name="users" value={members} />
       </div>
       {!readOnly ? <button type="submit">Submit</button> : null}
     </form>
