@@ -44,8 +44,7 @@
 .cardUsername {
   margin-left: 5px;
   font-family: "Timew New Roman";
-  font-size: 0.8em;
-  color: #4d4d4e;
+  font-size: 0.75em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -54,7 +53,7 @@
 .cardUsernameActive {
   margin-left: 5px;
   font-family: "Timew New Roman";
-  font-size: 0.8em;
+  font-size: 0.75em;
   color: #e7ecef;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -62,6 +61,14 @@
 }
 
 .lastMsg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Miranda Sans", Times, serif;
+  margin-left: 5px;
+}
+
+.entityDescription {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

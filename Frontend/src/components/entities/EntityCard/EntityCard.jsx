@@ -81,7 +81,11 @@ function EntityCard({
           <div className={styles.lastMsg} role="msg">
             {msg.content}
           </div>
-        ) : null}
+        ) : (
+          <div className={styles.entityDescription} role="msg">
+            {entity.description}
+          </div>
+        )}
       </div>
       {entity.name ? (
         <div
