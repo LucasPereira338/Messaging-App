@@ -1,5 +1,8 @@
 import * as styles from "./GroupProfile.module.css";
-import { removeGroupMembers } from "../../../services/groupServices";
+import {
+  removeGroupMembers,
+  deleteGroup,
+} from "../../../services/groupServices";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
 import GroupProfileForm from "../GroupProfileForm/GroupProfileForm";
 
@@ -12,11 +15,27 @@ function GroupProfile({ group, handleProfile }) {
     handleProfile();
   };
 
+  const handleGroupDeletion = async () => {
+    await deleteGroup(group.id);
+
+    handleProfile();
+  };
+
   return (
     <div className={styles.groupProfile}>
-      <button className={styles.quitGroupBtn} onClick={handleGroupExit}>
-        Leave Group
-      </button>
+      {readOnly ? (
+        <button className={styles.quitOrDelGroupBtn} onClick={handleGroupExit}>
+          Leave Group
+        </button>
+      ) : (
+        <button
+          className={styles.quitOrDelGroupBtn}
+          onClick={handleGroupDeletion}
+        >
+          Delete Group
+        </button>
+      )}
+
       <div className={styles.groupProfileCloseBtn}>
         <CloseButton handleClick={handleProfile} />
       </div>

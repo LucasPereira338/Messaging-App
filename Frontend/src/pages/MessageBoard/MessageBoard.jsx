@@ -72,6 +72,7 @@ function MessageBoard() {
     }
     if (openProfile) {
       setOpenProfile(false);
+      handleCurrentChat(chats[0]);
       handleChats();
     }
     if (!openProfile) {

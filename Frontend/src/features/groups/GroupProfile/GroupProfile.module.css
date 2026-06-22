@@ -13,6 +13,11 @@
   position: relative;
 }
 
+.quitOrDelGroupBtn {
+  position: absolute;
+  left: 0;
+}
+
 .groupProfileCloseBtn {
   position: absolute;
   right: 0;

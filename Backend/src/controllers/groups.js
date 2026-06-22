@@ -190,6 +190,19 @@ async function removeGroupMembers(req, res) {
 }
 
 async function deleteGroup(req, res) {
+    const groupAdmin = await prisma.group.findUnique({
+        where: {
+            id: req.params.id
+        },
+        select: {
+            adminId: true
+        }
+    })
+
+    if (req.user.id != groupAdmin.adminId) {
+        return res.status(401).json({message: 'unauthorized'})
+    }
+
     const group = await prisma.group.delete({
         where: {
             id: req.params.id
