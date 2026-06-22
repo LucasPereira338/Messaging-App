@@ -1,0 +1,14 @@
+.groupProfileForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 25px;
+  position: relative;
+}
+
+.groupProfilePortrait {
+  max-width: 200px;
+  border-radius: 50%;
+  min-height: 200px;
+  object-fit: cover;
+}

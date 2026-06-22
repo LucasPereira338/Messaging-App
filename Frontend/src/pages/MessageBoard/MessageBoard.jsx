@@ -8,6 +8,7 @@ import { fetchUser } from "../../services/userServices";
 import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
+import GroupProfile from "../../features/groups/GroupProfile/GroupProfile";
 import GroupForm from "../../features/groups/GroupForm/GroupForm";
 import PageSidebar from "../../components/navigation/PageSidebar/PageSidebar";
 import ProfileForm from "../../features/users/ProfileForm/ProfileForm";
@@ -73,7 +74,7 @@ function MessageBoard() {
       setOpenProfile(false);
     }
     if (!openProfile) {
-      setOpenProfile(entity.id);
+      setOpenProfile(entity);
     }
   };
 
@@ -122,7 +123,17 @@ function MessageBoard() {
         {openProfile && (
           <div className={styles.profileFormContainer}>
             <div className={styles.profileFormContent}>
-              <ProfileForm userId={openProfile} handleProfile={handleProfile} />
+              {openProfile.title ? (
+                <GroupProfile
+                  group={openProfile}
+                  handleProfile={handleProfile}
+                />
+              ) : (
+                <ProfileForm
+                  userId={openProfile.id}
+                  handleProfile={handleProfile}
+                />
+              )}
             </div>
           </div>
         )}

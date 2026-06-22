@@ -16,7 +16,8 @@ async function getUserChats(req, res) {
                 select: {
                         id: true,
                         title: true,
-                        portrait: true
+                        portrait: true,
+                        adminId: true
                     }
             },
             members: {
@@ -148,7 +149,8 @@ async function getUserGroupChats(req, res) {
                 select: {
                         id: true,
                         title: true,
-                        portrait: true
+                        portrait: true,
+                        adminId: true
                     }
             },
             messages: {
