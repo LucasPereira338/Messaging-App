@@ -43,7 +43,7 @@
 
 .cardUsername {
   margin-left: 5px;
-  font-family: "Timew New Roman";
+  font-family: "Times New Roman";
   font-size: 0.75em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -52,7 +52,7 @@
 
 .cardUsernameActive {
   margin-left: 5px;
-  font-family: "Timew New Roman";
+  font-family: "Times New Roman";
   font-size: 0.75em;
   color: #e7ecef;
   overflow: hidden;
