@@ -22,6 +22,7 @@ model User {
   portrait         String    @default("profiles/portraits/blank.svg")
   messagesSent     Message[] @relation("author")
   chats Chat[]
+  admins Group[]
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   lastActive        DateTime?
@@ -53,6 +54,8 @@ model Group {
   portrait String    @default("profiles/portraits/blank.svg")
   chat  Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId  String @unique
+  admin User @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminId String @unique
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 }

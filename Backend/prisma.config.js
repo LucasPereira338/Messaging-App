@@ -5,12 +5,12 @@ import { defineConfig } from "prisma/config";
 
 let urlDB;
 
-if (process.env.NODE_ENV === "test") {
+if (process.env.NODE_ENV === "TEST") {
     urlDB = `${process.env.TEST_DATABASE_URL}`;
 } else {
     urlDB = `${process.env.DATABASE_URL}`;
 }
-
+console.log(urlDB)
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
