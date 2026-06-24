@@ -126,6 +126,10 @@ async function postGroup(req, res) {
 
 async function updateGroup(req, res) {
 
+    if (typeof req.file !== "undefined") {
+        req.body.portrait = req.file.path.slice(7)   
+    }
+
     let userAction = {}
 
     let rmvdUsers = []
@@ -160,46 +164,6 @@ async function updateGroup(req, res) {
                 }
             }
     }})
-    
-    res.json(group)
-}
-
-async function removeGroupMembers(req, res) {
-    
-    let users = req.body.users 
-    if (!Array.isArray(users)) {
-        users = [users]
-    }
-    let userAction = {}
-    if (users.length > 0) {
-        userAction = {
-                        disconnect: users.map(i => ({id: i})) || []
-                    }
-    }
-    let rmvdUsers = req.body.rmvdUsers
-    if (!Array.isArray(rmvdUsers)) {
-        rmvdUsers = [rmvdUsers]
-    }
-    
-    const group = await prisma.group.update({
-        where: {
-            id: req.params.id
-        },
-        data: {
-            chat: {
-                update: {
-                        members: userAction
-                    }
-            }
-        },
-        include: {
-            chat: {
-                include: {
-                    members: true
-                }
-            }
-        }
-    })
     
     res.json(group)
 }
@@ -239,6 +203,5 @@ module.exports = {
     getUserGroups,
     postGroup,
     updateGroup,
-    removeGroupMembers,
     deleteGroup
 }
