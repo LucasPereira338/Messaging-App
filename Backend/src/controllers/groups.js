@@ -242,6 +242,10 @@ async function deleteGroup(req, res) {
         }
     })
 
+    if(group.portrait != "profiles/portraits/blank.svg") {
+        await deleteImage(group.portrait)
+    }
+
     res.json(group)
 }
 
