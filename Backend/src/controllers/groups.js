@@ -181,7 +181,7 @@ async function updateGroup(req, res) {
     res.json(group)
 }
 
-async function leaveGroup(req, res) {
+async function leaveGroup(req, res) { 
     
     const group = await prisma.group.update({
         where: {
@@ -191,16 +191,9 @@ async function leaveGroup(req, res) {
             chat: {
                 update: {
                         members: {
-                            disconnect: req.body.user
+                            disconnect: {id: req.body.user}
                         }
                     }
-            }
-        },
-        include: {
-            chat: {
-                include: {
-                    members: true
-                }
             }
         }
     })
