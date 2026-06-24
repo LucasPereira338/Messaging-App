@@ -152,6 +152,15 @@ async function getUserGroupChats(req, res) {
                         adminId: true
                     }
             },
+            members: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    portrait: true,
+                    lastActive: true
+                }
+            },
             messages: {
                 select: {
                     id: true,
