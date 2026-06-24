@@ -125,33 +125,19 @@ async function postGroup(req, res) {
 }
 
 async function updateGroup(req, res) {
+
+    let userAction = {}
+
+    let rmvdUsers = []
+    if (req.body.rmvdUsers) {
+        rmvdUsers = req.body.rmvdUsers.split(",")
+        userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
+    }
     
     let users = []
     if (req.body.users) {
         users = req.body.users.split(",")
-    }
-    
-    let rmvdUsers = []
-    if (req.body.rmvdUsers) {
-        rmvdUsers = req.body.rmvdUsers.split(",")
-    }
-    
-    let userAction = {}
-    if (users.length > 0 || rmvdUsers.length > 0) {
-        if (users.length > 0 && rmvdUsers.length == 0) {
-            userAction = {
-                    connect: users.map(i => ({id: i})) || []
-                    } 
-        } else if (users.length == 0 && rmvdUsers.length > 0){
-            userAction = {
-                    disconnect: rmvdUsers.map(i => ({id: i})) || []
-                    }
-        } else {
-            userAction = {
-                    disconnect: rmvdUsers.map(i => ({id: i})) || [],
-                    connect: users.map(i => ({id: i})) || [],
-                    } 
-        }
+        userAction.connect = users.map(i => ({id: i})) || []
     }
     
     const group = await prisma.group.update({
