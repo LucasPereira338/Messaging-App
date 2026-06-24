@@ -23,8 +23,6 @@ function GroupProfileForm({ groupId, readOnly }) {
   };
 
   const handleMember = (member, op) => {
-    console.log("hand m");
-    console.log(member);
     let newArr = [];
     if (op == "rmv") {
       newArr = members.filter((item) => {
@@ -34,8 +32,7 @@ function GroupProfileForm({ groupId, readOnly }) {
       });
       const newRmvArr = membersToRmv;
       newRmvArr.push(member.id);
-      console.log("newrmvarr");
-      console.log(newRmvArr);
+
       setMembersToRmv(newRmvArr);
     } else {
       newArr = members.map((item) => {
@@ -86,6 +83,18 @@ function GroupProfileForm({ groupId, readOnly }) {
         const result = await fetchGroup(groupId);
 
         setGroup(result);
+        if (result.chat.members[0].id != result.adminId) {
+          let first = result.chat.members[0];
+          let adminPos = {};
+          for (let i = 0; i <= result.chat.members.length - 1; i++) {
+            if (result.chat.members[i].id == result.adminId) {
+              adminPos = result.chat.members[i];
+              result.chat.members[i] = first;
+              break;
+            }
+          }
+          result.chat.members[0] = adminPos;
+        }
         setTitle(result.title);
         setMembers(result.chat.members);
 

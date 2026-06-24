@@ -2,6 +2,10 @@
   overflow: auto;
 }
 
+.groupProfileMembers {
+  overflow: auto;
+}
+
 .groupProfileMembersCards {
   display: flex;
   gap: 1px;
