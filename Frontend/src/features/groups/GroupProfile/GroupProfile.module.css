@@ -11,6 +11,7 @@
   border: groove 1px #e7ecef;
   border-radius: 10px;
   position: relative;
+  overflow: hidden;
 }
 
 .quitOrDelGroupBtn {

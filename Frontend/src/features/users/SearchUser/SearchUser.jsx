@@ -40,7 +40,7 @@ function SearchUser({ handleNewUser, msg = null, width = "default" }) {
         name="name"
         value={term}
         onChange={handleChange}
-        placeholder={msg ? msg : "Search for users"}
+        placeholder={msg ? msg : "Search for  users"}
         className={
           width == "group"
             ? styles.searchUserInputGroup
