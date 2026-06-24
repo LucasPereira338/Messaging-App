@@ -1,5 +1,4 @@
 import * as styles from "./GroupMembers.module.css";
-import { useState } from "react";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import SearchUser from "../../users/SearchUser/SearchUser";
 

@@ -126,6 +126,19 @@ async function postGroup(req, res) {
 
 async function updateGroup(req, res) {
 
+    const groupAdmin = await prisma.group.findUnique({
+        where: {
+            id: req.params.id
+        },
+        select: {
+            adminId: true
+        }
+    })
+    
+    if(req.user.id != groupAdmin.adminId) {
+        return res.status(401).json({message:'unauthorized'})
+    }
+
     if (typeof req.file !== "undefined") {
         req.body.portrait = req.file.path.slice(7)   
     }
@@ -168,6 +181,33 @@ async function updateGroup(req, res) {
     res.json(group)
 }
 
+async function leaveGroup(req, res) {
+    
+    const group = await prisma.group.update({
+        where: {
+            id: req.params.id
+        },
+        data: {
+            chat: {
+                update: {
+                        members: {
+                            disconnect: req.body.user
+                        }
+                    }
+            }
+        },
+        include: {
+            chat: {
+                include: {
+                    members: true
+                }
+            }
+        }
+    })
+    
+    res.json(group)
+}
+
 async function deleteGroup(req, res) {
     const groupAdmin = await prisma.group.findUnique({
         where: {
@@ -203,5 +243,6 @@ module.exports = {
     getUserGroups,
     postGroup,
     updateGroup,
+    leaveGroup,
     deleteGroup
 }
