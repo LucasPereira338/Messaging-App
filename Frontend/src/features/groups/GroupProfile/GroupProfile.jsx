@@ -1,8 +1,5 @@
 import * as styles from "./GroupProfile.module.css";
-import {
-  removeGroupMembers,
-  deleteGroup,
-} from "../../../services/groupServices";
+import { deleteGroup } from "../../../services/groupServices";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
 import GroupProfileForm from "../GroupProfileForm/GroupProfileForm";
 
@@ -11,7 +8,7 @@ function GroupProfile({ group, handleProfile }) {
   const readOnly = group.adminId == userId ? false : true;
 
   const handleGroupExit = async () => {
-    await removeGroupMembers(group.id, { users: [userId] });
+    console.log("exit group placeholder");
     handleProfile();
   };
 

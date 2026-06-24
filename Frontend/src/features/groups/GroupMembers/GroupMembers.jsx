@@ -1,6 +1,5 @@
 import * as styles from "./GroupMembers.module.css";
 import { useState } from "react";
-import { removeGroupMembers } from "../../../services/groupServices";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import SearchUser from "../../users/SearchUser/SearchUser";
 
@@ -17,7 +16,10 @@ function GroupMembers({ members, readOnly, handleMember }) {
 
   console.log(addToggle);
   return (
-    <div className={styles.groupProfileMembersContainer}>
+    <div
+      className={styles.groupProfileMembersContainer}
+      data-testid="GroupMembers"
+    >
       <h3 className={styles.groupProfileMemberTitle}>Members</h3>
       <div className={styles.groupProfileMembers}>
         {members.map((member, ind) => {
@@ -44,7 +46,11 @@ function GroupMembers({ members, readOnly, handleMember }) {
           <SearchUser handleNewUser={handleAddMember} />{" "}
         </div>
       ) : (
-        <button type="button" onClick={setAddToggle}>
+        <button
+          type="button"
+          onClick={setAddToggle}
+          data-testid="AddMemberToggle"
+        >
           +
         </button>
       )}

@@ -85,22 +85,6 @@ export async function updateGroup(id, data) {
     return response.json()
 }
 
-export async function removeGroupMembers(id, data) {
-    const backend = import.meta.env.VITE_BACKEND
-    
-    const url = backend + 'groups/' + id + '/members'
-
-    const token = localStorage.getItem('token')
-    
-    const response = await fetch(url, {
-        method: 'PUT',
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify(data)
-    })
-    return response.json()
-}
-
 export async function deleteGroup(id) {
     const backend = import.meta.env.VITE_BACKEND
     
