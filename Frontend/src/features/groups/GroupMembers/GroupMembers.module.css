@@ -4,6 +4,19 @@
 
 .groupProfileMembers {
   overflow: auto;
+  position: relative;
+  z-index: 11;
+}
+
+.groupProfileMemberTitle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.groupMemberAdd {
+  flex: 2;
+  z-index: 12;
 }
 
 .groupProfileMembersCards {

@@ -5,7 +5,7 @@ import { fetchUsers } from "../../../services/userServices";
 import { useOutsideClick } from "../../../hooks/hooks";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 
-function SearchUser({ handleNewUser, width = "default" }) {
+function SearchUser({ handleNewUser, msg = null, width = "default" }) {
   const [term, setTerm] = useState("");
   const [debouncedTerm] = useDebounce(term, 300);
   const [isSearching, setIsSearching] = useState(false);
@@ -40,7 +40,7 @@ function SearchUser({ handleNewUser, width = "default" }) {
         name="name"
         value={term}
         onChange={handleChange}
-        placeholder="Search users"
+        placeholder={msg ? msg : "Search for users"}
         className={
           width == "group"
             ? styles.searchUserInputGroup

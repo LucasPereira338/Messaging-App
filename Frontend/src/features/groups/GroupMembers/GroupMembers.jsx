@@ -20,7 +20,17 @@ function GroupMembers({ members, readOnly, handleMember }) {
       className={styles.groupProfileMembersContainer}
       data-testid="GroupMembers"
     >
-      <h3 className={styles.groupProfileMemberTitle}>Members</h3>
+      <div className={styles.groupProfileMemberTitle}>
+        <h3>Members</h3>
+        {!readOnly && (
+          <div className={styles.groupMemberAdd}>
+            <SearchUser
+              msg={"search for new members to add to the group"}
+              handleNewUser={handleAddMember}
+            />
+          </div>
+        )}
+      </div>
       <div className={styles.groupProfileMembers}>
         {members.map((member, ind) => {
           return (
@@ -41,19 +51,6 @@ function GroupMembers({ members, readOnly, handleMember }) {
           );
         })}
       </div>
-      {addToggle ? (
-        <div className={styles.groupMemberAdd}>
-          <SearchUser handleNewUser={handleAddMember} />{" "}
-        </div>
-      ) : (
-        <button
-          type="button"
-          onClick={setAddToggle}
-          data-testid="AddMemberToggle"
-        >
-          +
-        </button>
-      )}
     </div>
   );
 }
