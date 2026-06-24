@@ -41,7 +41,8 @@ function GroupProfileForm({ groupId, readOnly }) {
       newArr = members.map((item) => {
         return item;
       });
-      const newAddArr = [member.id];
+      const newAddArr = membersToAdd;
+      newAddArr.push(member.id);
       setMembersToAdd(newAddArr);
       newArr.push(member);
     }
@@ -72,6 +73,9 @@ function GroupProfileForm({ groupId, readOnly }) {
     const result = await updateGroup(groupId, formData);
 
     setGroup(result);
+
+    setMembersToAdd([]);
+    setMembersToRmv([]);
 
     // handleProfile();
   };
