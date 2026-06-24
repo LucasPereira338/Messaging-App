@@ -127,10 +127,37 @@ async function postGroup(req, res) {
 async function updateGroup(req, res) {
     
     let users = req.body.users 
-    if (!Array.isArray(users)) {
+    console.log(typeof users)
+    if (!Array.isArray(users) && users) {
         users = [users]
     }
+    let rmvdUsers = req.body.rmvdUsers
+    if (!Array.isArray(rmvdUsers)) {
+        rmvdUsers = [rmvdUsers]
+    }
+    console.log('users')
     console.log(users)
+    console.log('rmvdUsers')
+    console.log(rmvdUsers)
+    let userAction = {}
+    if (users.length > 0 || rmvdUsers.length > 0) {
+        if (users.length > 0 && rmvdUsers.length == 0) {
+            userAction = {
+                        connect: users.map(i => ({id: i})) || []
+                    } 
+        } else if (users.length == 0 && rmvdUsers.length > 0){
+            userAction = {
+                        disconnect: rmvdUsers.map(i => ({id: i})) || []
+                    }
+        } else {
+            userAction = {
+                        connect: users.map(i => ({id: i})) || [],
+                        disconnect: rmvdUsers.map(i => ({id: i})) || []
+                    } 
+        }
+    }
+    console.log('user action:')
+    console.log(userAction)
     const group = await prisma.group.update({
         where: {
             id: req.params.id
@@ -140,9 +167,7 @@ async function updateGroup(req, res) {
             portrait: req.body.portrait || undefined,
             chat: {
                 update: {
-                        members: {
-                            connect: users.map(i => ({id: i})) || []
-                        }
+                        members: userAction
                     }
             }
         },
@@ -163,6 +188,16 @@ async function removeGroupMembers(req, res) {
     if (!Array.isArray(users)) {
         users = [users]
     }
+    let userAction = {}
+    if (users.length > 0) {
+        userAction = {
+                        disconnect: users.map(i => ({id: i})) || []
+                    }
+    }
+    let rmvdUsers = req.body.rmvdUsers
+    if (!Array.isArray(rmvdUsers)) {
+        rmvdUsers = [rmvdUsers]
+    }
     
     const group = await prisma.group.update({
         where: {
@@ -171,9 +206,7 @@ async function removeGroupMembers(req, res) {
         data: {
             chat: {
                 update: {
-                        members: {
-                            disconnect: users.map(i => ({id: i})) || []
-                        }
+                        members: userAction
                     }
             }
         },

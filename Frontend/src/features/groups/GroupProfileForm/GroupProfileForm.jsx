@@ -11,6 +11,8 @@ function GroupProfileForm({ groupId, readOnly }) {
   const [title, setTitle] = useState(null);
   const [portrait, setPortrait] = useState(null);
   const [members, setMembers] = useState([]);
+  const [membersToAdd, setMembersToAdd] = useState([]);
+  const [membersToRmv, setMembersToRmv] = useState([]);
   const [file, setFile] = useState(null);
   const [update, setUpdate] = useState(null);
 
@@ -20,7 +22,7 @@ function GroupProfileForm({ groupId, readOnly }) {
     setFile(null);
   };
 
-  const handleMembers = (member, op) => {
+  const handleMember = (member, op) => {
     console.log("hand m");
     console.log(member);
     let newArr = [];
@@ -30,11 +32,14 @@ function GroupProfileForm({ groupId, readOnly }) {
           return item;
         }
       });
+      const newRmvArr = [member.id]; //[...membersToRmv, member.id];
+      setMembersToRmv(newRmvArr);
     } else {
       newArr = members.map((item) => {
         return item;
       });
-
+      const newAddArr = [member.id];
+      setMembersToAdd(newAddArr);
       newArr.push(member);
     }
 
@@ -61,7 +66,7 @@ function GroupProfileForm({ groupId, readOnly }) {
 
     const formData = new FormData(event.currentTarget);
 
-    const result = await updateGroup(formData, groupId);
+    const result = await updateGroup(groupId, formData);
 
     setGroup(result);
 
@@ -128,9 +133,10 @@ function GroupProfileForm({ groupId, readOnly }) {
           members={members}
           readOnly={readOnly}
           handleUpdate={handleUpdate}
-          handleMembers={handleMembers}
+          handleMember={handleMember}
         />
-        <input type="hidden" name="users" value={members} />
+        <input type="hidden" name="users" value={membersToAdd} />
+        <input type="hidden" name="rmvdUsers" value={membersToRmv} />
       </div>
       {!readOnly ? <button type="submit">Submit</button> : null}
     </form>

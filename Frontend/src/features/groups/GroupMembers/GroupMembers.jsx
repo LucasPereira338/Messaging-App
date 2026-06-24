@@ -4,6 +4,63 @@ import { removeGroupMembers } from "../../../services/groupServices";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import SearchUser from "../../users/SearchUser/SearchUser";
 
+function GroupMembers({ members, readOnly, handleMember }) {
+  const [addToggle, setAddToggle] = useState(false);
+
+  const handleAddMember = (member) => {
+    handleMember(member, "add");
+  };
+
+  const handleRmvMember = (member) => {
+    handleMember(member, "rmv");
+  };
+
+  console.log(addToggle);
+  return (
+    <div className={styles.groupProfileMembersContainer}>
+      <h3 className={styles.groupProfileMemberTitle}>Members</h3>
+      <div className={styles.groupProfileMembers}>
+        {members.map((member, ind) => {
+          return (
+            <div className={styles.groupProfileMembersCards}>
+              <div className={styles.groupProfileMemberCard}>
+                <EntityCard key={ind} entity={member} />
+              </div>
+              {member.id != localStorage.getItem("userId") && !readOnly ? (
+                <button
+                  type="button"
+                  onClick={() => handleRmvMember(member)}
+                  className={styles.memberBtn}
+                >
+                  Remove Member
+                </button>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+      {addToggle ? (
+        <div className={styles.groupMemberAdd}>
+          <SearchUser />{" "}
+        </div>
+      ) : (
+        <button type="button" onClick={setAddToggle}>
+          +
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default GroupMembers;
+
+/* b4 unification of add and rmv members
+import * as styles from "./GroupMembers.module.css";
+import { useState } from "react";
+import { removeGroupMembers } from "../../../services/groupServices";
+import EntityCard from "../../../components/entities/EntityCard/EntityCard";
+import SearchUser from "../../users/SearchUser/SearchUser";
+
 function GroupMembers({
   groupId,
   members,
@@ -84,3 +141,4 @@ function GroupMembers({
 }
 
 export default GroupMembers;
+*/

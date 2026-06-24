@@ -69,7 +69,7 @@ export async function createGroup(data) {
     return response.json()
 }
 
-export async function updateGroup(data, id) {
+export async function updateGroup(id, data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + id
