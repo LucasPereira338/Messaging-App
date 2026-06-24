@@ -41,7 +41,7 @@ function GroupMembers({ members, readOnly, handleMember }) {
       </div>
       {addToggle ? (
         <div className={styles.groupMemberAdd}>
-          <SearchUser />{" "}
+          <SearchUser handleNewUser={handleAddMember} />{" "}
         </div>
       ) : (
         <button type="button" onClick={setAddToggle}>

@@ -132,7 +132,7 @@ async function updateGroup(req, res) {
         users = [users]
     }
     let rmvdUsers = req.body.rmvdUsers
-    if (!Array.isArray(rmvdUsers)) {
+    if (!Array.isArray(rmvdUsers) && rmvdUsers) {
         rmvdUsers = [rmvdUsers]
     }
     console.log('users')

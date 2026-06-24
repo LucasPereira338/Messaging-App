@@ -32,7 +32,10 @@ function GroupProfileForm({ groupId, readOnly }) {
           return item;
         }
       });
-      const newRmvArr = [member.id]; //[...membersToRmv, member.id];
+      const newRmvArr = membersToRmv;
+      newRmvArr.push(member.id);
+      console.log("newrmvarr");
+      console.log(newRmvArr);
       setMembersToRmv(newRmvArr);
     } else {
       newArr = members.map((item) => {
