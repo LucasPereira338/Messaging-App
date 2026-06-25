@@ -37,19 +37,10 @@ export function arrayObjToStr(oldArr) {
 export function addMemberDataToMsg(chat, loggedUserId) {
   const messages = chat[0].messages;
  
-  const members = chat[0].members;
-  
-  if (typeof chat == 'undefined') {
-    return "undefined 'array'"
-  }
-  for (let i = 0; i <= messages.length - 1; i++) {
-        messages[i].userId = loggedUserId;
-        for (let j = 0; j <= members.length - 1; j++) {
-          if (messages[i].authorId == members[j].id) {
-            messages[i].portrait = members[j].portrait
-            messages[i].username = members[j].username
-          } 
-        }
+  for(let i=0; i <= messages.length - 1; i++) {
+    messages[i].userId = loggedUserId;
+    messages[i].username = messages[i].author.username;
+    messages[i].portrait = messages[i].author.portrait
   }
   
   return messages

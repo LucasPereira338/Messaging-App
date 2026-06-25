@@ -193,25 +193,21 @@ async function getChatMessages(req, res) {
         },
         include: {
             messages: {
-                select: {
-                    id: true,
-                    authorId: true,
-                    content: true,
-                    image: true,
-                    createdAt: true,
-                }, 
+                include: {
+                    author: {
+                        select: {
+                            id: true,
+                            username: true,
+                            portrait: true
+                        }
+                    }
+                },
                 orderBy: {
                     createdAt: 'asc'
                 }
             },
-            group: true,
-            members: {
-                select: {
-                    id: true,
-                    username: true,
-                    portrait: true
-                }
-            }
+            group: true
+            
         }
     })
 

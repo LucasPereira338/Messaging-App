@@ -24,9 +24,7 @@ function ChatBox({ updateChats, handleChats, handleProfile }) {
       try {
         const fetchChat = async () => {
           let result = await fetchChatMessages(currentChat.chatId);
-
           const msgs = addMemberDataToMsg(result, user.id);
-
           setMessages(msgs);
         };
 
