@@ -134,8 +134,13 @@ function MessageBoard() {
       };
       if (chats.length > 0 && !currentChat) {
         defaultChat();
-      } else if (chats.length > 0 && !chats.includes(currentChat)) {
-        defaultChat();
+      } else if (chats.length > 0 && currentChat) {
+        const isCurrentChatInChats = chats.find((obj) => {
+          return obj.chatId === currentChat.chatId;
+        });
+        if (!isCurrentChatInChats) {
+          defaultChat();
+        }
       } else if (chats.length == 0) {
         rmvChat();
       }
