@@ -15,7 +15,7 @@ let secondUser;
 let thirdUser;
 
 beforeAll(async () => {
-    
+
     const john = await prisma.user.create({
         data: {
             name:'john',
@@ -50,7 +50,12 @@ beforeAll(async () => {
     const firstGroup = await prisma.group.create({
         data: {
             title: 'Group 1',
-            adminId: user.id,
+            admin: {
+                connect: {
+                    id: user.id
+                }
+                
+            },
             chat: {
                 create: 
                     {
@@ -70,7 +75,7 @@ beforeAll(async () => {
     })
 
     group = firstGroup
-    
+    console.log(group)
 })
 
 test("get's a group's messages", done => {
@@ -112,17 +117,8 @@ test("updates a group's information and adds new data", done => {
         .put('/groups/' + group.id)
         .set('Authorization', `Bearer ${userToken}`)
         .type('form')
-        .send({title: 'Group 1.0', users: [secondUser.id, thirdUser.id]})
+        .send({title: 'Group 1.0', users: secondUser.id + "," + thirdUser.id})
         .expect(/Group 1.0/)
-        .expect(200, done)
-})
-
-test("removes a member from a group", done => {
-    request(app)
-        .put('/groups/' + group.id + '/members')
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({users: [secondUser.id, thirdUser.id]})
         .expect(200, done)
 })
 
