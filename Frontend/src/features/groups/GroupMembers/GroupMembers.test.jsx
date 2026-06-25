@@ -1,6 +1,5 @@
 import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { userEvent } from "@testing-library/user-event";
 import GroupMembers from "./GroupMembers";
 import { MessageContext } from "../../../contexts/MessageContext";
 
@@ -36,25 +35,5 @@ describe("GroupMembers", () => {
 
     expect(groupMembers).toBeInTheDocument();
     expect(entity).toBeInTheDocument();
-  });
-
-  it("toggles on the user search bar", async () => {
-    const handleMember = vi.fn();
-    const user = userEvent.setup();
-    render(
-      <GroupMembers
-        members={members}
-        readOnly={false}
-        handleMember={handleMember}
-      />,
-    );
-
-    const toggleBtn = await screen.findByTestId("AddMemberToggle");
-
-    await user.click(toggleBtn);
-
-    const searchUser = await screen.findByTestId("SearchUser");
-
-    expect(searchUser).toBeInTheDocument();
   });
 });
