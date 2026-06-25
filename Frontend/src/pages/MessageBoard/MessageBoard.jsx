@@ -50,10 +50,11 @@ function MessageBoard() {
     setUpdateChats(Math.random());
   };
 
-  const handleCreateGroup = () => {
+  const handleCreateGroup = (group) => {
     if (isCreateGroup) {
       setIsCreateGroup(false);
       handleChats();
+      handleCurrentChat(group);
     } else {
       setIsCreateGroup(true);
     }
@@ -73,13 +74,11 @@ function MessageBoard() {
       setUserUpdated(Math.random());
     }
     if (openProfile) {
-      setOpenProfile(false);
-      handleChats();
-      if (!chats.includes(currentChat)) {
-        if (chats.length > 0) {
-          setCurrentChat(null);
-        }
+      if (typeof entity != "undefined") {
+        handleChats();
+        setCurrentChat(null);
       }
+      setOpenProfile(false);
     }
     if (!openProfile) {
       setOpenProfile(entity);
@@ -124,6 +123,19 @@ function MessageBoard() {
       }
     }
   }, [userId, user, updateChats, content, onlineOnly]);
+
+  useEffect(() => {
+    if (chats) {
+      const defaultChat = async () => {
+        await setCurrentChat(chats[0]);
+      };
+      if (chats.length > 0 && !currentChat) {
+        defaultChat();
+      } else if (chats.length > 0 && !chats.includes(currentChat)) {
+        defaultChat();
+      }
+    }
+  }, [chats, currentChat]);
 
   return (
     <MessageContext value={{ user, chats, currentChat, content, onlineOnly }}>

@@ -7,8 +7,6 @@ export function pushUniqueIdsAndChatId(uniqueIds, allIds) {
       item.group.chatId = item.id;
       item.group.message = item.messages[0];
       item.group.members = item.members
-      console.log('the group: ')
-      console.log(item.group)
       uniqueIds.push(item.group);
     } else {
         for (let i = 0; i <= item.members.length - 1; i++) {

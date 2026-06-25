@@ -9,12 +9,12 @@ function GroupProfile({ group, handleProfile }) {
 
   const handleGroupExit = async () => {
     await exitGroup(group.id, { user: userId });
-    handleProfile();
+    handleProfile(group);
   };
 
   const handleGroupDeletion = async () => {
     await deleteGroup(group.id);
-    handleProfile();
+    handleProfile(group);
   };
 
   return (

@@ -40,7 +40,7 @@ function GroupForm({ handleCreateGroup }) {
 
       if (result.title) {
         alert(`Group "${result.title}" created successfully!`);
-        handleCreateGroup();
+        handleCreateGroup(result);
       }
     }
   };

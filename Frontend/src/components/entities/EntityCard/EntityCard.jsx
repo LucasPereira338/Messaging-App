@@ -24,8 +24,7 @@ function EntityCard({
           })
           .toString()
       : null;
-  console.log("members");
-  console.log(members);
+
   const isActiveChat = (() => {
     if (entity && currentChat == null) {
       return false;

@@ -1,5 +1,5 @@
 import * as styles from "./MessageSidebar.module.css";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
 import { postNewChat } from "../../../services/chatServices";
 import EntityCard from "../../entities/EntityCard/EntityCard";
@@ -16,14 +16,6 @@ function MessageSidebar({
   const { currentChat } = useContext(MessageContext);
   const { content } = useContext(MessageContext);
   const { onlineOnly } = useContext(MessageContext);
-
-  useEffect(() => {
-    if (chats) {
-      if (chats.length > 0 && !currentChat) {
-        handleCurrentChat(chats[0]);
-      }
-    }
-  });
 
   const handleNewUser = async (data) => {
     const matchingItem = chats.filter((item) => {

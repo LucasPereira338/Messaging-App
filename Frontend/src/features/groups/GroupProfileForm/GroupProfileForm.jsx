@@ -76,7 +76,6 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
     if (groupId) {
       const getGroup = async () => {
         const result = await fetchGroup(groupId);
-        console.log(result);
         setGroup(result);
         if (result.chat.members[0].id != result.adminId) {
           let first = result.chat.members[0];
