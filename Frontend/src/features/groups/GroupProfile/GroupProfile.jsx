@@ -36,7 +36,11 @@ function GroupProfile({ group, handleProfile }) {
         <CloseButton handleClick={handleProfile} />
       </div>
       <div className={styles.groupProfileFormContainer}>
-        <GroupProfileForm groupId={group.id} readOnly={readOnly} />
+        <GroupProfileForm
+          groupId={group.id}
+          readOnly={readOnly}
+          handleProfile={handleProfile}
+        />
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ function MessageBoard() {
 
   const [userUpdated, setUserUpdated] = useState();
 
-  const [updateChats, setupdateChats] = useState();
+  const [updateChats, setUpdateChats] = useState();
 
   const [onlineOnly, setOnlineOnly] = useState(false);
 
@@ -47,7 +47,7 @@ function MessageBoard() {
   };
 
   const handleChats = () => {
-    setupdateChats(Math.random());
+    setUpdateChats(Math.random());
   };
 
   const handleCreateGroup = () => {
@@ -75,11 +75,7 @@ function MessageBoard() {
       handleChats();
       if (!chats.includes(currentChat)) {
         if (chats.length > 0) {
-          console.log("chat to current chat");
-          console.log(chats);
-          setCurrentChat(false);
-        } else {
-          console.log(chats);
+          setCurrentChat(chats[0]);
         }
       }
     }

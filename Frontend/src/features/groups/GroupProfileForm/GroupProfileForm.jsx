@@ -5,7 +5,7 @@ import { getImageFile } from "../../../helpers/fileHelpers";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import GroupMembers from "../GroupMembers/GroupMembers";
 
-function GroupProfileForm({ groupId, readOnly }) {
+function GroupProfileForm({ groupId, readOnly, handleProfile }) {
   let ref = useRef(null);
   const [group, setGroup] = useState(null);
   const [title, setTitle] = useState(null);
@@ -74,7 +74,7 @@ function GroupProfileForm({ groupId, readOnly }) {
     setMembersToAdd([]);
     setMembersToRmv([]);
 
-    // handleProfile();
+    handleProfile();
   };
 
   useEffect(() => {
