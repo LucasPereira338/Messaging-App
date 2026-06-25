@@ -202,34 +202,36 @@ async function leaveGroup(req, res) {
 }
 
 async function deleteGroup(req, res) {
+    
     const groupInfo = await prisma.group.findUnique({
         where: {
             id: req.params.id
         },
         select: {
             adminId: true,
-            chatId: true
+            chatId: true,
+            portrait: true
         }
     })
-    console.log(groupInfo)
+    
     if (req.user.id != groupInfo.adminId) {
         return res.status(401).json({message: 'unauthorized'})
     }
 
-    const group = await prisma.chat.delete({
+    const chat = await prisma.chat.delete({
         where: {
             id: groupInfo.chatId
         },
         include: {
             group: true
         }
-    })
-
-    if(group.group.portrait != "profiles/portraits/blank.svg") {
-        await deleteImage(group.group.portrait)
+    }) 
+    
+    if(groupInfo.portrait != "profiles/portraits/blank.svg") {
+        await deleteImage(groupInfo.portrait)
     }
 
-    res.json(group)
+    res.json(chat.group)
 }
 
 
