@@ -28,11 +28,11 @@ function GroupMembers({ members, readOnly, handleMember }) {
         )}
       </div>
       <div className={styles.groupProfileMembers}>
-        {members.map((member, ind) => {
+        {members.map((member) => {
           return (
-            <div className={styles.groupProfileMembersCards}>
+            <div key={member.id} className={styles.groupProfileMembersCards}>
               <div className={styles.groupProfileMemberCard}>
-                <EntityCard key={ind} entity={member} />
+                <EntityCard entity={member} />
               </div>
               {member.id != localStorage.getItem("userId") && !readOnly ? (
                 <button
