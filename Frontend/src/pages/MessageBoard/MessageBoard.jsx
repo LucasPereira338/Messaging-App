@@ -61,6 +61,8 @@ function MessageBoard() {
 
   const handleCurrentChat = (twData) => {
     setCurrentChat(twData);
+    console.log("current chat");
+    console.log(twData);
     if (isCreateGroup) {
       setIsCreateGroup(false);
     }
@@ -75,7 +77,7 @@ function MessageBoard() {
       handleChats();
       if (!chats.includes(currentChat)) {
         if (chats.length > 0) {
-          setCurrentChat(chats[0]);
+          setCurrentChat(null);
         }
       }
     }

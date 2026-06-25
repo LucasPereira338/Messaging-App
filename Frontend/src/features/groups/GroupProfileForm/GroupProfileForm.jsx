@@ -8,13 +8,12 @@ import GroupMembers from "../GroupMembers/GroupMembers";
 function GroupProfileForm({ groupId, readOnly, handleProfile }) {
   let ref = useRef(null);
   const [group, setGroup] = useState(null);
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState("");
   const [portrait, setPortrait] = useState(null);
   const [members, setMembers] = useState([]);
   const [membersToAdd, setMembersToAdd] = useState([]);
   const [membersToRmv, setMembersToRmv] = useState([]);
   const [file, setFile] = useState(null);
-  const [update, setUpdate] = useState(null);
 
   const cancelFile = () => {
     const e = ref.current;
@@ -58,10 +57,6 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
     setTitle(newValue);
   };
 
-  const handleUpdate = () => {
-    setUpdate(Math.random());
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -81,7 +76,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
     if (groupId) {
       const getGroup = async () => {
         const result = await fetchGroup(groupId);
-
+        console.log(result);
         setGroup(result);
         if (result.chat.members[0].id != result.adminId) {
           let first = result.chat.members[0];
@@ -101,18 +96,20 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
         const backend = import.meta.env.VITE_BACKEND;
 
         setPortrait(backend + "assets/" + result.portrait);
-
-        //setGroupValues(Object.values(result));
       };
       getGroup();
     }
-  }, [groupId, update]);
+  }, [groupId]);
 
   if (!group) {
     return <div className={styles.groupLoading}> Loading... </div>;
   }
   return (
-    <form className={styles.groupProfileForm} onSubmit={handleSubmit}>
+    <form
+      className={styles.groupProfileForm}
+      onSubmit={handleSubmit}
+      data-testid="GroupProfileForm"
+    >
       <div className={styles.groupImgInpContainer}>
         {file ? (
           <ImagePreview file={file} cancelFile={cancelFile} />
@@ -145,10 +142,8 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
       </div>
       <div className={styles.groupProfileMembersContainer}>
         <GroupMembers
-          groupId={group.id}
           members={members}
           readOnly={readOnly}
-          handleUpdate={handleUpdate}
           handleMember={handleMember}
         />
         <input type="hidden" name="users" value={membersToAdd} />
