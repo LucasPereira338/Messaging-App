@@ -18,7 +18,7 @@ function GroupProfile({ group, handleProfile }) {
   };
 
   return (
-    <div className={styles.groupProfile}>
+    <div className={styles.groupProfile} data-testid="GroupProfile">
       {readOnly ? (
         <button className={styles.quitOrDelGroupBtn} onClick={handleGroupExit}>
           Leave Group
