@@ -1,8 +1,9 @@
 
 export function pushUniqueIdsAndChatId(uniqueIds, allIds) { 
   const userId = localStorage.getItem("userId");
-  
+  console.log(allIds)
   allIds.forEach((item) => {
+    
     if (item.group != null) {
       item.group.chatId = item.id;
       item.group.message = item.messages[0];

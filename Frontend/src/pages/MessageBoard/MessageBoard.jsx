@@ -129,10 +129,15 @@ function MessageBoard() {
       const defaultChat = async () => {
         await setCurrentChat(chats[0]);
       };
+      const rmvChat = async () => {
+        await setCurrentChat(false);
+      };
       if (chats.length > 0 && !currentChat) {
         defaultChat();
       } else if (chats.length > 0 && !chats.includes(currentChat)) {
         defaultChat();
+      } else if (chats.length == 0) {
+        rmvChat();
       }
     }
   }, [chats, currentChat]);
