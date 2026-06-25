@@ -1,7 +1,7 @@
 
 export function pushUniqueIdsAndChatId(uniqueIds, allIds) { 
   const userId = localStorage.getItem("userId");
-  console.log(allIds)
+  
   allIds.forEach((item) => {
     
     if (item.group != null) {

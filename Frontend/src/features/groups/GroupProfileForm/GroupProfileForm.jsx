@@ -69,7 +69,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
     setMembersToAdd([]);
     setMembersToRmv([]);
 
-    handleProfile();
+    handleProfile(result);
   };
 
   useEffect(() => {

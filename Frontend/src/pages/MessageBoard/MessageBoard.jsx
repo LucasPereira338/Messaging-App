@@ -129,6 +129,9 @@ function MessageBoard() {
       const defaultChat = async () => {
         await setCurrentChat(chats[0]);
       };
+      const updtChat = async (chat) => {
+        await setCurrentChat(chat);
+      };
       const rmvChat = async () => {
         await setCurrentChat(false);
       };
@@ -138,8 +141,11 @@ function MessageBoard() {
         const isCurrentChatInChats = chats.find((obj) => {
           return obj.chatId === currentChat.chatId;
         });
+
         if (!isCurrentChatInChats) {
           defaultChat();
+        } else {
+          updtChat(isCurrentChatInChats);
         }
       } else if (chats.length == 0) {
         rmvChat();
