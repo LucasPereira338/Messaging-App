@@ -75,7 +75,7 @@ beforeAll(async () => {
     })
 
     group = firstGroup
-    
+    console.log(group)
 })
 
 test("get's a group's messages", done => {
