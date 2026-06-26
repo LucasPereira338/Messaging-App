@@ -1,11 +1,12 @@
 .groupProfileMembersContainer {
-  overflow: auto;
+  overflow: hidden;
 }
 
 .groupProfileMembers {
   position: relative;
   z-index: 11;
   max-height: 300px;
+  overflow: scroll;
 }
 
 .groupProfileMemberTitle {
