@@ -9,7 +9,7 @@ function SearchUser({ handleNewUser, msg = null, width = "default" }) {
   const [term, setTerm] = useState("");
   const [debouncedTerm] = useDebounce(term, 300);
   const [isSearching, setIsSearching] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(null);
 
   const handleClickOutside = () => {
     setIsSearching(false);
@@ -54,19 +54,25 @@ function SearchUser({ handleNewUser, msg = null, width = "default" }) {
           className={styles.searchUserDropdown}
           data-testid="SearchUserDropdown"
         >
-          {users.length > 0 ? (
-            users.map((item) => {
-              return (
-                <div key={item.id}>
-                  <EntityCard
-                    entity={item}
-                    handleClick={() => handleNewUser(item)}
-                  />
-                </div>
-              );
-            })
-          ) : (
+          {!users ? (
             <div className={styles.searchUserPending}> Pending... </div>
+          ) : (
+            <div>
+              {users.length > 0 ? (
+                users.map((item) => {
+                  return (
+                    <div key={item.id}>
+                      <EntityCard
+                        entity={item}
+                        handleClick={() => handleNewUser(item)}
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={styles.searchUserPending}>No users found</div>
+              )}
+            </div>
           )}
         </section>
       ) : null}
