@@ -15,12 +15,18 @@ function GroupForm({ handleCreateGroup }) {
 
   const [membersIds, setMembersIds] = useState("");
   const [members, setMembers] = useState([]);
+  const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
     ref.current = e;
     const selectedFile = getImageFile(e);
     setFile(selectedFile);
+  };
+
+  const handleChange = (event) => {
+    const text = event.target.value;
+    setTitle(text);
   };
 
   const cancelFile = () => {
@@ -33,6 +39,8 @@ function GroupForm({ handleCreateGroup }) {
     event.preventDefault();
     if (members.length == 0) {
       alert("Please choose at least one member");
+    } else if (!title) {
+      alert("Please choose a title for the group");
     } else {
       const formData = new FormData(event.currentTarget);
 
@@ -49,25 +57,41 @@ function GroupForm({ handleCreateGroup }) {
     let newStrList;
     if (!membersIds) {
       newStrList = item.id;
+      setMembersIds(newStrList);
+      const newArr = members.concat(item);
+      setMembers(newArr);
     } else {
-      newStrList = membersIds + "," + item.id;
+      const isUserAlreadyInMembers = members.find((obj) => {
+        return obj.id === item.id;
+      });
+
+      if (!isUserAlreadyInMembers) {
+        console.log(!isUserAlreadyInMembers);
+        newStrList = membersIds + "," + item.id;
+        setMembersIds(newStrList);
+        const newArr = members.concat(item);
+        setMembers(newArr);
+      }
     }
-    setMembersIds(newStrList);
-    const newArr = members.concat(item);
-    setMembers(newArr);
   };
 
   const handleRemoveMember = (rmvInd) => {
-    let newStrList = members.filter((item, ind) => {
+    let newList = members.filter((item, ind) => {
       if (ind != rmvInd) {
         return item;
       }
     });
 
-    const newStrListIds = newStrList.map((item) => {
-      return item;
-    });
-    setMembers(newStrList);
+    let newStrListIds = "";
+
+    for (let i = 0; i <= newList.length - 1; i++) {
+      if (i != 0) {
+        newStrListIds = newStrListIds + ",";
+      }
+      newStrListIds = newStrListIds + members[i].id;
+    }
+
+    setMembers(newList);
 
     setMembersIds(newStrListIds);
   };
@@ -109,7 +133,14 @@ function GroupForm({ handleCreateGroup }) {
             id={styles.groupFormTitle}
             className={styles.groupFormInp}
           >
-            Title: <input type="text" name="title" autoComplete="off" />
+            Title:{" "}
+            <input
+              type="text"
+              name="title"
+              autoComplete="off"
+              value={title}
+              onChange={handleChange}
+            />
           </label>
 
           <label
@@ -124,10 +155,10 @@ function GroupForm({ handleCreateGroup }) {
           <div id={styles.groupMembers}>
             {members.map((item, ind) => {
               return (
-                <div id={styles.groupMember}>
+                <div key={item.id} id={styles.groupMember}>
                   {" "}
                   <div className={styles.groupMemberCard}>
-                    <EntityCard key={item.id} entity={item} />
+                    <EntityCard entity={item} />
                   </div>
                   <div className={styles.groupMemberRmv}>
                     <CloseButton handleClick={() => handleRemoveMember(ind)} />
