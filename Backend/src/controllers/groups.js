@@ -145,17 +145,19 @@ async function updateGroup(req, res) {
 
     let userAction = {}
 
+    let users = []
+    if (req.body.users) {
+        users = req.body.users.split(",")
+        userAction.connect = users.map(i => ({id: i})) || []
+    }
+
     let rmvdUsers = []
     if (req.body.rmvdUsers) {
         rmvdUsers = req.body.rmvdUsers.split(",")
         userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
     }
     
-    let users = []
-    if (req.body.users) {
-        users = req.body.users.split(",")
-        userAction.connect = users.map(i => ({id: i})) || []
-    }
+    
     
     const group = await prisma.group.update({
         where: {

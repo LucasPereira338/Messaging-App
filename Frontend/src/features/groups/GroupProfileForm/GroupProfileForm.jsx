@@ -23,6 +23,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
 
   const handleMember = (member, op) => {
     let newArr = [];
+
     if (op == "rmv") {
       newArr = members.filter((item) => {
         if (item.id != member.id) {
@@ -33,14 +34,46 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
       newRmvArr.push(member.id);
 
       setMembersToRmv(newRmvArr);
+      const isUserInMembersToAdd = membersToAdd.find((obj) => {
+        return obj === member.id;
+      });
+
+      if (isUserInMembersToAdd) {
+        const newAddArr = membersToAdd.filter((item) => {
+          if (item.id != member.id) {
+            return item;
+          }
+        });
+
+        setMembersToAdd(newAddArr);
+      }
     } else {
       newArr = members.map((item) => {
         return item;
       });
-      const newAddArr = membersToAdd;
-      newAddArr.push(member.id);
-      setMembersToAdd(newAddArr);
-      newArr.push(member);
+      const isUserAlreadyInMembers = members.find((obj) => {
+        return obj.id === member.id;
+      });
+      if (!isUserAlreadyInMembers) {
+        const newAddArr = membersToAdd;
+        newAddArr.push(member.id);
+
+        setMembersToAdd(newAddArr);
+        newArr.push(member);
+      }
+
+      const isUserInMembersToRmv = membersToRmv.find((obj) => {
+        return obj === member.id;
+      });
+
+      if (isUserInMembersToRmv) {
+        const newRmvArr = membersToRmv.filter((item) => {
+          if (item != member.id) {
+            return item;
+          }
+        });
+        setMembersToRmv(newRmvArr);
+      }
     }
 
     setMembers(newArr);
