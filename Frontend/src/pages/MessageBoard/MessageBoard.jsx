@@ -62,21 +62,25 @@ function MessageBoard() {
 
   const handleCurrentChat = (twData) => {
     setCurrentChat(twData);
-    console.log("current chat");
-    console.log(twData);
+
     if (isCreateGroup) {
       setIsCreateGroup(false);
     }
   };
 
   const handleProfile = (entity) => {
-    if (openProfile == userId) {
+    if (openProfile.id == userId) {
       setUserUpdated(Math.random());
     }
     if (openProfile) {
       if (typeof entity != "undefined") {
         handleChats();
-        setCurrentChat(null);
+        const isCurrentChatInChats = chats.find((obj) => {
+          return obj.chatId === currentChat.chatId;
+        });
+        if (!isCurrentChatInChats) {
+          setCurrentChat(null);
+        }
       }
       setOpenProfile(false);
     }
