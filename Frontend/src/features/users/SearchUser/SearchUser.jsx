@@ -55,7 +55,7 @@ function SearchUser({ handleNewUser, msg = null, width = "default" }) {
           data-testid="SearchUserDropdown"
         >
           {!users ? (
-            <div className={styles.searchUserPending}> Pending... </div>
+            <div> Pending... </div>
           ) : (
             <div>
               {users.length > 0 ? (
@@ -70,7 +70,7 @@ function SearchUser({ handleNewUser, msg = null, width = "default" }) {
                   );
                 })
               ) : (
-                <div className={styles.searchUserPending}>No users found</div>
+                <div>No users found</div>
               )}
             </div>
           )}

@@ -134,7 +134,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
   }, [groupId]);
 
   if (!group) {
-    return <div className={styles.groupLoading}> Loading... </div>;
+    return <div> Loading... </div>;
   }
   return (
     <form

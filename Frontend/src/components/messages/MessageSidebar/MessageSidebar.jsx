@@ -52,14 +52,11 @@ function MessageSidebar({
       )}
 
       {!chats ? (
-        <div className={styles.MessageSidebarLoading}>Loading Chats...</div>
+        <div>Loading Chats...</div>
       ) : (
         <div>
           {chats.length == 0 ? (
-            <h5
-              className={styles.messageSidebarNoChats}
-              data-testid="NoChatHeader"
-            >
+            <h5 data-testid="NoChatHeader">
               {content == "Groups"
                 ? "You're not part of any groups yet!"
                 : onlineOnly
@@ -68,11 +65,7 @@ function MessageSidebar({
             </h5>
           ) : (
             <div>
-              <div
-                className={styles.sidebarUsersList}
-                data-testid="ChatsMembers"
-                role="presentation"
-              >
+              <div data-testid="ChatsMembers" role="presentation">
                 {chats.map((item) => {
                   return (
                     <EntityCard

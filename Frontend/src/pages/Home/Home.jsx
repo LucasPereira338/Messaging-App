@@ -51,8 +51,8 @@ function Home() {
         Chat with your old friends and meet new people!
       </h3>
       <div className={styles.homeContainer}>
-        <h3 className={styles.loginHeader}>Log into a existing account: </h3>
-        <div className={styles.loginContainer}>
+        <h3>Log into a existing account: </h3>
+        <div>
           <LoginForm handleLogin={handleLogin} />
         </div>
         <h3 className={styles.signUpHeader}>

@@ -72,7 +72,7 @@ function MessageInput({ handleChats }) {
         />
         <div className={styles.msgImgContainer}>
           {file ? (
-            <div className={styles.msgImgPreview} data-testid="msgImgPreview">
+            <div data-testid="msgImgPreview">
               <ImagePreview file={file} cancelFile={cancelFile} size="small" />
             </div>
           ) : null}

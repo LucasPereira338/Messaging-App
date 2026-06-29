@@ -124,7 +124,7 @@ function ProfileForm({ userId, handleProfile }) {
         </div>
       ) : null}
       {!user ? (
-        <div className={styles.profileFormLoading}>Loading data...</div>
+        <div>Loading data...</div>
       ) : (
         <form
           encType="multipart/form-data"
@@ -160,7 +160,7 @@ function ProfileForm({ userId, handleProfile }) {
 
           {userValues.map((item, ind) => {
             return (
-              <div key={ind} id={styles.labelInputContainer}>
+              <div key={ind}>
                 {userKeys[ind] != "id" && userKeys[ind] != "portrait" ? (
                   <label
                     htmlFor={userKeys[ind]}

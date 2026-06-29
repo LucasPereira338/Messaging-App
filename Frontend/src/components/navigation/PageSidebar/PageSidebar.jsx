@@ -29,7 +29,7 @@ function PageSidebar({ handleContent }) {
                   className={styles.icon}
                   alt={item}
                 />
-                <div id={styles.pageSidebarItemTxt}>{item}</div>
+                <div>{item}</div>
               </div>
             );
           })
@@ -44,7 +44,6 @@ function PageSidebar({ handleContent }) {
         <img
           src="../../../../icons/logout.png"
           className={styles.icon}
-          id={styles.logoutIcon}
           alt="logout"
         />
         <div id={styles.pageSidebarItemTxt}>Logout</div>

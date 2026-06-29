@@ -28,7 +28,7 @@ function Message({ message, handleMsgToDel }) {
           />
         ) : null}
         <div
-          id={isAuthor ? styles.messageAuthor : styles.message}
+          id={isAuthor ? styles.messageAuthor : null}
           className="general-borders"
         >
           <div
