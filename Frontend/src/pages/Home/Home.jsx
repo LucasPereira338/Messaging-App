@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { fetchUser } from "../../services/userServices";
 import homeBackground from "https://images.pexels.com/photos/7135020/pexels-photo-7135020.jpeg";
-import msgSent from "../../images/svgs/message_sent.svg";
+import msgSent from "../../../images/svgs/message_sent.svg";
 import LoginForm from "../../features/auth/LoginForm/LoginForm";
 
 function Home() {
