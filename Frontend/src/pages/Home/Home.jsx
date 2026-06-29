@@ -2,6 +2,8 @@ import * as styles from "./Home.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { fetchUser } from "../../services/userServices";
+import homeBackground from "https://images.pexels.com/photos/7135020/pexels-photo-7135020.jpeg";
+import msgSent from "../images/svgs/message_sent.svg";
 import LoginForm from "../../features/auth/LoginForm/LoginForm";
 
 function Home() {
@@ -38,12 +40,9 @@ function Home() {
 
   return (
     <div id={styles.home} data-testid="Home">
+      <img src={homeBackground} className={styles.backgroundImg} />
       <img
-        src="https://images.pexels.com/photos/7135020/pexels-photo-7135020.jpeg"
-        className={styles.backgroundImg}
-      />
-      <img
-        src="../images/svgs/message_sent.svg"
+        src={msgSent}
         className={styles.homeElements}
         id={styles.vectorImg}
       />

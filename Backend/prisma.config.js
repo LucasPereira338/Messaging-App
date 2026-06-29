@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "TEST") {
 } else {
     urlDB = `${process.env.DATABASE_URL}`;
 }
-console.log(urlDB)
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
