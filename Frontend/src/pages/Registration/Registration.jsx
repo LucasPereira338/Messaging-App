@@ -1,7 +1,7 @@
 import * as styles from "./Registration.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import backgroundImg from "https://images.pexels.com/photos/7135020/pexels-photo-7135020.jpeg";
+import backgroundImg from "../../../images/backgroundImg.jpg";
 import SignUpForm from "../../features/auth/SignUpForm/SignUpForm";
 
 function Registration() {
