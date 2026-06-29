@@ -46,7 +46,7 @@ function PageSidebar({ handleContent }) {
           className={styles.icon}
           alt="logout"
         />
-        <div id={styles.pageSidebarItemTxt}>Logout</div>
+        <div>Logout</div>
       </div>
     </aside>
   );
