@@ -1,11 +1,15 @@
 import * as styles from "./PageSidebar.module.css";
 import { useContext } from "react";
 import { MessageContext } from "../../../contexts/MessageContext";
+import allIcon from "../../../../icons/all.png";
+import userIcon from "../../../../icons/user.png";
+import groupIcon from "../../../../icons/group.png";
+import logoutIcon from "../../../../icons/logout.png";
 
 function PageSidebar({ handleContent }) {
   const possibleChoices = ["All", "Chats", "Groups"];
   const { content } = useContext(MessageContext);
-  const commonPath = "../../../../icons/";
+
   return (
     <aside id={styles.pageSidebar} data-testid="PageSidebar">
       {handleContent
@@ -21,10 +25,10 @@ function PageSidebar({ handleContent }) {
                 <img
                   src={
                     item == "All"
-                      ? commonPath + "all.png"
+                      ? allIcon
                       : item == "Chats"
-                        ? commonPath + "user.png"
-                        : commonPath + "group.png"
+                        ? userIcon
+                        : groupIcon
                   }
                   className={styles.icon}
                   alt={item}
@@ -41,11 +45,7 @@ function PageSidebar({ handleContent }) {
         onClick={() => handleContent("Logout")}
         data-testid="LogoutChoice"
       >
-        <img
-          src="../../../../icons/logout.png"
-          className={styles.icon}
-          alt="logout"
-        />
+        <img src={logoutIcon} className={styles.icon} alt="logout" />
         <div>Logout</div>
       </div>
     </aside>

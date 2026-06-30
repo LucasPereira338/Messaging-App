@@ -66,7 +66,6 @@ function GroupForm({ handleCreateGroup }) {
       });
 
       if (!isUserAlreadyInMembers) {
-        console.log(!isUserAlreadyInMembers);
         newStrList = membersIds + "," + item.id;
         setMembersIds(newStrList);
         const newArr = members.concat(item);

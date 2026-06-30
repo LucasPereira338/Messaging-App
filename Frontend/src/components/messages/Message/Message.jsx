@@ -1,4 +1,5 @@
 import * as styles from "./Message.module.css";
+import trashIcon from "../../../../icons/trash-can.png";
 
 function Message({ message, handleMsgToDel }) {
   const backend = import.meta.env.VITE_BACKEND;
@@ -40,7 +41,7 @@ function Message({ message, handleMsgToDel }) {
             </div>
             {isAuthor && (
               <img
-                src="../../../../icons/trash-can.png"
+                src={trashIcon}
                 alt="trash can"
                 onClick={() => handleMsgToDel(message)}
                 role="Delete"
