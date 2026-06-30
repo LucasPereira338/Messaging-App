@@ -13,6 +13,8 @@ function PasswordForm({ userId, handlePwdForm }) {
 
     if (result.message == "Password successfully changed!") {
       handlePwdForm();
+    } else {
+      alert(result.message);
     }
   };
   return (
