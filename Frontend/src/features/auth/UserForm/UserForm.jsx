@@ -43,7 +43,16 @@ function UserForm({ action, handleLogin }) {
     if (action == "login") {
       result = await fetchLogin(formValues);
     } else if (action == "sign-up") {
-      result = await postNewUser(formData);
+      if (
+        !formValues.username ||
+        !formValues.name ||
+        !formValues.email ||
+        !formValues.password
+      ) {
+        alert("please fill in all the required fields");
+      } else {
+        result = await postNewUser(formData);
+      }
     }
 
     let resCount;
@@ -73,7 +82,8 @@ function UserForm({ action, handleLogin }) {
         return (
           <div key={ind} className={styles.userFormChild}>
             <label htmlFor={item} className={styles.childLabel} role="label">
-              {capitalize(item)}:{" "}
+              {capitalize(item)}
+              {item != "description" && item != "portrait" ? "*" : null}:{" "}
             </label>
             {item == "portrait" && file && (
               <div className={styles.userFormImgPrev}>
