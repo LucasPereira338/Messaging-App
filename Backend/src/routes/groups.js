@@ -1,8 +1,7 @@
 const {Router} = require('express')
 const groups = Router({mergeParams: true})
-const multer = require('multer')
-const storage = require('../utils/multer/multer.js')
-const upload = multer({storage: storage})
+const upload = require('../utils/multer/multer.js')
+const {uploadProfileImg} = require('../utils/cloud/storage.js')
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const controllers = require('../controllers/groups.js')
 const chats = require('./chats.js');
@@ -15,11 +14,11 @@ groups.get('/:id', passport.authenticate('jwt', {session:false}), (req, res) => 
 
 groups.get('/', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserGroups(req, res));
 
-groups.post('/', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.postGroup(req, res));
+groups.post('/', passport.authenticate('jwt', {session:false}), uploadProfileImg, (req, res) => controllers.postGroup(req, res));
 
 groups.put('/:id/quit', passport.authenticate('jwt', {session:false}),  (req, res) => controllers.leaveGroup(req, res));
 
-groups.put('/:id/', passport.authenticate('jwt', {session:false}), upload.single('portrait'), (req, res) => controllers.updateGroup(req, res));
+groups.put('/:id/', passport.authenticate('jwt', {session:false}), uploadProfileImg, (req, res) => controllers.updateGroup(req, res));
 
 groups.delete('/:id', passport.authenticate('jwt', {session:false}), (req, res) => controllers.deleteGroup(req, res));
 

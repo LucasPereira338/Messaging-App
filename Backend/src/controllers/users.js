@@ -154,12 +154,8 @@ async function postLogin(req, res) {
 }
 
 async function postNewUser(req, res) {
-    console.log('is there a req.file?')
-    console.log(req.file)
-    console.log(req.url)
-    if (typeof req.file !== "undefined") {
-        
-        console.log(req.file.path)
+    if (typeof req.url !== "undefined") {
+        req.body.portrait = req.url
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -224,8 +220,8 @@ async function updateUserPassword(req, res) {
 
 async function updateUser(req, res) {
     
-    if (typeof req.file !== "undefined") {
-        req.body.portrait = req.file.path.slice(7)
+    if (typeof req.url !== "undefined") {
+        req.body.portrait = req.url
         const oldPort = await prisma.user.findUnique({
             where: {
                 id: req.user.id
@@ -235,9 +231,9 @@ async function updateUser(req, res) {
             }
         })
         
-        if (oldPort.portrait != "profiles/portraits/blank.svg") {
+        /*if (oldPort.portrait != "profiles/portraits/blank.svg") {
             await deleteImage(oldPort.portrait)
-        }
+        }*/
         
     }
     

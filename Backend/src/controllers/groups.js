@@ -84,7 +84,7 @@ async function getUserGroups(req, res) {
 
 async function postGroup(req, res) {
     
-    if (typeof req.file !== "undefined") {
+    if (typeof req.url !== "undefined") {
         req.body.portrait = req.file.path.slice(7)
         
     }

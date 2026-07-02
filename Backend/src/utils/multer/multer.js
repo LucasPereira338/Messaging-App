@@ -10,7 +10,6 @@ if (!fs.existsSync('assets/messages')) {
   fs.mkdirSync('assets/messages');
 };
 const storage = multer.diskStorage({
-  
   destination: (req, file, cb) => {
     const folder = file.fieldname == "portrait" ? "assets/portraits" : "assets/messages";
     cb(null, folder);
