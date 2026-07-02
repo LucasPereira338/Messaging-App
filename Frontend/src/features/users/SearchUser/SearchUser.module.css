@@ -16,6 +16,7 @@
   width: 100%;
   color: #212529;
   overflow: hidden;
+  max-height: 200px;
 }
 
 .searchUserDropdown:hover {

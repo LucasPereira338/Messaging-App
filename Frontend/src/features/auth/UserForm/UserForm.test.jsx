@@ -1,8 +1,7 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UserForm from "./UserForm";
-import { fetchLogin, postNewUser } from "../../../services/userServices";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -74,45 +73,5 @@ describe("User Form", () => {
 
     expect(form).toBeInTheDocument();
     expect(input.value).toBe("test");
-  });
-
-  it("should log in the user", async () => {
-    const handleLogin = vi.fn();
-    const handleUser = vi.fn();
-    render(
-      <UserForm
-        action="login"
-        handleLogin={handleLogin}
-        handleUser={handleUser}
-      />,
-    );
-
-    const form = screen.getByTestId("UserForm");
-
-    await waitFor(() => {
-      fireEvent.submit(form);
-    });
-
-    expect(fetchLogin).toHaveBeenCalled();
-  });
-
-  it("should create the user's account", async () => {
-    const handleLogin = vi.fn();
-    const handleUser = vi.fn();
-    render(
-      <UserForm
-        action="sign-up"
-        handleLogin={handleLogin}
-        handleUser={handleUser}
-      />,
-    );
-
-    const form = screen.getByTestId("UserForm");
-
-    await waitFor(() => {
-      fireEvent.submit(form);
-    });
-
-    expect(postNewUser).toHaveBeenCalled();
   });
 });

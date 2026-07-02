@@ -71,6 +71,7 @@ function UserForm({ action, handleLogin }) {
         result.isActive = true;
         handleLogin(result);
       } else {
+        setFormSubmitted(false);
         alert(result.message);
       }
     }
