@@ -83,9 +83,10 @@ async function getUserGroups(req, res) {
 
 async function postGroup(req, res) {
     
-    if (typeof req.url !== "undefined") {
-        req.body.portrait = req.url
-        
+     if (typeof req.url !== "undefined") {
+        if(req.url != "/") {
+            req.body.portrait = req.url
+        }
     }
 
     const users = req.body.users.split(',') 

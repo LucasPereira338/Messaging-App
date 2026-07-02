@@ -154,8 +154,33 @@ async function postLogin(req, res) {
 }
 
 async function postNewUser(req, res) {
+
+    const existingUser = await prisma.user.findFirst({
+        where: {
+            OR: [{
+                username: {equals: req.body.username}
+            }, {
+                email: {equals: req.body.email}
+            }]
+        },
+        select: {
+            username: true,
+            email: true
+        }
+    })
+    if (existingUser) {
+        if (req.body.username == existingUser.username) {
+            return res.json({message: "That username is taken"})
+        } else {
+            return res.json({message: "That email address is taken"})
+        }
+        
+    }
+    
     if (typeof req.url !== "undefined") {
-        req.body.portrait = req.url
+        if(req.url != "/") {
+            req.body.portrait = req.url
+        }
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -166,7 +191,7 @@ async function postNewUser(req, res) {
             email: req.body.email,
             description: req.body.description,
             password: hashedPassword,
-            portrait: req.body.portrait
+            portrait: req.body.portrait || undefined
         },
         select: {
             id: true,
