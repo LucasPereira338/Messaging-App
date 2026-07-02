@@ -16,6 +16,7 @@ function GroupForm({ handleCreateGroup }) {
   const [members, setMembers] = useState([]);
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleFileChange = (e) => {
     ref.current = e;
@@ -42,7 +43,7 @@ function GroupForm({ handleCreateGroup }) {
       alert("Please choose a title for the group");
     } else {
       const formData = new FormData(event.currentTarget);
-
+      setFormSubmitted(true);
       const result = await createGroup(formData);
 
       if (result.title) {
@@ -165,7 +166,11 @@ function GroupForm({ handleCreateGroup }) {
               );
             })}
           </div>
-          <button type="submit" id={styles.groupFormBtn}>
+          <button
+            type="submit"
+            id={styles.groupFormBtn}
+            {...(formSubmitted ? { disabled: true } : {})}
+          >
             Create Group
           </button>
         </div>

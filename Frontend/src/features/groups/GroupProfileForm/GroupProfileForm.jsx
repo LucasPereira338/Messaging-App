@@ -14,6 +14,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
   const [membersToAdd, setMembersToAdd] = useState([]);
   const [membersToRmv, setMembersToRmv] = useState([]);
   const [file, setFile] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const cancelFile = () => {
     const e = ref.current;
@@ -94,7 +95,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-
+    setFormSubmitted(true);
     const result = await updateGroup(groupId, formData);
 
     setGroup(result);
@@ -179,7 +180,11 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
         <input type="hidden" name="users" value={membersToAdd} />
         <input type="hidden" name="rmvdUsers" value={membersToRmv} />
       </div>
-      {!readOnly ? <button type="submit">Submit</button> : null}
+      {!readOnly ? (
+        <button type="submit" {...(formSubmitted ? { disabled: true } : {})}>
+          Submit
+        </button>
+      ) : null}
     </form>
   );
 }

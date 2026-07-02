@@ -20,6 +20,8 @@ function UserForm({ action, handleLogin }) {
   }
   const [file, setFile] = useState(null);
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handleFileChange = (e) => {
     ref.current = e;
     const selectedFile = getImageFile(e);
@@ -41,6 +43,7 @@ function UserForm({ action, handleLogin }) {
     let result;
 
     if (action == "login") {
+      setFormSubmitted(true);
       result = await fetchLogin(formValues);
     } else if (action == "sign-up") {
       if (
@@ -51,6 +54,7 @@ function UserForm({ action, handleLogin }) {
       ) {
         alert("please fill in all the required fields");
       } else {
+        setFormSubmitted(true);
         result = await postNewUser(formData);
       }
     }
@@ -121,7 +125,11 @@ function UserForm({ action, handleLogin }) {
           </div>
         );
       })}
-      <button type="submit" className={styles.submitBtn}>
+      <button
+        type="submit"
+        className={styles.submitBtn}
+        {...(formSubmitted ? { disabled: true } : {})}
+      >
         Submit
       </button>
     </form>

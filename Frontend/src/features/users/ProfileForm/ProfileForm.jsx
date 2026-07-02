@@ -22,6 +22,8 @@ function ProfileForm({ userId, handleProfile }) {
 
   const [isPwdChosen, setIsPwdChosen] = useState(false);
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handlePwdForm = () => {
     setIsPwdChosen(false);
   };
@@ -52,7 +54,7 @@ function ProfileForm({ userId, handleProfile }) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-
+    setFormSubmitted(true);
     const result = await updateUser(formData, userId);
 
     setUser(result);
@@ -189,7 +191,11 @@ function ProfileForm({ userId, handleProfile }) {
             );
           })}
           {!readOnly && (
-            <button type="submit" data-testid="ProfileFormBtn">
+            <button
+              type="submit"
+              data-testid="ProfileFormBtn"
+              {...(formSubmitted ? { disabled: true } : {})}
+            >
               {" "}
               Save Changes
             </button>
