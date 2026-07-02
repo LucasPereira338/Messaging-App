@@ -1,7 +1,7 @@
 const {Router} = require('express')
 const messages = Router()
 const multer = require('multer')
-const storage = require('../utils/multer/storage.js')
+const storage = require('../utils/multer/multer.js')
 const upload = multer({storage: storage}) 
 const controllers = require('../controllers/messages.js')
 const passport = require('../config/passport-jwt/passport-jwt.js')

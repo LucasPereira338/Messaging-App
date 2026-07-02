@@ -2,6 +2,7 @@ const {prisma} = require('../../lib/prisma.js')
 const jwt = require('../utils/jwt/jwt.js')
 const bcrypt = require('bcryptjs')
 const {deleteImage} = require('../helpers/folders.js')
+const {uploadProfileImg} = require('../utils/cloud/storage.js')
 
 async function getUser(req, res) {
     const user = await prisma.user.findUnique({
@@ -153,9 +154,12 @@ async function postLogin(req, res) {
 }
 
 async function postNewUser(req, res) {
-
+    console.log('is there a req.file?')
+    console.log(req.file)
+    console.log(req.url)
     if (typeof req.file !== "undefined") {
-        req.body.portrait = req.file.path.slice(7)
+        
+        console.log(req.file.path)
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10)

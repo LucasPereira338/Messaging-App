@@ -1,10 +1,10 @@
 const {Router} = require('express')
 const users = Router()
 const multer = require('multer')
-const storage = require('../utils/multer/storage.js')
 const controllers = require('../controllers/users.js')
 const passport = require('../config/passport-jwt/passport-jwt.js')
-const upload = multer({storage: storage})
+const upload = require('../utils/multer/multer.js')
+const {uploadProfileImg} = require('../utils/cloud/storage.js')
 const groups = require('./groups.js')
 const chats = require('./chats.js')
 
@@ -20,7 +20,7 @@ users.get('/',  passport.authenticate('jwt', {session:false}), (req, res) => con
 
 users.post('/log-in', (req, res) => controllers.postLogin(req, res))
 
-users.post('/', upload.single('portrait'), (req, res) => controllers.postNewUser(req, res))
+users.post('/', upload.single('portrait'), uploadProfileImg, (req, res) => controllers.postNewUser(req, res))
 
 users.put('/:id/password', passport.authenticate('jwt', {session:false}), (req, res) => controllers.updateUserPassword(req, res))
 

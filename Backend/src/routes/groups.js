@@ -1,7 +1,7 @@
 const {Router} = require('express')
 const groups = Router({mergeParams: true})
 const multer = require('multer')
-const storage = require('../utils/multer/storage.js')
+const storage = require('../utils/multer/multer.js')
 const upload = multer({storage: storage})
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const controllers = require('../controllers/groups.js')
