@@ -8,8 +8,7 @@ import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
 
 function GroupForm({ handleCreateGroup }) {
-  const defaultImg =
-    import.meta.env.VITE_BACKEND + "assets/profiles/portraits/blank.svg";
+  const defaultImg = "../../../../icons/group.png";
 
   let ref = useRef(null);
 

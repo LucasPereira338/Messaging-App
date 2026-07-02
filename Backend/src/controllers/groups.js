@@ -1,6 +1,5 @@
-const { response } = require('express')
 const {prisma} = require('../../lib/prisma.js')
-const {deleteImage} = require('../helpers/folders.js')
+const {deleteImg} = require('../utils/cloud/cloud.js')
 
 async function getGroupMessages(req, res) {
     const group = await prisma.group.findUnique({
@@ -85,7 +84,7 @@ async function getUserGroups(req, res) {
 async function postGroup(req, res) {
     
     if (typeof req.url !== "undefined") {
-        req.body.portrait = req.file.path.slice(7)
+        req.body.portrait = req.url
         
     }
 
@@ -139,10 +138,24 @@ async function updateGroup(req, res) {
         return res.status(401).json({message:'unauthorized'})
     }
 
-    if (typeof req.file !== "undefined") {
-        req.body.portrait = req.file.path.slice(7)   
-    }
+    if (typeof req.url !== "undefined") {
+        req.body.portrait = req.url
 
+        const oldPort = await prisma.group.findUnique({
+            where: {
+                id: req.params.id
+            },
+            select: {
+                portrait: true
+            }
+        })
+        
+        if (oldPort.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
+            await deleteImg(oldPort.portrait)
+        }
+        
+    }
+    
     let userAction = {}
 
     let users = []
@@ -156,8 +169,6 @@ async function updateGroup(req, res) {
         rmvdUsers = req.body.rmvdUsers.split(",")
         userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
     }
-    
-    
     
     const group = await prisma.group.update({
         where: {
@@ -229,8 +240,9 @@ async function deleteGroup(req, res) {
         }
     }) 
     
-    if(groupInfo.portrait != "profiles/portraits/blank.svg") {
-        await deleteImage(groupInfo.portrait)
+    if(groupInfo.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
+       
+       await deleteImg(groupInfo.portrait)
     }
 
     res.json(chat.group)

@@ -15,4 +15,9 @@
   position: absolute;
   width: 100%;
   color: #212529;
+  overflow: hidden;
+}
+
+.searchUserDropdown:hover {
+  overflow: scroll;
 }

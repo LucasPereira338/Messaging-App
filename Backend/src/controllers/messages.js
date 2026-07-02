@@ -1,5 +1,5 @@
-const {prisma} = require('../../lib/prisma.js')
-const {deleteImage} = require('../helpers/folders.js');
+const {prisma} = require('../../lib/prisma.js');
+const {deleteImg} = require('../utils/cloud/cloud.js')
 
 async function getMessage(req, res) {
     const message = await prisma.message.findUnique({
@@ -128,7 +128,7 @@ async function deleteMessage(req, res) {
     })
 
     if(message.image != null) {
-        await deleteImage(message.image)
+        await deleteImg(message.image)
     }
     
     res.json(message)

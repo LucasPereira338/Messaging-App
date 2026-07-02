@@ -66,9 +66,7 @@ function ProfileForm({ userId, handleProfile }) {
         const fetchUserData = async () => {
           const result = await fetchUser(userId);
 
-          const backend = import.meta.env.VITE_BACKEND;
-
-          setPortrait(backend + "assets/" + result.portrait);
+          setPortrait(result.portrait);
 
           delete result.id;
           delete result.portrait;

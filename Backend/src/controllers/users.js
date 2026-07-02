@@ -1,8 +1,8 @@
 const {prisma} = require('../../lib/prisma.js')
 const jwt = require('../utils/jwt/jwt.js')
 const bcrypt = require('bcryptjs')
-const {deleteImage} = require('../helpers/folders.js')
-const {uploadProfileImg} = require('../utils/cloud/storage.js')
+const {deleteImg} = require('../utils/cloud/cloud.js')
+
 
 async function getUser(req, res) {
     const user = await prisma.user.findUnique({
@@ -231,9 +231,9 @@ async function updateUser(req, res) {
             }
         })
         
-        /*if (oldPort.portrait != "profiles/portraits/blank.svg") {
-            await deleteImage(oldPort.portrait)
-        }*/
+        if (oldPort.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
+            await deleteImg(oldPort.portrait)
+        }
         
     }
     

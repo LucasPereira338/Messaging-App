@@ -7,7 +7,7 @@
 }
 
 #messagesSidebar:hover {
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 #messagesSidebarTitle {

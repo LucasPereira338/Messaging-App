@@ -19,7 +19,7 @@ model User {
   email            String    @unique
   password         String
   description      String?
-  portrait         String    @default("profiles/portraits/blank.svg")
+  portrait         String    @default("https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg")
   messagesSent     Message[] @relation("author")
   chats Chat[]
   admins Group[]
@@ -51,7 +51,7 @@ model Chat {
 model Group {
   id  String  @id @unique @default(uuid())
   title String 
-  portrait String    @default("profiles/portraits/blank.svg")
+  portrait String    @default("https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg")
   chat  Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId  String @unique
   admin User @relation(fields: [adminId], references: [id], onDelete: Cascade)

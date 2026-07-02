@@ -13,8 +13,7 @@ function EntityCard({
       </div>
     );
   }
-  const backend = import.meta.env.VITE_BACKEND;
-  const portrait = backend + "assets/" + entity.portrait;
+  const portrait = entity.portrait;
   const name = entity.name != null ? entity.name : entity.title;
   const members =
     entity.members != null

@@ -2,9 +2,8 @@ import * as styles from "./Message.module.css";
 import trashIcon from "../../../../icons/trash-can.png";
 
 function Message({ message, handleMsgToDel }) {
-  const backend = import.meta.env.VITE_BACKEND;
-  const msgImg = backend + "assets/" + message.image;
-  const portrait = backend + "assets/" + message.portrait;
+  const msgImg = message.image;
+  const portrait = message.portrait;
 
   const createdAt = new Date(message.createdAt).toString();
   const time = createdAt.substring(0, createdAt.indexOf("GMT"));

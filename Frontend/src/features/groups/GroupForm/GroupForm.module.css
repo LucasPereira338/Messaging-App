@@ -33,7 +33,6 @@
 #defaultGroupImg {
   min-width: 100px;
   max-width: 250px;
-  border-radius: 50%;
   min-height: 100px;
   max-height: 250px;
 }

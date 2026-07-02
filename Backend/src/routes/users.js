@@ -3,7 +3,7 @@ const users = Router()
 const controllers = require('../controllers/users.js')
 const passport = require('../config/passport-jwt/passport-jwt.js')
 const upload = require('../utils/multer/multer.js')
-const {uploadProfileImg} = require('../utils/cloud/storage.js')
+const {uploadProfileImg} = require('../utils/cloud/cloud.js')
 const groups = require('./groups.js')
 const chats = require('./chats.js')
 

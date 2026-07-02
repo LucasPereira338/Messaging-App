@@ -125,9 +125,7 @@ function GroupProfileForm({ groupId, readOnly, handleProfile }) {
         setTitle(result.title);
         setMembers(result.chat.members);
 
-        const backend = import.meta.env.VITE_BACKEND;
-
-        setPortrait(backend + "assets/" + result.portrait);
+        setPortrait(result.portrait);
       };
       getGroup();
     }
