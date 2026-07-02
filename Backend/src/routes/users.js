@@ -23,7 +23,7 @@ users.post('/', upload.single('portrait'), uploadProfileImg, (req, res) => contr
 
 users.put('/:id/password', passport.authenticate('jwt', {session:false}), (req, res) => controllers.updateUserPassword(req, res))
 
-users.put('/:id', passport.authenticate('jwt', {session:false}), uploadProfileImg, (req, res) => controllers.updateUser(req, res)) 
+users.put('/:id', passport.authenticate('jwt', {session:false}), upload.single('portrait'), uploadProfileImg, (req, res) => controllers.updateUser(req, res)) 
 
 users.delete('/all', (req, res) => controllers.deleteAllUsers(req, res))
 
