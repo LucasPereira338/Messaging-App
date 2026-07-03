@@ -38,6 +38,7 @@ function MessageBoard() {
 
   const handleContent = (choice) => {
     if (choice != "Logout") {
+      setChats(false);
       setContent(choice);
     } else {
       localStorage.removeItem("userId");

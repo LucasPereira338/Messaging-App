@@ -244,10 +244,15 @@ async function updateUserPassword(req, res) {
 }
 
 async function updateUser(req, res) {
+
+    if (req.user.id != req.params.id) {
+        return res.status(401).json({message:"unauthorized"})
+    }
     
+    let oldPort;
     if (typeof req.url !== "undefined") {
         req.body.portrait = req.url
-        const oldPort = await prisma.user.findUnique({
+        oldPort = await prisma.user.findUnique({
             where: {
                 id: req.user.id
             },
@@ -256,14 +261,6 @@ async function updateUser(req, res) {
             }
         })
         
-        if (oldPort.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
-            await deleteImg(oldPort.portrait)
-        }
-        
-    }
-    
-    if (req.user.id != req.params.id) {
-        return res.status(401).json({message:"unauthorized"})
     }
 
     const user = await prisma.user.update({
@@ -279,6 +276,15 @@ async function updateUser(req, res) {
             updatedAt: true,
         }
     })
+
+    if (oldPort) {
+        if (
+            oldPort.portrait != user.portrait 
+            && oldPort.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
+                await deleteImg(oldPort.portrait)
+        }
+    }
+    
 
     res.json(user)
 }
