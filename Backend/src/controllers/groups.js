@@ -143,17 +143,16 @@ async function updateGroup(req, res) {
 
     let data = {title: req.body.title}
 
-    if (typeof req.url !== "undefined") {
-        data.portrait = req.url
-        oldPort = await prisma.group.findUnique({
+    if (typeof req.imgUrl !== "undefined") {
+        req.body.portrait = req.imgUrl
+        oldPort = await prisma.user.findUnique({
             where: {
-                id: req.params.id
+                id: req.user.id
             },
             select: {
                 portrait: true
             }
         })
-        
     } else {
         delete req.body.portrait
     }

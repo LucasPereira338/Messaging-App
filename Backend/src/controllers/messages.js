@@ -48,9 +48,9 @@ async function postNewMessage(req, res) {
         res.status(401).json({message: 'Unauthorized'})
     }
 
-     if (typeof req.url !== "undefined") {
-        if(req.url != "/") {
-            req.body.image = req.url
+     if (typeof req.imgUrl !== "undefined") {
+        if(req.imgUrl != "/") {
+            req.body.image = req.imgUrl
         }
     }
 
