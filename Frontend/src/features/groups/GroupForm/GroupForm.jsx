@@ -6,10 +6,9 @@ import SearchUser from "../../users/SearchUser/SearchUser";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
+import defaultImg from "../../../../icons/group.png";
 
 function GroupForm({ handleCreateGroup }) {
-  const defaultImg = "../../../../icons/group.png";
-
   let ref = useRef(null);
 
   const [membersIds, setMembersIds] = useState("");
