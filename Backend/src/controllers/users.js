@@ -260,7 +260,8 @@ async function updateUser(req, res) {
                 portrait: true
             }
         })
-        
+    } else {
+        delete req.body.portrait
     }
 
     const user = await prisma.user.update({

@@ -141,9 +141,10 @@ async function updateGroup(req, res) {
     
     let oldPort;
 
-    if (typeof req.url !== "undefined") {
-        req.body.portrait = req.url
+    let data = {title: req.body.title}
 
+    if (typeof req.url !== "undefined") {
+        data.portrait = req.url
         oldPort = await prisma.group.findUnique({
             where: {
                 id: req.params.id
@@ -153,6 +154,8 @@ async function updateGroup(req, res) {
             }
         })
         
+    } else {
+        delete req.body.portrait
     }
     
     let userAction = {}
@@ -160,28 +163,20 @@ async function updateGroup(req, res) {
     let users = []
     if (req.body.users) {
         users = req.body.users.split(",")
-        userAction.connect = users.map(i => ({id: i})) || []
+        data.chat.update.userAction.connect = users.map(i => ({id: i})) || []
     }
 
     let rmvdUsers = []
     if (req.body.rmvdUsers) {
         rmvdUsers = req.body.rmvdUsers.split(",")
-        userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
+        data.chat.update.userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
     }
     
     const group = await prisma.group.update({
         where: {
             id: req.params.id
         },
-        data: {
-            title: req.body.title || undefined,
-            portrait: req.body.portrait || undefined,
-            chat: {
-                update: {
-                        members: userAction
-                    }
-            }
-        },
+        data: data,
         include: {
             chat: {
                 include: {
