@@ -9,7 +9,7 @@ let secondUser;
 let userList = [];
 
 beforeAll(async () => {
-
+    
     const juan = await prisma.user.create({
         data: {
             name:'Juan',
@@ -102,7 +102,7 @@ test("deletes user's own account", done => {
 })
 
 afterAll(async() => {
+    await prisma.user.delete({where: {username: 'sneakypete22'}})
     await prisma.user.delete({where: {username: 'john32'}})
-    await prisma.user.delete({where: {id: secondUser.id}})
     await prisma.$disconnect()
 })  

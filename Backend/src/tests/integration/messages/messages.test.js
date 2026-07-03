@@ -163,8 +163,6 @@ test('deletes a message', done => {
         .expect(200, done)
 })
 
-
-
 afterAll(async () => {
     await prisma.chat.delete({where: {id: chat.id}})
     await prisma.user.delete({where: {id: user.id}})
