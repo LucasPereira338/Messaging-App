@@ -138,11 +138,13 @@ async function updateGroup(req, res) {
     if(req.user.id != groupAdmin.adminId) {
         return res.status(401).json({message:'unauthorized'})
     }
+    
+    let oldPort;
 
     if (typeof req.url !== "undefined") {
         req.body.portrait = req.url
 
-        const oldPort = await prisma.group.findUnique({
+        oldPort = await prisma.group.findUnique({
             where: {
                 id: req.params.id
             },
@@ -150,10 +152,6 @@ async function updateGroup(req, res) {
                 portrait: true
             }
         })
-        
-        if (oldPort.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
-            await deleteImg(oldPort.portrait)
-        }
         
     }
     
@@ -191,6 +189,14 @@ async function updateGroup(req, res) {
                 }
             }
     }})
+
+    if (oldPort) {
+        if (
+            oldPort.portrait != group.portrait 
+            && oldPort.portrait != "https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg") {
+                await deleteImg(oldPort.portrait)
+        }
+    }
     
     res.json(group)
 }
