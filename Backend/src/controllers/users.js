@@ -250,8 +250,8 @@ async function updateUser(req, res) {
     }
     
     let oldPort;
-    if (typeof req.url !== "undefined") {
-        req.body.portrait = req.url
+    if (typeof req.imgUrl !== "undefined") {
+        req.body.portrait = req.imgUrl
         oldPort = await prisma.user.findUnique({
             where: {
                 id: req.user.id
@@ -263,7 +263,7 @@ async function updateUser(req, res) {
     } else {
         delete req.body.portrait
     }
-
+    
     const user = await prisma.user.update({
         where: {
             id: req.params.id

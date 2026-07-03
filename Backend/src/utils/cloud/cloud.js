@@ -12,7 +12,7 @@ const uploadMsgImg = async (req, res, next) => {
       });
       
       fs.unlinkSync(req.file.path); 
-      req.url = result.secure_url
+      req.imgUrl = result.secure_url
     } catch (err) {
       fs.unlinkSync(req.file.path); 
       throw new Error('Cloudinary upload failed: ' + err.message);
@@ -24,6 +24,7 @@ const uploadMsgImg = async (req, res, next) => {
 
 const uploadProfileImg = async (req, res, next) => {
   if (req.file) {
+    
     const localFilePath = req.file.path;
     const folderName = 'assets/portraits'
     try {
@@ -33,7 +34,7 @@ const uploadProfileImg = async (req, res, next) => {
       });
       
       fs.unlinkSync(req.file.path); 
-      req.url = result.secure_url
+      req.imgUrl = result.secure_url
     } catch (err) {
       fs.unlinkSync(req.file.path); 
       throw new Error('Cloudinary upload failed: ' + err.message);
