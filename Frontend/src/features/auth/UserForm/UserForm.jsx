@@ -88,7 +88,12 @@ function UserForm({ action, handleLogin }) {
           <div key={ind} className={styles.userFormChild}>
             <label htmlFor={item} className={styles.childLabel} role="label">
               {capitalize(item)}
-              {item != "description" && item != "portrait" ? "*" : null}:{" "}
+              {item != "description" &&
+              item != "portrait" &&
+              action == "sign-up"
+                ? "*"
+                : null}
+              :{" "}
             </label>
             {item == "portrait" && file && (
               <div className={styles.userFormImgPrev}>
