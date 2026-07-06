@@ -1,6 +1,5 @@
 # Messaging Application
 This is a full-stack messaging application developed with React(vite), Node.js, Express, PostgreSQL and Prisma ORM.
-
 ## Live Project
 The project may be viewed here: [Messaging App](https://messaging-app-1-lrou.onrender.com/)
 
@@ -8,6 +7,9 @@ The project may be viewed here: [Messaging App](https://messaging-app-1-lrou.onr
 - Name: Jonathan Smith, username: jonathan32
 - Name: Andre Smith, username: andreas22
 #### *These accounts may be interacted with by searching for their name/username in the search bar and clicking on their card in the results
+
+### Platform Support
+Please note that this full-stack application is currently **not optimized for mobile devices**. For the optimal experience, please access this application via desktop.
 
 ## Features
 ### Chats
