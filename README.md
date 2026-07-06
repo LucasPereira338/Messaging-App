@@ -11,9 +11,11 @@ The project may be viewed here: [Messaging App]()
 #### *They may be interacted with by searching for their name/username in the search bar and clicking on their card in the results
 
 ## Features
-
 ## Chats
-
+- Private chats
+- Group chats
+- A new private chat may be started by searching for a existing user in the search bar and clicking on their card
+- Chats may be filtered by: users, online-users only, and group
 ## Users
 - User registration and login
 - User profile management
