@@ -5,8 +5,8 @@ import { getImageFile } from "../../../helpers/fileHelpers";
 import { MessageContext } from "../../../contexts/MessageContext";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
-function MessageInput({ user, handleChats }) {
-  const { currentChat } = useContext(MessageContext);
+function MessageInput({ handleChats }) {
+  const { user, currentChat } = useContext(MessageContext);
 
   let ref = useRef(null);
   const [msg, setMsg] = useState("");
@@ -59,7 +59,7 @@ function MessageInput({ user, handleChats }) {
         onSubmit={handleSubmit}
       >
         <input type="hidden" name="chatId" value={currentChat.chatId} />
-        <input type="hidden" name="authorId" value={user} />
+        <input type="hidden" name="authorId" value={user.id} />
         <textarea
           type="text"
           name="content"
