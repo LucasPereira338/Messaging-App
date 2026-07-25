@@ -17,7 +17,7 @@ function Home() {
 
   useEffect(() => {
     const getUserIfToken = async () => {
-      const result = await persistentLogin(localStorage.getItem("userId"));
+      const result = await persistentLogin();
 
       if (result.id) {
         setUser(result);
