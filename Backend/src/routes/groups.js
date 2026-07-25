@@ -14,7 +14,7 @@ groups.get('/:id', passport.authenticate('jwt', {session:false}), (req, res) => 
 
 groups.get('/', passport.authenticate('jwt', {session:false}), (req, res) => controllers.getUserGroups(req, res));
 
-groups.post('/', passport.authenticate('jwt', {session:false}), upload.single('portrait'),uploadProfileImg, (req, res) => controllers.postGroup(req, res));
+groups.post('/', passport.authenticate('jwt', {session:false}), upload.single('portrait'), uploadProfileImg, (req, res) => controllers.postGroup(req, res));
 
 groups.put('/:id/quit', passport.authenticate('jwt', {session:false}),  (req, res) => controllers.leaveGroup(req, res));
 

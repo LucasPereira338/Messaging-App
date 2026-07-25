@@ -182,9 +182,9 @@ async function postNewUser(req, res) {
         
     }
     
-    if (typeof req.url !== "undefined") {
-        if(req.url != "/") {
-            req.body.portrait = req.url
+    if (typeof req.imgUrl !== "undefined") {
+        if(req.imgUrl != "/") {
+            req.body.portrait = req.imgUrl
         }
     }
 

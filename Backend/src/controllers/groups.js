@@ -82,20 +82,20 @@ async function getUserGroups(req, res) {
 }
 
 async function postGroup(req, res) {
-    
-     if (typeof req.url !== "undefined") {
-        if(req.url != "/") {
-            req.body.portrait = req.url
-        }
-    }
 
     const users = req.body.users.split(',') 
     users.unshift(req.user.id)
+
+    if (typeof req.imgUrl !== "undefined") {
+        if(req.imgUrl != "/") {
+            req.body.portrait = req.imgUrl
+        }
+    }
     
     const group = await prisma.group.create({
         data: {
             title: req.body.title,
-            portrait: req.body.portrait,
+            portrait: req.imgUrl,
             admin: {
                 connect: {
                     id: req.user.id
@@ -144,7 +144,8 @@ async function updateGroup(req, res) {
     let data = {title: req.body.title, chat: {update: {members: {}}}}
 
     if (typeof req.imgUrl !== "undefined") {
-        req.body.portrait = req.imgUrl
+        data.portrait = req.imgUrl
+
         oldPort = await prisma.user.findUnique({
             where: {
                 id: req.user.id
@@ -162,16 +163,16 @@ async function updateGroup(req, res) {
     let users = []
     if (req.body.users) {
         users = req.body.users.split(",")
-        userAction = users.map(i => ({id: i})) || []
-        data.chat.update.members.connect = userAction
+        userAction.connect = users.map(i => ({id: i})) || []
     }
 
     let rmvdUsers = []
     if (req.body.rmvdUsers) {
         rmvdUsers = req.body.rmvdUsers.split(",")
-        userAction = rmvdUsers.map(i => ({id: i})) || []
-        data.chat.update.members.disconnect = userAction
+        userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
     }
+
+    data.chat.update.members = userAction
     
     const group = await prisma.group.update({
         where: {
