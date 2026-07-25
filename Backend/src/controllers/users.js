@@ -222,10 +222,13 @@ async function postNewUser(req, res) {
 }
 
 async function postLogout(req, res) {
+    const secureMode = process.env.NODE_ENV == "DEV" ? false : true;
+
     res.clearCookie('token', {
         httpOnly: true,   
-        secure: false,    
+        secure: secureMode,    
     }).send({ success: true });
+    
 }
 
 async function updateUserPassword(req, res) {
