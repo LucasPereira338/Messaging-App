@@ -7,6 +7,7 @@ export async function postNewUser(data) {
     
     const response = await fetch(url, {
         method: "POST",
+        credentials: "include",
         body: data
     });
 
@@ -36,11 +37,10 @@ export async function fetchUsers(data) {
 
     const url = backend + "users/?name=" + data
 
-    const token = localStorage.getItem('token')
-
     const response = await fetch(url, {
+        credentials: "include",
         headers: {
-            "Content-Type": "application/json", "Authorization": "Bearer " + token
+            "Content-Type": "application/json"
         }
     })
 
@@ -52,11 +52,10 @@ export async function fetchUser(id) {
 
     const url = backend + "users/" + id
 
-    const token = localStorage.getItem('token')
-
     const response = await fetch(url, {
+        credentials: "include",
         headers: {
-            "Content-Type": "application/json", "Authorization": "Bearer " + token
+            "Content-Type": "application/json",
         }
     })
 
@@ -68,11 +67,10 @@ export async function fetchUsersInList(data) {
 
     const url = backend + "users/list" + data.id 
 
-    const token = localStorage.getItem('token')
 
     const response = await fetch(url, {
-        headers: {'Content-Type': 'application/json',
-            "Authorization": "Bearer " + token
+        credentials: "include",
+        headers: {'Content-Type': 'application/json'
         }
     })
 
@@ -84,12 +82,11 @@ export async function updatePassword(id, data) {
     const backend = import.meta.env.VITE_BACKEND;
 
     const url = backend + "users/" + id + "/password"
-    
-    const token = localStorage.getItem('token')
 
     const response = await fetch(url, {
         method: "PUT",
-        headers: {'Content-Type': 'application/json',  "Authorization": "Bearer " + token},
+        credentials: "include",
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     })
 
@@ -100,12 +97,10 @@ export async function updateUser(data, id) {
     const backend = import.meta.env.VITE_BACKEND;
 
     const url = backend + "users/" + id
-    
-    const token = localStorage.getItem('token')
 
     const response = await fetch(url, {
         method: "PUT",
-        headers: {"Authorization": "Bearer " + token},
+        credentials: "include",
         body: data
         
     })

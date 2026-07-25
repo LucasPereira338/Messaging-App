@@ -2,12 +2,9 @@ export async function fetchGroupMessages(data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + data.id + 'messages';
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        }
+        headers: {"Content-Type": "application/json"}
     })
     return response.json()
 }
@@ -16,12 +13,9 @@ export async function fetchGroupUsers(data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + data.id + 'users';
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        }
+        headers: {"Content-Type": "application/json"}
     })
     return response.json()
 }
@@ -30,12 +24,9 @@ export async function fetchGroup(id) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + id
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        }
+        headers: {"Content-Type": "application/json"}
     })
     return response.json()
 }
@@ -44,12 +35,10 @@ export async function fetchUserGroups(data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'users/' + data + '/groups'
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        }
+        credentials: "include",
+        headers: {"Content-Type": "application/json"}
     })
     return response.json()
 }
@@ -58,12 +47,10 @@ export async function createGroup(data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' 
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
         method: 'POST',
-        headers: { "Authorization": "Bearer " + token},
+        credentials: "include",
         body: data
     })
     return response.json()
@@ -73,13 +60,10 @@ export async function updateGroup(id, data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + id
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
         method: 'PUT',
-        headers: {"Authorization": "Bearer " + token
-        },
+        credentials: "include",
         body: data
     })
     return response.json()
@@ -89,13 +73,11 @@ export async function exitGroup(id, data) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + id + '/quit'
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
         method: 'PUT',
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        },
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     })
     return response.json()
@@ -105,13 +87,11 @@ export async function deleteGroup(id) {
     const backend = import.meta.env.VITE_BACKEND
     
     const url = backend + 'groups/' + id 
-
-    const token = localStorage.getItem('token')
     
     const response = await fetch(url, {
         method: 'DELETE',
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token
-        }
+        credentials: "include",
+        headers: {"Content-Type": "application/json"}
     })
     return response.json()
 }
