@@ -112,7 +112,7 @@ function MessageBoard() {
           const response = await fetchUserChoices(content, userId);
 
           let chatsMembers = [];
-          pushUniqueIdsAndChatId(chatsMembers, response);
+          pushUniqueIdsAndChatId(chatsMembers, response, userId);
 
           if (onlineOnly) {
             chatsMembers = chatsMembers.filter((item) => {
