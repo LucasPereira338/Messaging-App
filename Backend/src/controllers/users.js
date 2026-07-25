@@ -23,9 +23,8 @@ async function getUser(req, res) {
     if(user && user.description == null) {
         user.description = ''
     }
-
+    console.log(user)
     const dateNow = new Date()
-    
     
     const dateDif = dateNow - user.lastActive
     const dateDifConv = dateDif/1000
@@ -146,12 +145,16 @@ async function postLogin(req, res) {
 
     res.user = user;
 
+    const secureMode = process.env.NODE_ENV == "DEV" ? false : true;
+    
     const token = jwt.generateAccessToken(user);
 
     res.cookie('token', token, {
         httpOnly: true,   
-        secure: false,    
-    }).send({ success: true });
+        secure: secureMode,    
+    })
+
+    res.json(user)
 
 }
 
@@ -204,13 +207,17 @@ async function postNewUser(req, res) {
     })
 
     res.user = user;
-
+    
+    const secureMode = process.env.NODE_ENV == "DEV" ? false : true;
+    
     const token = jwt.generateAccessToken(user);
 
     res.cookie('token', token, {
         httpOnly: true,   
-        secure: false,    
-    }).send({ success: true });
+        secure: secureMode,    
+    })
+
+    res.json(user)
 
 }
 

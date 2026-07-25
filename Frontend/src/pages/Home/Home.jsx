@@ -11,6 +11,8 @@ function Home() {
   const token = localStorage.getItem("token");
 
   const handleLogin = (data) => {
+    console.log("handleLogin");
+    console.log(data);
     setUser(data);
   };
 
