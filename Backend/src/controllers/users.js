@@ -144,12 +144,14 @@ async function postLogin(req, res) {
 
     delete user.password
 
-    token = jwt.generateAccessToken(user)
+    res.user = user;
 
-    user.token = token
+    const token = jwt.generateAccessToken(user);
 
-    res.json(user)
-
+    res.cookie('token', token, {
+        httpOnly: true,   
+        secure: false,    
+    }).send({ success: true });
 
 }
 
@@ -201,9 +203,22 @@ async function postNewUser(req, res) {
         }
     })
 
-    user.token = jwt.generateAccessToken(user)
+    res.user = user;
 
-    res.json(user)
+    const token = jwt.generateAccessToken(user);
+
+    res.cookie('token', token, {
+        httpOnly: true,   
+        secure: false,    
+    }).send({ success: true });
+
+}
+
+async function postLogout(req, res) {
+    res.clearCookie('token', {
+        httpOnly: true,   
+        secure: false,    
+    }).send({ success: true });
 }
 
 async function updateUserPassword(req, res) {
@@ -315,6 +330,7 @@ module.exports = {
     getUsers,
     postLogin,
     postNewUser,
+    postLogout,
     updateUserPassword,
     updateUser,
     deleteAllUsers,

@@ -19,6 +19,8 @@ users.get('/',  passport.authenticate('jwt', {session:false}), (req, res) => con
 
 users.post('/log-in', (req, res) => controllers.postLogin(req, res))
 
+users.post('/log-out', (req, res) => controllers.postLogout(req, res))
+
 users.post('/', upload.single('portrait'), uploadProfileImg, (req, res) => controllers.postNewUser(req, res))
 
 users.put('/:id/password', passport.authenticate('jwt', {session:false}), (req, res) => controllers.updateUserPassword(req, res))
