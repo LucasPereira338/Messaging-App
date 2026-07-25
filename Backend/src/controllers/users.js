@@ -231,6 +231,10 @@ async function postLogout(req, res) {
     
 }
 
+async function postPersistentLogin(req,res) {
+    res.json(req.user)
+}
+
 async function updateUserPassword(req, res) {
 
     if (req.user.id != req.params.id) {
@@ -341,6 +345,7 @@ module.exports = {
     postLogin,
     postNewUser,
     postLogout,
+    postPersistentLogin,
     updateUserPassword,
     updateUser,
     deleteAllUsers,

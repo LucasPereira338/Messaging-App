@@ -48,6 +48,22 @@ export async function userLogout () {
     
 }
 
+export async function persistentLogin () {
+
+    const backend = import.meta.env.VITE_BACKEND
+
+    const url = backend + "users/me"
+
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"}
+    });
+
+    return response.json()
+    
+}
+
 export async function fetchUsers(data) {
     const backend = import.meta.env.VITE_BACKEND;
 
