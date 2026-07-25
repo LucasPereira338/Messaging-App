@@ -25,9 +25,35 @@ describe("GroupProfile", () => {
     );
 
     const groupProfile = await screen.findByTestId("GroupProfile");
-    const groupProfForm = await screen.findByTestId("GroupProfile");
+    const groupProfForm = await screen.findByTestId("GroupProfileForm");
 
     expect(groupProfile).toBeInTheDocument();
     expect(groupProfForm).toBeInTheDocument();
+  });
+
+  it("renders the button that allows members who aren't admins to leave the group", async () => {
+    const handleProfile = vi.fn();
+    render(
+      <MessageContext value={{ user: user }}>
+        <GroupProfile group={group} handleProfile={handleProfile} />,
+      </MessageContext>,
+    );
+
+    const leaveBtn = await screen.findByText("Leave Group");
+
+    expect(leaveBtn).toBeInTheDocument();
+  });
+
+  it("renders the button that allows the admin to delete the group", async () => {
+    const handleProfile = vi.fn();
+    render(
+      <MessageContext value={{ user: user }}>
+        <GroupProfile group={group} handleProfile={handleProfile} />,
+      </MessageContext>,
+    );
+
+    const quitBtn = await screen.findByText("Leave Group");
+
+    expect(quitBtn).toBeInTheDocument();
   });
 });
