@@ -40,7 +40,7 @@ async function getGroupMembers(req, res) {
 }
 
 async function getGroup(req, res) {
-
+    console.log("getGroup")
     const group = await prisma.group.findUnique({
         where: {
             id: req.params.id
@@ -134,7 +134,7 @@ async function updateGroup(req, res) {
             adminId: true
         }
     })
-    
+    console.log('updateGroup')
     if(req.user.id != groupAdmin.adminId) {
         return res.status(401).json({message:'unauthorized'})
     }

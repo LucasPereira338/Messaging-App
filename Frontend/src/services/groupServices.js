@@ -4,6 +4,7 @@ export async function fetchGroupMessages(data) {
     const url = backend + 'groups/' + data.id + 'messages';
     
     const response = await fetch(url, {
+        credentials: "include",
         headers: {"Content-Type": "application/json"}
     })
     return response.json()
@@ -15,6 +16,7 @@ export async function fetchGroupUsers(data) {
     const url = backend + 'groups/' + data.id + 'users';
     
     const response = await fetch(url, {
+        credentials: "include",
         headers: {"Content-Type": "application/json"}
     })
     return response.json()
@@ -26,6 +28,7 @@ export async function fetchGroup(id) {
     const url = backend + 'groups/' + id
     
     const response = await fetch(url, {
+        credentials: "include",
         headers: {"Content-Type": "application/json"}
     })
     return response.json()
