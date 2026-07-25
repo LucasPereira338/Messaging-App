@@ -1,8 +1,12 @@
 import * as styles from "./GroupMembers.module.css";
+import { useContext } from "react";
+import { MessageContext } from "../../../contexts/MessageContext";
 import EntityCard from "../../../components/entities/EntityCard/EntityCard";
 import SearchUser from "../../users/SearchUser/SearchUser";
 
 function GroupMembers({ members, readOnly, handleMember }) {
+  const { user } = useContext(MessageContext);
+
   const handleAddMember = (member) => {
     handleMember(member, "add");
   };
@@ -34,7 +38,7 @@ function GroupMembers({ members, readOnly, handleMember }) {
               <div className={styles.groupProfileMemberCard}>
                 <EntityCard entity={member} />
               </div>
-              {member.id != localStorage.getItem("userId") && !readOnly ? (
+              {member.id != user.id && !readOnly ? (
                 <button
                   type="button"
                   onClick={() => handleRmvMember(member)}

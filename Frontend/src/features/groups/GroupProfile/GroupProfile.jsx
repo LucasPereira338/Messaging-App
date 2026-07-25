@@ -1,10 +1,13 @@
 import * as styles from "./GroupProfile.module.css";
+import { useContext } from "react";
+import { MessageContext } from "../../../contexts/MessageContext";
 import { exitGroup, deleteGroup } from "../../../services/groupServices";
 import CloseButton from "../../../components/common/CloseButton/CloseButton";
 import GroupProfileForm from "../GroupProfileForm/GroupProfileForm";
 
 function GroupProfile({ group, handleProfile }) {
-  const userId = localStorage.getItem("userId");
+  const { user } = useContext(MessageContext);
+  const userId = user.id;
   const readOnly = group.adminId == userId ? false : true;
 
   const handleGroupExit = async () => {
