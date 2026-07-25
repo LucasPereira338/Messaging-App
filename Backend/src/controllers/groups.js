@@ -40,7 +40,7 @@ async function getGroupMembers(req, res) {
 }
 
 async function getGroup(req, res) {
-    console.log("getGroup")
+    
     const group = await prisma.group.findUnique({
         where: {
             id: req.params.id
@@ -134,14 +134,14 @@ async function updateGroup(req, res) {
             adminId: true
         }
     })
-    console.log('updateGroup')
+   
     if(req.user.id != groupAdmin.adminId) {
         return res.status(401).json({message:'unauthorized'})
     }
     
     let oldPort;
 
-    let data = {title: req.body.title}
+    let data = {title: req.body.title, chat: {update: {members: {}}}}
 
     if (typeof req.imgUrl !== "undefined") {
         req.body.portrait = req.imgUrl
@@ -158,17 +158,19 @@ async function updateGroup(req, res) {
     }
     
     let userAction = {}
-
+   
     let users = []
     if (req.body.users) {
         users = req.body.users.split(",")
-        data.chat.update.userAction.connect = users.map(i => ({id: i})) || []
+        userAction = users.map(i => ({id: i})) || []
+        data.chat.update.members.connect = userAction
     }
 
     let rmvdUsers = []
     if (req.body.rmvdUsers) {
         rmvdUsers = req.body.rmvdUsers.split(",")
-        data.chat.update.userAction.disconnect = rmvdUsers.map(i => ({id: i})) || []
+        userAction = rmvdUsers.map(i => ({id: i})) || []
+        data.chat.update.members.disconnect = userAction
     }
     
     const group = await prisma.group.update({
