@@ -7,9 +7,9 @@ import CloseButton from "../../../components/common/CloseButton/CloseButton";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 import PasswordForm from "../PasswordForm/PasswordForm";
 
-function ProfileForm({ userId, handleProfile }) {
+function ProfileForm({ userId, loggedUserId, handleProfile }) {
   let ref = useRef(null);
-  const loggedUserId = localStorage.getItem("userId");
+
   const [user, setUser] = useState(null);
 
   const [portrait, setPortrait] = useState(null);

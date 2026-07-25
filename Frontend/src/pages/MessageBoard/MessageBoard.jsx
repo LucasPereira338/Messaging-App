@@ -174,6 +174,7 @@ function MessageBoard() {
               ) : (
                 <ProfileForm
                   userId={openProfile.id}
+                  loggedUserId={userId}
                   handleProfile={handleProfile}
                 />
               )}
