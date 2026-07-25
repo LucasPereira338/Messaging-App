@@ -64,10 +64,6 @@ function UserForm({ action, handleLogin }) {
     if (typeof result === "object") {
       resCount = Object.keys(result).length;
       if (resCount > 1) {
-        if (result.token) {
-          localStorage.setItem("token", result.token);
-          localStorage.setItem("userId", result.id);
-        }
         result.isActive = true;
         handleLogin(result);
       } else {
