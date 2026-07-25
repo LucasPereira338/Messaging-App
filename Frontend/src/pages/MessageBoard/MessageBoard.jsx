@@ -43,9 +43,9 @@ function MessageBoard() {
     } else {
       const logUserOut = async () => {
         await userLogout();
+        navigate("/");
       };
       logUserOut();
-      navigate("/");
     }
   };
 
