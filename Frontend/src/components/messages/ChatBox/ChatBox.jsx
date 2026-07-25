@@ -71,7 +71,7 @@ function ChatBox({ updateChats, handleChats, handleProfile }) {
 
       {currentChat && (
         <div className={styles.messageInputContainer}>
-          <MessageInput handleChats={handleChats} />
+          <MessageInput user={user} handleChats={handleChats} />
         </div>
       )}
     </section>

@@ -5,9 +5,9 @@ import { getImageFile } from "../../../helpers/fileHelpers";
 import { MessageContext } from "../../../contexts/MessageContext";
 import ImagePreview from "../../../components/images/ImagePreview/ImagePreview";
 
-function MessageInput({ handleChats }) {
+function MessageInput({ user, handleChats }) {
   const { currentChat } = useContext(MessageContext);
-  const user = localStorage.getItem("userId") || "";
+
   let ref = useRef(null);
   const [msg, setMsg] = useState("");
   const [file, setFile] = useState(null);
