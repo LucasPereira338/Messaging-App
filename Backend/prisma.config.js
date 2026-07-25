@@ -5,7 +5,7 @@ import { defineConfig } from "prisma/config";
 
 let urlDB;
 
-if (process.env.NODE_ENV === "TEST") {
+if (process.env.NODE_ENV === "DEV") {
     urlDB = `${process.env.TEST_DATABASE_URL}`;
 } else {
     urlDB = `${process.env.DATABASE_URL}`;

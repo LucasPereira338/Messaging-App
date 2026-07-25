@@ -51,7 +51,7 @@ model Chat {
 model Group {
   id  String  @id @unique @default(uuid())
   title String 
-  portrait String    @default("https://res.cloudinary.com/dporccovw/image/upload/v1782995910/blank_cgxyig.svg")
+  portrait String    @default("https://res.cloudinary.com/dporccovw/image/upload/v1785007261/1785007260352_gndpgh.png")
   chat  Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId  String @unique
   admin User @relation(fields: [adminId], references: [id], onDelete: Cascade)
