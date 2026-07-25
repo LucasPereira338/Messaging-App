@@ -23,13 +23,15 @@ describe("GroupMembers", () => {
   it("renders the group members", () => {
     const handleMember = vi.fn();
     render(
-      <GroupMembers
-        members={members}
-        readOnly={true}
-        handleMember={handleMember}
-      />,
+      <MessageContext value={{ user: members[0] }}>
+        <GroupMembers
+          members={members}
+          readOnly={true}
+          handleMember={handleMember}
+        />
+        ,
+      </MessageContext>,
     );
-
     const groupMembers = screen.getByTestId("GroupMembers");
     const entity = screen.getByText("user");
 
