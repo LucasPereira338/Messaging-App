@@ -32,6 +32,22 @@ export async function fetchLogin(data) {
     
 }
 
+export async function userLogout () {
+
+    const backend = import.meta.env.VITE_BACKEND
+
+    const url = backend + "users/log-out"
+
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"}
+    });
+
+    return response.json()
+    
+}
+
 export async function fetchUsers(data) {
     const backend = import.meta.env.VITE_BACKEND;
 

@@ -1,10 +1,10 @@
 import * as styles from "./MessageBoard.module.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { fetchUserChoices } from "../../helpers/helpers";
 import { MessageContext } from "../../contexts/MessageContext";
 import { pushUniqueIdsAndChatId } from "../../helpers/arrayHelpers";
-import { fetchUser } from "../../services/userServices";
+import { fetchUser, userLogout } from "../../services/userServices";
 import EntityCard from "../../components/entities/EntityCard/EntityCard";
 import ChatBox from "../../components/messages/ChatBox/ChatBox";
 import MessageSidebar from "../../components/messages/MessageSidebar/MessageSidebar";
@@ -16,7 +16,7 @@ import ProfileForm from "../../features/users/ProfileForm/ProfileForm";
 function MessageBoard() {
   let navigate = useNavigate();
 
-  const userId = localStorage.getItem("userId");
+  const userId = useLocation().state.id;
 
   const [user, setUser] = useState(null);
 
@@ -41,8 +41,10 @@ function MessageBoard() {
       setChats(false);
       setContent(choice);
     } else {
-      localStorage.removeItem("userId");
-      localStorage.removeItem("token");
+      const logUserOut = async () => {
+        await userLogout();
+      };
+      logUserOut();
       navigate("/");
     }
   };

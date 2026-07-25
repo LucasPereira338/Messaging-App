@@ -23,7 +23,7 @@ async function getUser(req, res) {
     if(user && user.description == null) {
         user.description = ''
     }
-    console.log(user)
+    
     const dateNow = new Date()
     
     const dateDif = dateNow - user.lastActive

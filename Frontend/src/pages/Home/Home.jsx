@@ -1,24 +1,22 @@
 import * as styles from "./Home.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { fetchUser } from "../../services/userServices";
+//import { fetchUser } from "../../services/userServices";
 import backgroundImg from "../../../images/backgroundImg.jpg";
 import msgSent from "../../../images/svgs/message_sent.svg";
 import LoginForm from "../../features/auth/LoginForm/LoginForm";
 
 function Home() {
   const [user, setUser] = useState(null);
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
 
   const handleLogin = (data) => {
-    console.log("handleLogin");
-    console.log(data);
     setUser(data);
   };
 
   let navigate = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (token) {
       const getUserIfToken = async () => {
         const result = await fetchUser(localStorage.getItem("userId"));
@@ -32,7 +30,7 @@ function Home() {
       };
       getUserIfToken();
     }
-  }, [token]);
+  }, [token]);*/
 
   useEffect(() => {
     if (user) {
