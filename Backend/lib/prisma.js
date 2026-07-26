@@ -4,10 +4,10 @@ const { PrismaClient } = require("../generated/prisma/client.js");
 
 let connectionString;
 
-if (process.env.NODE_ENV === "DEV") {
-    connectionString = `${process.env.TEST_DATABASE_URL}`;
-} else {
+if (process.env.NODE_ENV === "PROD") {
     connectionString = `${process.env.DATABASE_URL}`;
+} else {
+    connectionString = `${process.env.TEST_DATABASE_URL}`;
 }
 
 const adapter = new PrismaPg({ connectionString });

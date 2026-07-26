@@ -1,30 +1,28 @@
 const app = require('../../../../app.js')
 const request = require('supertest')
 const {prisma} = require('../../../../lib/prisma.js')
-const jwt = require('../../../utils/jwt/jwt.js')
-
+const jwt = require('../../../utils/jwt/jwt.js');
+const bcrypt = require('bcryptjs');
 let user;
 
 let secondUser;
-
-let userToken;
 
 let message;
 
 let chat;
 
 beforeAll(async () => {
+    const hshdPwd = await bcrypt.hash('12345', 10)
     const Thomas = await prisma.user.create({
         data: {
             name:'Thomas',
             username: 'Tom32',
             email: 'Tom32@gmail.com',
-            password: '12345'
+            password: hshdPwd
         }
     })
 
     user = Thomas
-    userToken = jwt.generateAccessToken(user)
 
     const Hercules = await prisma.user.create({
         data: {
@@ -58,37 +56,47 @@ beforeAll(async () => {
     message = messageOne
 })
 
-test("get's a chat", done => {
-    request(app)
-        .get('/chats/' + chat.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+describe("Protected routes", () => {
+    const agent = request.agent(app);
 
-test("get's all the chats a user is part of", done => {
-    request(app)
-        .get('/users/' + user.id + '/chats')
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+    beforeEach(async () => { 
+        await agent 
+            .post("/users/log-in") 
+            .send({ username: 'Tom32', password: '12345' }) 
+            .expect(200); 
+        });
 
-test("get's all chat messages", done => {
-    request(app)
-        .get('/chats/' + chat.id + '/messages')
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+    test("should get a chat", async () => {
+        await agent
+            .get('/chats/' + chat.id)
+            .expect('Content-Type', /json/)
+            .expect(200);
+        
+    });
 
-test("get's all chat members", done => {
-    request(app)
-        .get('/chats/' + chat.id + '/members')
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+    test("should get all the chats a user is part of", async () => {
+        await agent
+            .get('/users/' + user.id + '/chats')
+            .expect('Content-Type', /json/)
+            .expect(200)
+    })
+
+    test("should get all the messages in a chat", async () => {
+        await agent
+            .get('/chats/' + chat.id + '/messages')
+            .expect('Content-Type', /json/)
+            .expect(200)
+    })
+
+    test("should get all the chat members", async () => {
+        await agent
+            .get('/chats/' + chat.id + '/members')
+            .expect('Content-Type', /json/)
+            .expect(/hercules/)
+            .expect(200)
+    })
+});
+
 
 afterAll(async () => {
     await prisma.chat.delete({where: {id: chat.id}})

@@ -1,5 +1,5 @@
-const app = require('../app.js');
 require('dotenv/config');
+const app = require('../app.js');
 
 const PORT = 3000;
 

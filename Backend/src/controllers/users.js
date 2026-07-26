@@ -5,6 +5,7 @@ const {deleteImg} = require('../utils/cloud/cloud.js')
 
 
 async function getUser(req, res) {
+    
     const user = await prisma.user.findUnique({
         where: {
             id: req.params.id
@@ -145,7 +146,7 @@ async function postLogin(req, res) {
 
     res.user = user;
 
-    const secureMode = process.env.NODE_ENV == "DEV" ? false : true;
+    const secureMode = process.env.NODE_ENV == "PROD" ? true : false;
     
     const token = jwt.generateAccessToken(user);
 
@@ -154,7 +155,7 @@ async function postLogin(req, res) {
         secure: secureMode,    
     })
 
-    res.json(user)
+    return res.json(user)
 
 }
 
@@ -208,7 +209,7 @@ async function postNewUser(req, res) {
 
     res.user = user;
     
-    const secureMode = process.env.NODE_ENV == "DEV" ? false : true;
+    const secureMode = process.env.NODE_ENV == "PROD" ? true : false;
     
     const token = jwt.generateAccessToken(user);
 
@@ -222,7 +223,7 @@ async function postNewUser(req, res) {
 }
 
 async function postLogout(req, res) {
-    const secureMode = process.env.NODE_ENV == "DEV" ? false : true;
+    const secureMode = process.env.NODE_ENV == "PROD" ? true : false;
 
     res.clearCookie('token', {
         httpOnly: true,   

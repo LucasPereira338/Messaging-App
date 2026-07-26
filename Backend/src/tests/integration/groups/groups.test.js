@@ -2,30 +2,28 @@ const app = require('../../../../app.js')
 const request = require('supertest')
 const {prisma} = require('../../../../lib/prisma.js')
 const jwt = require('../../../utils/jwt/jwt.js');
-const { all } = require('../../../routes/messages.js');
+const bcrypt = require('bcryptjs');
 
 let group;
 
 let user;
-
-let userToken;
 
 let secondUser;
 
 let thirdUser;
 
 beforeAll(async () => {
-
+    const hshdPwd = await bcrypt.hash('12345', 10)
     const john = await prisma.user.create({
         data: {
             name:'john',
             username: 'john3safsafasd2',
             email: 'john3dsadasd2@gmail.com',
-            password: '12345'
+            password: hshdPwd
         }
     })
     user = john;
-    userToken = jwt.generateAccessToken(john)
+
     const jaime = await prisma.user.create({
         data: {
             name:'jaime',
@@ -77,49 +75,55 @@ beforeAll(async () => {
     group = firstGroup
 })
 
-test("get's a group's messages", done => {
-    request(app)
-        .get('/groups/' + group.id + '/messages')
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
+describe("Protected routes", () => {
+    const agent = request.agent(app);
+
+    beforeEach(async () => { 
+        await agent 
+            .post("/users/log-in") 
+            .send({ username: 'john3safsafasd2', password: '12345' }) 
+            .expect(200); 
+        });
+
+    test("should get all the messages of a group", async () => {
+        await agent
+            .get('/groups/' + group.id + '/messages')
+            .expect('Content-Type', /json/)
+            .expect(200)
+    });
+
+    test("should get all the members of a group", async () => {
+        await agent
+            .get('/groups/' + group.id + '/users')
+            .expect('Content-Type', /json/)
+            .expect(200)
 })
 
+    test("should get all the data of a group", async () => {
+        await agent
+            .get('/groups/' + group.id)
+            .expect(/Group 1/)
+            .expect('Content-Type', /json/)
+            .expect(200)
+    })
 
-test("get's a group's members", done => {
-    request(app)
-        .get('/groups/' + group.id + '/users')
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+    test("should get all the groups that a user is part of", async () => {
+        await agent
+            .get('/users/' + user.id + "/groups")
+            .expect('Content-Type', /json/)
+            .expect(/Group 1/)
+            .expect(200)
+    })
 
-test("get's a group", done => {
-    request(app)
-        .get('/groups/' + group.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect(/Group 1/)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
-
-test("get's all groups a user is part of", done => {
-    request(app)
-        .get('/users/' + user.id + "/groups")
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
-
-test("updates a group's information and adds new data", done => {
-    request(app)
-        .put('/groups/' + group.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({title: 'Group 1.0', users: secondUser.id + "," + thirdUser.id})
-        .expect(/Group 1.0/)
-        .expect(200, done)
-})
+    test("should update the information of a group and add new members", async () => {
+        await agent
+            .put('/groups/' + group.id)
+            .type('form')
+            .send({title: 'Group 1.0', users: secondUser.id + "," + thirdUser.id})
+            .expect(/Group 1.0/)
+            .expect(200)
+    })
+});
 
 afterAll(async () => {
     await prisma.chat.delete({where: {id: group.chatId} })

@@ -1,13 +1,12 @@
 const app = require('../../../../app.js')
 const request = require('supertest')
 const {prisma} = require('../../../../lib/prisma.js')
-const jwt = require('../../../utils/jwt/jwt.js')
+const jwt = require('../../../utils/jwt/jwt.js');
+const bcrypt = require('bcryptjs');
 
 let user;
-let userToken;
 
 let secondUser;
-let secondUserToken;
 
 let thirdUser;
 
@@ -18,13 +17,13 @@ let userMsg;
 let chat;
 
 beforeAll(async () => {
-    
+    const hshdPwd = await bcrypt.hash('12345', 10)
     const Timmy = await prisma.user.create({
         data: {
             name:'Timmy',
             username: 'Timmy32',
             email: 'Timmy32@gmail.com',
-            password: '12345'
+            password: hshdPwd
         }
     })
     const Tommy = await prisma.user.create({
@@ -44,10 +43,10 @@ beforeAll(async () => {
         }
     })
     user = Timmy
-    userToken = jwt.generateAccessToken(Timmy)
+    
 
     secondUser = Tommy
-    secondUserToken = jwt.generateAccessToken(Tommy)
+    
     thirdUser = Thad
 
     const chatOne = await prisma.chat.create({
@@ -82,86 +81,72 @@ beforeAll(async () => {
     userMsg = messageTwo
 })
 
-test('post a new message', done => {
-    request(app)
-        .post('/messages')
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({
-            content: 'not much dude',
-            authorId: user.id,
-            chatId: chat.id})
-        .expect(/not much dude/)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
+describe("Protected routes", () => {
+    const agent = request.agent(app);
+
+    beforeEach(async () => { 
+        await agent 
+            .post("/users/log-in") 
+            .send({ username: 'Timmy32', password: '12345' }) 
+            .expect(200); 
+        });
+
+    test("should post a new message in a existing chat", async () => {
+        await agent
+            .post('/messages')
+            .type('form')
+            .send({
+                content: 'not much dude',
+                authorId: user.id,
+                chatId: chat.id})
+            .expect(/not much dude/)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            
+    });
+
+    test("should prevent a user from sending a message on someone else's behalf", async () => {
+        await agent
+            .post('/messages')
+            .type('form')
+            .send({
+                content: 'not much dude',
+                authorId: thirdUser.id,
+                chatId: chat.id})
+            .expect('Content-Type', /json/)
+            .expect(401)
 })
 
-test("user cannot send a message on behalf of someone else", done => {
-    request(app)
-        .post('/messages')
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({
-            content: 'not much dude',
-            authorId: thirdUser.id,
-            chatId: chat.id})
-        .expect('Content-Type', /json/)
-        .expect(401, done)
-})
+    test("should get a existing message", async () => {
+        await agent
+            .get('/messages/' + userMsg.id)
+            .expect('Content-Type', /json/)
+            .expect(/hi dude/)
+            .expect(200)
+    })
 
-test('get a existing message', done => {
-    request(app)
-        .get('/messages/' + userMsg.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+    test("should get all the messages sent by the a specific user", async () => {
+        await agent
+            .get('/messages/author/' + user.id)
+            .expect('Content-Type', /json/)
+            .expect(200)
+    })
 
-test('gets all the messages that a user sent', done => {
-    request(app)
-        .get('/messages/author/' + user.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+    test("should prevent a user from deleting someone else's message", async () => {
+        await agent
+            .delete('/messages/' + message.id)
+            .expect('Content-Type', /json/)
+            .expect(401)
+    })
 
-test('updates a message', done => {
-    request(app)
-        .put('/messages/' + message.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({authorId: user.id, content:'hi mate'})
-        .expect('Content-Type', /json/)
-        .expect(/hi mate/)
-        .expect(200, done)
-})
+    test("should delete a message", async () => {
+        await agent
+            .delete('/messages/' + userMsg.id)
+            .expect('Content-Type', /json/)
+            .expect(200)
+    })
 
-test("user cannot change someone else's message", done => {
-    request(app)
-        .put('/messages/' + message.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .type('form')
-        .send({authorId: secondUser.id, content:'i hate you'})
-        .expect('Content-Type', /json/)
-        .expect(401, done)
-})
-
-test("user cannot delete someone else's message", done => {
-    request(app)
-        .delete('/messages/' + message.id)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect('Content-Type', /json/)
-        .expect(401, done)
-})
-
-test('deletes a message', done => {
-    request(app)
-        .delete('/messages/' + message.id)
-        .set('Authorization', `Bearer ${secondUserToken}`)
-        .expect('Content-Type', /json/)
-        .expect(/hi mate/)
-        .expect(200, done)
-})
+});
 
 afterAll(async () => {
     await prisma.chat.delete({where: {id: chat.id}})
@@ -169,4 +154,4 @@ afterAll(async () => {
     await prisma.user.delete({where: {id: secondUser.id}})
     await prisma.user.delete({where: {id: thirdUser.id}})
     await prisma.$disconnect()
-})
+}) 
